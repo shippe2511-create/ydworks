@@ -1027,6 +1027,9 @@ const YD_DV_TERMS = {
   // materials (sample prices)
   const MATS=YDCAT.materials;
   const qty=MATS.map(()=>0);
+  // live catalog: machines/materials added or changed in the console replace the built-in list
+  addEventListener("yd-catalog",()=>{qty.length=0;MATS.forEach(()=>qty.push(0));try{drawFleet();drawMats();renderEst()}catch(e){}});
+  if(YDUI.loadLiveCatalog)YDUI.loadLiveCatalog();
   /* search + category chips: rows are only hidden, never dropped, so quantities and the estimate keep counting hidden items */
   const MAT_WORDS={cem:"cement cements bag bags sack portland opc",agg:"aggregate gravel stone stones chips chippings concrete",sand:"sand river fill",
     y12:"rebar rebars steel iron bar bars rod rods reinforcement y12",y16:"rebar rebars steel iron bar bars rod rods reinforcement y16",

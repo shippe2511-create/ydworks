@@ -503,3 +503,12 @@ begin
 end $$;
 revoke execute on function public.driver_submit_inspection(jsonb,boolean,text,text) from public, anon;
 grant execute on function public.driver_submit_inspection(jsonb,boolean,text,text), public.accept_order(uuid) to authenticated;
+
+-- ═════════════ add machines & materials from the console, each with its own photo ═════════════
+alter table public.machines  add column image_url text;
+alter table public.materials add column image_url text;
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('catalog', 'catalog', true, 5242880, array['image/jpeg','image/png','image/webp']) on conflict (id) do nothing;
+create policy "catalog photos are public" on storage.objects for select to anon, authenticated using (bucket_id = 'catalog');
+create policy "managers upload catalog photos" on storage.objects for insert to authenticated with check (bucket_id = 'catalog' and private.has_perm('catalog'));
+create policy "managers replace catalog photos" on storage.objects for update to authenticated using (bucket_id = 'catalog' and private.has_perm('catalog'));

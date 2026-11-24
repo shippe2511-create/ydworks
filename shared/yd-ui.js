@@ -61,9 +61,13 @@
                     mixer:"mixer", roller:"roller", bag:"cem", pile:"sand", rebar:"y12", bricks:"blk", plank:"ply", pipe:"pvc" };
 
   function file(key) { return CATALOG.includes(key) ? key : (BY_ICON[key] || null); }
+  // photos uploaded in the console for new machines/materials (id -> public URL)
+  const IMAGES = {};
+  function setImages(map) { Object.assign(IMAGES, map || {}); }
 
   // <img> product shot for a catalog id or an icon name; falls back to the line icon
   function thumb(key, alt) {
+    if (IMAGES[key]) return `<img class="pimg" src="${IMAGES[key]}" alt="${alt ? String(alt).replace(/"/g, "&quot;") : ""}" loading="lazy" decoding="async">`;
     const f = file(key);
     if (!f) return `<svg aria-hidden="true"><use href="#i-box"/></svg>`;
     return `<img class="pimg" src="catalog/${f}.jpg" alt="${alt ? String(alt).replace(/"/g, "&quot;") : ""}" loading="lazy" decoding="async">`;
@@ -315,5 +319,27 @@
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", deviceFrame); else setTimeout(deviceFrame, 0);
 
-  window.YDUI = { thumb, file, map, place, i18n, liveMap, navUrl, track, surface: SURFACE, theme: { get: getTheme, set: setTheme, isDark: () => isDark(getTheme()), sync: syncThemeUI, segment: themeSegment } };
+  async function loadLiveCatalog() {
+    const cfg = window.YD_CONFIG || {}, CAT = window.YDCAT;
+    if (!CAT || !cfg.supabaseUrl || cfg.supabaseUrl.indexOf("__") === 0) return false;
+    try {
+      const h = { headers: { apikey: cfg.supabaseKey } };
+      const [m, t] = await Promise.all([
+        fetch(cfg.supabaseUrl + "/rest/v1/machines?select=*&order=sort", h).then(r => r.ok ? r.json() : null),
+        fetch(cfg.supabaseUrl + "/rest/v1/materials?select=*&order=sort", h).then(r => r.ok ? r.json() : null)]);
+      if (!m || !t || !m.length || !t.length) return false;   // keep the built-in list if the live one is empty or unreachable
+      const img = {};
+      CAT.machines.splice(0, CAT.machines.length, ...m.map(r => { if (r.image_url) img[r.id] = r.image_url;
+        return { id: r.id, code: r.code, name: r.name, category: r.category, specs: r.specs || {}, rate_hr: +r.rate_hr, rate_day: +r.rate_day, rate_mo: +r.rate_mo,
+          icon: r.id, sort: r.sort, active: r.active, nextFree: null }; }));
+      CAT.materials.splice(0, CAT.materials.length, ...t.map(r => { if (r.image_url) img[r.id] = r.image_url;
+        return { id: r.id, name: r.name, category: r.category, unit: r.unit, price: +r.price, step: r.step, icon: r.id, sort: r.sort, active: r.active,
+          stock: r.stock_qty == null ? null : +r.stock_qty }; }));
+      setImages(img);
+      window.dispatchEvent(new CustomEvent("yd-catalog"));
+      return true;
+    } catch (e) { return false; }
+  }
+
+  window.YDUI = { thumb, file, setImages, loadLiveCatalog, map, place, i18n, liveMap, navUrl, track, surface: SURFACE, theme: { get: getTheme, set: setTheme, isDark: () => isDark(getTheme()), sync: syncThemeUI, segment: themeSegment } };
 })();
