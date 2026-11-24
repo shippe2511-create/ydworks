@@ -103,7 +103,8 @@
         rate: { hr: +r.rate_hr, day: +r.rate_day, mo: +r.rate_mo },
         busy: !!(r.busy_until && Date.parse(r.busy_until) > Date.now())
       })),
-      materials: t.data.map(r => ({ id: r.id, name: r.name, unit: r.unit, price: +r.price, cat: r.category, icon: r.icon, step: r.step }))
+      materials: t.data.map(r => ({ id: r.id, name: r.name, unit: r.unit, price: +r.price, cat: r.category, icon: r.icon, step: r.step,
+        stock: r.stock_qty == null ? null : +r.stock_qty, lowAt: r.low_stock_at == null ? null : +r.low_stock_at }))
     };
   };
 
@@ -208,6 +209,7 @@
       p.project_milestones.sort((a, b) => a.sort - b.sort);
       p.project_updates.sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at));
       for (const u of p.project_updates) u.photo_urls = await Promise.all((u.photos || []).map(x => Y.signedUrl("projects", x).catch(() => null)));
+      p.cover_url = p.cover_path ? await Y.signedUrl("projects", p.cover_path).catch(() => null) : null;
     }
     return data;
   };
@@ -215,7 +217,23 @@
   /* ── driver ── */
   Y.reportLocation = (lat, lng) => Y.sb.rpc("report_location", { p_lat: lat, p_lng: lng });
   Y.logFuel = (litres, cost, odometer) => Y.rpc("driver_log_fuel", { p_litres: litres, p_cost: cost || 0, p_odometer: odometer || null });
-  Y.submitInspection = (items, passed, defects) => Y.rpc("driver_submit_inspection", { p_items: items, p_passed: passed, p_defects: defects || "" });
+  Y.submitInspection = (items, passed, defects, photoPath) => Y.rpc("driver_submit_inspection", { p_items: items, p_passed: passed, p_defects: defects || "", p_photo: photoPath || null });
+
+  Y.fuelLogs = async function (days = 30) {
+    const { data, error } = await Y.sb.from("fuel_logs").select("*").gte("created_at", new Date(Date.now() - days * 864e5).toISOString()).order("created_at", { ascending: false });
+    if (error) throw error; return data;
+  };
+  Y.inspections = async function (limit = 20) {
+    const { data, error } = await Y.sb.from("inspections").select("*").order("created_at", { ascending: false }).limit(limit);
+    if (error) throw error; return data;
+  };
+  // defect photo → storage bucket 'defects' at {driverId}/..., then pass the path to submitInspection
+  Y.uploadDefectPhoto = async function (file) {
+    const blob = await Y.compressImage(file);
+    const path = `${Y.user.id}/${Date.now()}-defect.jpg`;
+    const { error } = await Y.sb.storage.from("defects").upload(path, blob, { contentType: "image/jpeg" });
+    if (error) throw new Error(error.message); return path;
+  };
 
   Y.toJob = function (r) {
     const history = {};
