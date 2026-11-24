@@ -17,16 +17,18 @@
   });
   /* ── light / dark / auto theme, shared by every surface ── */
   const THEME_KEY = "yd-theme", ORDER = ["system", "light", "dark"];
-  const LABEL = { system: "Auto", light: "Light", dark: "Dark" }, ICON = { system: "i-auto", light: "i-sun", dark: "i-moon" };
+  const LABEL = { system: "Auto", light: "Light", dark: "Dark", appearance: "Appearance" }, ICON = { system: "i-auto", light: "i-sun", dark: "i-moon" };
   function getTheme() { try { const t = localStorage.getItem(THEME_KEY); return ORDER.includes(t) ? t : "system"; } catch (e) { return "system"; } }
   function isDark(t) { return t === "dark" || (t === "system" && window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches); }
   function syncThemeUI() {
     const t = getTheme();
+    // translated labels when the language module is ready (it loads after the theme code)
+    const L = k => { try { const v = window.YDUI && window.YDUI.i18n && window.YDUI.i18n.t("theme." + k); return v && v !== "theme." + k ? v : LABEL[k]; } catch (e) { return LABEL[k]; } };
     document.querySelectorAll("[data-yd-theme-cycle]").forEach(b => {
-      b.innerHTML = `<svg aria-hidden="true" width="18" height="18"><use href="#${ICON[t]}"/></svg>${b.hasAttribute("data-label") ? `<span>${LABEL[t]}</span>` : ""}`;
-      b.setAttribute("aria-label", `Appearance: ${LABEL[t]}. Change`); b.title = `Appearance: ${LABEL[t]}`;
+      b.innerHTML = `<svg aria-hidden="true" width="18" height="18"><use href="#${ICON[t]}"/></svg>${b.hasAttribute("data-label") ? `<span>${L(t)}</span>` : ""}`;
+      b.setAttribute("aria-label", `${L("appearance")}: ${L(t)}`); b.title = `${L("appearance")}: ${L(t)}`;
     });
-    document.querySelectorAll("[data-yd-theme-set]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.ydThemeSet === t)));
+    document.querySelectorAll("[data-yd-theme-set]").forEach(b => { b.setAttribute("aria-pressed", String(b.dataset.ydThemeSet === t)); const sp = b.querySelector("[data-tl]"); if (sp) sp.textContent = L(b.dataset.ydThemeSet); });
     const meta = document.querySelector('meta[name="theme-color"]');
     if (meta && !meta.dataset.fixed) meta.content = isDark(t) ? "#070b16" : (meta.dataset.light || meta.content);
   }
@@ -51,7 +53,7 @@
   document.addEventListener("DOMContentLoaded", syncThemeUI);
   // segmented Auto / Light / Dark control; the host page styles .seg
   function themeSegment(cls) {
-    return `<div class="${cls || "seg"}" role="group" aria-label="Appearance">${ORDER.map(t => `<button type="button" data-yd-theme-set="${t}" aria-pressed="${t === getTheme()}"><svg aria-hidden="true" width="15" height="15"><use href="#${ICON[t]}"/></svg>${LABEL[t]}</button>`).join("")}</div>`;
+    return `<div class="${cls || "seg"}" role="group" aria-label="Appearance">${ORDER.map(t => `<button type="button" data-yd-theme-set="${t}" aria-pressed="${t === getTheme()}"><svg aria-hidden="true" width="15" height="15"><use href="#${ICON[t]}"/></svg><span data-tl>${LABEL[t]}</span></button>`).join("")}</div>`;
   }
 
   const CATALOG = ["exc20","exc5","wl","tip","lorry","crane","fork","mixer","roller","cem","agg","sand","y12","y16","blk","ply","roof","pvc"];
@@ -185,6 +187,9 @@
   window.addEventListener("storage", e => { if (e.key === LANG_KEY) { lang = getLang(); applyLang(); window.dispatchEvent(new CustomEvent("yd-lang", { detail: lang })); } });
   document.addEventListener("DOMContentLoaded", () => applyLang());
   if (lang === "dv") { document.documentElement.lang = "dv"; document.documentElement.dir = "rtl"; }
+  Object.assign(DICT.en, { "theme.system": "Auto", "theme.light": "Light", "theme.dark": "Dark", "theme.appearance": "Appearance" });
+  Object.assign(DICT.dv, { "theme.system": "އޮޓޯ", "theme.light": "ލައިޓް", "theme.dark": "ޑާކް", "theme.appearance": "ފެނުން" });
+  window.addEventListener("yd-lang", () => syncThemeUI());
   const i18n = {
     add(d) { for (const l of ["en", "dv"]) Object.assign(DICT[l], d[l] || {}); },
     t, get: () => lang, set: setLang, apply: applyLang, isRTL: () => lang === "dv",
