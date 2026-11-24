@@ -513,6 +513,103 @@ textarea.inp{min-height:80px;resize:vertical}
   .t.cards td[colspan]{grid-column:1/-1}
   .t.cards .item b{max-width:none;white-space:normal}
 }
+
+/* ── staff roles, profile menu, account ── */
+.pill.role{background:var(--surface-2);color:var(--ink)}
+.pill.r-admin::before{background:var(--brand)}.pill.r-dispatcher::before{background:var(--warn)}.pill.r-counter::before{background:var(--ok)}.pill.r-accounts::before{background:#8b6cf6}.pill.r-driver::before,.pill.r-customer::before{background:var(--faint)}
+.side .me .pill.role{background:rgba(255,255,255,.08);color:var(--night-fg);padding:4px 8px;font-size:9.5px}
+.side .me .pill.r-admin::before{background:#7d97ff}
+.side .me .pill.r-accounts::before{background:#a993ff}
+.me-wrap{position:relative;margin-top:auto}
+.wa-side + .me-wrap{margin-top:10px}
+.side .me{margin-top:0;width:100%;border:0;border-top:1px solid rgba(255,255,255,.08);background:none;color:inherit;text-align:left;font:inherit;border-radius:0;transition:background .2s}
+.side .me:hover,.side .me[aria-expanded="true"]{background:rgba(255,255,255,.05)}
+.side .me .meta{display:flex;align-items:center;gap:6px;margin-top:3px}
+.side .me .meta small{display:inline}
+.side .me > svg{width:16px;height:16px;color:var(--night-mute);flex:none}
+.me-menu{position:absolute;left:0;right:0;bottom:calc(100% + 8px);background:var(--surface);color:var(--ink);border:1px solid var(--line-2);border-radius:16px;box-shadow:0 24px 60px -20px rgba(5,8,18,.6);z-index:40;overflow:hidden;min-width:220px}
+.me-menu .mh{padding:12px 14px;border-bottom:1px solid var(--line)}
+.me-menu .mh b{display:block;font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.me-menu .mh span{display:block;font-size:12.5px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:6px}
+.me-menu .ms-l{font:500 10px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mute);padding:10px 14px 4px}
+.me-menu .mi{display:flex;align-items:center;gap:10px;width:100%;padding:9px 14px;border:0;background:none;text-align:left;font-size:13.5px;font-weight:500;color:var(--ink)}
+.me-menu .mi:hover{background:var(--surface-2)}
+.me-menu .mi svg{width:16px;height:16px;color:var(--mute);flex:none}
+.me-menu .mi .ck{margin-left:auto;color:var(--brand);font:600 12px var(--mono)}
+.me-menu .mi small{display:block;font-size:11.5px;color:var(--mute);font-weight:400}
+.me-menu .sep{height:1px;background:var(--line);margin:4px 0}
+.me-menu .mi.crit,.me-menu .mi.crit svg{color:var(--crit)}
+@media (max-width:760px){.me-menu .mi{min-height:44px}.side .me{min-height:56px}}
+.btn.crit{background:var(--crit);border-color:var(--crit);color:#fff}
+.btn.crit:hover{background:color-mix(in srgb,var(--crit) 88%,#000)}
+.btn[data-gated]{opacity:.45}
+.viewas{display:flex;gap:12px;align-items:center;background:var(--brand-soft);border:1px solid color-mix(in srgb,var(--brand) 30%,transparent);border-radius:14px;padding:10px 16px;font-size:13.5px;flex-wrap:wrap}
+.viewas b{font-weight:600}
+.linkbtn{background:none;border:0;padding:0;color:var(--brand);font-weight:500;font-size:13.5px;align-self:flex-start}
+.linkbtn:hover{text-decoration:underline;text-underline-offset:3px}
+.login .ok-msg{background:color-mix(in srgb,var(--ok) 12%,transparent);color:var(--ink);border-radius:12px;padding:12px 14px;font-size:13.5px}
+.danger-zone{border:1px solid color-mix(in srgb,var(--crit) 35%,var(--line));border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:12px;background:color-mix(in srgb,var(--crit) 4%,var(--surface))}
+.danger-zone ul{margin:0;padding-left:18px;font-size:13.5px;display:flex;flex-direction:column;gap:4px}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;cursor:pointer}
+.chk input{width:18px;height:18px;margin:1px 0 0;accent-color:var(--crit);flex:none}
+
+/* team */
+.team-row{display:flex;align-items:center;gap:12px;padding:11px 18px;border-bottom:1px solid var(--line)}
+.team-row:last-child{border-bottom:0}
+.team-row .tx{flex:1;min-width:0}
+.team-row .tx b{display:block;font-weight:600;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.team-row .tx span{display:block;font-size:12.5px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rolepick{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
+.ropt{position:relative;display:flex;flex-direction:column;gap:3px;padding:10px 12px 10px 34px;border:1px solid var(--line-2);border-radius:12px;background:var(--surface);cursor:pointer;transition:border-color .2s,box-shadow .2s}
+.ropt input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.ropt::before{content:"";position:absolute;left:12px;top:13px;width:14px;height:14px;border-radius:50%;border:1.5px solid var(--line-2);box-sizing:border-box}
+.ropt:has(input:checked){border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
+.ropt:has(input:checked)::before{border:4.5px solid var(--brand)}
+.ropt:has(input:focus-visible){outline:2px solid var(--brand);outline-offset:2px}
+.ropt b{font-weight:600;font-size:13.5px}
+.ropt span{font-size:12px;color:var(--mute);line-height:1.35}
+
+/* ratings */
+.stars{position:relative;display:inline-block;font-size:14px;letter-spacing:1px;line-height:1;color:var(--line-2);white-space:nowrap;vertical-align:-1px}
+.stars::before{content:"★★★★★"}
+.stars::after{content:"★★★★★";position:absolute;left:0;top:0;width:var(--v);overflow:hidden;color:var(--warn)}
+.rate-row{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--mute);flex-wrap:wrap}
+.rate-row b{font:600 13px var(--mono);color:var(--ink)}
+.rv{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.rv.low{border-color:color-mix(in srgb,var(--crit) 35%,var(--line))}
+.rv p{font-size:13.5px}
+.dist{display:grid;grid-template-columns:28px minmax(0,1fr) 34px;gap:6px 10px;align-items:center;font:500 12px var(--mono);color:var(--mute)}
+.dist i{display:block;height:8px;border-radius:0 3px 3px 0;background:var(--warn);min-width:2px}
+
+/* activity log + insights */
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.filters .inp{width:auto;padding:7px 10px;font-size:13px}
+.filters .search{width:min(260px,100%);padding:7px 11px}
+.chg{font-size:12.5px;line-height:1.55;overflow-wrap:anywhere}
+.chg .k{color:var(--mute)}
+.chg .arr{color:var(--faint);margin:0 3px}
+.chg b{font-weight:600}
+.chg s{color:var(--mute);text-decoration-color:color-mix(in srgb,var(--mute) 60%,transparent)}
+details.more summary{cursor:pointer;color:var(--brand);font-size:12.5px;font-weight:500;list-style:none}
+details.more summary::-webkit-details-marker{display:none}
+details.more pre{margin:6px 0 0;font:500 11.5px/1.5 var(--mono);background:var(--surface-2);border-radius:8px;padding:8px 10px;white-space:pre-wrap;overflow-wrap:anywhere;max-height:220px;overflow:auto}
+.area{display:inline-block;font:500 9.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:3px 6px;border-radius:5px;background:var(--surface-2);color:var(--mute);margin-top:4px}
+.bl{display:flex;flex-direction:column}
+.bl-r{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr);gap:12px;align-items:center;padding:4px 0;font-size:13px}
+.bl-r .lab{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bl-r .lab small{display:block;font:500 10px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.bl-t{display:flex;align-items:center;height:24px;margin-right:52px}
+.bl-t .bar{height:12px;background:var(--s1);border-radius:0 4px 4px 0;min-width:2px;flex:none}
+.bl-t em{margin-left:8px;font:500 12px var(--mono);font-style:normal;white-space:nowrap;color:var(--ink)}
+.errmsg{font:500 12.5px/1.45 var(--mono);overflow-wrap:anywhere;color:var(--ink)}
+@media (max-width:760px){
+  .bl-r{grid-template-columns:110px minmax(0,1fr);gap:10px}
+  .filters{width:100%}
+  .filters .search,.filters .inp{flex:1 1 140px;min-width:0}
+  details.more summary{min-height:44px;display:flex;align-items:center}
+  .rolepick{grid-template-columns:1fr}
+  .reschedule .inp{flex:1 1 200px}
+}
 </style>
 <script src="yd-config.js"></script>
 <script src="yd-catalog.js"></script>
@@ -540,9 +637,14 @@ textarea.inp{min-height:80px;resize:vertical}
       <a href="#content" data-p="content"><svg><use href="#i-edit"/></svg>Content &amp; pricing</a>
       <div class="nav-l">Insights</div>
       <a href="#reports" data-p="reports"><svg><use href="#i-chart"/></svg>Reports</a>
+      <a href="#insights" data-p="insights"><svg><use href="#i-pulse"/></svg>App insights<span class="cnt warn" id="nErr" hidden></span></a>
+      <a href="#activity" data-p="activity"><svg><use href="#i-hist"/></svg>Activity log</a>
     </nav>
     <a class="wa-side" id="waSide" href="https://web.whatsapp.com/" target="_blank" rel="noopener" data-wa="console_sidebar" title="Open the company WhatsApp in WhatsApp Web">WhatsApp chats</a>
-    <div class="me"><span class="av" id="meAv">YD</span><div><b id="meName">Counter staff</b><small id="meRole">ADMIN · DEMO</small></div><button id="signOut" hidden title="Sign out"><svg width="16" height="16"><use href="#i-out"/></svg></button></div>
+    <div class="me-wrap">
+      <div class="me-menu" id="meMenu" role="menu" aria-label="Your account" hidden></div>
+      <button type="button" class="me" id="meBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="meMenu"><span class="av" id="meAv">YD</span><div><b id="meName">Shifan Ahmed</b><span class="meta"><span class="pill role r-admin" id="meRolePill">Manager</span><small id="meRole">DEMO</small></span></div><svg><use href="#i-up"/></svg></button>
+    </div>
   </aside>
   <div class="main">
     <header class="topbar">
@@ -576,7 +678,11 @@ textarea.inp{min-height:80px;resize:vertical}
 <symbol id="i-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></symbol>
 <symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
 <symbol id="i-dl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
-<symbol id="i-fuel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5a2 2 0 012-2h6a2 2 0 012 2v16M3 21h12M6 9h6M14 10h2a2 2 0 012 2v4a1.5 1.5 0 003 0V8l-3-3"/></symbol>
+<symbol id="i-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-7 4 14 3-7h4"/></symbol>
+<symbol id="i-hist" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 103-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></symbol>
+<symbol id="i-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+<symbol id="i-fuel"viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5a2 2 0 012-2h6a2 2 0 012 2v16M3 21h12M6 9h6M14 10h2a2 2 0 012 2v4a1.5 1.5 0 003 0V8l-3-3"/></symbol>
 </defs></svg>
 <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dTitle"></aside>
 <div class="toast" id="toast" role="status"></div>
@@ -586,12 +692,32 @@ textarea.inp{min-height:80px;resize:vertical}
   <form id="loginForm" novalidate>
     <svg width="44" height="44"><use href="#logo"/></svg>
     <h1>Staff sign in</h1>
-    <p class="muted">Use an account with admin access. Ask an existing admin to grant it under Drivers → Team access.</p>
+    <p class="muted">Use your staff account. A manager can add you under Drivers → Team.</p>
     <div class="field"><label for="lEmail">Email</label><input class="inp" id="lEmail" type="email" autocomplete="username"></div>
     <div class="field"><label for="lPass">Password</label><input class="inp" id="lPass" type="password" autocomplete="current-password"></div>
+    <button class="linkbtn" type="button" id="lForgot">Forgot password?</button>
     <p class="err" id="lErr" role="alert"></p>
     <button class="btn pri" type="submit" id="lGo" style="padding:12px">Sign in</button>
     <button class="btn" type="button" id="lDemo">Explore with demo data</button>
+  </form>
+  <form id="resetForm" novalidate hidden>
+    <svg width="44" height="44"><use href="#logo"/></svg>
+    <h1>Reset your password</h1>
+    <p class="muted">Enter the email you sign in with. We'll send a link to choose a new password.</p>
+    <div class="field"><label for="rEmail">Email</label><input class="inp" id="rEmail" type="email" autocomplete="username"></div>
+    <p class="err" id="rErr" role="alert"></p>
+    <div class="ok-msg" id="rOk" role="status" hidden></div>
+    <button class="btn pri" type="submit" id="rGo" style="padding:12px">Send reset link</button>
+    <button class="btn" type="button" id="rBack">Back to sign in</button>
+  </form>
+  <form id="newPwForm" novalidate hidden>
+    <svg width="44" height="44"><use href="#logo"/></svg>
+    <h1>Set a new password</h1>
+    <p class="muted">Choose a password with at least 8 characters. You'll go straight into the console.</p>
+    <div class="field"><label for="nPw">New password</label><input class="inp" id="nPw" type="password" autocomplete="new-password" minlength="8"></div>
+    <div class="field"><label for="nPw2">Confirm new password</label><input class="inp" id="nPw2" type="password" autocomplete="new-password" minlength="8"></div>
+    <p class="err" id="nErr" role="alert"></p>
+    <button class="btn pri" type="submit" id="nGo" style="padding:12px">Save and continue</button>
   </form>
 </div>
 
@@ -615,9 +741,25 @@ const toast=m=>{const t=$("#toast");t.textContent=m;t.classList.add("show");clea
 const STATUS={requested:"Waiting",accepted:"Assigned",loading:"Loading",enroute:"On the way",arrived:"On site",completed:"Completed",cancelled:"Cancelled"};
 const ACTIVE=["accepted","loading","enroute","arrived"];
 
+/* ═════════════ staff roles & permissions (mirror of private.has_perm on the server) ═════════════ */
+const PERMS={admin:["orders","assign","fleet","sales","payments","projects","reports","catalog","settings","team"],dispatcher:["orders","assign","fleet"],counter:["orders","sales","payments","projects"],accounts:["payments","reports"]};
+const STAFF=Object.keys(PERMS);
+const ROLES={admin:["Manager","Everything: prices and stock, settings, the team, reports and all daily work."],dispatcher:["Dispatcher","Orders, assigning drivers, the booking calendar and fleet health."],counter:["Counter","Counter orders, website leads and quotes, payments and projects."],
+  accounts:["Accounts","Payments and invoices, reports and the activity log."],driver:["Driver","Driver app only: jobs, fuel log and daily checks. No console."],customer:["Customer (no access)","Customer app only. Removes any staff access."]};
+const ROLE_PL={admin:"Managers",dispatcher:"dispatchers",counter:"counter staff",accounts:"accounts"};
+let ROLE="admin";
+const can=p=>(PERMS[ROLE]||[]).includes(p);
+const roleName=r=>(ROLES[r]||[r])[0].replace(" (no access)","");
+const rolePill=(r,id)=>`<span class="pill role r-${esc(r)}"${id?` id="${id}"`:""}>${esc(roleName(r))}</span>`;
+function whoCan(p){const rs=STAFF.filter(r=>PERMS[r].includes(p)).map(r=>ROLE_PL[r]);return (rs.length>1?rs.slice(0,-1).join(", ")+" & "+rs.at(-1):rs[0])+" only"}
+const gate=p=>can(p)?"":`disabled data-gated title="${whoCan(p)}" aria-label="${whoCan(p)}"`;
+// page → permissions that open it (none = every staff role)
+const PAGE_PERM={payments:["payments"],calendar:["orders","fleet"],drivers:["assign","fleet","orders","team"],leads:["sales"],quotes:["sales"],projects:["projects"],fleet:["catalog"],health:["fleet"],content:["settings"],reports:["reports"],insights:["reports","settings"],activity:["reports","settings"]};
+const canPage=pg=>!PAGE_PERM[pg]||PAGE_PERM[pg].some(can);
+
 /* ═════════════ data: demo store (replaced by Supabase when signed in) ═════════════ */
 let LIVE=false;
-const S={orders:[],drivers:[],customers:[],machines:[],materials:[],leads:[],settings:{},payments:[],bookings:[],quotes:[],projects:[],fuel:[],inspections:[],maintenance:[],notifs:[]};
+const S={orders:[],drivers:[],customers:[],machines:[],materials:[],leads:[],settings:{},payments:[],bookings:[],quotes:[],projects:[],fuel:[],inspections:[],maintenance:[],notifs:[],staff:[],ratings:[],audit:[]};
 function rng(seed){let s=seed>>>0;return()=>((s=(s*1664525+1013904223)>>>0)/4294967296)}
 const pad2=n=>String(n).padStart(2,"0");
 const ymd=t=>{const d=new Date(t);return d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate())};
@@ -751,19 +893,111 @@ function seedDemo(){
   S.settings={contact:{hotline:"992 0202",email:"yd@yd-mv.com",hours_am:"07:30 – 12:00",hours_pm:"13:00 – 18:00",friday:"Call to confirm"},
     announcement:{active:false,text:"",tone:"info"},pricing:{delivery_fee:250,free_delivery_over:15000,mobilisation_fee:300,driver_share:.06,min_driver_pay:150,gst_rate:.08,gst_inclusive:true},ordering:{accepting_orders:true,same_day_cutoff:"14:00"},
     payments:{card:false,transfer:true,bank_name:"Bank of Maldives",account_name:"YD Works",account_no:"7730000000000"},channels:{push:false,whatsapp:false,viber:false,sms:false},maps:{style_url:"",yard_lat:4.2167,yard_lng:73.5405}};
+  seedTrust();
+}
+/* demo: staff team, driver ratings, activity log */
+function seedTrust(){
+  const r2=rng(99),H=36e5;
+  S.staff=[["Shifan Ahmed","shifan@yd-mv.com","admin",true],["Mariyam Nuha","nuha@yd-mv.com","dispatcher"],["Ahmed Zaid","zaid@yd-mv.com","counter"],["Hussain Latheef","latheef@yd-mv.com","counter"],["Fathimath Rifga","rifga@yd-mv.com","accounts"]]
+    .map(([full_name,email,role,me],i)=>({id:"s"+i,full_name,email,role,me:!!me,created_at:now-(400-i*60)*DAY}));
+  // ratings: about half of the recent completed jobs get rated in the app
+  const C5=["On time and very careful at the gate.","Called before arriving. Great service.","Fast delivery, thank you!","Helped unload at the back of the plot.","","","",""],C4=["Good, a little late.","Fine. Unloaded where we asked.","",""],C3=["Okay. The truck blocked the road for a while.","Late, but called to explain."];
+  S.ratings=[];
+  S.orders.filter(o=>o.status==="completed"&&o.driver_id&&o.created_at>now-40*DAY).forEach(o=>{if(r2()>.5)return;const s=[5,5,5,5,5,4,4,4,3][Math.floor(r2()*9)],pool=s===5?C5:s===4?C4:C3;
+    S.ratings.push({order_id:o.uuid,driver_id:o.driver_id,stars:s,comment:pool[Math.floor(r2()*pool.length)],created_at:(o.events.completed||o.created_at)+(1+r2()*20)*H})});
+  const low=(did,daysAgo,stars,comment)=>{const o=S.orders.find(x=>x.status==="completed"&&x.driver_id===did&&x.created_at<sod(now)-daysAgo*DAY+DAY&&x.created_at>=sod(now)-(daysAgo+4)*DAY);if(!o)return;
+    S.ratings=S.ratings.filter(x=>x.order_id!==o.uuid);S.ratings.push({order_id:o.uuid,driver_id:did,stars,comment,created_at:(o.events.completed||o.created_at)+2*H})};
+  low("d0",1,2,"Arrived almost two hours late and didn't call ahead.");low("d3",18,1,"Dropped the blocks at the wrong plot. Had to move them ourselves.");
+  S.ratings=S.ratings.filter(x=>x.created_at<now).sort((a,b)=>b.created_at-a.created_at);
+  S.drivers.forEach(d=>{const rs=S.ratings.filter(x=>x.driver_id===d.id);if(rs.length)d.rating=Math.round(rs.reduce((s,x)=>s+x.stars,0)/rs.length*10)/10});
+  // activity log: the last week of staff changes
+  const st=n=>S.staff.find(x=>x.full_name===n),ord=(f,i)=>S.orders.filter(f)[i||0]||S.orders[0];
+  const cem=S.materials.find(m=>m.id==="cem");if(cem)cem.price=125;
+  const done=o=>o.status==="completed",asg=S.orders.filter(o=>ACTIVE.includes(o.status)&&o.created_at>=sod(now));
+  const E=(h,who,action,entity,entity_id,summary,changes)=>({id:"a"+Math.round(h*100),at:now-h*H,actor_name:who,actor_role:st(who).role,action,entity,entity_id:String(entity_id),summary,changes:changes||{}});
+  const ch=(k,a,b)=>({[k]:{from:a,to:b}}),ob=(...x)=>Object.assign({},...x);
+  const pend=S.payments.find(p=>p.status==="paid"&&p.method==="transfer")||S.payments[0],rejP=S.payments.find(p=>p.status==="rejected")||pend;
+  const canc=S.orders.filter(o=>o.status==="cancelled");
+  S.audit=[
+    E(.6,"Mariyam Nuha","update","orders",(asg[0]||ord(done)).ref,(asg[0]||ord(done)).title,ob(ch("status","requested","accepted"),ch("driver_name",null,(asg[0]||{}).driver||"Hassan Naseer"))),
+    E(1.4,"Mariyam Nuha","update","orders",(asg[1]||ord(done,1)).ref,(asg[1]||ord(done,1)).title,ob(ch("status","requested","accepted"),ch("driver_name",null,(asg[1]||{}).driver||"Ali Shiyam"))),
+    E(2.2,"Ahmed Zaid","update","payments",pend.id,"",ob(ch("status","pending","paid"),ch("note","","Checked in BML app"))),
+    E(4.5,"Hussain Latheef","update","orders",ord(done,2).ref,ord(done,2).title,ch("payment_status","unpaid","paid")),
+    E(7,"Mariyam Nuha","update","orders",(canc[0]||ord(done,3)).ref,(canc[0]||ord(done,3)).title,ch("status","requested","cancelled")),
+    E(20,"Shifan Ahmed","update","materials","cem","Portland cement",ch("price",118,125)),
+    E(22,"Shifan Ahmed","update","app_settings","pricing","",ch("value",{delivery_fee:200,free_delivery_over:15000,mobilisation_fee:300,driver_share:.06,min_driver_pay:150,gst_rate:.08,gst_inclusive:true},{delivery_fee:250,free_delivery_over:15000,mobilisation_fee:300,driver_share:.06,min_driver_pay:150,gst_rate:.08,gst_inclusive:true})),
+    E(26,"Ahmed Zaid","update","quotes","QT-2102","Nashid Hameed",ob(ch("status","accepted","converted"),ch("order_id",null,"8c41e0d2-5b7a-4f0e-9d1c-2a3f6b7e9c10"))),
+    E(30,"Shifan Ahmed","update","profiles","s1","Mariyam Nuha",ch("role","counter","dispatcher")),
+    E(31,"Mariyam Nuha","update","orders",ord(done,4).ref,ord(done,4).title,ob(ch("driver_name","Ahmed Fayaz","Ibrahim Shareef"),ch("driver_unit","CR-01 · Lorry crane","TP-04 · Tipper 10m³"))),
+    E(45,"Fathimath Rifga","update","payments",rejP.id,"",ob(ch("status","pending","rejected"),ch("note","","Amount on slip doesn't match the order. Paid cash on delivery instead."))),
+    E(49,"Mariyam Nuha","insert","machine_bookings","b-roller","",ob(ch("machine_id",null,"roller"),ch("status",null,"blocked"),ch("note",null,"500 h service"))),
+    E(52,"Ahmed Zaid","insert","quotes","QT-2104","Raeef Construction",ob(ch("status",null,"draft"),ch("total",null,S.quotes[0].total),ch("customer_name",null,"Raeef Construction"))),
+    E(54,"Shifan Ahmed","update","machines","exc20","Excavator 20T",ch("rate_day",6000,6200)),
+    E(70,"Shifan Ahmed","update","app_settings","announcement","",ch("value",{active:false,text:"",tone:"info"},{active:true,text:"Cement back in stock. Order before 2 pm for same-day delivery.",tone:"info"})),
+    E(73,"Hussain Latheef","update","orders",ord(done,6).ref,ord(done,6).title,ch("status","requested","cancelled")),
+    E(77,"Mariyam Nuha","update","orders",ord(done,7).ref,ord(done,7).title,ob(ch("status","requested","accepted"),ch("driver_name",null,"Mohamed Rasheed"))),
+    E(95,"Ahmed Zaid","update","projects","p2","Boundary wall & annex, Villimalé",ch("start_date","2026-11-28","2026-12-04")),
+    E(98,"Shifan Ahmed","update","app_settings","announcement","",ch("value",{active:true,text:"Closed Friday for Republic Day. Hotline stays open.",tone:"warn"},{active:false,text:"",tone:"info"})),
+    E(118,"Shifan Ahmed","update","profiles","s4","Fathimath Rifga",ch("role","customer","accounts")),
+    E(121,"Fathimath Rifga","update","payments",(S.payments.filter(p=>p.status==="paid"&&p.method==="transfer")[1]||pend).id,"",ob(ch("status","pending","paid"),ch("note","","Matched BML statement"))),
+    E(140,"Shifan Ahmed","update","app_settings","ordering","",ch("value",{accepting_orders:true,same_day_cutoff:"13:00"},{accepting_orders:true,same_day_cutoff:"14:00"})),
+    E(146,"Shifan Ahmed","update","materials","y16","Rebar Y16",ob(ch("active",true,false),ch("stock_qty",12,0))),
+    E(150,"Mariyam Nuha","update","orders",ord(o=>o.kind==="hire"&&done(o)).ref,ord(o=>o.kind==="hire"&&done(o)).title,ob(ch("starts_at",new Date(now-152*H).toISOString(),new Date(now-148*H).toISOString()),ch("scheduled_label","Mon 18 Nov, 08:00","Mon 18 Nov, 12:00"))),
+    E(160,"Shifan Ahmed","update","profiles","d1","Hassan Naseer",ob(ch("role","customer","driver"),ch("unit_code",null,"LR-02"),ch("unit_name",null,"Flatbed lorry"))),
+    E(166,"Ahmed Zaid","update","quotes","QT-2103","Island Resort Works",ch("status","draft","sent"))
+  ].filter(e=>e.changes&&!(e.changes.status&&e.changes.status.from===e.changes.status.to));
 }
 
+/* who is signed in (demo: the owner, seen through the "View as" role) */
+function ME(){if(LIVE){const p=YDB.profile||{},u=YDB.user||{};return{name:p.full_name||u.email||"Staff",email:u.email||p.email||"",role:p.role||ROLE}}
+  const m=S.staff.find(x=>x.me)||{full_name:"Shifan Ahmed",email:"shifan@yd-mv.com"};return{name:m.full_name,email:m.email,role:ROLE}}
+/* demo only: the server writes audit_log from triggers; here the console appends the same rows */
+function logDemo(action,entity,entity_id,summary,changes){if(LIVE||!changes||!Object.keys(changes).length)return;const me=ME();
+  S.audit.unshift({id:"a"+Date.now()+Math.random().toString(36).slice(2,6),at:Date.now(),actor_name:me.name,actor_role:ROLE,action,entity,entity_id:String(entity_id??""),summary:summary||"",changes})}
+function diffOf(obj,patch){const c={};Object.keys(patch).forEach(k=>{const a=obj[k]??null,b=patch[k]??null;if(JSON.stringify(a)!==JSON.stringify(b))c[k]={from:a,to:b}});return c}
+const fmtStart=t=>new Date(t).toLocaleDateString("en-GB",{weekday:"short",day:"2-digit",month:"short"})+", "+hhmm(t);
 /* actions: demo mutates S, live calls Supabase then reloads */
 const A={
   async assign(o,driverId){if(LIVE){await YDB.rpc("admin_assign_order",{p_order:o.uuid,p_driver:driverId});return load()}
-    const d=S.drivers.find(x=>x.id===driverId);o.driver_id=d.id;o.driver=d.full_name;if(o.status==="requested"){o.status="accepted";o.events.accepted=Date.now()}},
-  async cancel(o){if(LIVE){await YDB.rpc("admin_cancel_order",{p_order:o.uuid});return load()}o.status="cancelled";o.events.cancelled=Date.now()},
-  async saveMachine(m,patch){if(LIVE){const{error}=await YDB.sb.from("machines").update(patch).eq("id",m.id);if(error)throw error;return load()}Object.assign(m,patch)},
-  async saveMaterial(m,patch){if(LIVE){const{error}=await YDB.sb.from("materials").update(patch).eq("id",m.id);if(error)throw error;return load()}Object.assign(m,patch)},
+    const d=S.drivers.find(x=>x.id===driverId),ch={};if(o.status==="requested")ch.status={from:"requested",to:"accepted"};if(o.driver!==d.full_name)ch.driver_name={from:o.driver||null,to:d.full_name};
+    o.driver_id=d.id;o.driver=d.full_name;if(o.status==="requested"){o.status="accepted";o.events.accepted=Date.now();S.bookings.forEach(b=>{if(b.order_uuid===o.uuid&&b.status==="held")b.status="confirmed"})}
+    logDemo("update","orders",o.ref,o.title,ch)},
+  async cancel(o){if(LIVE){await YDB.rpc("admin_cancel_order",{p_order:o.uuid});return load()}const was=o.status;o.status="cancelled";o.events.cancelled=Date.now();
+    S.bookings.forEach(b=>{if(b.order_uuid===o.uuid)b.status="released"});logDemo("update","orders",o.ref,o.title,{status:{from:was,to:"cancelled"}})},
+  async saveMachine(m,patch){if(LIVE){const{error}=await YDB.sb.from("machines").update(patch).eq("id",m.id);if(error)throw error;return load()}const c=diffOf(m,patch);Object.assign(m,patch);logDemo("update","machines",m.id,m.name,c)},
+  async saveMaterial(m,patch){if(LIVE){const{error}=await YDB.sb.from("materials").update(patch).eq("id",m.id);if(error)throw error;return load()}const c=diffOf(m,patch);Object.assign(m,patch);logDemo("update","materials",m.id,m.name,c)},
   async lead(l,status){if(LIVE){await YDB.rpc("admin_update_lead",{p_lead:l.id,p_status:status});return load()}l.status=status},
   async role(email,role,code,name){if(LIVE){await YDB.rpc("admin_set_role",{p_email:email,p_role:role,p_unit_code:code||null,p_unit_name:name||null});return load()}
-    if(role==="driver"){const n=email.split("@")[0].replace(/\W+/g," ").replace(/\b\w/g,c=>c.toUpperCase());S.drivers.push({id:"d"+Date.now(),full_name:n,unit_code:code,unit_name:name,is_online:false,rating:5,role:"driver",email,phone:""})}},
-  async setting(key,value){if(LIVE){const{error}=await YDB.sb.from("app_settings").upsert({key,value,updated_at:new Date().toISOString()});if(error)throw error;return load()}S.settings[key]=value},
+    // same rules as admin_set_role
+    if(!ROLES[role])throw new Error("Unknown role");
+    const em=String(email).trim().toLowerCase(),me=S.staff.find(x=>x.me);
+    if(me&&me.email===em&&role!=="admin")throw new Error("You cannot remove your own admin access");
+    const sf=S.staff.find(x=>x.email===em),dv=S.drivers.find(x=>(x.email||"").toLowerCase()===em),cu=S.customers.find(x=>(x.email||"").toLowerCase()===em);
+    const was=sf?sf.role:dv?"driver":"customer",who=(sf||dv||cu||{}).full_name||em.split("@")[0].replace(/\W+/g," ").replace(/\b\w/g,c=>c.toUpperCase());
+    if(sf&&!STAFF.includes(role))S.staff=S.staff.filter(x=>x!==sf);
+    if(dv&&role!=="driver")S.drivers=S.drivers.filter(x=>x!==dv);
+    if(STAFF.includes(role)){if(sf)sf.role=role;else S.staff.push({id:"s"+Date.now(),full_name:who,email:em,role,created_at:Date.now()})}
+    if(role==="driver"&&!dv)S.drivers.push({id:"d"+Date.now(),full_name:who,unit_code:code,unit_name:name,is_online:false,rating:5,role:"driver",email:em,phone:(cu&&cu.phone)||""});
+    const c={};if(was!==role)c.role={from:was,to:role};if(role==="driver"&&code)c.unit_code={from:dv?dv.unit_code||null:null,to:code};
+    logDemo("update","profiles",(sf||dv||cu||{}).id||em,who,c)},
+  async setting(key,value){if(LIVE){const{error}=await YDB.sb.from("app_settings").upsert({key,value,updated_at:new Date().toISOString()});if(error)throw error;return load()}
+    const old=S.settings[key];S.settings[key]=value;if(JSON.stringify(old)!==JSON.stringify(value))logDemo(old?"update":"insert","app_settings",key,"",{value:{from:old??null,to:value}})},
+  /* move a hire booking (reschedule_order on the server) */
+  async reschedule(o,t){
+    if(LIVE){await YDB.reschedule(o.uuid,new Date(t).toISOString());return load()}
+    if(o.kind!=="hire"||!o.startsAt)throw new Error("Only equipment bookings can be rescheduled");
+    if(!["requested","accepted"].includes(o.status))throw new Error("This booking has started and can no longer be moved. Call the counter.");
+    if(t<Date.now())throw new Error("Pick a time in the future");
+    const mine=S.bookings.filter(b=>b.order_uuid===o.uuid&&b.status!=="released"),off=t-o.startsAt;
+    for(const b of mine){const s2=b.starts_at+off,e2=b.ends_at+off;
+      if(S.bookings.some(x=>x!==b&&x.machine_id===b.machine_id&&x.status!=="released"&&x.order_uuid!==o.uuid&&x.starts_at<e2&&x.ends_at>s2)){const m=S.machines.find(x=>x.id===b.machine_id);throw new Error(`${m?m.name:"The machine"} is already booked then. Pick another time.`)}}
+    const from=o.startsAt,label=fmtStart(t),wasL=o.when;mine.forEach(b=>{b.starts_at+=off;b.ends_at+=off});
+    o.startsAt=t;if(o.endsAt)o.endsAt+=off;if(o.hire)o.hire.start=t;o.when=label;
+    logDemo("update","orders",o.ref,o.title,{starts_at:{from:new Date(from).toISOString(),to:new Date(t).toISOString()},scheduled_label:{from:wasL||null,to:label}})},
+  async deleteAccount(){
+    if(LIVE){await YDB.deleteAccount();return}
+    const me=S.staff.find(x=>x.me);
+    if(me&&me.role==="admin"&&S.staff.filter(x=>x.role==="admin").length<=1)throw new Error("You are the only manager. Make someone else a manager first.")},
   /* counter order (phone / walk-in). f={name,phone,site,kind,items:[{id,qty,mode,start}],when,note,payment} → returns order ref */
   async createOrder(f){
     if(LIVE){const items=f.items.map(i=>f.kind==="hire"?{machine_id:i.id,qty:+i.qty,mode:i.mode||"hr",start:i.start?new Date(i.start).toISOString():null}:{material_id:i.id,qty:+i.qty});
@@ -785,9 +1019,9 @@ const A={
     if(f.kind==="hire")f.items.forEach(it=>S.bookings.push({id:"b"+t+it.id,machine_id:it.id,order_uuid:o.uuid,starts_at:it._st,ends_at:it._en,status:"held",note:""}));
     return o.ref},
   async markPaid(o,method){if(LIVE){await YDB.rpc("admin_mark_paid",{p_order:o.uuid,p_method:method});return load()}
-    o.payStatus="paid";o.paidWith=method;S.payments.unshift({id:"pay"+Date.now(),order_uuid:o.uuid,method,amount:o.total,status:"paid",slip_path:null,provider_ref:"",note:"Recorded at the counter",created_at:Date.now()})},
+    logDemo("update","orders",o.ref,o.title,{payment_status:{from:o.payStatus,to:"paid"}});o.payStatus="paid";o.paidWith=method;S.payments.unshift({id:"pay"+Date.now(),order_uuid:o.uuid,method,amount:o.total,status:"paid",slip_path:null,provider_ref:"",note:"Recorded at the counter",created_at:Date.now()})},
   async reviewPayment(p,approve,note){if(LIVE){await YDB.rpc("admin_review_payment",{p_payment:p.id,p_approve:approve,p_note:note||""});return load()}
-    if(p.status!=="pending")throw new Error("Payment already reviewed");p.status=approve?"paid":"rejected";p.note=note||"";p.updated_at=Date.now();
+    if(p.status!=="pending")throw new Error("Payment already reviewed");logDemo("update","payments",p.id,"",{status:{from:"pending",to:approve?"paid":"rejected"},note:{from:p.note||"",to:note||""}});p.status=approve?"paid":"rejected";p.note=note||"";p.updated_at=Date.now();
     const o=S.orders.find(x=>x.uuid===p.order_uuid);if(o){o.payStatus=approve?"paid":"unpaid";o.paidWith=approve?"transfer":null}
     S.notifs.forEach(n=>{if(n.kind==="payment"&&n.order_id===p.order_uuid&&!n.read_at)n.read_at=Date.now()})},
   async blockTime(mid,st,en,note){
@@ -796,15 +1030,17 @@ const A={
       if(error){const clash=/exclu|overlap|conflict/i.test(error.message||"");throw new Error(clash?"That machine is already booked for part of that time.":"Couldn't block time: the database doesn't let the console add blocks yet (missing admin insert policy on machine_bookings). "+(error.message||""))}
       return load()}
     if(S.bookings.some(b=>b.machine_id===mid&&b.status!=="released"&&b.starts_at<en&&b.ends_at>st))throw new Error("That machine is already booked for part of that time.");
-    S.bookings.push({id:"b"+Date.now(),machine_id:mid,order_uuid:null,starts_at:st,ends_at:en,status:"blocked",note:note||"Maintenance"})},
-  async releaseBlock(b){if(LIVE){const{error}=await YDB.sb.from("machine_bookings").update({status:"released"}).eq("id",b.id);if(error)throw new Error("Couldn't remove the block: "+error.message);return load()}b.status="released"},
+    const id="b"+Date.now();S.bookings.push({id,machine_id:mid,order_uuid:null,starts_at:st,ends_at:en,status:"blocked",note:note||"Maintenance"});
+    logDemo("insert","machine_bookings",id,"",{machine_id:{from:null,to:mid},status:{from:null,to:"blocked"},starts_at:{from:null,to:new Date(st).toISOString()},ends_at:{from:null,to:new Date(en).toISOString()},note:{from:null,to:note||"Maintenance"}})},
+  async releaseBlock(b){if(LIVE){const{error}=await YDB.sb.from("machine_bookings").update({status:"released"}).eq("id",b.id);if(error)throw new Error("Couldn't remove the block: "+error.message);return load()}logDemo("update","machine_bookings",b.id,"",{status:{from:b.status,to:"released"}});b.status="released"},
   /* quotes: q.lines = [{label,qty,unit_price,item_id}] */
   async saveQuote(q){q.total=q.lines.reduce((s,l)=>s+(+l.qty)*(+l.unit_price),0);
     if(LIVE){const row={lead_id:q.lead_id||null,customer_name:q.customer_name,phone:q.phone||"",site:q.site||"",kind:q.kind,lines:q.lines.map(l=>({label:l.label,qty:+l.qty,unit_price:+l.unit_price,item_id:l.item_id||null})),total:q.total,notes:q.notes||"",valid_until:q.valid_until||null,status:q.status};
       const r=q.id?await YDB.sb.from("quotes").update(row).eq("id",q.id).select().single():await YDB.sb.from("quotes").insert(row).select().single();
       if(r.error)throw new Error(r.error.message);q.id=q.id||r.data.id;q.ref=r.data.ref||q.ref;q.created_at=Date.parse(r.data.created_at);await load();return q}
-    if(!q.id){const n=Math.max(2100,...S.quotes.map(x=>+String(x.ref).slice(3)||0))+1;q.id="q"+Date.now();q.ref="QT-"+n;q.created_at=Date.now();S.quotes.unshift(q)}
-    else{const i=S.quotes.findIndex(x=>x.id===q.id);if(i>=0)S.quotes[i]=q}
+    if(!q.id){const n=Math.max(2100,...S.quotes.map(x=>+String(x.ref).slice(3)||0))+1;q.id="q"+Date.now();q.ref="QT-"+n;q.created_at=Date.now();S.quotes.unshift(q);
+      logDemo("insert","quotes",q.ref,q.customer_name,{status:{from:null,to:q.status},total:{from:null,to:q.total},customer_name:{from:null,to:q.customer_name}})}
+    else{const i=S.quotes.findIndex(x=>x.id===q.id);if(i>=0){const o=S.quotes[i];logDemo("update","quotes",q.ref,q.customer_name,diffOf(o,{status:q.status,total:q.total,customer_name:q.customer_name,valid_until:q.valid_until||null}));S.quotes[i]=q}}
     if(q.lead_id&&q.status==="sent"){const l=S.leads.find(x=>x.id===q.lead_id);if(l&&["new","called"].includes(l.status))l.status="quoted"}
     return q},
   async convertQuote(q){
@@ -813,7 +1049,7 @@ const A={
     const lines=q.lines.map(l=>[l.label,+l.qty,+l.unit_price]),total=lines.reduce((s,[,a,b])=>s+a*b,0),n=Math.max(...S.orders.map(o=>+o.ref.slice(3)))+1,t=Date.now(),first=q.lines.find(l=>l.item_id);
     const o={uuid:"o"+n,ref:"YD-"+n,kind:q.kind==="hire"?"hire":"materials",title:"Quote "+q.ref,icon:first?first.item_id:(q.kind==="hire"?"exc20":"cem"),lines,total,status:"requested",customer_id:null,customer:q.customer_name,phone:q.phone,site:q.site||"To confirm",driver_id:null,driver:null,created_at:t,events:{requested:t},progress:0,earning:null,
       source:"counter",payMethod:"cod",payStatus:"unpaid",paidWith:null,hire:null,when:"To schedule",note:q.notes||"",gst:gstOf(total),invoiceNo:null};
-    S.orders.unshift(o);q.status="converted";q.order_uuid=o.uuid;
+    S.orders.unshift(o);logDemo("update","quotes",q.ref,q.customer_name,{status:{from:q.status,to:"converted"},order_id:{from:null,to:o.ref}});q.status="converted";q.order_uuid=o.uuid;
     if(q.lead_id){const l=S.leads.find(x=>x.id===q.lead_id);if(l)l.status="won"}
     return o.ref},
   /* projects */
@@ -823,8 +1059,8 @@ const A={
       if(r.error)throw new Error(r.error.message);
       if(!p.id&&standard){const ms=STD_MS.map((t,i)=>({project_id:r.data.id,sort:i,title:t,status:i?"todo":"doing"}));const e=await YDB.sb.from("project_milestones").insert(ms);if(e.error)toast("Project saved, but milestones failed: "+e.error.message)}
       p.id=r.data.id;await load();return p}
-    if(!p.id){p.id="p"+Date.now();p.created_at=Date.now();p.milestones=standard?STD_MS.map((t,i)=>({id:p.id+"m"+i,sort:i,title:t,status:i?"todo":"doing",due_date:null,payment_amount:0,payment_status:"none"})):[];p.updates=[];S.projects.unshift(p)}
-    else Object.assign(S.projects.find(x=>x.id===p.id),p);
+    if(!p.id){p.id="p"+Date.now();p.created_at=Date.now();p.milestones=standard?STD_MS.map((t,i)=>({id:p.id+"m"+i,sort:i,title:t,status:i?"todo":"doing",due_date:null,payment_amount:0,payment_status:"none"})):[];p.updates=[];S.projects.unshift(p);logDemo("insert","projects",p.id,p.title,{status:{from:null,to:p.status},contract_value:{from:null,to:p.contract_value}})}
+    else{const o=S.projects.find(x=>x.id===p.id);logDemo("update","projects",p.id,p.title,diffOf(o,{title:p.title,status:p.status,start_date:p.start_date,target_date:p.target_date,contract_value:p.contract_value}));Object.assign(o,p)}
     return p},
   async saveMilestones(p,list,deleted){
     list.forEach((m,i)=>{m.sort=i;if(m.status==="done"&&!m.done_at)m.done_at=Date.now();if(m.status!=="done")m.done_at=null});
@@ -865,6 +1101,7 @@ async function load(){
         source:r.source||"app",payMethod:r.payment_method||"cod",payStatus:r.payment_status||"unpaid",paidWith:null,invoiceNo:r.invoice_no||null,gst:r.gst_amount!=null?+r.gst_amount:null,
         when:r.scheduled_label||"",note:r.note||"",startsAt:r.starts_at?Date.parse(r.starts_at):null,endsAt:r.ends_at?Date.parse(r.ends_at):null,completedAt:r.completed_at?Date.parse(r.completed_at):null}});
     S.drivers=p.data.filter(x=>x.role==="driver");S.customers=p.data.filter(x=>x.role==="customer").map(x=>Object.assign(x,{created_at:Date.parse(x.created_at)}));S.admins=p.data.filter(x=>x.role==="admin");
+    S.staff=p.data.filter(x=>STAFF.includes(x.role)).map(x=>Object.assign(x,{me:x.id===YDB.user.id,created_at:Date.parse(x.created_at)}));
     const nn=v=>v==null||v===""?null:+v;
     S.machines=m.data.map(x=>Object.assign(x,{rate_hr:+x.rate_hr,rate_day:+x.rate_day,rate_mo:+x.rate_mo,hours_meter:+x.hours_meter||0}));S.materials=t.data.map(x=>Object.assign(x,{price:+x.price,stock_qty:nn(x.stock_qty),low_stock_at:nn(x.low_stock_at)}));
     S.leads=l.data.map(x=>Object.assign(x,{created_at:Date.parse(x.created_at)}));
@@ -874,7 +1111,7 @@ async function load(){
   const sb=YDB.sb,miss=[],ts=v=>v?Date.parse(v):null;
   const opt=async(q,label)=>{try{const r=await q;if(r&&r.error)throw r.error;return r&&r.data!==undefined?r.data:r}catch(e){miss.push(label);return null}};
   const from=new Date(sod(Date.now())-100*DAY).toISOString(),to=new Date(sod(Date.now())+16*DAY).toISOString();
-  const [pay,qt,pj,bk,fl,ins,mt,nt]=await Promise.all([
+  const [pay,qt,pj,bk,fl,ins,mt,nt,rt]=await Promise.all([
     opt(sb.from("payments").select("*").order("created_at",{ascending:false}).limit(400),"payments"),
     opt(sb.from("quotes").select("*").order("created_at",{ascending:false}).limit(200),"quotes"),
     opt(YDB.projects(),"projects"),
@@ -882,7 +1119,8 @@ async function load(){
     opt(sb.from("fuel_logs").select("*").gte("created_at",new Date(sod(Date.now())-62*DAY).toISOString()).order("created_at",{ascending:false}).limit(1000),"fuel"),
     opt(sb.from("inspections").select("*").order("created_at",{ascending:false}).limit(300),"inspections"),
     opt(sb.from("maintenance").select("*").order("created_at",{ascending:false}).limit(300),"maintenance"),
-    opt(sb.from("notifications").select("*").eq("user_id",YDB.user.id).order("created_at",{ascending:false}).limit(60),"notifications")]);
+    opt(sb.from("notifications").select("*").eq("user_id",YDB.user.id).order("created_at",{ascending:false}).limit(60),"notifications"),
+    opt(sb.from("ratings").select("*").order("created_at",{ascending:false}).limit(500),"ratings")]);
   S.payments=(pay||[]).map(x=>Object.assign({},x,{amount:+x.amount,created_at:ts(x.created_at),order_uuid:x.order_id}));
   S.orders.forEach(o=>{const pd=S.payments.find(x=>x.order_uuid===o.uuid&&x.status==="paid");o.paidWith=pd?pd.method:o.payStatus==="paid"?(o.payMethod==="cod"?"cash":o.payMethod):null});
   S.quotes=(qt||[]).map(x=>Object.assign({},x,{total:+x.total,lines:(x.lines||[]).map(l=>({label:l.label,qty:+l.qty,unit_price:+(l.unit_price??l.price),item_id:l.item_id||null})),created_at:ts(x.created_at),order_uuid:x.order_id}));
@@ -896,33 +1134,73 @@ async function load(){
   S.inspections=(ins||[]).map(x=>Object.assign({},x,{created_at:ts(x.created_at)}));
   S.maintenance=(mt||[]).map(x=>Object.assign({},x,{due_hours:x.due_hours==null?null:+x.due_hours,done_at:ts(x.done_at),created_at:ts(x.created_at)}));
   S.notifs=(nt||[]).map(x=>Object.assign({},x,{created_at:ts(x.created_at),read_at:ts(x.read_at)}));
+  S.ratings=(rt||[]).map(x=>Object.assign({},x,{stars:+x.stars,created_at:ts(x.created_at)}));
+  if(canPage("activity"))await loadAudit();
+  if(canPage("insights")&&!INS[insDays])fetchIns(insDays);
   if(miss.length&&!load._warned){load._warned=true;toast("Some sections couldn't load: "+miss.join(", "))}
   render();
 }
 
+async function loadAudit(){if(!LIVE)return;try{const r=await YDB.sb.from("audit_log").select("*").order("at",{ascending:false}).limit(500);if(r.error)throw r.error;
+  S.audit=(r.data||[]).map(x=>Object.assign({},x,{at:Date.parse(x.at),changes:x.changes||{}}));S.auditErr=null}catch(e){S.audit=[];S.auditErr=e.message||String(e)}}
+
 /* ═════════════ routing ═════════════ */
 const PAGES={overview:["Operations","Overview"],orders:["Operations","Orders & dispatch"],payments:["Operations","Payments"],calendar:["Operations","Booking calendar"],drivers:["Operations","Drivers"],customers:["Operations","Customers"],
   leads:["Sales & projects","Website leads"],quotes:["Sales & projects","Quotes"],projects:["Sales & projects","Projects"],
-  fleet:["Fleet & catalog","Fleet & materials"],health:["Fleet & catalog","Fleet health"],content:["Fleet & catalog","Content & pricing"],reports:["Insights","Reports"]};
+  fleet:["Fleet & catalog","Fleet & materials"],health:["Fleet & catalog","Fleet health"],content:["Fleet & catalog","Content & pricing"],reports:["Insights","Reports"],insights:["Insights","App insights"],activity:["Insights","Activity log"]};
 let ordersShown=50,page="overview",orderFilter="all",catTab="machines",chartView="chart",REP={};
 function setSide(open){$("#side").classList.toggle("open",open);$("#sideScrim").classList.toggle("on",open);$("#bnMore").setAttribute("aria-expanded",open)}
 $("#bnMore").onclick=()=>setSide(!$("#side").classList.contains("open"));$("#sideScrim").onclick=()=>setSide(false);
-function route(){const h=location.hash.slice(1);page=PAGES[h]?h:"overview";$$(".nav a,.bnav a").forEach(a=>a.toggleAttribute("aria-current",a.dataset.p===page));$$('.nav a[aria-current],.bnav a[aria-current]').forEach(a=>a.setAttribute("aria-current","page"));
-  const quick=["overview","orders","payments","projects"].includes(page);$("#bnMore").classList.toggle("cur",!quick);
+function route(){const h=location.hash.slice(1);page=PAGES[h]?h:"overview";
+  if(!canPage(page)){toast(`${PAGES[page][1]} is for ${whoCan(PAGE_PERM[page][0]).replace(/ only$/,"").replace(/^Managers/,"managers")}`);page="overview";history.replaceState(null,"","#overview")}
+  $$(".nav a,.bnav a").forEach(a=>a.toggleAttribute("aria-current",a.dataset.p===page));$$('.nav a[aria-current],.bnav a[aria-current]').forEach(a=>a.setAttribute("aria-current","page"));
+  const quick=BN.includes(page);$("#bnMore").classList.toggle("cur",!quick);closeMe();
+  if(route._last!==page){route._last=page;trk("console_page",{page,role:ROLE})}
   document.body.classList.toggle("has-search",["orders","customers","fleet"].includes(page));setSide(false);
   $("#crumb").textContent=PAGES[page][0];$("#title").textContent=PAGES[page][1];$("#side").classList.remove("open");closeInbox();render();window.scrollTo(0,0)}
 addEventListener("hashchange",route);
+/* role → what the sidebar, bottom bar and profile show */
+const BN_PREF=["overview","orders","payments","projects","calendar","health","drivers","quotes","reports","insights","activity","customers"];
+const BN_LBL={overview:"Overview",orders:"Orders",payments:"Payments",projects:"Projects",calendar:"Calendar",health:"Health",drivers:"Drivers",quotes:"Quotes",reports:"Reports",insights:"Insights",activity:"Activity",customers:"Customers"};
+const BN_CNT={orders:"bnW",payments:"bnP"};
+let BN=["overview","orders","payments","projects"];
+function applyRole(){
+  // sidebar: hide pages this role can't open, then any section left empty
+  let lbl=null,any=false;
+  [...$(".side .nav").children].forEach(el=>{if(el.classList.contains("nav-l")){if(lbl)lbl.hidden=!any;lbl=el;any=false;return}const ok=canPage(el.dataset.p);el.hidden=!ok;if(ok)any=true});if(lbl)lbl.hidden=!any;
+  BN=BN_PREF.filter(canPage).slice(0,4);
+  const bn=$("#bnav"),more=$("#bnMore");$$("#bnav a").forEach(a=>bn.removeChild(a));
+  BN.forEach(pg=>{const src=$(`.side .nav a[data-p="${pg}"] svg use`),a=document.createElement("a");a.href="#"+pg;a.dataset.p=pg;
+    a.innerHTML=`<svg><use href="${src?src.getAttribute("href"):"#i-grid"}"/></svg><span>${BN_LBL[pg]}</span>${BN_CNT[pg]?`<i class="bn-c" id="${BN_CNT[pg]}" hidden></i>`:""}`;bn.insertBefore(a,more)});
+  const me=ME();$("#meName").textContent=me.name;$("#meAv").textContent=ini(me.name);$("#meRolePill").className="pill role r-"+ROLE;$("#meRolePill").textContent=roleName(ROLE);$("#meRole").textContent=LIVE?"LIVE":"DEMO";
+  $("#meBtn").setAttribute("aria-label",`${me.name}, ${roleName(ROLE)}. Account menu`);
+  route();
+}
+/* profile menu: account, "View as" (demo), sign out */
+function closeMe(){const m=$("#meMenu");if(m&&!m.hidden){m.hidden=true;$("#meBtn").setAttribute("aria-expanded","false")}}
+const ROLE_SHORT={admin:"Everything",dispatcher:"Dispatch, calendar, fleet health",counter:"Counter orders, quotes, payments",accounts:"Payments, reports, activity"};
+function drawMe(){const me=ME();
+  $("#meMenu").innerHTML=`<div class="mh"><b>${esc(me.name)}</b><span>${esc(me.email||"")}</span>${rolePill(ROLE)}</div>
+    ${LIVE?"":`<div class="ms-l">View as · demo</div>${STAFF.map(r=>`<button type="button" class="mi" role="menuitemradio" aria-checked="${ROLE===r}" data-va="${r}"><span>${esc(roleName(r))}<small>${esc(ROLE_SHORT[r])}</small></span>${ROLE===r?`<span class="ck">✓</span>`:""}</button>`).join("")}<div class="sep"></div>`}
+    <button type="button" class="mi" role="menuitem" id="meAcct"><svg><use href="#i-user"/></svg>My account</button>
+    ${LIVE?`<button type="button" class="mi" role="menuitem" id="signOut"><svg><use href="#i-out"/></svg>Sign out</button>`:""}`;
+  $$("#meMenu [data-va]").forEach(b=>b.onclick=e=>{e.stopPropagation();ROLE=b.dataset.va;closeMe();setSide(false);toast(ROLE==="admin"?"Back to the manager view":`Viewing the console as ${roleName(ROLE)}`);closeDrawer();applyRole()});
+  $("#meAcct").onclick=()=>{closeMe();setSide(false);openAccount()};
+  $("#signOut")&&($("#signOut").onclick=async()=>{if(unwatch)unwatch();await YDB.signOut();location.reload()})}
+$("#meBtn").onclick=e=>{e.stopPropagation();const m=$("#meMenu");if(m.hidden){drawMe();m.hidden=false;$("#meBtn").setAttribute("aria-expanded","true");const f=m.querySelector(".mi");f&&f.focus({preventScroll:true})}else closeMe()};
+document.addEventListener("click",e=>{if(!e.target.closest(".me-wrap"))closeMe()});
 $("#burger").onclick=()=>setSide(!$("#side").classList.contains("open"));
 // catalog search: name, code, category, unit
 const catText=x=>[x.name,x.code,x.category,YDCAT.categories&&YDCAT.categories[x.category],x.unit,x.id].filter(Boolean).join(" ").toLowerCase();
 const catHit=(x,q)=>q.split(/\s+/).filter(Boolean).every(w=>catText(x).includes(w));
 $("#q").addEventListener("input",()=>{const q=$("#q").value.trim().toLowerCase();
   if(page==="fleet"){fleetFilter();return}
+  if(page==="fleet"&&!canPage("fleet"))return;
   if(page!=="orders"&&page!=="customers"){
     // a query that names catalog items but no order's customer/ref/phone/site opens Fleet & materials instead of Orders
     const m=S.machines.filter(x=>catHit(x,q)),t=S.materials.filter(x=>catHit(x,q));
     const ordHit=S.orders.some(o=>[o.ref,o.customer,o.phone,o.site].some(v=>String(v||"").toLowerCase().includes(q)));
-    if(q.length>=2&&(m.length||t.length)&&!ordHit){catTab=m.length&&!t.length?"machines":t.length&&!m.length?"materials":catTab;location.hash="fleet";return}
+    if(q.length>=2&&(m.length||t.length)&&!ordHit&&canPage("fleet")){catTab=m.length&&!t.length?"machines":t.length&&!m.length?"materials":catTab;location.hash="fleet";return}
     location.hash="orders";return}
   render()});
 function fleetFilter(){const q=$("#q").value.trim().toLowerCase(),list=catTab==="machines"?S.machines:S.materials,other=catTab==="machines"?S.materials:S.machines;let n=0;
@@ -940,23 +1218,25 @@ function openDefects(){ // latest inspection per machine that failed or noted a 
   const out=[];S.machines.forEach(m=>{const i=S.inspections.filter(x=>x.machine_id===m.id).sort((a,b)=>b.created_at-a.created_at)[0];if(i&&(!i.passed||String(i.defects||"").trim()))out.push({m,i})});
   return out.sort((a,b)=>(a.i.passed-b.i.passed)||(b.i.created_at-a.i.created_at))}
 const orderBy=u=>S.orders.find(o=>o.uuid===u);
-function setCnt(id,n){const e=$("#"+id);e.hidden=!n;e.textContent=n}
+function setCnt(id,n){const e=$("#"+id);if(!e)return;e.hidden=!n;e.textContent=n}
 function render(){
   const waiting=S.orders.filter(o=>o.status==="requested").length,newLeads=S.leads.filter(l=>l.status==="new").length;
-  setCnt("bnW",waiting);setCnt("bnP",pendingSlips().length);setCnt("nWaiting",waiting);setCnt("nLeads",newLeads);setCnt("nPay",pendingSlips().length);setCnt("nStock",lowStock().length);setCnt("nDefects",openDefects().length);
+  setCnt("bnW",waiting);setCnt("bnP",pendingSlips().length);setCnt("nWaiting",waiting);setCnt("nLeads",newLeads);setCnt("nPay",pendingSlips().length);setCnt("nStock",lowStock().length);setCnt("nDefects",openDefects().length);setCnt("nErr",insErrCount());
   const unread=S.notifs.filter(n=>!n.read_at).length;$("#bellN").hidden=!unread;$("#bellN").textContent=unread>9?"9+":unread;$("#bell").setAttribute("aria-label",`Notifications, ${unread} unread`);
   if(!$("#inbox").hidden)drawInbox();
   const v=$("#view");
-  const banner=LIVE?"":`<div class="demo-banner"><svg width="18" height="18" style="color:var(--warn);flex:none"><use href="#i-alert"/></svg><div><b>You're looking at demo data.</b> Changes here aren't saved. Once the Supabase backend is connected, staff sign in and this console runs the real website and apps.</div></div>`;
-  const V={overview:vOverview,orders:vOrders,payments:vPayments,calendar:vCalendar,drivers:vDrivers,leads:vLeads,quotes:vQuotes,projects:vProjects,customers:vCustomers,fleet:vFleet,health:vHealth,content:vContent,reports:vReports};
-  const W={overview:wOverview,orders:wOrders,payments:wPayments,calendar:wCalendar,drivers:wDrivers,leads:wLeads,quotes:wQuotes,projects:wProjects,customers:()=>{},fleet:wFleet,health:wHealth,content:wContent,reports:wReports};
+  const viewAs=!LIVE&&ROLE!=="admin"?`<div class="viewas"><svg width="18" height="18" style="color:var(--brand);flex:none"><use href="#i-shield"/></svg><div style="flex:1;min-width:200px">Viewing as <b>${esc(roleName(ROLE))}</b>: ${esc(ROLES[ROLE][1])} Hidden pages and greyed-out buttons are for other roles.</div><button class="btn sm" id="vaBack">Back to manager view</button></div>`:"";
+  const banner=LIVE?"":viewAs+`<div class="demo-banner"><svg width="18" height="18" style="color:var(--warn);flex:none"><use href="#i-alert"/></svg><div><b>You're looking at demo data.</b> Changes here aren't saved. Once the Supabase backend is connected, staff sign in and this console runs the real website and apps.</div></div>`;
+  const V={overview:vOverview,orders:vOrders,payments:vPayments,calendar:vCalendar,drivers:vDrivers,leads:vLeads,quotes:vQuotes,projects:vProjects,customers:vCustomers,fleet:vFleet,health:vHealth,content:vContent,reports:vReports,insights:vInsights,activity:vActivity};
+  const W={overview:wOverview,orders:wOrders,payments:wPayments,calendar:wCalendar,drivers:wDrivers,leads:wLeads,quotes:wQuotes,projects:wProjects,customers:()=>{},fleet:wFleet,health:wHealth,content:wContent,reports:wReports,insights:wInsights,activity:wActivity};
   // the company number itself is shown only in Content & pricing → Contact
   if(!$("#waSide svg"))$("#waSide").innerHTML=`${WA_SVG}<span>WhatsApp chats</span>`;
   v.innerHTML=banner+V[page]()+`<footer class="pfoot">YD Works Console · <a href="https://web.whatsapp.com/" target="_blank" rel="noopener" data-wa="console_footer" title="Open the company WhatsApp in WhatsApp Web">WhatsApp chats</a></footer>`;W[page]();
+  $("#vaBack")&&($("#vaBack").onclick=()=>{ROLE="admin";toast("Back to the manager view");applyRole()});
 }
 
 /* ═════════════ notifications (admin inbox) ═════════════ */
-const NKIND={payment:["warn","i-wallet","payments"],defect:["crit","i-wrench","health"],lead:["info","i-inbox","leads"],quote:["info","i-doc","quotes"],project:["ok","i-house","projects"],job:["info","i-list","orders"],order:["info","i-list","orders"],assigned:["info","i-list","orders"]};
+const NKIND={payment:["warn","i-wallet","payments"],defect:["crit","i-wrench","health"],lead:["info","i-inbox","leads"],quote:["info","i-doc","quotes"],project:["ok","i-house","projects"],job:["info","i-list","orders"],order:["info","i-list","orders"],assigned:["info","i-list","orders"],rating:["warn","i-star","drivers"]};
 function drawInbox(){
   const list=S.notifs.slice(0,40),unread=list.filter(n=>!n.read_at).length;
   $("#inbox").innerHTML=`<div class="ih"><h3>Inbox${unread?` <span class="muted" style="font:500 12px var(--mono)">· ${unread} new</span>`:""}</h3>${unread?`<button class="btn sm" id="nAll">Mark all read</button>`:""}</div>
@@ -964,13 +1244,15 @@ function drawInbox(){
   $("#nAll")&&($("#nAll").onclick=async()=>{await A.readNotifs(S.notifs);render()});
   $$("#inbox [data-n]").forEach(b=>b.onclick=()=>{const n=S.notifs.find(x=>String(x.id)===b.dataset.n);if(!n)return;closeInbox();A.readNotifs([n]).then(()=>render());
     const k=NKIND[n.kind]||[0,0,"overview"],o=n.order_id&&orderBy(n.order_id);
-    if(o&&!["payment","defect","lead"].includes(n.kind)){location.hash="orders";setTimeout(()=>openOrder(o.ref),60)}
-    else{location.hash=k[2];if(n.kind==="project"&&n.project_id)setTimeout(()=>openProject(n.project_id),60)}})}
+    if(o&&!["payment","defect","lead","rating"].includes(n.kind)){location.hash="orders";setTimeout(()=>openOrder(o.ref),60)}
+    else if(!canPage(k[2])){toast(`That's handled by ${whoCan(PAGE_PERM[k[2]][0]).replace(/ only$/,"").replace(/^Managers/,"managers")}`)}
+    else{location.hash=k[2];if(n.kind==="project"&&n.project_id)setTimeout(()=>openProject(n.project_id),60);if(n.kind==="rating"&&o&&o.driver_id)setTimeout(()=>openDriver(o.driver_id),60)}})}
 function closeInbox(){const i=$("#inbox");if(i){i.hidden=true;$("#bell").setAttribute("aria-expanded","false")}}
 $("#bell").onclick=e=>{e.stopPropagation();const i=$("#inbox");if(i.hidden){drawInbox();i.hidden=false;$("#bell").setAttribute("aria-expanded","true")}else closeInbox()};
 document.addEventListener("click",e=>{if(!$("#inbox").hidden&&!e.target.closest("#inbox,#bell"))closeInbox()});
 
 /* shared bits */
+const trk=(name,detail)=>{try{window.YDUI&&YDUI.track&&YDUI.track(name,detail||{})}catch(e){}};
 const tone=(label,t)=>`<span class="pill t-${t}">${esc(label)}</span>`;
 
 /* WhatsApp: wa.me links with a prefilled message; Maldives 7-digit numbers get 960 */
@@ -1037,25 +1319,26 @@ function vOverview(){
   <section class="grid g-main">
     <div class="card"><div class="card-h"><div><h2>Live fleet</h2><div class="sub">${active.length} active jobs across Hulhumalé</div></div><a class="btn sm" href="#orders">Open dispatch</a></div>
       <div class="card-b"><div class="mapbox" id="fleetMap"></div></div></div>
-    <div class="card"><div class="card-h"><h2>Drivers</h2><a class="btn sm" href="#drivers">Manage</a></div>
+    <div class="card"><div class="card-h"><h2>Drivers</h2>${canPage("drivers")?`<a class="btn sm" href="#drivers">Manage</a>`:""}</div>
       ${S.drivers.slice().sort((a,b)=>b.is_online-a.is_online).map(d=>{const j=active.find(o=>o.driver_id===d.id);return `<div class="drv-row"><span class="av ${d.is_online?"on":""}">${ini(d.full_name)}</span><div class="tx"><b>${esc(d.full_name)}</b><small>${esc(d.unit_code||"")} · ${esc(d.unit_name||"")}</small></div>${j?`<span class="pill p-${j.status}">${STATUS[j.status]}</span>`:d.is_online?`<span class="pill p-completed">Free</span>`:`<span class="pill p-cancelled">Offline</span>`}</div>`}).join("")}
     </div>
   </section>`;
 }
 function attention(){
   const items=[];
-  const later=o=>o.startsAt&&o.startsAt>Date.now()+3*36e5;
-  S.orders.filter(o=>o.status==="requested"&&!later(o)).forEach(o=>items.push(["crit","i-clock",`${o.ref} waiting for a driver`,`${esc(o.customer)} · ${ago(o.created_at)} · ${mvr(o.total)}`,`data-order="${o.ref}"`]));
-  S.orders.filter(o=>o.status==="requested"&&later(o)).forEach(o=>items.push(["warn","i-cal",`${o.ref} booked for ${dmy(o.startsAt)} · no driver yet`,`${esc(o.customer)} · ${esc(o.title)}`,`data-order="${o.ref}"`]));
-  S.leads.filter(l=>l.status==="new").forEach(l=>items.push(["info","i-inbox",`New quote request from ${esc(l.name)}`,`${esc(l.needs.join(", "))} · ${ago(l.created_at)}`,`data-href="#leads"`]));
-  pendingSlips().forEach(p=>{const o=orderBy(p.order_uuid);items.push(["warn","i-wallet",`Transfer slip to check${o?" · "+o.ref:""}`,`${esc(o?o.customer:"")} · ${mvr(p.amount)} · ${ago(p.created_at)}`,`data-href="#payments"`])});
-  openDefects().forEach(({m,i})=>items.push([i.passed?"warn":"crit","i-wrench",`${i.passed?"Defect noted":"Failed check"} on ${esc(m.code)} ${esc(m.name)}`,esc(String(i.defects||"Checklist item failed").slice(0,90)),`data-href="#health"`]));
-  lowStock().forEach(m=>items.push([m.stock_qty<=0?"crit":"warn","i-box",m.stock_qty<=0?`${esc(m.name)} is out of stock`:`Low stock: ${esc(m.name)}`,`${m.stock_qty} × ${esc(m.unit)} left · reorder at ${m.low_stock_at??0}`,`data-href="#fleet" data-tab="materials"`]));
-  S.materials.filter(m=>!m.active).forEach(m=>items.push(["warn","i-box",`${esc(m.name)} is hidden from the app`,"Marked out of stock · customers can't order it",`data-href="#fleet" data-tab="materials"`]));
-  if(S.settings.ordering&&S.settings.ordering.accepting_orders===false)items.unshift(["crit","i-alert","The apps are not accepting orders","Turned off in Content & pricing",`data-href="#content"`]);
+  const later=o=>o.startsAt&&o.startsAt>Date.now()+3*36e5,disp=can("assign")||can("orders");
+  if(disp)S.orders.filter(o=>o.status==="requested"&&!later(o)).forEach(o=>items.push(["crit","i-clock",`${o.ref} waiting for a driver`,`${esc(o.customer)} · ${ago(o.created_at)} · ${mvr(o.total)}`,`data-order="${o.ref}"`]));
+  if(disp)S.orders.filter(o=>o.status==="requested"&&later(o)).forEach(o=>items.push(["warn","i-cal",`${o.ref} booked for ${dmy(o.startsAt)} · no driver yet`,`${esc(o.customer)} · ${esc(o.title)}`,`data-order="${o.ref}"`]));
+  if(can("sales"))S.leads.filter(l=>l.status==="new").forEach(l=>items.push(["info","i-inbox",`New quote request from ${esc(l.name)}`,`${esc(l.needs.join(", "))} · ${ago(l.created_at)}`,`data-href="#leads"`]));
+  if(can("payments"))pendingSlips().forEach(p=>{const o=orderBy(p.order_uuid);items.push(["warn","i-wallet",`Transfer slip to check${o?" · "+o.ref:""}`,`${esc(o?o.customer:"")} · ${mvr(p.amount)} · ${ago(p.created_at)}`,`data-href="#payments"`])});
+  if(can("fleet"))openDefects().forEach(({m,i})=>items.push([i.passed?"warn":"crit","i-wrench",`${i.passed?"Defect noted":"Failed check"} on ${esc(m.code)} ${esc(m.name)}`,esc(String(i.defects||"Checklist item failed").slice(0,90)),`data-href="#health"`]));
+  if(can("catalog"))lowStock().forEach(m=>items.push([m.stock_qty<=0?"crit":"warn","i-box",m.stock_qty<=0?`${esc(m.name)} is out of stock`:`Low stock: ${esc(m.name)}`,`${m.stock_qty} × ${esc(m.unit)} left · reorder at ${m.low_stock_at??0}`,`data-href="#fleet" data-tab="materials"`]));
+  if(can("catalog"))S.materials.filter(m=>!m.active).forEach(m=>items.push(["warn","i-box",`${esc(m.name)} is hidden from the app`,"Marked out of stock · customers can't order it",`data-href="#fleet" data-tab="materials"`]));
+  if(S.settings.ordering&&S.settings.ordering.accepting_orders===false)items.unshift(["crit","i-alert","The apps are not accepting orders","Turned off in Content & pricing",canPage("content")?`data-href="#content"`:""]);
+  if(canPage("drivers"))lowRatings().forEach(x=>{const d=S.drivers.find(y=>y.id===x.driver_id),o=orderBy(x.order_id);items.push(["crit","i-star",`${x.stars}★ rating for ${esc(d?d.full_name:"a driver")}`,`${o?o.ref+" · ":""}${x.comment?"“"+esc(String(x.comment).slice(0,80))+"”":"No comment"} · ${ago(x.created_at)}`,`data-drv="${esc(x.driver_id)}"`])});
   const rank={crit:0,warn:1,info:2};items.sort((x,y)=>rank[x[0]]-rank[y[0]]);
   const more=items.length-7;
-  return items.length?items.slice(0,7).map(([c,i,t,s,a])=>`<div><span class="ic ${c}"><svg><use href="#${i}"/></svg></span><div class="tx"><b>${t}</b><span>${s}</span></div><button class="btn sm" ${a}>Open</button></div>`).join("")+(more>0?`<div style="justify-content:center"><span class="hint">+ ${more} more · see the bell, Payments and Fleet health</span></div>`:""):`<div class="empty">All clear. Nothing needs you right now.</div>`;
+  return items.length?items.slice(0,7).map(([c,i,t,s,a])=>`<div><span class="ic ${c}"><svg><use href="#${i}"/></svg></span><div class="tx"><b>${t}</b><span>${s}</span></div>${a?`<button class="btn sm" ${a}>Open</button>`:""}</div>`).join("")+(more>0?`<div style="justify-content:center"><span class="hint">+ ${more} more · see the bell, Payments and Fleet health</span></div>`:""):`<div class="empty">All clear. Nothing needs you right now.</div>`;
 }
 function revChart(days){
   const W=720,H=260,pl=44,pr=8,pt=14,pb=28,iw=W-pl-pr,ih=H-pt-pb;
@@ -1083,6 +1366,7 @@ function wOverview(){
       g.addEventListener("mouseleave",()=>tip.classList.remove("on"))})}
   $$("[data-href]").forEach(b=>b.onclick=()=>{if(b.dataset.tab)catTab=b.dataset.tab;location.hash=b.dataset.href});
   $$("[data-order]").forEach(b=>b.onclick=()=>openOrder(b.dataset.order));
+  $$("[data-drv]").forEach(b=>b.onclick=()=>openDriver(b.dataset.drv));
   // fleet map with one marker per active job
   const box=$("#fleetMap");if(box&&window.YDUI){box.innerHTML=YDUI.map({id:"fm",fromLabel:"YD YARD",toLabel:""});
     const svg=box.querySelector("svg");["fmTruck","fmDone"].forEach(id=>{const n=svg.querySelector("#"+id);n&&n.remove()});
@@ -1102,13 +1386,13 @@ function vOrders(){
   const list=S.orders.filter(o=>match(o)&&qm(o));
   const count=k=>S.orders.filter(o=>qm(o)&&(k==="all"||(k==="active"?ACTIVE.includes(o.status):o.status===k))).length;
   return `<div class="row-flex" style="flex-wrap:wrap"><div class="chips" id="oChips">${groups.map(([k,l])=>`<button class="chip" data-k="${k}" aria-pressed="${orderFilter===k}">${l}<b>${count(k)}</b></button>`).join("")}</div>
-    <div class="row-flex" style="gap:12px"><span class="hint">${q?`Filtered by “${esc(q)}” · `:""}${list.length} orders</span><button class="btn pri" id="newOrder"><svg><use href="#i-plus"/></svg>New order</button></div></div>
+    <div class="row-flex" style="gap:12px"><span class="hint">${q?`Filtered by “${esc(q)}” · `:""}${list.length} orders</span><button class="btn pri" id="newOrder" ${gate("orders")}><svg><use href="#i-plus"/></svg>New order</button></div></div>
   <div class="card"><div class="tw"><table class="t cards" style="min-width:980px"><thead><tr><th>Order</th><th>Items</th><th>Customer</th><th>Site</th><th>Driver</th><th>Status</th><th>Payment</th><th class="num">Total</th></tr></thead><tbody>
   ${list.length?list.slice(0,ordersShown).map(o=>`<tr class="click" data-order="${o.ref}"><td class="m-l"><b style="font-family:var(--mono);font-size:13px;font-weight:500">${o.ref}</b>${srcBadge(o)}<div class="mono">${dmy(o.created_at)} · ${hhmm(o.created_at)}</div></td>
     <td><div class="item"><span class="th">${thumb(o.icon)}</span><div style="min-width:0"><b>${esc(o.title)}</b><small>${o.kind==="hire"?"Equipment hire":"Materials"}</small></div></div></td>
     <td><div class="who"><span class="av">${ini(o.customer)}</span><div style="min-width:0"><div>${esc(o.customer)}</div><div class="mono">${esc(o.phone)}</div></div>${waIco(o.phone,waOrderText(o),"WhatsApp "+o.customer,"orders_row")}</div></td>
     <td class="muted m-sub" style="max-width:180px">${esc(o.site)}</td>
-    <td class="m-drv">${o.driver?esc(o.driver):o.status==="requested"?`<button class="btn sm pri" data-assign="${o.ref}">Assign</button>`:'<span class="muted">—</span>'}</td>
+    <td class="m-drv">${o.driver?esc(o.driver):o.status==="requested"?(can("assign")?`<button class="btn sm pri" data-assign="${o.ref}">Assign</button>`:'<span class="muted">Not assigned</span>'):'<span class="muted">—</span>'}</td>
     <td class="m-h"><span class="pill p-${o.status}">${STATUS[o.status]}</span></td><td class="m-h m-rt">${o.status==="cancelled"?'<span class="muted">—</span>':payPill(o)}</td><td class="num m-r">${mvr(o.total)}</td></tr>`).join(""):`<tr><td colspan="8"><div class="empty">No orders match this filter.</div></td></tr>`}
   </tbody></table></div>${list.length>ordersShown?`<div class="row-flex" style="padding:12px 18px;border-top:1px solid var(--line)"><span class="hint">Showing ${ordersShown} of ${list.length}</span><button class="btn sm" id="oMore">Show ${Math.min(50,list.length-ordersShown)} more</button></div>`:""}</div>`;
 }
@@ -1121,15 +1405,17 @@ function wOrders(){
 }
 function openDrawer(html,wide){const d=$("#drawer");d.classList.toggle("wide",!!wide);d.innerHTML=html;d.classList.add("on");$("#scrim").classList.add("on");d.querySelector(".db")&&(d.querySelector(".db").scrollTop=0);$("#drawer .x")&&($("#drawer .x").onclick=closeDrawer)}
 function closeDrawer(){$("#drawer").classList.remove("on");$("#scrim").classList.remove("on")}
-$("#scrim").onclick=closeDrawer;addEventListener("keydown",e=>{if(e.key==="Escape"){closeDrawer();closeInbox();setSide(false)}});
+$("#scrim").onclick=closeDrawer;addEventListener("keydown",e=>{if(e.key==="Escape"){const m=$("#meMenu");if(m&&!m.hidden){closeMe();$("#meBtn").focus();return}closeDrawer();closeInbox();setSide(false)}});
 const xBtn=`<button class="x" aria-label="Close"><svg width="16" height="16"><use href="#i-x"/></svg></button>`;
 function openOrder(ref,focusAssign){
   const o=S.orders.find(x=>x.ref===ref);if(!o)return;
   const busy=new Set(S.orders.filter(x=>ACTIVE.includes(x.status)).map(x=>x.driver_id));
-  const canAssign=["requested","accepted"].includes(o.status),canCancel=!["completed","cancelled"].includes(o.status);
+  const assignable=["requested","accepted"].includes(o.status),cancellable=!["completed","cancelled"].includes(o.status);
+  const canAssign=assignable&&can("assign"),canCancel=cancellable&&can("orders");
   const evs=Object.entries(o.events||{}).sort((a,b)=>a[1]-b[1]);
   const pays=S.payments.filter(p=>p.order_uuid===o.uuid),canPay=o.status!=="cancelled"&&o.payStatus!=="paid";
   const bk=S.bookings.filter(b=>b.order_uuid===o.uuid&&b.status!=="released");
+  const canMove=o.kind==="hire"&&["requested","accepted"].includes(o.status)&&o.startsAt&&bk.length;
   openDrawer(`<div class="dh"><div class="item"><span class="th" style="width:52px;height:52px;border-radius:14px">${thumb(o.icon)}</span><div><span class="pill p-${o.status}">${STATUS[o.status]}</span>${srcBadge(o)}<h2 id="dTitle" style="margin-top:6px">${esc(o.title)}</h2><div class="mono">${o.ref} · ${dmy(o.created_at)} ${hhmm(o.created_at)}</div></div></div>${xBtn}</div>
   <div class="db">
     <dl class="kv"><dt>Customer</dt><dd>${esc(o.customer)}</dd><dt>Phone</dt><dd style="font-family:var(--mono)">${esc(o.phone||"—")}</dd><dt>Site</dt><dd>${esc(o.site)}</dd>${o.when?`<dt>Schedule</dt><dd>${esc(o.when)}</dd>`:""}${bk.length?`<dt>Machine booked</dt><dd>${bk.map(b=>`${dmy(b.starts_at)} ${hhmm(b.starts_at)} → ${dmy(b.ends_at)} ${hhmm(b.ends_at)}`).join("<br>")}</dd>`:""}<dt>Driver</dt><dd>${esc(o.driver||"Not assigned")}</dd>${o.note?`<dt>Note</dt><dd>${esc(o.note)}</dd>`:""}${o.pod?`<dt>Signed by</dt><dd>${esc(o.pod)}</dd>`:""}${o.earning?`<dt>Driver pay</dt><dd>${mvr(o.earning)}</dd>`:""}</dl>
@@ -1137,20 +1423,44 @@ function openOrder(ref,focusAssign){
     <div><div class="lbl" style="margin-bottom:8px">Items</div><div class="lines">${o.lines.map(([n,q,p])=>`<div><span>${q} × ${esc(n)}</span><span>${mvr(q*p)}</span></div>`).join("")}<div><span>Total · incl. GST ${mvr(o.gst!=null?o.gst:gstOf(o.total))}</span><span>${mvr(o.total)}</span></div></div></div>
     ${o.status==="cancelled"?"":`<div class="box stack"><div class="row-flex"><div><div class="lbl">Payment</div><div style="margin-top:4px;font-weight:500">${PAYM[o.payMethod]||esc(o.payMethod)} chosen${o.invoiceNo?` · <span class="mono">${esc(o.invoiceNo)}</span>`:""}</div></div>${payPill(o)}</div>
       ${pays.length?`<div class="stack" style="gap:6px">${pays.map(p=>`<div class="row-flex" style="font-size:13px"><span>${PAYM[p.method]||esc(p.method)} · ${mvr(p.amount)}<span class="muted"> · ${dmy(p.created_at)} ${hhmm(p.created_at)}${p.note?" · "+esc(p.note):""}</span></span>${tone(p.status==="pending"?"Checking":p.status,p.status==="paid"?"ok":p.status==="pending"?"warn":p.status==="rejected"?"crit":"mute")}</div>`).join("")}</div>`:""}
-      ${o.payStatus==="pending"?`<div class="row-flex"><span class="hint">A transfer slip is waiting for review.</span><a class="btn sm" href="#payments" id="dToPay">Review slip</a></div>`:""}
-      ${canPay?`<div class="row-flex" style="justify-content:flex-start;flex-wrap:wrap;gap:8px"><select class="inp" id="payM" style="width:auto" aria-label="Payment method"><option value="cash">Cash</option><option value="transfer">Bank transfer</option><option value="card">Card</option></select><button class="btn" id="dPaid">Mark paid</button></div>`:""}</div>`}
+      ${o.payStatus==="pending"?`<div class="row-flex"><span class="hint">A transfer slip is waiting for review.</span>${canPage("payments")?`<a class="btn sm" href="#payments" id="dToPay">Review slip</a>`:""}</div>`:""}
+      ${canPay?(can("payments")?`<div class="row-flex" style="justify-content:flex-start;flex-wrap:wrap;gap:8px"><select class="inp" id="payM" style="width:auto" aria-label="Payment method"><option value="cash">Cash</option><option value="transfer">Bank transfer</option><option value="card">Card</option></select><button class="btn" id="dPaid">Mark paid</button></div>`:`<div class="row-flex" style="justify-content:flex-start"><button class="btn" ${gate("payments")}>Mark paid</button></div>`):""}</div>`}
+    ${canMove?`<div class="box stack reschedule" id="rsBox"><div><div class="lbl">Reschedule</div><div class="hint" style="margin-top:2px">Moves the machine booking. The driver and the counter are notified.</div></div>
+      <div class="row-flex" style="justify-content:flex-start;flex-wrap:wrap;gap:8px"><input class="inp" type="datetime-local" id="rsAt" step="900" value="${dtl(o.startsAt)}" aria-label="New start time" style="width:auto" ${can("orders")?"":"disabled"}><button class="btn" id="rsGo" ${gate("orders")}>Reschedule</button></div>
+      <div class="row-flex" style="justify-content:flex-start;gap:8px;flex-wrap:wrap"><span class="hint" id="rsHint"></span><button class="btn sm" id="rsUse" hidden>Use this time</button></div>
+      <p class="hint" id="rsErr" role="alert" style="color:var(--crit)"></p></div>`:""}
     ${canAssign?`<div class="field"><label for="dSel">${o.driver?"Reassign driver":"Assign a driver"}</label><select class="inp" id="dSel"><option value="">Choose a driver…</option>${S.drivers.map(d=>`<option value="${d.id}" ${d.id===o.driver_id?"selected":""}>${esc(d.full_name)} · ${esc(d.unit_code||"")} ${d.is_online?(busy.has(d.id)&&d.id!==o.driver_id?"· on a job":"· free"):"· offline"}</option>`).join("")}</select></div>`:""}
     <div><div class="lbl" style="margin-bottom:6px">Timeline</div><ul class="tl">${evs.map(([s,t])=>`<li><b style="font-weight:500">${STATUS[s]||s}</b><span>${dmy(t)} · ${hhmm(t)}</span></li>`).join("")}</ul></div>
   </div>
-  <div class="df">${canAssign?`<button class="btn pri" id="dAssign">Assign driver</button>`:""}${o.status==="completed"?`<button class="btn pri" id="dInv"><svg><use href="#i-doc"/></svg>Invoice</button>`:""}${canCancel?`<button class="btn danger" id="dCancel">Cancel order</button>`:""}<span style="flex:1"></span><button class="btn" id="dClose">Close</button></div>`);
+  <div class="df">${canAssign?`<button class="btn pri" id="dAssign">Assign driver</button>`:assignable?`<button class="btn" ${gate("assign")}>Assign driver</button>`:""}${o.status==="completed"?`<button class="btn pri" id="dInv"><svg><use href="#i-doc"/></svg>Invoice</button>`:""}${canCancel?`<button class="btn danger" id="dCancel">Cancel order</button>`:cancellable?`<button class="btn danger" ${gate("orders")}>Cancel order</button>`:""}<span style="flex:1"></span><button class="btn" id="dClose">Close</button></div>`);
   $("#dClose").onclick=closeDrawer;
   $("#dToPay")&&($("#dToPay").onclick=closeDrawer);
+  if(canMove&&can("orders"))wireReschedule(o,bk);
   if(canPay&&$("#dPaid"))$("#dPaid").onclick=async()=>{const m=$("#payM").value;$("#dPaid").disabled=true;try{await A.markPaid(o,m);toast(`${o.ref} marked paid · ${PAYM[m]}`);render();openOrder(o.ref)}catch(e){toast(e.message);$("#dPaid").disabled=false}};
   $("#dInv")&&($("#dInv").onclick=()=>openInvoice(o));
   if(canAssign){if(focusAssign)setTimeout(()=>$("#dSel").focus(),300);$("#dAssign").onclick=async()=>{const v=$("#dSel").value;if(!v){toast("Choose a driver first");return}
     try{await A.assign(o,v);toast(`${o.ref} assigned to ${S.drivers.find(d=>d.id===v).full_name}`);closeDrawer();render()}catch(e){toast(e.message)}}}
   if(canCancel){const b=$("#dCancel");let armed=false;b.onclick=async()=>{if(!armed){armed=true;b.textContent="Tap again to cancel";b.classList.add("pri");setTimeout(()=>{armed=false;b.textContent="Cancel order";b.classList.remove("pri")},3000);return}
     try{await A.cancel(o);toast(o.ref+" cancelled");closeDrawer();render()}catch(e){toast(e.message)}}}
+}
+/* reschedule: next-free hint from the bookings already in the calendar */
+function nextFree(mid,dur,from,orderUuid){const bs=S.bookings.filter(b=>b.machine_id===mid&&b.status!=="released"&&b.order_uuid!==orderUuid).sort((a,b)=>a.starts_at-b.starts_at);
+  let t=Math.ceil(Math.max(from,Date.now())/(15*60e3))*15*60e3;for(let i=0;i<200;i++){const c=bs.find(b=>b.starts_at<t+dur&&b.ends_at>t);if(!c)return t;t=Math.ceil(c.ends_at/(15*60e3))*15*60e3}return t}
+function wireReschedule(o,bk){
+  const b0=bk.slice().sort((a,b)=>a.starts_at-b.starts_at)[0],m=S.machines.find(x=>x.id===b0.machine_id),dur=b0.ends_at-b0.starts_at,mName=m?m.name:"The machine";
+  const hint=()=>{const t=+new Date($("#rsAt").value),use=$("#rsUse");use.hidden=true;$("#rsErr").textContent="";
+    if(!t){$("#rsHint").textContent="Pick a date and time.";return}
+    if(t===o.startsAt){const nf=nextFree(b0.machine_id,dur,Date.now(),o.uuid);$("#rsHint").textContent=`Booked now: ${fmtStart(o.startsAt)}. Next free slot for ${mName}: ${fmtStart(nf)}.`;return}
+    if(t<Date.now()){$("#rsHint").textContent="That time has passed.";return}
+    const clash=S.bookings.find(b=>b.machine_id===b0.machine_id&&b.status!=="released"&&b.order_uuid!==o.uuid&&b.starts_at<t+dur&&b.ends_at>t);
+    if(!clash){$("#rsHint").innerHTML=`<span style="color:var(--ok)">●</span> ${esc(mName)} is free ${esc(fmtStart(t))} → ${esc(hhmm(t+dur))}${dur>=DAY?" ("+Math.round(dur/DAY)+" days)":""}.`;return}
+    const co=orderBy(clash.order_uuid),nf=nextFree(b0.machine_id,dur,t,o.uuid);
+    $("#rsHint").innerHTML=`<span style="color:var(--busy)">●</span> Busy then (${esc(co?co.ref:clash.note||"blocked")} until ${esc(fmtStart(clash.ends_at))}). Next free: <b>${esc(fmtStart(nf))}</b>`;
+    use.hidden=false;use.onclick=()=>{$("#rsAt").value=dtl(nf);hint()}};
+  $("#rsAt").addEventListener("input",hint);hint();
+  $("#rsGo").onclick=async()=>{const t=+new Date($("#rsAt").value);if(!t){$("#rsErr").textContent="Pick a date and time.";return}if(t===o.startsAt){$("#rsErr").textContent="That's the current start time.";return}
+    const b=$("#rsGo");b.disabled=true;b.textContent="Moving…";
+    try{await A.reschedule(o,t);toast(`${o.ref} moved to ${fmtStart(t)}`);render();openOrder(o.ref)}catch(e){$("#rsErr").textContent=e.message||String(e);b.disabled=false;b.textContent="Reschedule"}};
 }
 const invSrc=o=>({ref:o.ref,invoiceNo:o.invoiceNo,lines:o.lines,total:o.total,gst:o.gst,customer:o.customer,phone:o.phone,site:o.site,doneAt:o.completedAt||(o.events&&o.events.completed)||o.created_at,paymentStatus:o.payStatus,paymentMethod:o.payStatus==="paid"&&o.paidWith&&o.paidWith!=="cash"?o.paidWith:o.payMethod});
 function openInvoice(o){
@@ -1199,7 +1509,7 @@ function newOrder(prefill){
     if(!f.items.length){err.textContent="Pick at least one item.";return}
     if(f.items.some(i=>!(+i.qty>0))){err.textContent="Every quantity must be above zero.";return}
     const b=$("#noGo");b.disabled=true;b.textContent="Creating…";
-    try{const ref=await A.createOrder(f);toast(`${ref||"Order"} created · waiting for a driver`);orderFilter="all";if(page!=="orders")location.hash="orders";else render();if(ref)setTimeout(()=>openOrder(ref),page==="orders"?0:80);else closeDrawer()}
+    try{const ref=await A.createOrder(f);trk("counter_order_created",{kind:f.kind,items:f.items.length,payment:f.payment});toast(`${ref||"Order"} created · waiting for a driver`);orderFilter="all";if(page!=="orders")location.hash="orders";else render();if(ref)setTimeout(()=>openOrder(ref),page==="orders"?0:80);else closeDrawer()}
     catch(x){err.textContent=x.message||String(x);b.disabled=false;b.textContent="Create order"}});
   drawNO();
 }
@@ -1231,13 +1541,26 @@ function noTotals(row){
 }
 
 /* ═════════════ Drivers ═════════════ */
+/* ratings */
+const starsHtml=v=>`<span class="stars" style="--v:${Math.max(0,Math.min(100,v/5*100)).toFixed(1)}%" aria-hidden="true"></span>`;
+function drvRatings(id){const rs=S.ratings.filter(x=>x.driver_id===id);return{list:rs,n:rs.length,avg:rs.length?rs.reduce((s,x)=>s+x.stars,0)/rs.length:null}}
+const lowRatings=()=>S.ratings.filter(x=>x.stars<=2&&x.created_at>Date.now()-7*DAY);
 function vDrivers(){
   const t0=sod(now),active=S.orders.filter(o=>ACTIVE.includes(o.status));
-  return `<div class="dgrid">${S.drivers.map(d=>{const today=S.orders.filter(o=>o.driver_id===d.id&&o.status==="completed"&&(o.events.completed||0)>=t0),j=active.find(o=>o.driver_id===d.id);
+  return `<div class="dgrid">${S.drivers.map(d=>{const today=S.orders.filter(o=>o.driver_id===d.id&&o.status==="completed"&&(o.events.completed||0)>=t0),j=active.find(o=>o.driver_id===d.id),R=drvRatings(d.id),avg=R.avg!=null?R.avg:(d.rating!=null?+d.rating:null),lowN=R.list.filter(x=>x.stars<=2&&x.created_at>Date.now()-30*DAY).length;
     return `<div class="card dcard"><div class="top"><span class="av ${d.is_online?"on":""}">${ini(d.full_name)}</span><div style="min-width:0;flex:1"><b style="font-weight:600">${esc(d.full_name)}</b><div class="mono">${esc(d.unit_code||"No vehicle")} · ${esc(d.unit_name||"")}</div></div>${j?`<span class="pill p-${j.status}">${STATUS[j.status]}</span>`:d.is_online?`<span class="pill p-completed">Free</span>`:`<span class="pill p-cancelled">Offline</span>`}</div>
-      <div class="stats"><div><span>Today</span><b>${today.length}</b></div><div><span>Earned</span><b>${kfmt(today.reduce((s,o)=>s+(o.earning||0),0))}</b></div><div><span>Rating</span><b>${(+d.rating||5).toFixed(1)}</b></div></div>
-      <div class="wa-row">${j?`<button class="btn sm" data-order="${j.ref}">Current job · ${j.ref}</button>`:`<span class="hint">${esc(d.email||"")}</span>`}<span style="flex:1"></span>${waBtn(d.phone,j?`${first(d.full_name)}, about ${j.ref} at ${j.site}: `:`Hi ${first(d.full_name)}, this is the YD Works counter: `,"WhatsApp","driver_card")}</div></div>`}).join("")}</div>
-  <div class="grid g-main">
+      <div class="rate-row" data-rate="${esc(d.id)}">${avg!=null?`${starsHtml(avg)}<b>${avg.toFixed(1)}</b><span>${R.n?`${R.n} rating${R.n>1?"s":""}`:"no app ratings yet"}</span>`:`<span>No ratings yet</span>`}${lowN?tone(lowN+" low","crit"):""}</div>
+      <div class="stats"><div><span>Today</span><b>${today.length}</b></div><div><span>Earned</span><b>${kfmt(today.reduce((s,o)=>s+(o.earning||0),0))}</b></div><div><span>Rating</span><b>${avg!=null?avg.toFixed(1):"—"}</b></div></div>
+      <div class="wa-row">${j?`<button class="btn sm" data-order="${j.ref}">Current job · ${j.ref}</button>`:""}<button class="btn sm" data-drv="${esc(d.id)}"><svg><use href="#i-star"/></svg>Ratings</button><span style="flex:1"></span>${waBtn(d.phone,j?`${first(d.full_name)}, about ${j.ref} at ${j.site}: `:`Hi ${first(d.full_name)}, this is the YD Works counter: `,"WhatsApp","driver_card")}</div></div>`}).join("")||`<div class="card empty">No drivers yet.</div>`}</div>
+  ${can("team")?vTeam():`<p class="hint">Drivers and staff are added by managers under Drivers → Team.</p>`}`;
+}
+let teamPick="dispatcher";
+function vTeam(){
+  const staff=S.staff.slice().sort((a,b)=>STAFF.indexOf(a.role)-STAFF.indexOf(b.role)||String(a.full_name).localeCompare(b.full_name));
+  const nMgr=staff.filter(x=>x.role==="admin").length;
+  return `<div class="grid g-main">
+    <div class="card" id="teamCard"><div class="card-h"><div><h2>Team</h2><div class="sub">Everyone who can sign in to this console. ${nMgr} manager${nMgr===1?"":"s"} · ${staff.length} staff</div></div></div>
+      <div>${staff.map(x=>`<div class="team-row"><span class="av">${ini(x.full_name||x.email)}</span><div class="tx"><b>${esc(x.full_name||"—")}${x.me?` <small class="muted" style="font-weight:400">(you)</small>`:""}</b><span>${esc(x.email||"")}</span></div>${rolePill(x.role)}<button class="btn sm" data-team="${esc(x.email||"")}" data-role="${esc(x.role)}" aria-label="Change access for ${esc(x.full_name||x.email)}">Change</button></div>`).join("")||`<div class="empty">No staff yet.</div>`}</div></div>
     <div class="card"><div class="card-h"><div><h2>Add a driver</h2><div class="sub">They sign up in the YD Works app first, then you turn the account into a driver account here.</div></div></div>
       <form class="card-b form-grid" id="addDrv" novalidate>
         <div class="field full"><label for="aEm">Their account email</label><input class="inp" id="aEm" type="email" placeholder="driver@example.com"></div>
@@ -1245,20 +1568,48 @@ function vDrivers(){
         <div class="field"><label for="aName">Vehicle</label><input class="inp" id="aName" placeholder="Tipper 10m³"></div>
         <div class="full row-flex"><span class="hint" id="aErr"></span><button class="btn pri" type="submit"><svg><use href="#i-plus"/></svg>Make driver</button></div>
       </form></div>
-    <div class="card"><div class="card-h"><div><h2>Team access</h2><div class="sub">Admins can use this console. Remove access by setting the account back to customer.</div></div></div>
-      <form class="card-b" id="teamForm" novalidate style="display:flex;flex-direction:column;gap:12px">
-        <div class="field"><label for="tEm">Account email</label><input class="inp" id="tEm" type="email" placeholder="staff@yd-mv.com"></div>
-        <div class="field"><label for="tRole">Access</label><select class="inp" id="tRole"><option value="admin">Admin (console access)</option><option value="driver">Driver</option><option value="customer">Customer (no staff access)</option></select></div>
-        <div class="row-flex"><span class="hint" id="tErr">${(S.admins||[]).length?`${S.admins.length} admin${S.admins.length>1?"s":""}`:""}</span><button class="btn" type="submit">Update access</button></div>
-      </form></div>
-  </div>`;
+  </div>
+  <div class="card"><div class="card-h"><div><h2>Add or change access</h2><div class="sub">The person signs up in the YD Works app first. Changes apply the next time they open the console or app.</div></div></div>
+    <form class="card-b stack" id="teamForm" novalidate style="gap:14px">
+      <div class="field" style="max-width:420px"><label for="tEm">Account email</label><input class="inp" id="tEm" type="email" placeholder="staff@yd-mv.com" autocomplete="off"></div>
+      <fieldset style="border:0;margin:0;padding:0"><legend class="lbl" style="margin-bottom:8px">Access</legend><div class="rolepick">${["admin","dispatcher","counter","accounts","driver","customer"].map(r=>`<label class="ropt"><input type="radio" name="tRole" value="${r}" ${teamPick===r?"checked":""}><b>${esc(ROLES[r][0])}</b><span>${esc(ROLES[r][1])}</span></label>`).join("")}</div></fieldset>
+      <div class="row-flex" style="flex-wrap:wrap"><span class="hint" id="tErr"></span><button class="btn pri" type="submit" id="tGo">Update access</button></div>
+    </form></div>`;
 }
 function wDrivers(){
   $$("[data-order]").forEach(b=>b.onclick=()=>openOrder(b.dataset.order));
+  $$("[data-drv]").forEach(b=>b.onclick=()=>openDriver(b.dataset.drv));
+  if(!can("team"))return;
   $("#addDrv").addEventListener("submit",async e=>{e.preventDefault();const em=$("#aEm").value.trim();if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){$("#aErr").textContent="Enter the email they signed up with.";return}
     try{await A.role(em,"driver",$("#aCode").value.trim(),$("#aName").value.trim());toast(em+" is now a driver");render()}catch(x){$("#aErr").textContent=x.message}});
-  $("#teamForm").addEventListener("submit",async e=>{e.preventDefault();const em=$("#tEm").value.trim();if(!em){$("#tErr").textContent="Enter an email.";return}
-    try{await A.role(em,$("#tRole").value);toast("Access updated for "+em);render()}catch(x){$("#tErr").textContent=x.message}});
+  $$("[data-team]").forEach(b=>b.onclick=()=>{$("#tEm").value=b.dataset.team;const r=$(`#teamForm input[value="${b.dataset.role}"]`);if(r)r.checked=true;$("#teamForm").scrollIntoView({behavior:"smooth",block:"center"});setTimeout(()=>$("#tEm").focus({preventScroll:true}),300)});
+  $$("#teamForm [name=tRole]").forEach(i=>i.onchange=()=>teamPick=i.value);
+  $("#teamForm").addEventListener("submit",async e=>{e.preventDefault();const em=$("#tEm").value.trim(),r=($("#teamForm [name=tRole]:checked")||{}).value,err=$("#tErr");err.style.color="var(--crit)";
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){err.textContent="Enter the email they signed in or signed up with.";$("#tEm").focus();return}
+    if(!r){err.textContent="Choose the access to give.";return}
+    const b=$("#tGo");b.disabled=true;
+    try{await A.role(em,r);toast(`${em} · ${ROLES[r][0]}`);render()}catch(x){err.textContent=x.message;b.disabled=false}});
+}
+function openDriver(id){
+  const d=S.drivers.find(x=>String(x.id)===String(id));if(!d)return;
+  const R=drvRatings(d.id),avg=R.avg!=null?R.avg:(d.rating!=null?+d.rating:null),list=R.list.slice().sort((a,b)=>b.created_at-a.created_at);
+  const jobs=S.orders.filter(o=>o.driver_id===d.id&&o.status==="completed"),j=S.orders.find(o=>o.driver_id===d.id&&ACTIVE.includes(o.status));
+  const dist=[5,4,3,2,1].map(s=>[s,list.filter(x=>x.stars===s).length]),dmax=Math.max(1,...dist.map(x=>x[1]));
+  openDrawer(`<div class="dh"><div class="item"><span class="av ${d.is_online?"on":""}" style="width:52px;height:52px;font-size:16px">${ini(d.full_name)}</span><div style="min-width:0">${j?`<span class="pill p-${j.status}">${STATUS[j.status]}</span>`:d.is_online?`<span class="pill p-completed">Free</span>`:`<span class="pill p-cancelled">Offline</span>`}<h2 id="dTitle" style="margin-top:6px">${esc(d.full_name)}</h2><div class="mono">${esc(d.unit_code||"No vehicle")} · ${esc(d.unit_name||"")}</div></div></div>${xBtn}</div>
+  <div class="db">
+    <div class="grid g-3" style="gap:10px">
+      <div class="box"><div class="lbl">Average</div><div style="font:600 24px var(--display);margin:4px 0 6px;font-variant-numeric:tabular-nums">${avg!=null?avg.toFixed(1):"—"}<small style="font:500 12px var(--mono);color:var(--mute)"> / 5</small></div>${avg!=null?starsHtml(avg):""}</div>
+      <div class="box"><div class="lbl">Ratings</div><div style="font:600 24px var(--display);margin-top:4px">${R.n}</div><div class="hint">${list.filter(x=>x.stars<=2).length} low (1–2★)</div></div>
+      <div class="box"><div class="lbl">Jobs done</div><div style="font:600 24px var(--display);margin-top:4px">${jobs.length}</div><div class="hint">${R.n&&jobs.length?Math.round(R.n/jobs.length*100)+"% rated":"in the history shown"}</div></div>
+    </div>
+    ${R.n?`<div><div class="sec-t">Breakdown</div><div class="dist">${dist.map(([s,n])=>`<span>${s}★</span><span><i style="width:${(n/dmax*100).toFixed(1)}%"></i></span><span style="text-align:right">${n}</span>`).join("")}</div></div>`:""}
+    <div><div class="sec-t"><span>Recent ratings</span><span>${Math.min(12,list.length)} of ${list.length}</span></div><div class="stack">${list.length?list.slice(0,12).map(x=>{const o=orderBy(x.order_id);return `<div class="rv ${x.stars<=2?"low":""}"><div class="row-flex">${starsHtml(x.stars)}<span class="mono">${dlong(x.created_at)}</span></div>
+      ${x.comment?`<p>“${esc(x.comment)}”</p>`:`<span class="hint">No comment</span>`}
+      <div class="row-flex"><span class="hint">${esc(o?o.customer:"")}${o?" · "+esc(o.title):""}</span>${o?`<button class="btn sm" data-o2="${esc(o.ref)}">${esc(o.ref)}</button>`:""}</div></div>`}).join(""):`<div class="hint">Customers rate the driver in the app after delivery. None yet.</div>`}</div></div>
+  </div>
+  <div class="df">${waBtn(d.phone,`Hi ${first(d.full_name)}, this is the YD Works counter: `,"WhatsApp driver","driver_drawer",'style="padding:9px 14px;font-size:13.5px"')}<span style="flex:1"></span><button class="btn" id="drvClose">Close</button></div>`);
+  $("#drvClose").onclick=closeDrawer;
+  $$("[data-o2]").forEach(b=>b.onclick=()=>openOrder(b.dataset.o2));
 }
 
 /* ═════════════ Leads ═════════════ */
@@ -1427,7 +1778,7 @@ function vPayments(){
         <div><div style="font:600 22px var(--display);letter-spacing:-.03em;font-variant-numeric:tabular-nums">${mvr(p.amount)}</div><div class="hint">${esc(o.customer||"")} · ${esc(o.phone||"")}</div></div>
         <dl class="kv" style="grid-template-columns:74px minmax(0,1fr);font-size:12.5px;gap:4px 10px"><dt>Reference</dt><dd style="font-family:var(--mono)">${esc(p.provider_ref||"—")}</dd><dt>Sent</dt><dd>${ago(p.created_at)}</dd><dt>Order total</dt><dd>${mvr(o.total||0)}${o.total&&Math.abs(o.total-p.amount)>.5?` ${tone("Differs","crit")}`:""}</dd></dl>
         <input class="inp" data-note placeholder="Note (required to reject)" aria-label="Review note for ${esc(o.ref||"")}" style="padding:7px 10px;font-size:13px">
-        <div class="acts"><button class="btn sm pri" data-ok>Approve</button><button class="btn sm danger" data-no>Reject</button>${o.ref?`<button class="btn sm" data-o="${o.ref}">Order</button>`:""}${waBtn(o.phone,`Hi ${first(o.customer)}, this is YD Works about your bank transfer for ${o.ref} (${mvr(p.amount)}). We couldn't match it yet. Could you send the transfer reference or a clearer photo of the slip? `,"WhatsApp customer","payment_slip")}</div>
+        <div class="acts"><button class="btn sm pri" data-ok ${gate("payments")}>Approve</button><button class="btn sm danger" data-no ${gate("payments")}>Reject</button>${o.ref?`<button class="btn sm" data-o="${o.ref}">Order</button>`:""}${waBtn(o.phone,`Hi ${first(o.customer)}, this is YD Works about your bank transfer for ${o.ref} (${mvr(p.amount)}). We couldn't match it yet. Could you send the transfer reference or a clearer photo of the slip? `,"WhatsApp customer","payment_slip")}</div>
       </div></div>`}).join("")}</div>`:`<div class="empty">No slips waiting. New ones appear here (and in the bell) the moment a customer uploads one.</div>`}</div></div>
   <div class="card"><div class="card-h"><div><h2>Recent payments</h2><div class="sub">Cash collected on delivery, counter payments, card and approved transfers</div></div>
     <div class="row-flex" style="gap:10px;flex-wrap:wrap"><div class="chips" id="payChips">${[["all","All"],["paid","Paid"],["pending","Checking"],["rejected","Rejected"]].map(([k,l])=>`<button class="chip" data-k="${k}" aria-pressed="${payFilter===k}">${l}<b>${cnt(k)}</b></button>`).join("")}</div>
@@ -1445,7 +1796,7 @@ function wPayments(){
   $$("[data-pay]").forEach(card=>{const p=S.payments.find(x=>String(x.id)===card.dataset.pay),note=card.querySelector("[data-note]");
     const go=async ok=>{if(!ok&&!note.value.trim()){note.focus();toast("Add a short note so the customer knows why");return}
       card.querySelectorAll("button").forEach(b=>b.disabled=true);
-      try{await A.reviewPayment(p,ok,note.value.trim());const o=orderBy(p.order_uuid);toast(ok?`Approved · ${o?o.ref:""} is paid`:`Rejected · ${o?o.customer:"customer"} will be told`);render()}catch(e){toast(e.message);card.querySelectorAll("button").forEach(b=>b.disabled=false)}};
+      try{await A.reviewPayment(p,ok,note.value.trim());trk("payment_reviewed",{approved:ok});const o=orderBy(p.order_uuid);toast(ok?`Approved · ${o?o.ref:""} is paid`:`Rejected · ${o?o.customer:"customer"} will be told`);render()}catch(e){toast(e.message);card.querySelectorAll("button").forEach(b=>b.disabled=false)}};
     card.querySelector("[data-ok]").onclick=()=>go(true);card.querySelector("[data-no]").onclick=()=>go(false)});
   if(LIVE)$$("[data-slip]").forEach(async box=>{const p=S.payments.find(x=>String(x.id)===box.dataset.slip);if(!p||!p.slip_path){box.innerHTML="<span>No slip file</span>";return}
     try{const url=slipCache[p.slip_path]||(slipCache[p.slip_path]=await YDB.signedUrl("slips",p.slip_path));
@@ -1474,7 +1825,7 @@ function vCalendar(){
   </section>
   <div class="card"><div class="card-h"><div><h2>Machines · next 14 days</h2><div class="sub">A machine can never be double-booked. Click a booking to open its order.</div></div>
     <div class="row-flex" style="gap:14px;flex-wrap:wrap"><div class="key"><span><i style="--c:var(--busy)"></i>Held</span><span><i style="--c:var(--brand)"></i>Confirmed</span><span><i style="--c:var(--ok)"></i>Completed</span><span><i style="--c:var(--mute);background:repeating-linear-gradient(135deg,color-mix(in srgb,var(--mute) 25%,var(--surface)) 0 3px,var(--surface) 3px 6px)"></i>Blocked</span><span><i style="background:var(--crit);box-shadow:none;width:2px;border-radius:0"></i>Now</span></div>
-    <button class="btn pri sm" id="blockBtn"><svg><use href="#i-wrench"/></svg>Block time</button></div></div>
+    <button class="btn pri sm" id="blockBtn" ${gate("fleet")}><svg><use href="#i-wrench"/></svg>Block time</button></div></div>
     <div class="cal" id="cal"><div class="cal-in">
       <div class="cal-row cal-head"><div class="cal-l">Machine</div><div class="cal-t">${days.map((d,i)=>{const dt=new Date(d);return `<div class="${i===0?"today":""} ${[5,6].includes(dt.getDay())?"wk":""}">${i===0?"Today":dt.toLocaleDateString("en-GB",{weekday:"short"})}<b>${dt.getDate()} ${dt.toLocaleDateString("en-GB",{month:"short"})}</b></div>`}).join("")}</div></div>
       ${rows}
@@ -1495,7 +1846,7 @@ function openBlock(b){
       <div class="field"><label for="bkN">Reason</label><input class="inp" id="bkN" value="${esc(b?b.note:"")}" placeholder="e.g. 500 h service" ${b?"disabled":""}></div>
       <p class="hint" id="bkErr" role="alert" style="color:var(--crit)"></p>
     </form>
-    <div class="df">${b?`<button class="btn danger" id="bkDel">Remove block</button>`:`<button class="btn pri" id="bkGo" type="submit" form="blkF">Block time</button>`}<span style="flex:1"></span><button class="btn" id="bkC" type="button">Close</button></div>`);
+    <div class="df">${b?`<button class="btn danger" id="bkDel" ${gate("fleet")}>Remove block</button>`:`<button class="btn pri" id="bkGo" type="submit" form="blkF">Block time</button>`}<span style="flex:1"></span><button class="btn" id="bkC" type="button">Close</button></div>`);
   $("#bkC").onclick=closeDrawer;
   if(b){$("#bkDel").onclick=async()=>{try{await A.releaseBlock(b);toast("Block removed");closeDrawer();render()}catch(e){$("#bkErr").textContent=e.message}};return}
   $("#blkF").onsubmit=async e=>{e.preventDefault();const s=+new Date($("#bkS").value),en=+new Date($("#bkE").value);if(!s||!en){$("#bkErr").textContent="Pick a start and an end.";return}
@@ -1569,7 +1920,7 @@ function openQuote(q){
     $("#qbSent").onclick=async()=>{if(await persist("sent","% marked as sent")){render();openQuote(QB)}};
     $("#qbConv").onclick=async()=>{const b=$("#qbConv");if(!b.dataset.armed){b.dataset.armed=1;b.textContent="Tap again to create the order";setTimeout(()=>{if(b.isConnected){delete b.dataset.armed;b.textContent="Convert to order"}},3500);return}
       b.disabled=true;const q=await persist(null);if(!q){b.disabled=false;return}
-      try{const ref=await A.convertQuote(S.quotes.find(x=>x.id===q.id)||q);toast(`${q.ref} converted · order ${ref||""} created`);render();if(ref)openOrder(ref);else closeDrawer()}catch(e){$("#qbErr").textContent=e.message;b.disabled=false}};
+      try{const ref=await A.convertQuote(S.quotes.find(x=>x.id===q.id)||q);trk("quote_converted",{kind:q.kind});toast(`${q.ref} converted · order ${ref||""} created`);render();if(ref)openOrder(ref);else closeDrawer()}catch(e){$("#qbErr").textContent=e.message;b.disabled=false}};
   }
   $("#qbPdf").onclick=async()=>{if(!locked)syncQB();if(!window.YDDOCS){toast("The documents module didn't load");return}
     const q=Object.assign({},QB,{ref:QB.ref||"QT-DRAFT",created_at:QB.created_at||Date.now(),notes:[QB.notes,`Prices include GST ${Math.round(gstRate()*1000)/10}%.`].filter(Boolean).join(" ")});
@@ -1721,7 +2072,7 @@ function vHealth(){
     <div class="card kpi"><div class="l">Checks today</div><div class="v">${new Set(S.inspections.filter(i=>i.created_at>=sod(Date.now())).map(i=>i.machine_id)).size}<small>/ ${S.machines.filter(m=>S.drivers.some(d=>d.unit_code===m.code)).length}</small></div><div class="d">driven machines</div></div>
   </section>
   <div class="card"><div class="card-h"><div><h2>Open defects</h2><div class="sub">From the drivers' daily checklist. Cleared when the next check passes clean.</div></div></div>
-    ${defs.length?defs.map(({m,i})=>`<div class="hrow-def"><span class="item"><span class="th">${thumb(m.id,m.name)}</span></span><div class="tx"><b>${esc(m.code)} · ${esc(m.name)} ${i.passed?tone("Noted","warn"):tone("Failed","crit")}</b><span>${esc(i.defects||"Checklist item failed")} · ${esc(drvName(i.driver_id))} · ${ago(i.created_at)}</span></div><button class="btn sm" data-mkm="${m.id}" data-t="${esc(String(i.defects||"Fix reported defect").slice(0,80))}">Create task</button></div>`).join(""):`<div class="empty">No open defects. Every machine passed its last check.</div>`}</div>
+    ${defs.length?defs.map(({m,i})=>`<div class="hrow-def"><span class="item"><span class="th">${thumb(m.id,m.name)}</span></span><div class="tx"><b>${esc(m.code)} · ${esc(m.name)} ${i.passed?tone("Noted","warn"):tone("Failed","crit")}</b><span>${esc(i.defects||"Checklist item failed")} · ${esc(drvName(i.driver_id))} · ${ago(i.created_at)}</span></div><button class="btn sm" data-mkm="${m.id}" data-t="${esc(String(i.defects||"Fix reported defect").slice(0,80))}" ${gate("fleet")}>Create task</button></div>`).join(""):`<div class="empty">No open defects. Every machine passed its last check.</div>`}</div>
   <div class="card"><div class="card-h"><div><h2>Machines</h2><div class="sub">Hours, last check, fuel and maintenance per machine</div></div></div>
     <div class="tw"><table class="t" style="min-width:900px"><thead><tr><th>Machine</th><th class="num">Hours</th><th>Last check</th><th class="num">Fuel this month</th><th>Maintenance</th><th></th></tr></thead><tbody>
     ${S.machines.map(m=>{const i=S.inspections.filter(x=>x.machine_id===m.id).sort((a,b)=>b.created_at-a.created_at)[0],f=fuelM.filter(x=>x.machine_id===m.id),mo=open.filter(x=>x.machine_id===m.id);
@@ -1744,10 +2095,10 @@ function openMachine(id,prefill){
   const mt=S.maintenance.filter(x=>x.machine_id===id).sort((a,b)=>(a.status==="done")-(b.status==="done")||(pdate(a.due_date)||9e15)-(pdate(b.due_date)||9e15));
   openDrawer(`<div class="dh"><div class="item"><span class="th" style="width:56px;height:56px;border-radius:14px">${thumb(m.id,m.name)}</span><div><span class="mono">${esc(m.code)}</span><h2 id="dTitle" style="margin-top:2px">${esc(m.name)}</h2></div></div>${xBtn}</div>
   <div class="db">
-    <div class="box row-flex" style="flex-wrap:wrap"><div><div class="lbl">Hours meter</div><div class="hint">Update after a service or when the driver reports it.</div></div><div class="row-flex" style="gap:8px"><input class="inp num" id="hmV" value="${m.hours_meter||0}" inputmode="decimal" aria-label="Hours meter"><button class="btn sm" id="hmS">Save</button></div></div>
+    <div class="box row-flex" style="flex-wrap:wrap"><div><div class="lbl">Hours meter</div><div class="hint">Update after a service or when the driver reports it.</div></div><div class="row-flex" style="gap:8px"><input class="inp num" id="hmV" value="${m.hours_meter||0}" inputmode="decimal" aria-label="Hours meter" ${can("catalog")?"":"disabled"}><button class="btn sm" id="hmS" ${gate("catalog")}>Save</button></div></div>
     <div><div class="sec-t">Maintenance</div><div class="stack">${mt.length?mt.map(x=>{const t=maintDue(x,m);return `<div class="box row-flex" style="padding:10px 12px"><div style="min-width:0"><b style="font-weight:600">${esc(x.title)}</b><div class="hint">${x.status==="done"?"Done "+(x.done_at?dmy(x.done_at):""):[x.due_date?"Due "+dlong(pdate(x.due_date)):"",x.due_hours!=null?"at "+x.due_hours+" h":""].filter(Boolean).join(" · ")||"No due date"}</div></div>
-      ${x.status==="done"?tone("Done","ok"):`<span class="row-flex" style="gap:8px">${tone(t==="crit"?"Overdue":t==="warn"?"Due soon":"Planned",t)}<button class="btn sm" data-done="${esc(x.id)}">Mark done</button></span>`}</div>`}).join(""):`<div class="hint">No maintenance recorded.</div>`}</div></div>
-    <form class="box stack" id="mtF" novalidate><div class="lbl">Add maintenance item</div>
+      ${x.status==="done"?tone("Done","ok"):`<span class="row-flex" style="gap:8px">${tone(t==="crit"?"Overdue":t==="warn"?"Due soon":"Planned",t)}<button class="btn sm" data-done="${esc(x.id)}" ${gate("fleet")}>Mark done</button></span>`}</div>`}).join(""):`<div class="hint">No maintenance recorded.</div>`}</div></div>
+    <form class="box stack" id="mtF" novalidate ${can("fleet")?"":"hidden"}><div class="lbl">Add maintenance item</div>
       <input class="inp" id="mtT" placeholder="e.g. 500 h service, replace tyres" value="${esc(prefill||"")}" aria-label="Maintenance title">
       <div class="form-grid"><div class="field"><label for="mtD">Due date</label><input class="inp" type="date" id="mtD"></div><div class="field"><label for="mtH">Or due at hours</label><input class="inp" id="mtH" inputmode="decimal" placeholder="${Math.ceil(((+m.hours_meter||0)+50)/50)*50}"></div></div>
       <div class="row-flex"><span class="hint" id="mtErr"></span><button class="btn pri sm" type="submit">Add item</button></div></form>
@@ -1853,24 +2204,215 @@ function wReports(){
   $("#csvD")&&($("#csvD").onclick=()=>exportCSV(`ydworks-drivers-${tag}.csv`,[["Driver","Jobs","Earnings (MVR)","Avg job (min)","Rating"],...D.drv.map(d=>[d.name,d.jobs,d.earned,d.avg_minutes??"",d.rating??""])]));
 }
 
+/* ═════════════ Activity log (audit_log) ═════════════ */
+const AREA={orders:"orders",payments:"payments",machines:"catalog",materials:"catalog",app_settings:"settings",profiles:"team",quotes:"quotes",projects:"projects",project_milestones:"projects",machine_bookings:"bookings"};
+const AREA_L={orders:"Orders",payments:"Payments",catalog:"Catalog",settings:"Settings",team:"Team",quotes:"Quotes",projects:"Projects",bookings:"Bookings"};
+const ENT_L={orders:"Order",payments:"Payment",machines:"Machine",materials:"Material",app_settings:"Setting",profiles:"Person",quotes:"Quote",projects:"Project",machine_bookings:"Booking"};
+const SET_L={pricing:"Pricing rules",contact:"Contact & hours",announcement:"Announcement banner",ordering:"Ordering",payments:"Payment settings",channels:"Messaging channels",maps:"Map"};
+const HIDE_K=new Set(["id","driver_id","verified_by","actor_id","updated_at","created_at","customer_id","created_by","sort"]);
+let actF={who:"all",area:"all",from:"",to:"",q:""},actShown=100;
+function actLabel(e){const c=e.changes||{},to=k=>c[k]&&c[k].to,en=e.entity,op=e.action;
+  if(en==="orders"){if(to("status")==="cancelled")return"Cancelled order";if(c.driver_name)return c.status?"Assigned driver":"Reassigned driver";if(to("payment_status")==="paid")return"Marked paid";if(c.starts_at)return"Rescheduled";if(c.status)return"Changed status";return op==="insert"?"Created order":"Updated order"}
+  if(en==="payments"){if(to("status")==="paid")return"Approved payment";if(to("status")==="rejected")return"Rejected payment";return"Updated payment"}
+  if(en==="machines"||en==="materials"){if(op==="insert")return"Added item";if(op==="delete")return"Removed item";if(Object.keys(c).some(k=>/^(price|rate_)/.test(k)))return"Changed price";if(c.stock_qty||c.low_stock_at)return"Updated stock";if(c.active)return to("active")?"Put on sale":"Took off sale";return"Updated item"}
+  if(en==="app_settings")return"Changed settings";
+  if(en==="profiles")return c.role?"Changed role":"Updated person";
+  if(en==="quotes"){if(op==="insert")return"Created quote";if(op==="delete")return"Deleted quote";if(to("status")==="converted")return"Converted quote";if(to("status")==="sent")return"Sent quote";return"Updated quote"}
+  if(en==="projects")return op==="insert"?"Created project":op==="delete"?"Deleted project":"Updated project";
+  if(en==="machine_bookings"){if(op==="insert")return to("status")==="blocked"?"Blocked time":"Booked machine";if(to("status")==="released")return"Released booking";if(c.starts_at)return"Moved booking";return op==="delete"?"Deleted booking":"Updated booking"}
+  return op==="insert"?"Created":op==="delete"?"Deleted":"Updated"}
+function actWhat(e){ // a readable reference for the changed row
+  let ref=String(e.entity_id||""),sum=e.summary||"";const c=e.changes||{};
+  if(e.entity==="payments"){const p=S.payments.find(x=>String(x.id)===ref),o=p&&orderBy(p.order_uuid);if(o){ref=o.ref;sum=sum||`${o.customer} · ${mvr(p.amount)}`}}
+  else if(e.entity==="machine_bookings"){const b=S.bookings.find(x=>String(x.id)===ref),mid=(b&&b.machine_id)||(c.machine_id||{}).to,m=S.machines.find(x=>x.id===mid),o=b&&orderBy(b.order_uuid);ref=o?o.ref:m?m.code:ref;sum=sum||(m?m.name:"")}
+  else if(e.entity==="machines"||e.entity==="materials"){const m=(e.entity==="machines"?S.machines:S.materials).find(x=>x.id===ref);ref=m&&m.code?m.code:"";sum=sum||(m?m.name:e.entity_id)}
+  else if(e.entity==="profiles"){const sf=S.staff.find(x=>String(x.id)===ref)||S.drivers.find(x=>String(x.id)===ref);ref="";sum=sum||(sf?sf.full_name:"")}
+  else if(e.entity==="app_settings"){sum=SET_L[ref]||ref;ref=""}
+  else if(e.entity==="projects"){const pj=S.projects.find(x=>String(x.id)===ref);ref="";sum=sum||(pj?pj.title:"")}
+  return{ref:/^[0-9a-f]{8}-[0-9a-f]{4}-/.test(ref)?ref.slice(0,8):ref,sum}}
+const isObj=v=>v&&typeof v==="object"&&!Array.isArray(v);
+function fmtVal(k,v){if(v==null||v==="")return"—";if(typeof v==="boolean")return v?"on":"off";
+  if(typeof v==="number")return /share|gst_rate/.test(k)&&v<1?Math.round(v*1000)/10+"%":v.toLocaleString("en-US");
+  if(typeof v==="string"&&/^\d{4}-\d\d-\d\dT\d\d:\d\d/.test(v)){const t=Date.parse(v);return isNaN(t)?v:dmy(t)+" "+hhmm(t)}
+  return typeof v==="string"?v:JSON.stringify(v)}
+function chgList(e){const out=[];Object.entries(e.changes||{}).forEach(([k,v])=>{if(HIDE_K.has(k)||!v||typeof v!=="object")return;const a=v.from,b=v.to;
+  if(isObj(a)&&isObj(b))new Set([...Object.keys(a),...Object.keys(b)]).forEach(sk=>{if(JSON.stringify(a[sk])!==JSON.stringify(b[sk]))out.push([e.entity==="app_settings"?sk:k+"."+sk,a[sk],b[sk]])});
+  else out.push([k,a,b])});return out}
+function chgHtml(e){const L=chgList(e);if(!L.length)return'<span class="muted">—</span>';
+  const cut=s=>s.length>60?s.slice(0,57)+"…":s;
+  const items=L.map(([k,a,b])=>{const fa=fmtVal(k,a),fb=fmtVal(k,b),long=fa.length>60||fb.length>60||isObj(a)||isObj(b);
+    return{long,h:`<div class="chg"><span class="k">${esc(k.replace(/_/g," "))}</span> ${a==null||a===""?"":`<s>${esc(cut(fa))}</s><span class="arr">→</span>`}<b>${esc(cut(fb))}</b></div>`}});
+  const rest=items.slice(3),anyLong=items.some(x=>x.long);
+  return items.slice(0,3).map(x=>x.h).join("")+(rest.length||anyLong?`<details class="more"><summary>${rest.length?`+ ${rest.length} more change${rest.length>1?"s":""}`:"Show full values"}</summary>${rest.map(x=>x.h).join("")}${anyLong?`<pre>${esc(JSON.stringify(e.changes,null,1))}</pre>`:""}</details>`:"")}
+function actList(){const q=actF.q.trim().toLowerCase(),f0=actF.from?pdate(actF.from):null,t0=actF.to?pdate(actF.to)+DAY:null;
+  return S.audit.filter(e=>(actF.who==="all"||e.actor_name===actF.who)&&(actF.area==="all"||AREA[e.entity]===actF.area)&&(!f0||e.at>=f0)&&(!t0||e.at<t0)
+    &&(!q||(()=>{const w=actWhat(e);return [e.actor_name,actLabel(e),roleName(e.actor_role||""),w.ref,w.sum,e.entity_id,JSON.stringify(e.changes)].some(x=>String(x||"").toLowerCase().includes(q))})()))}
+function vActivity(){
+  const list=actList(),people=[...new Set(S.audit.map(e=>e.actor_name).filter(Boolean))].sort(),filtered=actF.who!=="all"||actF.area!=="all"||actF.from||actF.to||actF.q;
+  return `${S.auditErr?`<div class="ann crit"><i></i><span>The activity log couldn't load: ${esc(S.auditErr)}</span></div>`:""}
+  <p class="hint">Every change staff make to orders, payments, prices and stock, settings, the team, quotes, projects and bookings. Recorded by the server; it can't be edited.</p>
+  <div class="card"><div class="card-h"><div class="filters" id="actF">
+      <label class="search"><svg><use href="#i-search"/></svg><input id="actQ" placeholder="Search activity…" value="${esc(actF.q)}" autocomplete="off" aria-label="Search activity"></label>
+      <select class="inp" id="actWho" aria-label="Person"><option value="all">Everyone</option>${people.map(n=>`<option value="${esc(n)}" ${actF.who===n?"selected":""}>${esc(n)}</option>`).join("")}</select>
+      <select class="inp" id="actArea" aria-label="Area"><option value="all">All areas</option>${Object.entries(AREA_L).map(([k,l])=>`<option value="${k}" ${actF.area===k?"selected":""}>${l}</option>`).join("")}</select>
+      <input class="inp" type="date" id="actFrom" value="${esc(actF.from)}" aria-label="From date" title="From"><input class="inp" type="date" id="actTo" value="${esc(actF.to)}" aria-label="To date" title="To">
+      ${filtered?`<button class="btn sm" id="actClr">Clear</button>`:""}</div>
+    <div class="row-flex" style="gap:10px"><span class="hint">${list.length} of ${S.audit.length}</span><button class="btn sm" id="actCsv" ${list.length?"":"disabled"}><svg><use href="#i-dl"/></svg>CSV</button></div></div>
+    <div class="tw"><table class="t cards" style="min-width:980px"><thead><tr><th>Time</th><th>Person</th><th>Action</th><th>What</th><th>Changes</th></tr></thead><tbody>
+    ${list.length?list.slice(0,actShown).map(e=>{const w=actWhat(e);return `<tr data-act="${esc(e.id)}"><td class="mono m-r" style="vertical-align:top"><span title="${esc(new Date(e.at).toLocaleString("en-GB"))}">${dmy(e.at)} · ${hhmm(e.at)}</span></td>
+      <td class="m-l" style="vertical-align:top"><div class="who"><span class="av">${ini(e.actor_name)}</span><div style="min-width:0"><div style="font-weight:600;white-space:nowrap">${esc(e.actor_name||"System")}</div>${e.actor_role?rolePill(e.actor_role):""}</div></div></td>
+      <td style="vertical-align:top"><b style="font-weight:600">${esc(actLabel(e))}</b><div><span class="area">${esc(AREA_L[AREA[e.entity]]||e.entity)}</span></div></td>
+      <td class="m-sub" style="vertical-align:top;max-width:260px">${w.ref?`<span style="font:500 12.5px var(--mono);color:var(--ink)">${esc(w.ref)}</span> `:""}${w.sum?`<span class="muted">${w.ref?"· ":""}${esc(w.sum)}</span>`:w.ref?"":esc(ENT_L[e.entity]||e.entity)}</td>
+      <td style="vertical-align:top;max-width:380px">${chgHtml(e)}</td></tr>`}).join(""):`<tr><td colspan="5"><div class="empty">${S.audit.length?"No activity matches these filters.":"No activity yet. Staff changes appear here as they happen."}</div></td></tr>`}
+    </tbody></table></div>${list.length>actShown?`<div class="row-flex" style="padding:12px 18px;border-top:1px solid var(--line)"><span class="hint">Showing ${actShown} of ${list.length}</span><button class="btn sm" id="actMore">Show more</button></div>`:""}</div>`;
+}
+function wActivity(){
+  const set=(k,v)=>{actF[k]=v;actShown=100;render()};
+  let t=null;$("#actQ").addEventListener("input",e=>{clearTimeout(t);const v=e.target.value;t=setTimeout(()=>{actF.q=v;actShown=100;render();const i=$("#actQ");if(i){i.focus();i.setSelectionRange(i.value.length,i.value.length)}},220)});
+  $("#actWho").onchange=e=>set("who",e.target.value);$("#actArea").onchange=e=>set("area",e.target.value);
+  $("#actFrom").onchange=e=>set("from",e.target.value);$("#actTo").onchange=e=>set("to",e.target.value);
+  $("#actClr")&&($("#actClr").onclick=()=>{actF={who:"all",area:"all",from:"",to:"",q:""};render()});
+  $("#actMore")&&($("#actMore").onclick=()=>{actShown+=100;render()});
+  $("#actCsv").onclick=()=>exportCSV(`ydworks-activity-${ymd(Date.now())}.csv`,[["Time","Person","Role","Action","Area","Ref","Summary","Changes"],
+    ...actList().map(e=>{const w=actWhat(e);return[new Date(e.at).toISOString(),e.actor_name,e.actor_role?roleName(e.actor_role):"",actLabel(e),AREA_L[AREA[e.entity]]||e.entity,w.ref,w.sum,chgList(e).map(([k,a,b])=>`${k}: ${fmtVal(k,a)} → ${fmtVal(k,b)}`).join("; ")]})]);
+}
+
+/* ═════════════ App insights (client_events) ═════════════ */
+let insDays=30,insSurf="all";const INS={};
+const SURF={website:"Website",customer:"Customer app",driver:"Driver app",console:"Console"};
+const EV_L={order_placed:"Order placed",search:"Search",quote_request:"Quote request sent",whatsapp_click:"WhatsApp tapped",transfer_slip_uploaded:"Transfer slip uploaded",rate_driver:"Driver rated",reschedule:"Booking rescheduled",job_status:"Job status updated",fuel_logged:"Fuel logged",inspection_submitted:"Daily check submitted",console_page:"Page opened",counter_order_created:"Counter order created",payment_reviewed:"Payment reviewed",quote_converted:"Quote converted"};
+const WA_L={website_float:"Website · floating button",website_contact:"Website · contact section",website_product:"Website · product page",app_order:"Customer app · order",app_help:"Customer app · help",driver_customer:"Driver app · call customer",orders_row:"Console · order list",order_customer:"Console · order, customer",order_driver:"Console · order, driver",payment_slip:"Console · transfer slip",lead:"Console · website lead",quote:"Console · quote",driver_card:"Console · driver card",driver_drawer:"Console · driver ratings",project_customer:"Console · project",console_sidebar:"Console · sidebar",console_footer:"Console · footer",settings_test:"Console · settings test"};
+const human=s=>{s=String(s||"").replace(/_/g," ");return s.charAt(0).toUpperCase()+s.slice(1)};
+function insErrCount(){if(!LIVE&&canPage("insights")&&!INS[insDays])INS[insDays]=demoIns(insDays);if(!canPage("insights"))return 0;const d=INS[insDays];return d&&d.errors?d.errors.length:0}
+function demoIns(days){
+  const f=days===7?.24:days===90?2.8:1,r=rng(days*7+3),sc=v=>Math.max(1,Math.round(v*f*(.85+r()*.3))),by=(a,b)=>b.value-a.value;
+  const searches=[["cement",214],["sand",168],["excavator",131],["blocks",117],["rebar y12",96],["tipper",84],["crane hire",61],["plywood",47],["aggregate",44],["mini excavator",39],["mixer",31],["roof sheet",22],["forklift",18],["y16",14],["pvc pipe",11]].map(([label,v])=>({label,value:sc(v)})).sort(by);
+  const events=[["console","console_page",2210],["driver","job_status",1240],["customer","search",512],["customer","order_placed",388],["website","search",341],["console","whatsapp_click",206],["driver","inspection_submitted",188],["website","whatsapp_click",163],["website","quote_request",142],["console","counter_order_created",134],["customer","whatsapp_click",97],["driver","fuel_logged",96],["console","payment_reviewed",91],["customer","transfer_slip_uploaded",88],["customer","rate_driver",71],["console","quote_converted",17],["customer","reschedule",12]].map(([surface,name,v])=>({surface,name,value:sc(v)})).sort(by);
+  const wa=[["website_float",121],["orders_row",77],["order_customer",64],["app_order",58],["website_contact",42],["app_help",39],["payment_slip",23],["lead",19],["driver_card",14],["quote",9]].map(([label,v])=>({label,value:sc(v)})).sort(by);
+  const errors=[["website","ResizeObserver loop completed with undelivered notifications.",21,1.1],["customer","TypeError: Cannot read properties of null (reading 'getContext')",14,3.2],["driver","TypeError: Failed to fetch",9,.6],["driver","NotAllowedError: User denied Geolocation",6,26],["customer","Upload failed: The object exceeded the maximum allowed size",4,50],["console","UnhandledRejection: JWT expired",2,140],["website","SyntaxError: Unexpected token '<' in JSON at position 0",3,400]]
+    .filter(x=>x[3]<days*24).map(([surface,message,c,h])=>({surface,message,count:sc(c),last:now-h*36e5})).sort((a,b)=>b.count-a.count);
+  return{searches,events,wa,errors}}
+async function fetchIns(days){
+  if(INS[days]&&INS[days].loading)return;INS[days]={loading:true};
+  const sb=YDB.sb,since=new Date(Date.now()-days*DAY).toISOString(),out={searches:[],events:[],wa:[],errors:[]};
+  try{const rows=await YDB.rpc("admin_insights",{p_days:days});
+    (Array.isArray(rows)?rows:[]).forEach(x=>{const v=+x.value,[s0,...rest]=String(x.label||"").split(" · ");
+      if(x.metric==="search")out.searches.push({label:x.label,value:v});
+      else if(x.metric==="event")out.events.push({surface:s0,name:rest.join(" · "),value:v});
+      else if(x.metric==="error")out.errors.push({surface:s0,message:rest.join(" · "),count:v,last:null})})}catch(e){out.err=e.message||String(e)}
+  // last-seen per error and WhatsApp contexts come straight from client_events (staff with reports/settings can read it)
+  try{const r=await sb.from("client_events").select("at,surface,message").eq("kind","error").gte("at",since).order("at",{ascending:false}).limit(1000);if(r.error)throw r.error;
+    if(r.data&&r.data.length){const m={};r.data.forEach(x=>{const msg=String(x.message||"").slice(0,120),k=x.surface+"|"+msg;const g=m[k]=m[k]||{surface:x.surface,message:msg,count:0,last:0};g.count++;g.last=Math.max(g.last,Date.parse(x.at))});
+      out.errors=Object.values(m).sort((a,b)=>b.count-a.count).slice(0,25)}}catch(e){}
+  try{const r=await sb.from("client_events").select("surface,detail").eq("kind","event").eq("name","whatsapp_click").gte("at",since).limit(5000);if(r.error)throw r.error;
+    const m={};(r.data||[]).forEach(x=>{const c=(x.detail&&x.detail.context)||"unknown";m[c]=(m[c]||0)+1});out.wa=Object.entries(m).map(([label,value])=>({label,value})).sort((a,b)=>b.value-a.value).slice(0,15)}catch(e){}
+  INS[days]=out;render();
+}
+function barList(rows,lab){if(!rows.length)return`<div class="empty" style="padding:24px 0">Nothing recorded in this period.</div>`;const max=Math.max(1,...rows.map(x=>x.value));
+  return `<div class="bl">${rows.map(x=>`<div class="bl-r"><div class="lab" title="${esc(typeof lab(x)==="string"?lab(x).replace(/<[^>]+>/g,""):"")}">${lab(x)}</div><div class="bl-t"><span class="bar" style="width:${(x.value/max*100).toFixed(2)}%"></span><em>${x.value.toLocaleString("en-US")}</em></div></div>`).join("")}</div>`}
+function vInsights(){
+  const d=insDays;if(!LIVE&&!INS[d])INS[d]=demoIns(d);if(LIVE&&!INS[d])fetchIns(d);const D=INS[d];
+  const head=`<div class="row-flex" style="flex-wrap:wrap"><p class="hint" style="max-width:640px">Anonymous usage and errors from the website, the customer and driver apps and this console. No names or phone numbers are collected.</p><div class="seg" id="insSeg">${[7,30,90].map(n=>`<button data-d="${n}" aria-pressed="${d===n}">${n} days</button>`).join("")}</div></div>`;
+  if(!D||D.loading)return head+`<div class="card empty">Loading…</div>`;
+  const tot=a=>a.reduce((s,x)=>s+(x.value!=null?x.value:x.count),0),surfs=[...new Set(D.events.map(e=>e.surface))];
+  const evs=D.events.filter(e=>insSurf==="all"||e.surface===insSurf).slice(0,12),nErr=D.errors.length;
+  return head+`${D.err?`<div class="ann crit"><i></i><span>Insights couldn't load: ${esc(D.err)}</span></div>`:""}
+  <section class="grid g-kpi">
+    <div class="card kpi"><div class="l">Searches</div><div class="v">${tot(D.searches).toLocaleString("en-US")}</div><div class="d">top ${D.searches.length} terms · website + app</div></div>
+    <div class="card kpi"><div class="l">Actions tracked</div><div class="v">${kfmt(tot(D.events))}</div><div class="d">across ${surfs.length} surface${surfs.length===1?"":"s"}</div></div>
+    <div class="card kpi"><div class="l">WhatsApp taps</div><div class="v">${tot(D.wa).toLocaleString("en-US")}</div><div class="d">${D.wa[0]?"most from "+esc((WA_L[D.wa[0].label]||human(D.wa[0].label)).split(" · ")[0].toLowerCase()):"none yet"}</div></div>
+    <div class="card kpi"><div class="l">App errors</div><div class="v">${nErr}</div><div class="d">${nErr?tone(tot(D.errors)+" occurrences","crit"):tone("All clear","ok")}</div></div>
+  </section>
+  <div class="grid g-2">
+    <div class="card"><div class="card-h"><div><h2>Top searches</h2><div class="sub">What people look for on the website and in the app · last ${d} days</div></div></div>
+      <div class="card-b">${barList(D.searches.slice(0,12),x=>esc(x.label))}</div></div>
+    <div class="card"><div class="card-h"><div><h2>WhatsApp taps by place</h2><div class="sub">Where people open a WhatsApp chat with YD Works</div></div></div>
+      <div class="card-b">${barList(D.wa.slice(0,10),x=>{const l=WA_L[x.label]||human(x.label),[a,b]=l.split(" · ");return b?`${esc(b)}<small>${esc(a)}</small>`:esc(a)})}</div></div>
+  </div>
+  <div class="card"><div class="card-h"><div><h2>Most-used actions</h2><div class="sub">Events by surface · last ${d} days</div></div>
+    <div class="chips" id="insSurf">${[["all","All"],...surfs.map(s=>[s,SURF[s]||human(s)])].map(([k,l])=>`<button class="chip" data-s="${esc(k)}" aria-pressed="${insSurf===k}">${esc(l)}</button>`).join("")}</div></div>
+    <div class="card-b">${barList(evs,x=>`${esc(EV_L[x.name]||human(x.name))}<small>${esc(SURF[x.surface]||x.surface)}</small>`)}</div></div>
+  <div class="card"><div class="card-h"><div><h2>App errors ${tone(nErr+" error"+(nErr===1?"":"s"),nErr?"crit":"ok")}</h2><div class="sub">Grouped by message · fix the most frequent first</div></div></div>
+    <div class="tw"><table class="t cards" style="min-width:720px"><thead><tr><th>Message</th><th>Surface</th><th class="num">Count</th><th>Last seen</th></tr></thead><tbody>
+    ${nErr?D.errors.map(e=>`<tr><td class="m-l"><div class="errmsg">${esc(e.message||"(no message)")}</div></td><td class="m-h">${tone(SURF[e.surface]||e.surface||"—","mute")}</td><td class="num m-r">${e.count.toLocaleString("en-US")}</td><td class="muted m-h m-rt" data-l="Last seen">${e.last?ago(e.last):"—"}</td></tr>`).join(""):`<tr><td colspan="4"><div class="empty">No errors reported in the last ${d} days.</div></td></tr>`}
+    </tbody></table></div></div>`;
+}
+function wInsights(){
+  $("#insSeg").onclick=e=>{const b=e.target.closest("button");if(!b)return;insDays=+b.dataset.d;render()};
+  $("#insSurf")&&($("#insSurf").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;insSurf=b.dataset.s;render()});
+}
+
+/* ═════════════ My account ═════════════ */
+const PERM_L={orders:"Orders",assign:"Assign drivers",fleet:"Calendar & fleet health",sales:"Leads & quotes",payments:"Payments",projects:"Projects",reports:"Reports",catalog:"Prices & stock",settings:"Settings",team:"Team"};
+function openAccount(){
+  const me=ME(),real=LIVE?ROLE:((S.staff.find(x=>x.me)||{}).role||"admin");
+  openDrawer(`<div class="dh"><div class="item"><span class="av" style="width:52px;height:52px;font-size:16px;background:var(--brand);color:#fff">${ini(me.name)}</span><div style="min-width:0">${rolePill(real)}<h2 id="dTitle" style="margin-top:6px">${esc(me.name)}</h2><div class="mono">${esc(me.email||"")}</div></div></div>${xBtn}</div>
+  <div class="db">
+    <dl class="kv"><dt>Name</dt><dd>${esc(me.name)}</dd><dt>Email</dt><dd style="font-family:var(--mono)">${esc(me.email||"—")}</dd><dt>Role</dt><dd>${esc(roleName(real))}<div class="hint" style="font-weight:400">${esc((ROLES[real]||["",""])[1])}</div></dd>${!LIVE&&ROLE!==real?`<dt>Viewing as</dt><dd>${esc(roleName(ROLE))}</dd>`:""}<dt>Data</dt><dd>${LIVE?"Live":"Demo data"}</dd></dl>
+    <div class="box stack"><div class="lbl">${!LIVE&&ROLE!==real?"What a "+esc(roleName(ROLE).toLowerCase())+" can do":"What you can do"}</div><div class="chips">${(PERMS[ROLE]||[]).map(p=>`<span class="chip" style="cursor:default">${PERM_L[p]}</span>`).join("")}</div></div>
+    <div class="danger-zone" id="delZone"><div><div class="lbl" style="color:var(--crit)">Delete my account</div><p class="hint" style="margin-top:4px">Removes your sign-in and personal data from YD Works for good.</p></div>
+      <div id="delStep1"><button class="btn danger" id="delStart"><svg><use href="#i-trash"/></svg>Delete my account…</button></div>
+      <div id="delStep2" class="stack" hidden>
+        <p style="font-size:13.5px;font-weight:600">This can't be undone. Deleting your account:</p>
+        <ul><li>removes your sign-in, profile, saved sites, device tokens and notifications</li><li>ends your access to this console straight away</li><li><b>keeps</b> orders, invoices and payments for tax records, with your name taken off them</li><li>keeps the activity log entries for changes you made</li></ul>
+        ${real==="admin"?`<p class="hint">The last manager can't be deleted. Make someone else a manager under Drivers → Team first.</p>`:""}
+        <label class="chk"><input type="checkbox" id="delOk"><span>I understand my account will be deleted permanently.</span></label>
+        <p class="hint" id="delErr" role="alert" style="color:var(--crit)"></p>
+        <div class="row-flex" style="justify-content:flex-start;gap:8px;flex-wrap:wrap"><button class="btn crit" id="delGo" disabled>Delete permanently</button><button class="btn" id="delBack">Keep my account</button></div>
+      </div></div>
+  </div>
+  <div class="df">${LIVE?`<button class="btn" id="acOut"><svg><use href="#i-out"/></svg>Sign out</button>`:""}<span style="flex:1"></span><button class="btn" id="acClose">Close</button></div>`);
+  $("#acClose").onclick=closeDrawer;
+  $("#acOut")&&($("#acOut").onclick=async()=>{if(unwatch)unwatch();await YDB.signOut();location.reload()});
+  $("#delStart").onclick=()=>{$("#delStep1").hidden=true;$("#delStep2").hidden=false;$("#delOk").focus()};
+  $("#delBack").onclick=()=>{$("#delStep2").hidden=true;$("#delStep1").hidden=false;$("#delOk").checked=false;$("#delGo").disabled=true;$("#delErr").textContent=""};
+  $("#delOk").onchange=()=>$("#delGo").disabled=!$("#delOk").checked;
+  $("#delGo").onclick=async()=>{const b=$("#delGo");b.disabled=true;b.textContent="Deleting…";$("#delErr").textContent="";
+    try{await A.deleteAccount();if(LIVE){if(unwatch)unwatch();location.reload();return}
+      closeDrawer();toast("Demo: your account would now be deleted and you'd be signed out. Nothing was removed.")}
+    catch(e){$("#delErr").textContent=e.message||String(e);b.textContent="Delete permanently";b.disabled=!$("#delOk").checked}};
+}
+
 /* ═════════════ auth + boot ═════════════ */
 let unwatch=null;
-function setMode(){$("#liveChip").classList.toggle("demo",!LIVE);$("#liveTxt").textContent=LIVE?"LIVE":"DEMO DATA";$("#signOut").hidden=!LIVE}
+function setMode(){$("#liveChip").classList.toggle("demo",!LIVE);$("#liveTxt").textContent=LIVE?"LIVE":"DEMO DATA"}
 async function enterLive(){
   const p=YDB.profile||{};
-  if(p.role!=="admin"){await YDB.signOut();$("#lErr").textContent="This account doesn't have admin access.";return}
-  LIVE=true;$("#login").hidden=true;$("#meName").textContent=p.full_name||YDB.user.email;$("#meAv").textContent=ini(p.full_name||YDB.user.email);$("#meRole").textContent="ADMIN";setMode();
+  if(!STAFF.includes(p.role)){try{await YDB.signOut()}catch(e){}showLogin("signin");$("#lErr").textContent="This account doesn't have staff access. Ask a manager to add you under Drivers → Team.";return}
+  LIVE=true;ROLE=p.role;$("#login").hidden=true;setMode();applyRole();
   await load();if(unwatch)unwatch();
   const offs=[YDB.watch(load)];
-  try{offs.push(YDB.watchTable("notifications",load,"user_id=eq."+YDB.user.id),YDB.watchTable("payments",load),YDB.watchTable("machine_bookings",load),YDB.watchTable("project_updates",load))}catch(e){}
+  try{offs.push(YDB.watchTable("notifications",load,"user_id=eq."+YDB.user.id),YDB.watchTable("payments",load),YDB.watchTable("machine_bookings",load),YDB.watchTable("project_updates",load),YDB.watchTable("ratings",load));
+    if(canPage("activity"))offs.push(YDB.watchTable("audit_log",()=>loadAudit().then(()=>{if(page==="activity")render()})))}catch(e){}
   unwatch=()=>offs.forEach(f=>{try{f()}catch(e){}});
 }
+/* sign in · forgot password · set a new password (from the email link) */
+function showLogin(mode){$("#login").hidden=false;$("#loginForm").hidden=mode!=="signin";$("#resetForm").hidden=mode!=="reset";$("#newPwForm").hidden=mode!=="newpw";
+  const f={signin:"#lEmail",reset:"#rEmail",newpw:"#nPw"}[mode];setTimeout(()=>{const el=$(f);el&&el.focus()},60)}
+const emailOk=v=>/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v);
 $("#loginForm").addEventListener("submit",async e=>{e.preventDefault();$("#lGo").disabled=true;$("#lErr").textContent="";
   try{await YDB.signIn($("#lEmail").value.trim(),$("#lPass").value);await enterLive()}catch(x){$("#lErr").textContent=x.message==="Invalid login credentials"?"Email or password is wrong.":x.message}$("#lGo").disabled=false});
 $("#lDemo").onclick=()=>{$("#login").hidden=true};
-$("#signOut").onclick=async()=>{if(unwatch)unwatch();await YDB.signOut();location.reload()};
+$("#lForgot").onclick=()=>{$("#rEmail").value=$("#lEmail").value.trim();$("#rErr").textContent="";$("#rOk").hidden=true;$("#rGo").hidden=false;showLogin("reset")};
+$("#rBack").onclick=()=>{$("#lErr").textContent="";showLogin("signin")};
+$("#resetForm").addEventListener("submit",async e=>{e.preventDefault();const em=$("#rEmail").value.trim(),err=$("#rErr");err.textContent="";
+  if(!emailOk(em)){err.textContent="Enter the email you sign in with.";$("#rEmail").focus();return}
+  if(!window.YDB||!YDB.sb||!YDB.resetPassword){err.textContent="Password reset needs the live backend.";return}
+  const b=$("#rGo");b.disabled=true;b.textContent="Sending…";
+  try{await YDB.resetPassword(em);$("#rOk").innerHTML=`<b>Check your email for a reset link.</b><br>We sent it to ${esc(em)}. It can take a minute to arrive; check spam too.`;$("#rOk").hidden=false;b.hidden=true}
+  catch(x){err.textContent=x.message||String(x)}
+  b.disabled=false;b.textContent="Send reset link"});
+$("#newPwForm").addEventListener("submit",async e=>{e.preventDefault();const a=$("#nPw").value,c=$("#nPw2").value,err=$("#nErr");err.textContent="";
+  if(a.length<8){err.textContent="Use at least 8 characters.";$("#nPw").focus();return}
+  if(a!==c){err.textContent="The two passwords don't match.";$("#nPw2").focus();return}
+  const b=$("#nGo");b.disabled=true;b.textContent="Saving…";
+  try{await YDB.setNewPassword(a);$("#nPw").value=$("#nPw2").value="";toast("Password updated");await enterLive()}catch(x){err.textContent=x.message||String(x)}
+  b.disabled=false;b.textContent="Save and continue"});
+addEventListener("yd-recovery",()=>showLogin("newpw"));
 
-seedDemo();setMode();route();
-(async function boot(){if(!window.YDB)return;const ok=await YDB.init();if(!ok)return;if(YDB.user)await enterLive();else $("#login").hidden=false})();
+seedDemo();setMode();applyRole();
+(async function boot(){if(!window.YDB)return;const ok=await YDB.init();if(!ok)return;
+  if(YDB.recovery){showLogin("newpw");return}
+  if(YDB.user)await enterLive();else showLogin("signin")})();
 })();
 </script>

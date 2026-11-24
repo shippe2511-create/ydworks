@@ -206,7 +206,7 @@ textarea.inp{resize:vertical;min-height:96px;line-height:1.45}
 .split.three .card{padding:12px 14px}
 .split.three b{font-size:18px}
 
-.tabbar{display:grid;grid-template-columns:repeat(5,1fr);background:var(--glass);backdrop-filter:blur(20px) saturate(1.6);border-top:1px solid var(--line);padding:8px max(8px,env(safe-area-inset-left,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-right,0px));flex:none}
+.tabbar{display:grid;grid-template-columns:repeat(4,1fr);background:var(--glass);backdrop-filter:blur(20px) saturate(1.6);border-top:1px solid var(--line);padding:8px max(8px,env(safe-area-inset-left,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-right,0px));flex:none}
 @media (min-width:600px){.tabbar{padding-bottom:18px}}
 .tabbar button{background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0;font-size:10.5px;font-weight:500;color:var(--mute);position:relative;min-height:54px}
 .tabbar svg{width:22px;height:22px}
@@ -272,8 +272,6 @@ img.pimg{width:100%;height:100%;object-fit:cover;display:block}
 /* pill tab bar + bottom toast */
 .tabbar svg{width:22px;height:22px;padding:5px 17px;box-sizing:content-box;border-radius:999px;transition:background .25s,color .25s}
 .tabbar button[aria-current="page"]::before{display:none}
-.tabbar button.wa-tab svg{background:none!important}
-.tabbar button.wa-tab{color:var(--mute)}
 .tabbar button{min-width:0;white-space:nowrap}
 .tabbar button[aria-current="page"] svg{background:color-mix(in srgb,var(--hazard) 22%,transparent);color:var(--ink)}
 .tabbar button{gap:2px;padding-top:2px}
@@ -346,7 +344,60 @@ html[lang="dv"] .stat span{font-size:11px}
 html[lang="dv"] h1,html[lang="dv"] h2,html[lang="dv"] h3{line-height:1.4;letter-spacing:0}
 html[lang="dv"] .big-btn,html[lang="dv"] .nav-chip b,html[lang="dv"] .navgo,html[lang="dv"] .cash{letter-spacing:0}
 html[lang="dv"] .phone-in,html[lang="dv"] .code-in{direction:ltr}
+
+/* ---- sign-in extras: forgot / new password, privacy ---- */
+.auth-ok{color:var(--ok);font-size:13.5px;margin-top:12px;font-weight:500}
+.auth-ok:empty{display:none}
+.field .hint{font-size:12.5px;color:var(--mute)}
+.linkbtn.small{font-size:12.5px;margin-top:4px;min-height:40px}
+.authfoot{display:flex;flex-direction:column;align-items:center}
+
+/* ---- settings: legal links + delete account ---- */
+.legal{display:flex;align-items:center;justify-content:center;gap:4px;color:var(--mute);font-size:13.5px}
+.legal .linkbtn{margin:0;min-height:44px}
+.del-note{font-size:12.5px;color:var(--mute);text-align:center;margin-top:-4px}
+.big-btn.del{background:var(--busy);color:#fff;border:0;box-shadow:0 16px 30px -16px var(--busy)}
+.del-list{margin:12px 0 0;padding-inline-start:20px;display:flex;flex-direction:column;gap:6px;font-size:14.5px}
+.del-keep{display:flex;gap:10px;align-items:flex-start;margin-top:14px;background:var(--surface-2);border-radius:16px;padding:12px 14px;font-size:13.5px;color:var(--mute)}
+.del-keep svg{width:18px;height:18px;flex:none;color:var(--ok);margin-top:1px}
+.del-err{color:var(--busy);font-size:13.5px;margin-top:12px;min-height:1.2em}
+.del-btns{display:grid;grid-template-columns:1fr 1.6fr;gap:10px}
+
+/* ---- rating ---- */
+.stars{display:inline-block;position:relative;line-height:0;color:var(--hazard);white-space:nowrap;vertical-align:middle}
+.stars svg{width:16px;height:16px;margin-inline-end:2px}
+.stars .st-bg{color:color-mix(in srgb,var(--mute) 30%,transparent)}
+.stars .st-fg{position:absolute;inset-block:0;inset-inline-start:0;overflow:hidden}
+.stars.sm svg{width:13px;height:13px;margin-inline-end:1px}
+.rate-top{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center}
+.rate-avg b{display:block;font:600 46px var(--display);letter-spacing:-.05em;line-height:1;font-variant-numeric:tabular-nums}
+.rate-avg .stars{margin-top:8px}
+.rate-avg small{display:block;color:var(--mute);font-size:12.5px;margin-top:6px;white-space:nowrap}
+.bars{display:flex;flex-direction:column;gap:6px;min-width:0}
+.bar{display:grid;grid-template-columns:22px 1fr 22px;gap:8px;align-items:center;font:500 11.5px var(--mono);color:var(--mute);direction:ltr}
+[dir="rtl"] .bar{direction:rtl}
+.bar i{display:block;height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden}
+.bar i em{display:block;height:100%;border-radius:4px;background:var(--hazard)}
+.bar span:last-child{text-align:end;font-variant-numeric:tabular-nums}
+.rv{padding:14px 16px;border-bottom:1px solid var(--line)}
+.rv:last-child{border-bottom:0}
+.rv-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.rv-top small{font:400 11.5px var(--mono);color:var(--mute);white-space:nowrap}
+.rv p{margin-top:6px;font-size:14.5px;line-height:1.45;overflow-wrap:anywhere}
+.rv .ref{display:block;margin-top:6px;font:500 11px var(--mono);color:var(--mute);letter-spacing:.04em}
+.rate-more{margin-top:10px}
+.al .aic.rate{background:color-mix(in srgb,var(--hazard) 22%,transparent);color:color-mix(in srgb,var(--hazard) 60%,var(--ink))}
+.defstate{font-size:13px;margin-top:-2px;min-height:0;color:var(--mute);display:flex;gap:8px;align-items:center}
+.defstate:empty{display:none}
+.defstate.err{color:var(--busy)}
+.defstate .spin{width:14px;height:14px;border-radius:50%;border:2px solid var(--line-2);border-top-color:var(--brand);animation:spin .9s linear infinite;flex:none}
+html[lang="dv"] .rv .ref,html[lang="dv"] .rv-top small{letter-spacing:0}
 </style>
+<svg width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><defs>
+  <symbol id="i-star" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.6l2.85 5.95 6.55.82-4.8 4.53 1.22 6.5L12 17.2l-5.82 3.2 1.22-6.5L2.6 9.37l6.55-.82z"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+</defs></svg>
 <script src="yd-config.js"></script>
 <script>window.YD_VENDOR_BASE=window.YD_VENDOR_BASE||"vendor/";</script>
 <script src="yd-catalog.js"></script>
@@ -398,7 +449,8 @@ html[lang="dv"] .phone-in,html[lang="dv"] .code-in{direction:ltr}
       <p class="sub" data-i18n="def.sub">Tell the workshop what's wrong. They see it straight away.</p>
       <div><label class="lbl" for="defTxt" data-i18n="def.lbl" style="display:block;margin-bottom:6px">What's the problem?</label><textarea class="inp" id="defTxt" dir="auto" rows="3" maxlength="900" data-i18n-ph="def.ph"></textarea></div>
       <label class="photo slim" id="defPhotoBox" for="defPhoto"><span id="defPhotoTx"><svg aria-hidden="true"><use href="#i-camera"/></svg><br><span data-i18n="def.photo">Add a photo (optional)</span></span><input type="file" id="defPhoto" accept="image/*" capture="environment" data-i18n-aria="def.photo"></label>
-      <button class="big-btn ghost danger" id="defBtn" type="button" style="margin-top:0"><svg aria-hidden="true"><use href="#i-alert"/></svg><span data-i18n="def.send">Send defect report</span></button>
+      <button class="big-btn ghost danger" id="defBtn" type="button" style="margin-top:0"><svg aria-hidden="true"><use href="#i-alert"/></svg><span id="defBtnTx" data-i18n="def.send">Send defect report</span></button>
+      <p class="defstate" id="defState" role="status"></p>
     </div>
 
     <div class="card contact" id="counterCard">
@@ -429,6 +481,9 @@ html[lang="dv"] .phone-in,html[lang="dv"] .code-in{direction:ltr}
       <span class="lbl" data-i18n="set.lang">Language</span><div id="langSeg"></div>
       <span class="lbl" data-i18n="set.theme">Appearance</span><div id="themeSeg"></div>
       <button class="big-btn ghost" id="signOutBtn" type="button" hidden style="margin-top:4px"><svg aria-hidden="true"><use href="#i-out"/></svg><span data-i18n="set.signout">Sign out</span></button>
+      <button class="big-btn ghost danger" id="delBtn" type="button" aria-haspopup="dialog" style="margin-top:0"><svg aria-hidden="true"><use href="#i-trash"/></svg><span data-i18n="del.btn">Delete my account</span></button>
+      <p class="del-note" id="delNote" data-i18n="del.demo">Available when signed in</p>
+      <div class="legal"><button class="linkbtn" type="button" data-legal="privacy" data-i18n="legal.privacy">Privacy</button><span aria-hidden="true">·</span><button class="linkbtn" type="button" data-legal="terms" data-i18n="legal.terms">Terms</button></div>
     </div>
   </section>
 
@@ -445,6 +500,8 @@ html[lang="dv"] .phone-in,html[lang="dv"] .code-in{direction:ltr}
       <div class="card"><span class="lbl" data-i18n="earn.cash">Cash collected</span><b id="wkCash" data-ltr>0</b></div>
     </div>
     <p class="note" id="earnNote"></p>
+    <div class="sec" id="rateSec"><h2 data-i18n="rate.h">Your rating</h2><span class="lbl" id="rateLast"></span></div>
+    <div id="rateBody"></div>
   </section>
 
   <nav class="tabbar" aria-label="Main">
@@ -452,7 +509,6 @@ html[lang="dv"] .phone-in,html[lang="dv"] .code-in{direction:ltr}
     <button data-go="jobs"><svg aria-hidden="true"><use href="#i-list"/></svg><span data-i18n="tab.jobs">Jobs</span><span class="dotb" id="jobsDot" hidden></span></button>
     <button data-go="vehicle"><svg aria-hidden="true"><use href="#i-truck"/></svg><span data-i18n="tab.vehicle">Vehicle</span></button>
     <button data-go="earn"><svg aria-hidden="true"><use href="#i-wallet"/></svg><span data-i18n="tab.earn">Earnings</span></button>
-    <button class="wa-tab" id="waTab" type="button" aria-label="WhatsApp" aria-haspopup="dialog"><span data-i18n="tab.wa">WhatsApp</span></button>
   </nav>
 
   <div class="req" id="req" role="dialog" aria-modal="true" aria-labelledby="reqTitle">
@@ -471,10 +527,13 @@ html[lang="dv"] .phone-in,html[lang="dv"] .code-in{direction:ltr}
       <div class="wa-opts" id="waOpts"></div>
     </div>
   </div>
+  <div class="req" id="delSheet" role="dialog" aria-modal="true" aria-labelledby="delTitle">
+    <div class="panel sheet" id="delPanel"></div>
+  </div>
   <div class="auth" id="auth" hidden>
     <div class="auth-hero"><img src="assets/truck-sm.jpg" alt=""><svg width="52" height="52" aria-hidden="true"><use href="#logo"/></svg></div>
     <div class="auth-body">
-      <h1 data-i18n="auth.title">YD Driver</h1>
+      <h1 id="aTitle">YD Driver</h1>
       <p class="sub" id="aSub">Sign in with the driver account the YD Works counter gave you.</p>
       <div class="seg seg2" id="aSeg" role="group" aria-label="Sign-in method" hidden style="margin-top:18px">
         <button type="button" data-mode="phone" aria-pressed="true"><svg aria-hidden="true" width="16" height="16"><use href="#i-phone"/></svg><span data-i18n="auth.tabPhone">Phone</span></button>
@@ -495,9 +554,24 @@ html[lang="dv"] .phone-in,html[lang="dv"] .code-in{direction:ltr}
         <div class="field"><label class="lbl" for="aEmail" data-i18n="auth.email">Email</label><input class="inp" id="aEmail" type="email" autocomplete="username" placeholder="you@yd-mv.com" data-ltr></div>
         <div class="field"><label class="lbl" for="aPass" data-i18n="auth.pass">Password</label><input class="inp" id="aPass" type="password" autocomplete="current-password"></div>
         <button class="big-btn amber" id="aGo" type="submit" data-i18n="auth.go">Sign in</button>
+        <button class="linkbtn" id="aForgot" type="button" style="margin-bottom:-8px" data-i18n="auth.forgot">Forgot password?</button>
+      </form>
+      <form id="forgotForm" novalidate hidden>
+        <div class="field"><label class="lbl" for="fEmail" data-i18n="auth.email">Email</label><input class="inp" id="fEmail" type="email" autocomplete="username" placeholder="you@yd-mv.com" data-ltr></div>
+        <button class="big-btn amber" id="fSend" type="submit" data-i18n="auth.sendLink">Send reset link</button>
+        <button class="linkbtn" id="fBack" type="button" style="margin-bottom:-8px" data-i18n="auth.back">Back to sign in</button>
+      </form>
+      <form id="newPassForm" novalidate hidden>
+        <div class="field"><label class="lbl" for="nPass" data-i18n="auth.newPass">New password</label><input class="inp" id="nPass" type="password" autocomplete="new-password" minlength="8" aria-describedby="nHint"><span class="hint" id="nHint" data-i18n="auth.pwHint">At least 8 characters.</span></div>
+        <div class="field"><label class="lbl" for="nPass2" data-i18n="auth.newPass2">Confirm new password</label><input class="inp" id="nPass2" type="password" autocomplete="new-password" minlength="8"></div>
+        <button class="big-btn amber" id="nGo" type="submit" data-i18n="auth.savePw">Save and continue</button>
       </form>
       <p class="auth-err" id="aErr" role="alert"></p>
-      <button class="linkbtn" id="aDemo" type="button" data-i18n="auth.demo">Explore the demo instead</button>
+      <p class="auth-ok" id="aOk" role="status"></p>
+      <div class="authfoot">
+        <button class="linkbtn" id="aDemo" type="button" data-i18n="auth.demo">Explore the demo instead</button>
+        <button class="linkbtn small" id="aPrivacy" type="button" data-legal="privacy" data-i18n="auth.privacy">Privacy</button>
+      </div>
     </div>
   </div>
   <div class="toast" id="toast" role="status"></div>
@@ -542,7 +616,7 @@ const STR={en:{
   "pod.lbl":"Proof of delivery","pod.photo":"Add a photo of the unloaded materials","pod.photoAria":"Add delivery photo","pod.rcv":"Received by","pod.rcvPh":"Name of person on site","pod.sigAria":"Signature pad","pod.clear":"Clear","pod.sigHint":"Customer signs here","pod.skipped":"Photo skipped (demo)","pod.photoAlt":"Delivery photo","pod.uploading":"Uploading proof…",
   "toast.delivered":"Delivered · {amount}","toast.queued":"Delivered · will upload when back online","toast.uploaded":"Proof of delivery uploaded","toast.uploadedN":"{n} proofs of delivery uploaded","toast.couldntUpdate":"Couldn't update the job","toast.refresh":"Couldn't refresh jobs","toast.stillOffline":"Still no signal. We'll keep trying.",
   "req.hire":"New hire","req.delivery":"New delivery","req.earn":"You earn","req.dist":"Distance","req.when":"When","req.decline":"Decline","req.accept":"Accept job",
-  "toast.accepted":"Job accepted · head to the yard","toast.taken":"Another driver took this job","toast.declined":"Declined","toast.expired":"Request expired","toast.finishFirst":"Finish your current job first","toast.uploadFirst":"Your last delivery is still uploading. Find signal, then try again.",
+  "toast.accepted":"Job accepted · head to the yard","toast.taken":"Another driver took this job","toast.declined":"Declined","toast.expired":"Request expired","toast.finishFirst":"Finish your current job first",
   "jobs.open":"Open requests","jobs.done":"Completed","jobs.youEarn":"you earn","jobs.noOpen":"No open requests","jobs.noOpenOn":"New jobs near the yard will pop up on your Today screen.","jobs.noOpenOff":"Go online to start receiving jobs.","jobs.signed":"Signed by {name}","jobs.noDone":"No deliveries yet today","jobs.noDoneP":"Completed jobs and your earnings for each one appear here.","jobs.pendingUp":"Delivered · will upload when back online",
   "veh.insp":"Pre-trip inspection","veh.inspSub":"Walk around {unit} before your first job. All items must pass to go online.","veh.odo":"Odometer km","veh.fuelLvl":"Fuel level","fuel.full":"Full","veh.submit":"Submit inspection","veh.submitted":"Inspection submitted at {time}","veh.sending":"Sending…",
   "toast.inspOk":"Inspection submitted · all clear","toast.inspDefect":"Inspection submitted · workshop notified",
@@ -550,7 +624,7 @@ const STR={en:{
   "def.h":"Report a defect","def.sub":"Tell the workshop what's wrong. They see it straight away.","def.lbl":"What's the problem?","def.ph":"e.g. Left rear tyre losing air, leak at the tipper ram","def.photo":"Add a photo (optional)","def.photoAlt":"Defect photo","def.send":"Send defect report","def.need":"Describe the problem first","toast.defSent":"Defect reported · workshop notified",
   "fuel.h":"Fuel log","fuel.l":"Litres","fuel.cost":"Cost (MVR)","fuel.odo":"Odometer km","fuel.add":"Add fuel","fuel.need":"Enter the litres","fuel.week":"This week","fuel.totL":"Litres","fuel.totC":"Spent (MVR)","fuel.totKm":"Distance","fuel.none":"No fuel added this week","fuel.noneP":"Each fill-up you add appears here with the week's totals.","toast.fuel":"Fuel logged · {l}","fuel.title":"{l} L diesel",
   "hist.h":"Recent inspections","hist.pass":"All clear","hist.fail":"Defect","hist.none":"No inspections yet","hist.noneP":"Submitted checklists and defect reports appear here.","hist.items":"{n}/{total} items passed","hist.defect":"Defect report",
-  "set.h":"Settings","set.lang":"Language","set.theme":"Appearance","set.signout":"Sign out","theme.system":"Auto","theme.light":"Light","theme.dark":"Dark",
+  "set.h":"Settings","set.lang":"Language","set.theme":"Appearance","set.signout":"Sign out",
   "earn.week":"This week","earn.sample":"Sample","earn.trips":"Trips","earn.hours":"Hours on duty","earn.hoursLive":"Hours on jobs","earn.rating":"Rating","earn.cash":"Cash collected","earn.chartAria":"Earnings per day this week",
   "earn.noteDemo":"Sample figures for the demo — only today's bar changes as you complete jobs. Pay is settled at the counter every Thursday.","earn.noteLive":"From your completed jobs since Saturday. Pay is settled at the counter every Thursday.",
   "al.h":"Alerts","al.markAll":"Mark all read","al.close":"Close","al.none":"No alerts yet","al.noneP":"New jobs, assignments and messages from the counter appear here.","al.now":"Just now","al.min":"{n} min ago","al.hr":"{n} h ago","al.day":"{n} d ago",
@@ -564,8 +638,18 @@ const STR={en:{
   "wa.onway":"Hi, this is {name} from YD Works. I'm on the way with your order {ref}, about {eta} min away.","wa.arrived":"I've arrived at {site}. Please come to receive the delivery.","wa.lost":"I can't find the site. Could you share your location pin?",
   "wa.counterJob":"YD Works counter, {driver} ({unit}) here about {ref}: ","wa.counter":"YD Works counter, {driver} ({unit}) here: ","wa.defect":"Defect on {unit}: ",
   "ct.lbl":"Counter","ct.title":"YD Works counter","ct.call":"Call","ct.waAria":"WhatsApp the counter","ct.callAria":"Call the counter","wa.custSub":"Quick messages about this delivery","toast.baseCall":"Calling the counter…",
-  "tab.wa":"WhatsApp","wa.counterOpt":"WhatsApp the counter","wa.custOpt":"WhatsApp {name}","wa.tabSheet":"WhatsApp",
-  "day.0":"Sat","day.1":"Sun","day.2":"Mon","day.3":"Tue","day.4":"Wed","day.5":"Thu","day.6":"Fri"
+  "day.0":"Sat","day.1":"Sun","day.2":"Mon","day.3":"Tue","day.4":"Wed","day.5":"Thu","day.6":"Fri",
+  "mon.0":"Jan","mon.1":"Feb","mon.2":"Mar","mon.3":"Apr","mon.4":"May","mon.5":"Jun","mon.6":"Jul","mon.7":"Aug","mon.8":"Sep","mon.9":"Oct","mon.10":"Nov","mon.11":"Dec",
+  "auth.forgot":"Forgot password?","auth.forgotH":"Reset your password","auth.forgotSub":"Enter your account email. We'll send you a link to set a new password.","auth.sendLink":"Send reset link","auth.linkSent":"Check your email for a reset link.","auth.back":"Back to sign in",
+  "auth.newH":"Set a new password","auth.newSub":"Choose a new password for your driver account.","auth.newPass":"New password","auth.newPass2":"Confirm new password","auth.pwHint":"At least 8 characters.","auth.savePw":"Save and continue","auth.privacy":"Privacy",
+  "auth.deleted":"Your account has been deleted. Thank you for driving with YD Works.","err.email":"Enter your email address","err.pwShort":"Use at least 8 characters.","err.pwMatch":"The two passwords don't match.","toast.pwSaved":"Password updated",
+  "legal.privacy":"Privacy","legal.terms":"Terms",
+  "del.btn":"Delete my account","del.demo":"Available when signed in","del.h1":"Delete your account?","del.p1":"This permanently removes from YD Works:","del.i1":"Your driver profile and sign-in","del.i2":"Your alerts","del.i3":"Your location history",
+  "del.keep":"Completed delivery records (proof of delivery and amounts) stay with the company for its accounts.","del.cont":"Continue","del.cancel":"Cancel","del.h2":"Are you sure?","del.p2":"This can't be undone. You'll be signed out, and you'll need a new account from the counter to drive again.","del.go":"Delete permanently","del.busy":"Deleting…",
+  "rate.h":"Your rating","rate.last":"Last {n}","rate.count1":"1 rating","rate.countN":"{n} ratings","rate.aria":"{n} out of 5 stars","rate.barAria":"{s} stars: {n}","rate.comments":"Recent comments","rate.none":"No ratings yet","rate.noneP":"Customers can rate each delivery once it's completed. Their stars and comments appear here.","rate.more":"Show all comments","rate.less":"Show fewer","rate.order":"Order {ref}","rate.err":"Couldn't load your ratings","rate.retry":"Try again",
+  "al.rate.t":"{name} rated you {stars}★","al.rate.b":"“{comment}” · {ref}",
+  "def.uploading":"Uploading photo…","def.photoFail":"The photo didn't upload ({msg}). Check your signal and try again.","toast.defQueued":"No signal · the defect report will send when you're back online","hist.pending":"Waiting to upload",
+  "toast.acceptedQueued":"Job accepted · your last delivery will upload when you're back online"
 },dv:{
   "tab.today":"މިއަދު","tab.jobs":"މަސައްކަތް","tab.vehicle":"ގާޑި","tab.earn":"އާމްދަނީ",
   "online":"އޮންލައިން","offline":"އޮފްލައިން","aria.bell":"ނޯޓިފިކޭޝަން","aria.bellN":"ނޯޓިފިކޭޝަން، {n} ނުކިޔާ",
@@ -586,7 +670,7 @@ const STR={en:{
   "pod.lbl":"ޑެލިވަރީގެ ހެކި","pod.photo":"ބާލާފައިވާ މުދަލުގެ ފޮޓޯއެއް ނަގާ","pod.photoAria":"ޑެލިވަރީގެ ފޮޓޯ އިތުރުކުރޭ","pod.rcv":"ބަލައިގަތް މީހާ","pod.rcvPh":"ސައިޓުގައި ހުރި މީހާގެ ނަން","pod.sigAria":"ސޮއިކުރާ ތަން","pod.clear":"ފޮހެލާ","pod.sigHint":"ކަސްޓަމަރު މިތާ ސޮއިކުރައްވާ","pod.skipped":"ފޮޓޯ ނުނަގާ ދޫކޮށްލެވިއްޖެ (ޑެމޯ)","pod.photoAlt":"ޑެލިވަރީގެ ފޮޓޯ","pod.uploading":"ހެކި އަޕްލޯޑުކުރަނީ…",
   "toast.delivered":"ޑެލިވަރ ކުރެވިއްޖެ · {amount}","toast.queued":"ޑެލިވަރ ކުރެވިއްޖެ · އިންޓަނެޓް ލިބުމުން އަޕްލޯޑް ކުރެވޭނެ","toast.uploaded":"ޑެލިވަރީގެ ހެކި އަޕްލޯޑް ކުރެވިއްޖެ","toast.uploadedN":"{n} ޑެލިވަރީގެ ހެކި އަޕްލޯޑް ކުރެވިއްޖެ","toast.couldntUpdate":"މަސައްކަތް އަޕްޑޭޓެއް ނުކުރެވުނު","toast.refresh":"މަސައްކަތްތައް އާކޮށެއް ނުލެވުނު","toast.stillOffline":"އަދިވެސް ސިގްނަލް ނެތް. އަލުން މަސައްކަތްކުރާނަން.",
   "req.hire":"އައު ކުލި މަސައްކަތެއް","req.delivery":"އައު ޑެލިވަރީއެއް","req.earn":"ތިބާއަށް ލިބޭނީ","req.dist":"ދުރުމިން","req.when":"ވަގުތު","req.decline":"ދޫކޮށްލާ","req.accept":"މަސައްކަތް ނަގާ",
-  "toast.accepted":"މަސައްކަތް ނެގިއްޖެ · ޔާޑަށް ދާށެވެ","toast.taken":"މި މަސައްކަތް އެހެން ޑްރައިވަރަކު ނަގައިފި","toast.declined":"ދޫކޮށްލެވިއްޖެ","toast.expired":"އަމުރުގެ ވަގުތު ހަމަވެއްޖެ","toast.finishFirst":"ފުރަތަމަ މިހާރުގެ މަސައްކަތް ނިންމާ","toast.uploadFirst":"ފަހުގެ ޑެލިވަރީ އަދި އަޕްލޯޑް ވަމުން. ސިގްނަލް ލިބުމުން އަލުން މަސައްކަތްކުރޭ.",
+  "toast.accepted":"މަސައްކަތް ނެގިއްޖެ · ޔާޑަށް ދާށެވެ","toast.taken":"މި މަސައްކަތް އެހެން ޑްރައިވަރަކު ނަގައިފި","toast.declined":"ދޫކޮށްލެވިއްޖެ","toast.expired":"އަމުރުގެ ވަގުތު ހަމަވެއްޖެ","toast.finishFirst":"ފުރަތަމަ މިހާރުގެ މަސައްކަތް ނިންމާ",
   "jobs.open":"ހުޅުވިފައިވާ އަމުރުތައް","jobs.done":"ނިމުނު","jobs.youEarn":"ތިބާއަށް","jobs.noOpen":"ހުޅުވިފައިވާ އަމުރެއް ނެތް","jobs.noOpenOn":"ޔާޑާ ކައިރީގެ އައު މަސައްކަތްތައް 'މިއަދު' ސްކްރީނުގައި ފެންނާނެ.","jobs.noOpenOff":"މަސައްކަތް ލިބެން ފެށޭނީ އޮންލައިން ވުމުން.","jobs.signed":"ސޮއިކުރީ {name}","jobs.noDone":"މިއަދު އަދި ޑެލިވަރީއެއް ނުކުރެވޭ","jobs.noDoneP":"ނިމުނު މަސައްކަތްތަކާއި އެކަމުން ލިބުނު ފައިސާ މިތާ ފެންނާނެ.","jobs.pendingUp":"ޑެލިވަރ ކުރެވިއްޖެ · އިންޓަނެޓް ލިބުމުން އަޕްލޯޑް ކުރެވޭނެ",
   "veh.insp":"ދަތުރުގެ ކުރީގެ ޗެކްކުރުން","veh.inspSub":"ފުރަތަމަ މަސައްކަތުގެ ކުރިން {unit} ވަށައިގެން ބައްލަވާ. އޮންލައިން ވެވޭނީ ހުރިހާ ޗެކެއް ފާސްވުމުން.","veh.odo":"އޮޑޮމީޓަރ km","veh.fuelLvl":"ތެލުގެ މިންވަރު","fuel.full":"ފުރިފައި","veh.submit":"ޗެކްކުރުން ފޮނުވާ","veh.submitted":"ޗެކްކުރުން ފޮނުވީ {time}","veh.sending":"ފޮނުވަނީ…",
   "toast.inspOk":"ޗެކްކުރުން ފޮނުވިއްޖެ · ހުރިހާ އެއްޗެއް ރަނގަޅު","toast.inspDefect":"ޗެކްކުރުން ފޮނުވިއްޖެ · ވޯކްޝޮޕަށް އަންގައިފި",
@@ -594,7 +678,7 @@ const STR={en:{
   "def.h":"މައްސަލައެއް ރިޕޯޓްކުރޭ","def.sub":"ގާޑީގައި ހުރި މައްސަލަ ވޯކްޝޮޕަށް އަންގާ. އެމީހުންނަށް އެވަގުތަށް ފެންނާނެ.","def.lbl":"މައްސަލައަކީ ކޮބާ؟","def.ph":"މިސާލު: ފަހަތު ވާތު ޓަޔަރުން ވައި ދަނީ، ޓިޕަރ ރޭމުން ލީކުވޭ","def.photo":"ފޮޓޯއެއް އިތުރުކުރޭ (ބޭނުންނަމަ)","def.photoAlt":"މައްސަލައިގެ ފޮޓޯ","def.send":"މައްސަލަ ފޮނުވާ","def.need":"ފުރަތަމަ މައްސަލަ ލިޔުއްވާ","toast.defSent":"މައްސަލަ ރިޕޯޓްކުރެވިއްޖެ · ވޯކްޝޮޕަށް އަންގައިފި",
   "fuel.h":"ތެލުގެ ރެކޯޑު","fuel.l":"ލީޓަރު","fuel.cost":"އަގު (MVR)","fuel.odo":"އޮޑޮމީޓަރ km","fuel.add":"ތެޔޮ ލިޔެލާ","fuel.need":"ލީޓަރު ޖައްސަވާ","fuel.week":"މި ހަފްތާ","fuel.totL":"ލީޓަރު","fuel.totC":"ހޭދަ (MVR)","fuel.totKm":"ދުއްވި","fuel.none":"މި ހަފްތާގައި ތެޔޮ ލިޔެފައެއް ނުވޭ","fuel.noneP":"ތެޔޮ ޖައްސާ ކޮންމެ ފަހަރަކު ލިޔުމުން، ހަފްތާގެ ޖުމްލައާއެކު މިތާ ފެންނާނެ.","toast.fuel":"ތެޔޮ ލިޔެވިއްޖެ · {l}","fuel.title":"{l} L ޑީސަލް",
   "hist.h":"ފަހުގެ ޗެކްކުރުންތައް","hist.pass":"ހުރިހާ އެއްޗެއް ރަނގަޅު","hist.fail":"މައްސަލައެއް","hist.none":"އަދި ޗެކްކުރުމެއް ނެތް","hist.noneP":"ފޮނުވާ ޗެކްލިސްޓްތަކާއި މައްސަލަ ރިޕޯޓުތައް މިތާ ފެންނާނެ.","hist.items":"{n}/{total} ފާސް","hist.defect":"މައްސަލަ ރިޕޯޓް",
-  "set.h":"ސެޓިންގްސް","set.lang":"ބަސް","set.theme":"ފެނުން","set.signout":"ސައިން އައުޓް","theme.system":"އޮޓޯ","theme.light":"އަލި","theme.dark":"އަނދިރި",
+  "set.h":"ސެޓިންގްސް","set.lang":"ބަސް","set.theme":"ފެނުން","set.signout":"ސައިން އައުޓް",
   "earn.week":"މި ހަފްތާ","earn.sample":"ނަމޫނާ","earn.trips":"ދަތުރު","earn.hours":"ޑިއުޓީގެ ގަޑިއިރު","earn.hoursLive":"މަސައްކަތުގެ ގަޑިއިރު","earn.rating":"ރޭޓިންގ","earn.cash":"ނެގި ނަގުދު","earn.chartAria":"މި ހަފްތާގެ ކޮންމެ ދުވަހެއްގެ އާމްދަނީ",
   "earn.noteDemo":"ޑެމޯއަށް ނަމޫނާ އަދަދުތައް — މަސައްކަތް ނިންމާވަރަކަށް ބަދަލުވަނީ މިއަދުގެ ބާރު އެކަނި. ކޮންމެ ބުރާސްފަތި ދުވަހު ކައުންޓަރުން ފައިސާ ދެއްކޭނެ.","earn.noteLive":"ހޮނިހިރު ދުވަހުން ފެށިގެން ނިމުނު މަސައްކަތްތަކުން. ކޮންމެ ބުރާސްފަތި ދުވަހު ކައުންޓަރުން ފައިސާ ދެއްކޭނެ.",
   "al.h":"ނޯޓިފިކޭޝަން","al.markAll":"ހުރިހާ އެއްޗެއް ކިޔުނީ","al.close":"ބަންދުކުރޭ","al.none":"އަދި ނޯޓިފިކޭޝަނެއް ނެތް","al.noneP":"އައު މަސައްކަތްތަކާއި، ހަވާލުކުރާ މަސައްކަތްތަކާއި، ކައުންޓަރުގެ މެސެޖުތައް މިތާ ފެންނާނެ.","al.now":"މިހާރު","al.min":"{n} މިނިޓު ކުރިން","al.hr":"{n} ގަޑިއިރު ކުރިން","al.day":"{n} ދުވަސް ކުރިން",
@@ -608,8 +692,18 @@ const STR={en:{
   "wa.onway":"އައްސަލާމު ޢަލައިކުމް، މިއީ YD Works ގެ {name}. ތިޔަ އޯޑަރު {ref} ގެންގޮސް މިހާރު އަންނަނީ، ގާތްގަނޑަކަށް {eta} މިނިޓުން ވާޞިލުވާނަން.","wa.arrived":"{site} އަށް އައިސްފިން. ޑެލިވަރީ ބަލައިގަތުމަށް ވަޑައިގަންނަވާ.","wa.lost":"ސައިޓު ހޯދިފައެއް ނުވޭ. ލޮކޭޝަން ޕިން ފޮނުއްވައިދެއްވާނަންތޯ؟",
   "wa.counterJob":"YD Works ކައުންޓަރަށް، މިއީ {driver} ({unit})، {ref} ގެ ބާވަތުން: ","wa.counter":"YD Works ކައުންޓަރަށް، މިއީ {driver} ({unit}): ","wa.defect":"{unit} ގައި މައްސަލައެއް: ",
   "ct.lbl":"ކައުންޓަރު","ct.title":"YD Works ކައުންޓަރު","ct.call":"ގުޅާ","ct.waAria":"ކައުންޓަރަށް WhatsApp ކުރޭ","ct.callAria":"ކައުންޓަރަށް ގުޅާ","wa.custSub":"މި ޑެލިވަރީއާ ބެހޭ ކުރު މެސެޖުތައް","toast.baseCall":"ކައުންޓަރަށް ގުޅަނީ…",
-  "tab.wa":"ވަޓްސްއެޕް","wa.counterOpt":"ކައުންޓަރަށް WhatsApp ކުރޭ","wa.custOpt":"{name} އަށް WhatsApp ކުރޭ","wa.tabSheet":"WhatsApp",
-  "day.0":"ހޮނި","day.1":"އާދި","day.2":"ހޯމަ","day.3":"އަން","day.4":"ބުދަ","day.5":"ބުރާ","day.6":"ހުކު"
+  "day.0":"ހޮނި","day.1":"އާދި","day.2":"ހޯމަ","day.3":"އަން","day.4":"ބުދަ","day.5":"ބުރާ","day.6":"ހުކު",
+  "mon.0":"ޖަނަވަރީ","mon.1":"ފެބުރުއަރީ","mon.2":"މާޗް","mon.3":"އޭޕްރީލް","mon.4":"މެއި","mon.5":"ޖޫން","mon.6":"ޖުލައި","mon.7":"އޮގަސްޓް","mon.8":"ސެޕްޓެމްބަރ","mon.9":"އޮކްޓޫބަރ","mon.10":"ނޮވެމްބަރ","mon.11":"ޑިސެމްބަރ",
+  "auth.forgot":"ޕާސްވޯޑް ހަނދާން ނެތީތަ؟","auth.forgotH":"ޕާސްވޯޑް ރީސެޓްކުރޭ","auth.forgotSub":"އެކައުންޓުގެ އީމެއިލް ޖައްސަވާ. އައު ޕާސްވޯޑެއް ހެދުމަށް ލިންކެއް ފޮނުވާނަން.","auth.sendLink":"ރީސެޓް ލިންކް ފޮނުވާ","auth.linkSent":"ރީސެޓް ލިންކަށް ތިބާގެ އީމެއިލް ބައްލަވާ.","auth.back":"ސައިން އިން އަށް އެނބުރި",
+  "auth.newH":"އައު ޕާސްވޯޑެއް ހަދާ","auth.newSub":"ތިބާގެ ޑްރައިވަރ އެކައުންޓަށް އައު ޕާސްވޯޑެއް ހަދާ.","auth.newPass":"އައު ޕާސްވޯޑް","auth.newPass2":"އައު ޕާސްވޯޑް އަލުން ޖައްސަވާ","auth.pwHint":"މަދުވެގެން 8 އަކުރު.","auth.savePw":"ރައްކާކޮށް ކުރިއަށް","auth.privacy":"ޕްރައިވެސީ",
+  "auth.deleted":"ތިބާގެ އެކައުންޓް ފޮހެލެވިއްޖެ. YD Works އާއެކު ގާޑި ދުއްވައިދެއްވީތީ ޝުކުރިއްޔާ.","err.email":"އީމެއިލް އެޑްރެސް ޖައްސަވާ","err.pwShort":"މަދުވެގެން 8 އަކުރު ބޭނުންކުރޭ.","err.pwMatch":"ދެ ޕާސްވޯޑް އެއްގޮތެއް ނޫން.","toast.pwSaved":"ޕާސްވޯޑް ބަދަލުކުރެވިއްޖެ",
+  "legal.privacy":"ޕްރައިވެސީ","legal.terms":"ޝަރުތުތައް",
+  "del.btn":"އަހަރެންގެ އެކައުންޓް ފޮހެލާ","del.demo":"ސައިން އިން ކުރުމުން ބޭނުންކުރެވޭނެ","del.h1":"އެކައުންޓް ފޮހެލަންވީތޯ؟","del.p1":"YD Works އިން މިއެއްޗެހި ދާއިމީކޮށް ފޮހެވޭނެ:","del.i1":"ތިބާގެ ޑްރައިވަރ ޕްރޮފައިލް އަދި ސައިން އިން","del.i2":"ތިބާގެ ނޯޓިފިކޭޝަންތައް","del.i3":"ތިބާގެ ލޮކޭޝަން ހިސްޓްރީ",
+  "del.keep":"ނިމުނު ޑެލިވަރީތަކުގެ ރެކޯޑު (ޑެލިވަރީގެ ހެކި އަދި އަދަދުތައް) ކުންފުނީގެ ހިސާބުތަކަށްޓަކައި ކުންފުނީގައި ބާކީ ހުންނާނެ.","del.cont":"ކުރިއަށް","del.cancel":"ކެންސަލް","del.h2":"ޔަގީންތޯ؟","del.p2":"މިކަން އަނބުރާ ނުކުރެވޭނެ. ތިބާ ސައިން އައުޓް ވާނެ، އަދި އަލުން ގާޑި ދުއްވަން ކައުންޓަރުން އައު އެކައުންޓެއް ބޭނުންވާނެ.","del.go":"ދާއިމީކޮށް ފޮހެލާ","del.busy":"ފޮހެލަނީ…",
+  "rate.h":"ތިބާގެ ރޭޓިންގ","rate.last":"ފަހުގެ {n}","rate.count1":"1 ރޭޓިންގ","rate.countN":"{n} ރޭޓިންގ","rate.aria":"5 ތަރިން {n}","rate.barAria":"{s} ތަރި: {n}","rate.comments":"ފަހުގެ ކޮމެންޓުތައް","rate.none":"އަދި ރޭޓިންގއެއް ނެތް","rate.noneP":"ޑެލިވަރީ ނިމުމުން ކަސްޓަމަރުންނަށް ރޭޓްކުރެވޭނެ. ތަރިތަކާއި ކޮމެންޓުތައް މިތާ ފެންނާނެ.","rate.more":"ހުރިހާ ކޮމެންޓެއް ދައްކާ","rate.less":"މަދުކޮށް ދައްކާ","rate.order":"އޯޑަރު {ref}","rate.err":"ރޭޓިންގ ލޯޑެއް ނުކުރެވުނު","rate.retry":"އަލުން މަސައްކަތްކުރޭ",
+  "al.rate.t":"{name} ތިބާއަށް {stars}★ ދެއްވައިފި","al.rate.b":"“{comment}” · {ref}",
+  "def.uploading":"ފޮޓޯ އަޕްލޯޑުކުރަނީ…","def.photoFail":"ފޮޓޯ އަޕްލޯޑެއް ނުވި ({msg}). ސިގްނަލް ބައްލަވައިފައި އަލުން މަސައްކަތްކުރޭ.","toast.defQueued":"ސިގްނަލް ނެތް · އިންޓަނެޓް ލިބުމުން މައްސަލަ ރިޕޯޓް ފޮނުވޭނެ","hist.pending":"އަޕްލޯޑަށް މަޑުކުރަނީ",
+  "toast.acceptedQueued":"މަސައްކަތް ނެގިއްޖެ · ފަހުގެ ޑެލިވަރީ އިންޓަނެޓް ލިބުމުން އަޕްލޯޑް ވާނެ"
 }};
 const I18N=window.YDUI&&YDUI.i18n;
 if(I18N)I18N.add(STR);
@@ -619,6 +713,14 @@ const hhmm=ts=>{const d=new Date(ts);return String(d.getHours()).padStart(2,"0")
 const dayIdx=ts=>(new Date(ts).getDay()+1)%7;          // Sat=0 … Fri=6 (pay week)
 const dayTime=ts=>`${t("day."+dayIdx(ts))} ${new Date(ts).getDate()} · ${hhmm(ts)}`;
 function weekStart(){const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-dayIdx(d));return d.getTime()}
+const fmtDate=ts=>{const d=new Date(ts);return `${d.getDate()} ${t("mon."+d.getMonth())}`};
+// anonymous usage events (YDUI.track drops them unless monitoring + backend are configured)
+function track(name,detail){try{window.YDUI&&YDUI.track&&YDUI.track(name,Object.assign({},detail||{}))}catch(_){}}
+const isNative=()=>{const C=window.Capacitor;return !!(C&&C.isNativePlatform&&C.isNativePlatform())};
+// open outside the app: the system browser / app on native, a new tab on the web
+function openExternal(u){if(isNative()){window.open(u,"_system");return}const w=window.open(u,"_blank","noopener");if(w===undefined)location.href=u}
+function legalUrl(k){const L=CFG.legal||{},f=L[k]||k+".html";return /^https?:/i.test(f)?f:String(L.base||"https://yd-mv.com/").replace(/\/?$/,"/")+f}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-legal]");if(b){e.preventDefault();openExternal(legalUrl(b.dataset.legal))}});
 function ago(ts){const m=Math.max(0,Math.round((Date.now()-ts)/60e3));return m<1?t("al.now"):m<60?t("al.min",{n:m}):m<1440?t("al.hr",{n:Math.round(m/60)}):t("al.day",{n:Math.round(m/1440)})}
 
 /* ---------- shared store (same as customer app) ---------- */
@@ -665,6 +767,7 @@ const Q={mem:[],p:null,
 };
 let queued=[];
 const myQueued=()=>queued.filter(r=>!!r.live===LIVE);
+const myPods=()=>myQueued().filter(r=>r.kind!=="defect");   // proofs of delivery (the queue also holds defect reports)
 async function reloadQueue(){queued=await Q.all();renderFlags()}
 function isNetErr(e){return !navigator.onLine||e instanceof TypeError||/fetch|network|offline|timed? ?out|load failed|internet|connection/i.test((e&&e.message)||"")}
 async function uploadProof(uuid,name,sig,photo){
@@ -675,21 +778,23 @@ async function uploadProof(uuid,name,sig,photo){
 async function queueProof(a,name,sig,photo){
   const rec={id:a.id,uuid:a.uuid||null,live:LIVE,name,sig,photo:photo||null,at:Date.now(),earned:payFor(a)};
   await Q.put(rec);await reloadQueue();
+  track("pod_queued_offline",{kind:a.kind});
   if(LIVE)applyQueued();
   else upd(a.id,Object.assign({status:"completed",demo:false,byDriver:true,pod:name,earned:rec.earned,doneAt:rec.at,podPending:true},payState(a)==="due"?{paymentStatus:"paid"}:{}));
   lastKey="";toast(t("toast.queued"));render();
 }
 // LIVE: jobs whose proof is still on the phone show as delivered locally
-function applyQueued(){for(const r of myQueued()){const j=jobs.find(x=>x.uuid===r.uuid);if(j&&j.status!=="completed"){Object.assign(j,{status:"completed",podPending:true,pod:r.name,earned:r.earned,doneAt:r.at,progress:1})}}}
+function applyQueued(){for(const r of myPods()){const j=jobs.find(x=>x.uuid===r.uuid);if(j&&j.status!=="completed"){Object.assign(j,{status:"completed",podPending:true,pod:r.name,earned:r.earned,doneAt:r.at,progress:1})}}}
 let flushing=false;
 async function flush(manual){
   if(flushing)return;
   if(!navigator.onLine){if(manual)toast(t("toast.stillOffline"));return}
-  flushing=true;let ok=0,stop=false;
+  flushing=true;let ok=0,okDef=0,stop=false;
   try{
     for(const r of await Q.all()){
       if(!!r.live!==LIVE||stop)continue;
       try{
+        if(r.kind==="defect"){await sendQueuedDefect(r);await Q.del(r.id);okDef++;continue}
         if(r.live)await uploadProof(r.uuid,r.name,r.sig,r.photo);
         else upd(r.id,{podPending:false});
         await Q.del(r.id);ok++;
@@ -701,6 +806,7 @@ async function flush(manual){
     }
   }finally{flushing=false}
   await reloadQueue();
+  if(okDef&&!ok){toast(t("toast.defSent"));if(cur==="vehicle")renderVehicle()}
   if(ok){toast(ok>1?t("toast.uploadedN",{n:ok}):t("toast.uploaded"));if(LIVE)await refreshLive();else render()}
 }
 window.addEventListener("online",()=>{renderFlags();flush()});
@@ -750,7 +856,7 @@ function legTarget(a){
   return{q:a.site,label:a.site};
 }
 function navLink(a){const g=legTarget(a);return g.q!=null?`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(g.q+", Maldives")}`:(window.YDUI?YDUI.navUrl(g.lat,g.lng):`https://www.google.com/maps/dir/?api=1&destination=${g.lat},${g.lng}&travelmode=driving`)}
-function openNav(a){const u=navLink(a);const w=window.open(u,"_blank","noopener");if(w===undefined)location.href=u}
+function openNav(a){track("navigate_opened",{leg:["accepted","loading"].includes(a.status)?"yard":"site"});openExternal(navLink(a))}
 let lm=null;
 function dropLiveMap(){if(lm){try{lm.remove()}catch(_){}lm=null}}
 function driverPos(a){
@@ -782,7 +888,7 @@ function mountLiveMap(a){
 function renderToday(){
   const a=active(),b=$("#todayBody");
   dropLiveMap();
-  const nq=myQueued().length;
+  const nq=myPods().length;
   const pendCard=nq?`<div class="card" style="margin-bottom:14px;display:flex;gap:14px;align-items:flex-start"><span class="pill amber" style="padding:8px">${icon("clock").replace("<svg","<svg width='16' height='16'")}</span><div style="flex:1;min-width:0"><b style="font:600 16px var(--display);letter-spacing:-.02em">${nq>1?t("pend.hN",{n:nq}):t("pend.h")}</b><p class="sub" style="margin-top:4px">${t("pend.p")}</p><button class="big-btn ghost" id="pendRetry" type="button" style="margin-top:12px;min-height:50px;padding:12px">${t("pend.retry")}</button></div></div>`:"";
   if(!online&&!a){b.innerHTML=pendCard+`<div class="card offline"><div class="ph"><img src="assets/truck-sm.jpg" alt="" onerror="this.style.visibility='hidden'"></div><div class="tx"><span class="pill busy">${t("offline")}</span><h3 style="margin-top:10px">${t("off.h")}</h3><p>${t("off.p")}</p><button class="big-btn amber" id="goOnline">${t("off.btn")}</button></div></div>`;$("#goOnline").onclick=()=>$("#onlineBtn").click();wirePend();return}
   if(!a){
@@ -842,11 +948,13 @@ async function complete(a){
   if(!navigator.onLine){await queueProof(a,name,sig,photo);return}
   if(!LIVE){
     upd(a.id,Object.assign({status:"completed",demo:false,byDriver:true,pod:name,earned:payFor(a),doneAt:Date.now()},payState(a)==="due"?{paymentStatus:"paid"}:{}));
+    track("job_completed",{kind:a.kind,photo:!!photo});
     toast(t("toast.delivered",{amount:iso("+"+mvr(payFor(a)))}));render();return;
   }
   btn.textContent=t("pod.uploading");
   try{
     const o=await uploadProof(a.uuid,name,sig,photo);
+    track("job_completed",{kind:a.kind,photo:!!photo});
     toast(t("toast.delivered",{amount:iso("+"+mvr(o&&o.driver_earning!=null?o.driver_earning:payFor(a)))}));
     lastKey="";await refreshLive();
   }catch(e){
@@ -901,12 +1009,13 @@ function showRequest(j){
     <div class="req-btns"><button class="big-btn ghost" id="decline">${t("req.decline")}</button><button class="big-btn amber" id="accept">${t("req.accept")}</button></div>`;
   $("#req").classList.add("on");
   $("#accept").onclick=()=>{
-    if(LIVE){const b=$("#accept");b.disabled=true;YDB.rpc("accept_order",{p_order:j.uuid}).then(()=>{closeReq();toast(t("toast.accepted"));refreshLive();go("today")},e=>{closeReq();toast(/finish your current job/i.test(e.message||"")&&myQueued().length?t("toast.uploadFirst"):e.message)});return}
+    if(LIVE){const b=$("#accept");b.disabled=true;YDB.rpc("accept_order",{p_order:j.uuid}).then(()=>{closeReq();toast(t(myPods().length?"toast.acceptedQueued":"toast.accepted"));track("job_accepted",{kind:j.kind});refreshLive();go("today")},e=>{closeReq();toast(/finish your current job/i.test(e.message||"")?t("toast.finishFirst"):(e.message||t("toast.couldntUpdate")))});return}
     jobs=load()||jobs;const cj=jobs.find(x=>x.id===j.id);
     if(!cj||cj.status!=="requested"){closeReq();toast(t("toast.taken"));return}
     upd(j.id,{status:"accepted",driver:ME,demo:false,byDriver:true});
     addDemoAlert({kind:"assigned",jobId:j.id,ref:j.id,title:j.title,read:true});
-    closeReq();toast(t("toast.accepted"));go("today")};
+    track("job_accepted",{kind:j.kind});
+    closeReq();toast(t(myPods().length?"toast.acceptedQueued":"toast.accepted"));go("today")};
   $("#decline").onclick=()=>{closeReq();toast(t("toast.declined"))};
   clearInterval(reqTimer);
   reqTimer=setInterval(()=>{left--;$("#ringN").textContent=left;$("#ringArc").setAttribute("stroke-dasharray",`${left/30*100} 100`);if(left<=0){closeReq();toast(t("toast.expired"))}},1000);
@@ -936,14 +1045,14 @@ const IKEY="ydworks.driver.insp.v1",FKEY="ydworks.driver.fuel.v1";
 let insp=ls.get(IKEY,null),fuelLog=ls.get(FKEY,null);
 if(!insp){insp=[{at:Date.now()-26*36e5,passed:true,defects:"",n:8,total:8},{at:Date.now()-74*36e5,passed:false,defects:"Reverse beeper weak — replaced at workshop",n:7,total:8}];ls.set(IKEY,insp)}
 if(!fuelLog){const ws=weekStart(),span=Date.now()-ws;fuelLog=[{at:ws+span*.7,litres:62,cost:1240,odometer:84150},{at:ws+span*.25,litres:80,cost:1600,odometer:83890}];ls.set(FKEY,fuelLog)}
-let defPhoto=null,inspBusy=false;
+let defPhoto=null,defFile=null,inspBusy=false;
 function inspItems(){const o={};CHECKS.forEach((k,i)=>o[STR.en[k+".t"]]=!!chk[i]);o.odometer=($("#odo").value||"").replace(/\s/g,"");o.fuel_level=$("#fuel").value;return o}
-// sends to the backend in LIVE; always keeps a local copy (a defect photo stays on this phone —
-// the backend has no defect-photo storage yet)
+// sends to the backend in LIVE (with the uploaded defect-photo path, if any); always keeps a local copy
+// so the history shows the thumbnail straight away
 async function sendInspection(passed,defects,o){
   o=o||{};
-  if(LIVE)await YDB.submitInspection(inspItems(),passed,defects||"");
-  const rec={at:Date.now(),passed,defects:o.text!=null?o.text:(defects||""),failed:o.failed||null,n:checkDone(),total:CHECKS.length,photo:o.photo||null,defectOnly:!!o.defectOnly};
+  if(LIVE)await YDB.submitInspection(inspItems(),passed,defects||"",o.photoPath||null);
+  const rec={at:Date.now(),passed,defects:o.text!=null?o.text:(defects||""),failed:o.failed||null,n:checkDone(),total:CHECKS.length,photo:o.photo||null,defectOnly:!!o.defectOnly,pending:!!o.pending,qid:o.qid||null};
   insp.unshift(rec);insp=insp.slice(0,20);ls.set(IKEY,insp);
   return rec;
 }
@@ -960,7 +1069,7 @@ function renderVehicle(){
 }
 function renderInspList(){
   const L=$("#inspList");
-  L.innerHTML=insp.length?insp.slice(0,6).map(r=>`<div class="row">${r.photo?`<img class="thumb-mini" src="${r.photo}" alt="${esc(t("def.photoAlt"))}">`:`<span class="ic" style="background:${r.passed&&!r.defects?"color-mix(in srgb,var(--ok) 12%,transparent)":"color-mix(in srgb,var(--busy) 12%,transparent)"}!important;color:${r.passed&&!r.defects?"var(--ok)":"var(--busy)"}">${icon(r.passed&&!r.defects?"check":"alert").replace("<svg","<svg style='width:22px;height:22px'")}</span>`}<span class="mid"><b>${r.defectOnly?t("hist.defect"):t("hist.items",{n:r.n,total:r.total})}</b><span dir="auto">${inspNote(r)?esc(inspNote(r)):t("hist.pass")}</span></span><span class="end"><span class="pill ${r.passed&&!r.defects?"ok":"busy"}">${t(r.passed&&!r.defects?"hist.pass":"hist.fail")}</span><small style="margin-top:6px">${dayTime(r.at)}</small></span></div>`).join(""):`<div class="empty"><span class="e-ic">${icon("check")}</span><b>${t("hist.none")}</b><p>${t("hist.noneP")}</p></div>`;
+  L.innerHTML=insp.length?insp.slice(0,6).map(r=>`<div class="row">${r.photo?`<img class="thumb-mini" src="${r.photo}" alt="${esc(t("def.photoAlt"))}">`:`<span class="ic" style="background:${r.passed&&!r.defects?"color-mix(in srgb,var(--ok) 12%,transparent)":"color-mix(in srgb,var(--busy) 12%,transparent)"}!important;color:${r.passed&&!r.defects?"var(--ok)":"var(--busy)"}">${icon(r.passed&&!r.defects?"check":"alert").replace("<svg","<svg style='width:22px;height:22px'")}</span>`}<span class="mid"><b>${r.defectOnly?t("hist.defect"):t("hist.items",{n:r.n,total:r.total})}</b><span dir="auto">${inspNote(r)?esc(inspNote(r)):t("hist.pass")}</span></span><span class="end">${r.pending?`<span class="pill amber">${icon("clock").replace("<svg","<svg width='11' height='11'")}${t("hist.pending")}</span>`:`<span class="pill ${r.passed&&!r.defects?"ok":"busy"}">${t(r.passed&&!r.defects?"hist.pass":"hist.fail")}</span>`}<small style="margin-top:6px">${dayTime(r.at)}</small></span></div>`).join(""):`<div class="empty"><span class="e-ic">${icon("check")}</span><b>${t("hist.none")}</b><p>${t("hist.noneP")}</p></div>`;
 }
 function renderFuel(){
   const ws=weekStart(),wk=fuelLog.filter(r=>r.at>=ws).sort((a,b)=>b.at-a.at);
@@ -978,10 +1087,9 @@ function renderSettings(){
   $("#langSeg").innerHTML=I18N.segment("seg seg2");
   $("#langSeg .seg").setAttribute("aria-label",t("set.lang"));
   $("#themeSeg").innerHTML=YDUI.theme.segment("seg");
-  const g=$("#themeSeg .seg");g.setAttribute("aria-label",t("set.theme"));
-  // the shared theme segment is English-only: relabel its buttons with our strings
-  $$("#themeSeg [data-yd-theme-set]").forEach(b=>{const n=[...b.childNodes].find(x=>x.nodeType===3);if(n)n.textContent=t("theme."+b.dataset.ydThemeSet)});
+  $("#themeSeg .seg").setAttribute("aria-label",t("set.theme"));
   $("#signOutBtn").hidden=!LIVE;
+  $("#delBtn").disabled=!LIVE;$("#delNote").hidden=LIVE;
 }
 $("#checks").addEventListener("change",e=>{const i=+e.target.dataset.i;chk[i]=e.target.checked;try{localStorage.setItem("ydworks.chk",JSON.stringify({d:new Date().toDateString(),c:chk}))}catch(_){}$("#chkMeter").style.width=checkDone()/CHECKS.length*100+"%";
   if(checkDone()<CHECKS.length&&online&&!active()){online=false;if(LIVE)YDB.rpc("set_online",{p_online:false}).catch(()=>{});setOnlineUI();geoStop();toast(t("toast.chkFail"))}renderHeader()});
@@ -995,21 +1103,53 @@ $("#inspBtn").addEventListener("click",async()=>{
 });
 $("#defPhoto").addEventListener("change",async e=>{
   const f=e.target.files[0];if(!f)return;
+  defFile=f;defState("");
   defPhoto=await miniThumb(f);
   $("#defPhotoTx").innerHTML=`<img src="${defPhoto}" alt="${esc(t("def.photoAlt"))}" style="height:120px">`;
 });
 function miniThumb(f){return new Promise(res=>{const rd=new FileReader();rd.onload=()=>{const im=new Image();im.onload=()=>{const s=Math.min(1,360/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext("2d").drawImage(im,0,0,c.width,c.height);try{res(c.toDataURL("image/jpeg",.7))}catch(_){res(null)}};im.onerror=()=>res(null);im.src=rd.result};rd.onerror=()=>res(null);rd.readAsDataURL(f)})}
+function defState(msg,kind){const el=$("#defState");el.className="defstate"+(kind==="err"?" err":"");el.innerHTML=msg?(kind==="busy"?'<span class="spin" aria-hidden="true"></span>':"")+`<span>${esc(msg)}</span>`:""}
+function resetDefForm(){
+  $("#defTxt").value="";defPhoto=null;defFile=null;$("#defPhoto").value="";
+  $("#defPhotoTx").innerHTML=`${icon("camera")}<br><span data-i18n="def.photo">${t("def.photo")}</span>`;
+}
+// LIVE + no signal: keep the report (and the photo file) in the upload queue, like a proof of delivery
+async function queueDefect(txt,passed){
+  const qid="def-"+Date.now().toString(36);
+  await Q.put({id:qid,kind:"defect",live:true,items:inspItems(),passed,defects:txt,photo:defFile||null,at:Date.now()});
+  insp.unshift({at:Date.now(),passed,defects:txt,n:checkDone(),total:CHECKS.length,photo:defPhoto,defectOnly:true,pending:true,qid});insp=insp.slice(0,20);ls.set(IKEY,insp);
+  await reloadQueue();
+  track("defect_reported",{photo:!!defFile,queued:true});
+  resetDefForm();defState("");toast(t("toast.defQueued"));renderVehicle();
+}
+async function sendQueuedDefect(r){
+  const path=r.photo?await YDB.uploadDefectPhoto(r.photo):null;
+  await YDB.submitInspection(r.items,r.passed,r.defects||"",path);
+  const loc=insp.find(x=>x.qid===r.id);if(loc){loc.pending=false;ls.set(IKEY,insp)}
+}
 $("#defBtn").addEventListener("click",async()=>{
   const txt=$("#defTxt").value.trim();
   if(!txt){toast(t("def.need"));$("#defTxt").focus();return}
-  const b=$("#defBtn");b.disabled=true;
+  const b=$("#defBtn"),lbl=$("#defBtnTx"),passed=checkDone()===CHECKS.length;b.disabled=true;defState("");
+  let stage="send";
   try{
-    await sendInspection(checkDone()===CHECKS.length,txt+(defPhoto?" (photo taken on the driver's phone)":""),{text:txt,photo:defPhoto,defectOnly:true});
-    $("#defTxt").value="";defPhoto=null;$("#defPhoto").value="";
-    $("#defPhotoTx").innerHTML=`${icon("camera")}<br><span data-i18n="def.photo">${t("def.photo")}</span>`;
+    if(LIVE&&!navigator.onLine){await queueDefect(txt,passed);return}
+    let photoPath=null;
+    if(LIVE&&defFile){
+      stage="photo";lbl.textContent=t("def.uploading");defState(t("def.uploading"),"busy");
+      photoPath=await YDB.uploadDefectPhoto(defFile);
+      stage="send";defState(t("veh.sending"),"busy");lbl.textContent=t("veh.sending");
+    }
+    await sendInspection(passed,txt,{text:txt,photo:defPhoto,defectOnly:true,photoPath});
+    track("defect_reported",{photo:!!(defFile||defPhoto),queued:false});
+    resetDefForm();defState("");
     toast(t("toast.defSent"));renderVehicle();
-  }catch(e){toast((e&&e.message)||t("toast.couldntUpdate"))}
-  b.disabled=false;
+  }catch(e){
+    const msg=(e&&e.message)||t("toast.couldntUpdate");
+    if(LIVE&&isNetErr(e)){try{await queueDefect(txt,passed)}catch(_){defState(msg,"err")}}
+    else if(stage==="photo")defState(t("def.photoFail",{msg}),"err");
+    else{defState(msg,"err");toast(msg)}
+  }finally{b.disabled=false;lbl.textContent=t("def.send")}
 });
 const num=v=>{const n=parseFloat(String(v||"").replace(/[\s,]/g,""));return isFinite(n)?n:null};
 $("#fuelBtn").addEventListener("click",async()=>{
@@ -1021,23 +1161,54 @@ $("#fuelBtn").addEventListener("click",async()=>{
     fuelLog.unshift({at:Date.now(),litres:l,cost:c,odometer:o});fuelLog=fuelLog.slice(0,60);ls.set(FKEY,fuelLog);
     if(o)$("#odo").value=o.toLocaleString("en-US").replace(/,/g," ");
     $("#fL").value="";$("#fC").value="";$("#fO").value="";
+    track("fuel_logged",{litres:l});
     toast(t("toast.fuel",{l:iso(l+" L")}));renderFuel();
   }catch(e){toast((e&&e.message)||t("toast.couldntUpdate"))}
   b.disabled=false;
 });
-// LIVE: read this driver's own history (RLS: own rows only)
+// LIVE: read this driver's own history through the backend helpers (RLS: own rows only)
 async function loadVehicleLive(){
-  if(!LIVE||!YDB.sb)return;
+  if(!LIVE)return;
   try{
     const [f,i]=await Promise.all([
-      YDB.sb.from("fuel_logs").select("*").gte("created_at",new Date(weekStart()).toISOString()).order("created_at",{ascending:false}).limit(60),
-      YDB.sb.from("inspections").select("*").order("created_at",{ascending:false}).limit(10)]);
-    if(f&&!f.error&&f.data){fuelLog=f.data.map(r=>({at:Date.parse(r.created_at),litres:+r.litres,cost:+r.cost,odometer:r.odometer!=null?+r.odometer:null}));
+      YDB.fuelLogs?Promise.resolve(YDB.fuelLogs(7)).catch(()=>null):null,
+      YDB.inspections?Promise.resolve(YDB.inspections(10)).catch(()=>null):null]);
+    if(Array.isArray(f)){fuelLog=f.map(r=>({at:Date.parse(r.created_at),litres:+r.litres,cost:+r.cost,odometer:r.odometer!=null?+r.odometer:null}));
       const lastOdo=fuelLog.find(r=>r.odometer);if(lastOdo&&!$("#odo").value)$("#odo").value=lastOdo.odometer.toLocaleString("en-US").replace(/,/g," ")}
-    if(i&&!i.error&&i.data){const local=ls.get(IKEY,[]);insp=i.data.map(r=>{const items=r.items||{},keys=CHECKS.map(k=>STR.en[k+".t"]);const n=keys.filter(k=>items[k]).length;const loc=local.find(x=>Math.abs(x.at-Date.parse(r.created_at))<120000);return{at:Date.parse(r.created_at),passed:r.passed,defects:(loc&&loc.defects)||r.defects||"",n,total:keys.length,photo:loc&&loc.photo||null,defectOnly:!!(loc&&loc.defectOnly),failed:(loc&&loc.defectOnly)?null:CHECKS.filter(k=>items[STR.en[k+".t"]]===false)}})}
+    if(Array.isArray(i)){const local=ls.get(IKEY,[]);const pend=local.filter(x=>x.pending&&myQueued().some(q=>q.id===x.qid));insp=pend.concat(i.map(r=>{const items=r.items||{},keys=CHECKS.map(k=>STR.en[k+".t"]);const n=keys.filter(k=>items[k]).length;const loc=local.find(x=>Math.abs(x.at-Date.parse(r.created_at))<120000);return{at:Date.parse(r.created_at),passed:r.passed,defects:(loc&&loc.defects)||r.defects||"",n,total:keys.length,photo:loc&&loc.photo||null,defectOnly:!!(loc&&loc.defectOnly),failed:(loc&&loc.defectOnly)?null:CHECKS.filter(k=>items[STR.en[k+".t"]]===false)}}))}
     if(cur==="vehicle")renderVehicle();
   }catch(_){}
 }
+/* delete my account (LIVE only): two steps; the server refuses while a job is in progress */
+let delStep=0;
+function renderDel(){
+  const P=$("#delPanel");
+  if(delStep===1)P.innerHTML=`<div class="sheet-top"><h2 id="delTitle">${t("del.h1")}</h2><button class="close-btn" id="delClose" type="button" aria-label="${esc(t("al.close"))}">${icon("x")}</button></div>
+    <div style="overflow-y:auto"><p class="sub" style="color:var(--ink)">${t("del.p1")}</p><ul class="del-list"><li>${t("del.i1")}</li><li>${t("del.i2")}</li><li>${t("del.i3")}</li></ul>
+    <div class="del-keep">${icon("shield")}<span>${t("del.keep")}</span></div></div>
+    <div class="del-btns" style="margin-top:6px"><button class="big-btn ghost" id="delCancel" type="button">${t("del.cancel")}</button><button class="big-btn ghost danger" id="delNext" type="button">${t("del.cont")}</button></div>`;
+  else P.innerHTML=`<div class="sheet-top"><h2 id="delTitle">${t("del.h2")}</h2><button class="close-btn" id="delClose" type="button" aria-label="${esc(t("al.close"))}">${icon("x")}</button></div>
+    <p class="sub" style="color:var(--ink)">${t("del.p2")}</p>
+    <p class="del-err" id="delErr" role="alert"></p>
+    <div class="del-btns" style="margin-top:-4px"><button class="big-btn ghost" id="delCancel" type="button">${t("del.cancel")}</button><button class="big-btn del" id="delGo" type="button">${icon("trash")}<span>${t("del.go")}</span></button></div>`;
+  $("#delClose").onclick=$("#delCancel").onclick=closeDel;
+  $("#delNext")&&($("#delNext").onclick=()=>{delStep=2;renderDel();$("#delCancel").focus()});
+  $("#delGo")&&($("#delGo").onclick=doDelete);
+}
+function openDel(){if(!LIVE)return;closeReq();delStep=1;renderDel();$("#delSheet").classList.add("on");setTimeout(()=>$("#delCancel")&&$("#delCancel").focus(),50)}
+function closeDel(){if(!$("#delSheet").classList.contains("on"))return;$("#delSheet").classList.remove("on");delStep=0;$("#delBtn").focus({preventScroll:true})}
+async function doDelete(){
+  const b=$("#delGo"),err=$("#delErr");if(b.disabled)return;b.disabled=true;$("#delCancel").disabled=true;err.textContent="";b.querySelector("span").textContent=t("del.busy");
+  try{await YDB.deleteAccount()}
+  catch(e){err.textContent=(e&&e.message)||t("toast.couldntUpdate");b.disabled=false;$("#delCancel").disabled=false;b.querySelector("span").textContent=t("del.go");return}
+  track("account_deleted");
+  if(unwatch)unwatch();if(unwatchAl)unwatchAl();geoStop();
+  try{sessionStorage.setItem("yd-driver-deleted","1")}catch(_){}
+  location.reload();
+}
+$("#delBtn").addEventListener("click",openDel);
+$("#delSheet").addEventListener("click",e=>{if(e.target.id==="delSheet")closeDel()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDel()});
 $("#signOutBtn").addEventListener("click",async()=>{if(unwatch)unwatch();if(unwatchAl)unwatchAl();await YDB.rpc("set_online",{p_online:false}).catch(()=>{});await YDB.signOut();location.reload()});
 
 /* ---------- earnings ---------- */
@@ -1074,6 +1245,51 @@ function renderEarn(){
   $("#wkCash").textContent=mvr(cash).replace("MVR ","");
   $("#earnSample").hidden=LIVE;
   $("#earnNote").textContent=t(LIVE?"earn.noteLive":"earn.noteDemo");
+  renderRating();
+  if(LIVE)loadRatings();
+}
+
+/* ═════════════ my rating (customers rate each completed delivery, 1–5 stars + comment) ═════════════ */
+const RATE_LIMIT=20;
+const DEMO_RATINGS=(()=>{const n=Date.now(),h=36e5,d=864e5;
+  const c=[[5,40*60e3,"Quick and very careful with the cement bags. Thank you!","YD-48190"],[5,d+3*h,"ވަރަށް ރަނގަޅު ޚިދުމަތެއް. ޝުކުރިއްޔާ!","YD-48122"],[4,2*d,"","YD-48101"],[3,4*d+2*h,"Arrived late but helpful","YD-47988"],[5,5*d,"Unloaded exactly where we asked, kept the site tidy.","YD-47951"],[4,8*d,"","YD-47902"]];
+  const out=c.map(([stars,ago,comment,ref])=>({stars,at:n-ago,comment,ref}));
+  for(let i=0;out.length<RATE_LIMIT;i++)out.push({stars:5,at:n-(9+i*1.4)*d,comment:"",ref:"YD-4"+(7880-i*23)});
+  return out})();
+let ratings=null,ratingsErr=false,ratingsAt=0,ratingsBusy=false,rateAll=false;
+const curRatings=()=>LIVE?ratings:DEMO_RATINGS;
+async function loadRatings(force){
+  if(!LIVE||!ME.id||!YDB.sb||ratingsBusy)return;
+  if(!force&&Date.now()-ratingsAt<60000)return;
+  ratingsBusy=true;ratingsAt=Date.now();
+  try{
+    const {data,error}=await YDB.sb.from("ratings").select("*").eq("driver_id",ME.id).order("created_at",{ascending:false}).limit(RATE_LIMIT);
+    if(error)throw error;
+    ratings=(data||[]).map(r=>({stars:Math.max(1,Math.min(5,Math.round(+r.stars||0))),at:Date.parse(r.created_at),comment:r.comment||"",orderId:r.order_id}));ratingsErr=false;
+  }catch(_){ratingsErr=true}
+  ratingsBusy=false;
+  if(cur==="earn")renderRating();
+}
+function starsHtml(v,cls){const one=`<svg aria-hidden="true"><use href="#i-star"/></svg>`,five=one.repeat(5);
+  return `<span class="stars${cls?" "+cls:""}" role="img" aria-label="${esc(t("rate.aria",{n:(Math.round(v*10)/10).toLocaleString("en-US")}))}"><span class="st-bg">${five}</span><span class="st-fg" style="width:${Math.max(0,Math.min(100,v/5*100))}%">${five}</span></span>`}
+function rateRef(r){if(r.ref)return r.ref;const j=r.orderId&&jobs.find(x=>x.uuid===r.orderId);return j?j.id:(r.orderId?String(r.orderId).slice(0,8).toUpperCase():"")}
+function renderRating(){
+  const body=$("#rateBody");if(!body)return;
+  const list=curRatings();
+  $("#rateLast").textContent=list&&list.length>=RATE_LIMIT?t("rate.last",{n:RATE_LIMIT}):"";
+  if(!list){body.innerHTML=ratingsErr?`<div class="card empty"><span class="e-ic">${icon("alert")}</span><b>${t("rate.err")}</b><button class="big-btn ghost" id="rateRetry" type="button" style="min-height:48px;padding:10px 18px">${t("rate.retry")}</button></div>`:`<div class="card" style="min-height:120px" aria-busy="true"></div>`;
+    $("#rateRetry")&&($("#rateRetry").onclick=()=>loadRatings(true));return}
+  if(!list.length){body.innerHTML=`<div class="card empty"><span class="e-ic">${icon("star")}</span><b>${t("rate.none")}</b><p>${t("rate.noneP")}</p></div>`;return}
+  const n=list.length,avg=list.reduce((s,r)=>s+r.stars,0)/n,dist=[5,4,3,2,1].map(s=>[s,list.filter(r=>r.stars===s).length]),mx=Math.max(1,...dist.map(x=>x[1]));
+  const withC=list.filter(r=>r.comment&&r.comment.trim()),shown=rateAll?withC:withC.slice(0,3);
+  body.innerHTML=`<div class="card"><div class="rate-top">
+      <div class="rate-avg"><b data-ltr id="rateAvg">${avg.toFixed(1)}</b>${starsHtml(avg)}<small id="rateCount">${n===1?t("rate.count1"):t("rate.countN",{n})}</small></div>
+      <div class="bars">${dist.map(([st,c])=>`<div class="bar" role="img" aria-label="${esc(t("rate.barAria",{s:st,n:c}))}"><span aria-hidden="true">${st}★</span><i aria-hidden="true"><em style="width:${c/mx*100}%"></em></i><span aria-hidden="true">${c}</span></div>`).join("")}</div>
+    </div></div>
+    ${withC.length?`<div class="sec" style="margin-top:18px"><h2 style="font-size:15.5px">${t("rate.comments")}</h2></div>
+    <div class="list" id="rateList">${shown.map(r=>{const ref=rateRef(r);return `<div class="rv"><div class="rv-top">${starsHtml(r.stars,"sm")}<small>${fmtDate(r.at)}</small></div><p dir="auto">${esc(r.comment)}</p>${ref?`<span class="ref">${t("rate.order",{ref:ltr(esc(ref))})}</span>`:""}</div>`}).join("")}</div>
+    ${withC.length>3?`<button class="linkbtn rate-more" id="rateMore" type="button" aria-expanded="${rateAll}">${t(rateAll?"rate.less":"rate.more")}</button>`:""}`:""}`;
+  $("#rateMore")&&($("#rateMore").onclick=()=>{rateAll=!rateAll;renderRating()});
 }
 
 /* ---------- header ---------- */
@@ -1096,30 +1312,12 @@ const custPhone=a=>a&&a.customer&&String(a.customer.phone||"").replace(/\D/g,"")
 function waUrl(phone,text){let d=String(phone||"").replace(/\D/g,"");if(d.length===7)d="960"+d;return "https://wa.me/"+d+(text?"?text="+encodeURIComponent(text):"")}
 function openWa(phone,text,context){
   try{window.YDUI&&YDUI.track&&YDUI.track("whatsapp_click",{context})}catch(_){}
-  const u=waUrl(phone,text),C=window.Capacitor;
-  if(C&&C.isNativePlatform&&C.isNativePlatform())window.open(u,"_system");   // hands off to the WhatsApp app
-  else{const w=window.open(u,"_blank","noopener");if(w===undefined)location.href=u}
+  openExternal(waUrl(phone,text));   // native: _system hands off to the WhatsApp app
 }
 function waCounter(a,context){
   const v={driver:ME.name,unit:ME.code||"TP-04"};
   openWa(CFG.whatsapp,a?t("wa.counterJob",Object.assign(v,{ref:a.id})):t("wa.counter",v),context||(a?"counter_job":"counter"));
 }
-// footer action (not a page): no active job -> straight to the counter chat; else a small chooser
-function tabWa(){
-  jobs=load()||jobs;const a=active(),ph=custPhone(a);
-  if(!a||!ph){if(CFG.whatsapp)waCounter(a,"tabbar");else if(a&&ph)openWaSheet(a);return}
-  const first=((a.customer&&a.customer.name)||t("kv.cust")).split(/\s+/)[0];
-  waOpts=[];
-  const rows=[];
-  if(CFG.whatsapp)rows.push(["counter",esc(t("wa.counterOpt")),t("wa.counterJob",{driver:ME.name,unit:ME.code||"TP-04",ref:a.id})]);
-  rows.push(["customer",esc(t("wa.custOpt",{name:first})),t("wa.custSub")]);
-  $("#waTitle").textContent=t("wa.tabSheet");
-  $("#waOpts").innerHTML=rows.map(([k,l,m])=>`<button class="wa-opt" type="button" data-wt="${k}">${WA_SVG}<span class="wa-tx"><b>${l}</b><span dir="auto">${esc(m)}</span></span></button>`).join("");
-  $$("[data-wt]").forEach(b=>b.onclick=()=>{closeWaSheet();if(b.dataset.wt==="counter")waCounter(a,"tabbar");else openWaSheet(a)});
-  closeReq();$("#waSheet").classList.add("on");setTimeout(()=>$("#waClose").focus(),50);
-}
-$("#waTab").insertAdjacentHTML("afterbegin",WA_SVG);
-$("#waTab").addEventListener("click",tabWa);
 let waOpts=[];
 function openWaSheet(a){
   const first=(ME.name||"").split(/\s+/)[0],ph=custPhone(a);if(!ph)return;
@@ -1145,10 +1343,11 @@ $("#waDefBtn").hidden=!CFG.whatsapp;
 $("#waDefBtn").addEventListener("click",()=>{const d=$("#defTxt").value.trim();openWa(CFG.whatsapp,t("wa.defect",{unit:ME.code||"TP-04"})+d,"counter_defect")});
 
 /* ═════════════ alerts ═════════════ */
-const AKEY="ydworks.driver.alerts.v1";
+const AKEY="ydworks.driver.alerts.v2";
 let alerts=[],demoAlerts=ls.get(AKEY,null),seenAlerts=null;
 if(!demoAlerts){const n=Date.now();demoAlerts=[
   {id:"d-msg",kind:"message",k:"msg",at:n-28*60e3,read:false},
+  {id:"d-rate",kind:"rating",name:"Aishath",stars:5,comment:DEMO_RATINGS[0].comment,ref:DEMO_RATINGS[0].ref,at:DEMO_RATINGS[0].at,read:false},
   {id:"d-asg",kind:"assigned",jobId:"YD-48213",ref:"YD-48213",title:"Cement & sand load",at:n-46*60e3,read:true}];ls.set(AKEY,demoAlerts)}
 function addDemoAlert(a){if(LIVE)return;demoAlerts.unshift(Object.assign({id:"d-"+Date.now().toString(36)+Math.random().toString(36).slice(2,5),at:Date.now(),read:false},a));demoAlerts=demoAlerts.slice(0,40);ls.set(AKEY,demoAlerts);renderBell();if($("#alerts").classList.contains("on"))renderAlerts()}
 const curAlerts=()=>LIVE?alerts:demoAlerts;
@@ -1156,6 +1355,7 @@ function alText(a){
   if(a.live)return{title:a.title,body:a.body};
   if(a.kind==="job")return{title:t("al.job.t",{title:a.title}),body:t("al.job.b",{site:a.site,amount:mvr(a.total||0)})};
   if(a.kind==="assigned")return{title:t("al.assigned.t"),body:t("al.assigned.b",{ref:a.ref,title:a.title})};
+  if(a.kind==="rating")return{title:t("al.rate.t",{name:a.name,stars:a.stars}),body:t("al.rate.b",{comment:a.comment,ref:a.ref})};
   return{title:t("al.msg.t"),body:t("al.msg.b")};
 }
 function renderBell(){
@@ -1165,8 +1365,8 @@ function renderBell(){
 }
 function renderAlerts(){
   const list=curAlerts().slice().sort((a,b)=>b.at-a.at);
-  const ic=k=>k==="job"?"truck":k==="assigned"?"steer":k==="defect"?"alert":k==="message"?"inbox":"bell";
-  $("#alList").innerHTML=list.length?list.map(a=>{const x=alText(a);return `<button class="al${a.read?"":" unread"}" type="button" data-al="${esc(a.id)}"><span class="aic ${a.kind==="job"?"job":a.kind==="defect"?"defect":""}">${icon(ic(a.kind))}</span><span class="mid"><b dir="auto">${esc(x.title)}</b><span dir="auto">${esc(x.body)}</span><small>${ago(a.at)}</small></span><span class="udot${a.read?" read":""}" aria-hidden="true"></span></button>`}).join(""):`<div class="empty"><span class="e-ic">${icon("bell")}</span><b>${t("al.none")}</b><p>${t("al.noneP")}</p></div>`;
+  const ic=k=>k==="job"?"truck":k==="assigned"?"steer":k==="defect"?"alert":k==="message"?"inbox":k==="rating"?"star":"bell";
+  $("#alList").innerHTML=list.length?list.map(a=>{const x=alText(a);return `<button class="al${a.read?"":" unread"}" type="button" data-al="${esc(a.id)}"><span class="aic ${a.kind==="job"?"job":a.kind==="defect"?"defect":a.kind==="rating"?"rate":""}">${icon(ic(a.kind))}</span><span class="mid"><b dir="auto">${esc(x.title)}</b><span dir="auto">${esc(x.body)}</span><small>${ago(a.at)}</small></span><span class="udot${a.read?" read":""}" aria-hidden="true"></span></button>`}).join(""):`<div class="empty"><span class="e-ic">${icon("bell")}</span><b>${t("al.none")}</b><p>${t("al.noneP")}</p></div>`;
   $("#alAll").hidden=!list.some(a=>!a.read);
   $$("[data-al]").forEach(b=>b.onclick=()=>openAlert(list.find(a=>String(a.id)===b.dataset.al)));
 }
@@ -1180,6 +1380,7 @@ function markRead(ids){
 }
 function openAlert(a){
   if(!a)return;if(!String(a.id).startsWith("push-"))markRead([a.id]);
+  if(a.kind==="rating"){closeAlerts();go("earn");if(LIVE)loadRatings(true);setTimeout(()=>{const s=$("#rateSec");s&&s.scrollIntoView({block:"start",behavior:"smooth"})},60);return}
   jobs=load()||jobs;
   const j=a.live?(a.orderUuid?jobs.find(x=>x.uuid===a.orderUuid):null):(a.jobId?jobs.find(x=>x.id===a.jobId):null);
   if(!a.jobId&&!a.orderUuid){renderAlerts();return}
@@ -1200,7 +1401,7 @@ async function loadAlerts(){
   try{
     const rows=await YDB.notifications(50);
     alerts=rows.map(r=>({id:r.id,kind:r.kind,title:r.title,body:r.body||"",at:Date.parse(r.created_at),read:!!r.read_at,orderUuid:r.order_id,live:true}));
-    if(seenAlerts){const fresh=alerts.filter(a=>!a.read&&!seenAlerts.has(a.id)&&a.kind!=="job");if(fresh.length)toast(fresh[0].title)}
+    if(seenAlerts){const fresh=alerts.filter(a=>!a.read&&!seenAlerts.has(a.id)&&a.kind!=="job");if(fresh.length)toast(fresh[0].title);if(fresh.some(a=>a.kind==="rating"))loadRatings(true)}
     seenAlerts=new Set(alerts.map(a=>a.id));
     renderBell();if($("#alerts").classList.contains("on"))renderAlerts();
   }catch(_){}
@@ -1243,7 +1444,7 @@ setInterval(()=>{
 window.addEventListener("storage",e=>{if(e.key===KEY)render()});
 ch&&ch.addEventListener("message",()=>render());
 window.addEventListener("resize",placeTruck);
-window.addEventListener("yd-lang",()=>{setOnlineUI();renderFlags();renderBell();renderAuthMode(true);if($("#alerts").classList.contains("on"))renderAlerts();lastKey="";render()});
+window.addEventListener("yd-lang",e=>{track("lang_changed",{lang:e&&e.detail});setOnlineUI();renderFlags();renderBell();renderAuthMode(true);if(delStep)renderDel();if($("#alerts").classList.contains("on"))renderAlerts();lastKey="";render()});
 window.addEventListener("yd-theme",()=>{if(cur==="vehicle")renderSettings()});
 if(I18N)I18N.apply();
 try{(new Image()).src="assets/hero-sm.jpg"}catch(_){}   // warm the cache so the idle card has its photo with no signal
@@ -1256,7 +1457,7 @@ let unwatch=null,unwatchAl=null;
 async function refreshLive(){try{const keep=active();jobs=await YDB.fetchOrders();
   const a=active();if(a&&keep&&a.uuid===keep.uuid&&a.status==="enroute")a.progress=Math.max(a.progress,keep.progress||0);
   // a queued proof the server already has (completed elsewhere) can be dropped
-  for(const r of myQueued()){const j=jobs.find(x=>x.uuid===r.uuid);if(j&&j.status==="completed"&&!j.podPending){await Q.del(r.id)}}
+  for(const r of myPods()){const j=jobs.find(x=>x.uuid===r.uuid);if(j&&j.status==="completed"&&!j.podPending){await Q.del(r.id)}}
   queued=await Q.all();
   mem=jobs;applyQueued();renderFlags();render()}catch(e){toast(t("toast.refresh"))}}
 async function liveAdvance(a){
@@ -1269,19 +1470,24 @@ async function liveAdvance(a){
 }
 
 /* ---------- sign-in: phone (SMS code) or email ---------- */
-let authMode=CFG.phoneLogin?"phone":"email",phoneStep="num",phoneNum="",resendLeft=0,resendT=null;
+let authMode=CFG.phoneLogin?"phone":"email",authSub=null,phoneStep="num",phoneNum="",resendLeft=0,resendT=null;   // authSub: null | "forgot" | "recovery"
 function showAuth(on){$("#auth").hidden=!on;if(on)renderAuthMode()}
 function renderAuthMode(keepErr){
-  $("#aSeg").hidden=!CFG.phoneLogin;
+  const sub=authSub;
+  $("#aSeg").hidden=!CFG.phoneLogin||!!sub;
   $("#aSeg").setAttribute("aria-label",t("auth.method"));
   $$("#aSeg button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.mode===authMode)));
-  $("#authForm").hidden=authMode!=="email";
-  $("#phoneForm").hidden=authMode!=="phone"||phoneStep!=="num";
-  $("#codeForm").hidden=authMode!=="phone"||phoneStep!=="code";
-  $("#aSub").textContent=t(authMode==="phone"?"auth.phoneSub":"auth.sub");
+  $("#authForm").hidden=!!sub||authMode!=="email";
+  $("#phoneForm").hidden=!!sub||authMode!=="phone"||phoneStep!=="num";
+  $("#codeForm").hidden=!!sub||authMode!=="phone"||phoneStep!=="code";
+  $("#forgotForm").hidden=sub!=="forgot";
+  $("#newPassForm").hidden=sub!=="recovery";
+  $("#aDemo").hidden=sub==="recovery";
+  $("#aTitle").textContent=t(sub==="forgot"?"auth.forgotH":sub==="recovery"?"auth.newH":"auth.title");
+  $("#aSub").textContent=t(sub==="forgot"?"auth.forgotSub":sub==="recovery"?"auth.newSub":authMode==="phone"?"auth.phoneSub":"auth.sub");
   $("#aSentTo").innerHTML=t("auth.sentTo",{phone:ltr("+960 "+phoneNum.slice(0,3)+" "+phoneNum.slice(3))});
   renderResend();
-  if(!keepErr)$("#aErr").textContent="";
+  if(!keepErr){$("#aErr").textContent="";$("#aOk").textContent=""}
 }
 function renderResend(){const b=$("#aResend");b.disabled=resendLeft>0;b.textContent=resendLeft>0?t("auth.resendIn",{s:resendLeft}):t("auth.resend")}
 function startResend(){resendLeft=30;renderResend();clearInterval(resendT);resendT=setInterval(()=>{resendLeft--;renderResend();if(resendLeft<=0)clearInterval(resendT)},1000)}
@@ -1313,6 +1519,30 @@ $("#codeForm").addEventListener("submit",async e=>{
 $("#aResend").addEventListener("click",async()=>{if(resendLeft>0)return;$("#aPhone").value=phoneNum;if(await sendCode())startResend()});
 $("#aChange").addEventListener("click",()=>{phoneStep="num";clearInterval(resendT);resendLeft=0;renderAuthMode();$("#aPhone").focus()});
 $("#aDemo").addEventListener("click",()=>showAuth(false));
+$("#aForgot").addEventListener("click",()=>{authSub="forgot";$("#fEmail").value=$("#aEmail").value.trim();renderAuthMode();$("#fEmail").focus()});
+$("#fBack").addEventListener("click",()=>{authSub=null;renderAuthMode();$("#aEmail").focus()});
+$("#forgotForm").addEventListener("submit",async e=>{
+  e.preventDefault();const err=$("#aErr"),ok=$("#aOk"),b=$("#fSend");err.textContent="";ok.textContent="";
+  const email=$("#fEmail").value.trim();
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){err.textContent=t("err.email");$("#fEmail").focus();return}
+  if(b.disabled)return;b.disabled=true;
+  try{await YDB.resetPassword(email);ok.textContent=t("auth.linkSent");$("#aEmail").value=email}
+  catch(x){err.textContent=(x&&x.message)||t("toast.couldntUpdate")}
+  b.disabled=false;
+});
+// arriving from the reset-password email: the backend flags recovery (YDB.recovery or the 'yd-recovery' event)
+function showRecovery(){authSub="recovery";showAuth(true);$("#nPass").value="";$("#nPass2").value="";setTimeout(()=>$("#nPass").focus(),50)}
+window.addEventListener("yd-recovery",showRecovery);
+$("#newPassForm").addEventListener("submit",async e=>{
+  e.preventDefault();const err=$("#aErr"),b=$("#nGo");err.textContent="";
+  const p1=$("#nPass").value,p2=$("#nPass2").value;
+  if(p1.length<8){err.textContent=t("err.pwShort");$("#nPass").focus();return}
+  if(p1!==p2){err.textContent=t("err.pwMatch");$("#nPass2").focus();return}
+  if(b.disabled)return;b.disabled=true;
+  try{await YDB.setNewPassword(p1);authSub=null;$("#nPass").value="";$("#nPass2").value="";toast(t("toast.pwSaved"));await enterLive()}
+  catch(x){err.textContent=(x&&x.message)||t("toast.couldntUpdate")}
+  b.disabled=false;
+});
 $("#authForm").addEventListener("submit",async e=>{
   e.preventDefault();const err=$("#aErr");$("#aGo").disabled=true;err.textContent="";
   try{await YDB.signIn($("#aEmail").value.trim(),$("#aPass").value);await enterLive()}
@@ -1321,7 +1551,7 @@ $("#authForm").addEventListener("submit",async e=>{
 });
 async function enterLive(){
   const p=YDB.profile||{};
-  if(p.role!=="driver"){await YDB.signOut();showAuth(true);$("#aErr").textContent=t("err.notDriver");return}
+  if(p.role!=="driver"){await YDB.signOut();authSub=null;showAuth(true);$("#aErr").textContent=t("err.notDriver");return}
   LIVE=true;ME={id:p.id,name:p.full_name||"Driver",unit:[p.unit_code,p.unit_name].filter(Boolean).join(" · "),init:YDB.initials(p.full_name),code:p.unit_code||"",rating:p.rating!=null?+p.rating:4.8};
   $("#meName").textContent=ME.name;$("#meSub").textContent=[p.unit_code,p.rating!=null?"★ "+(+p.rating).toFixed(1):""].filter(Boolean).join(" · ");
   $("#face").innerHTML=`<span class="ini">${esc(ME.init)}</span>`;
@@ -1335,12 +1565,16 @@ async function enterLive(){
   await loadAlerts();
   if(unwatchAl)unwatchAl();try{unwatchAl=YDB.watchTable("notifications",loadAlerts,"user_id=eq."+p.id)}catch(_){unwatchAl=null}
   try{Promise.resolve(YDB.registerPush((n,tapped)=>{loadAlerts();refreshLive();const oid=n&&n.data&&(n.data.order_id||n.data.order);if(tapped&&oid)openAlert({id:"push-"+oid,orderUuid:oid,live:true,read:true})})).catch(()=>{})}catch(_){}
+  ratings=null;ratingsAt=0;loadRatings(true);
   loadVehicleLive();flush();go("today");
 }
 (async function boot(){
   if(!window.YDB)return;
   const ok=await YDB.init();if(!ok)return;
+  if(YDB.recovery){showRecovery();return}
   if(YDB.user)await enterLive();else showAuth(true);
+  let gone=false;try{gone=sessionStorage.getItem("yd-driver-deleted")==="1";sessionStorage.removeItem("yd-driver-deleted")}catch(_){}
+  if(gone&&!$("#auth").hidden)$("#aOk").textContent=t("auth.deleted");
 })();
 })();
 </script>

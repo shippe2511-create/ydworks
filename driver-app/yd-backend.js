@@ -97,13 +97,17 @@
     ]);
     if (m.error) throw m.error;
     if (t.error) throw t.error;
+    const img = {};
+    m.data.concat(t.data).forEach(r => { if (r.image_url) img[r.id] = r.image_url; });
+    if (window.YDUI && window.YDUI.setImages) window.YDUI.setImages(img);
     return {
       machines: m.data.map(r => ({
         id: r.id, code: r.code, name: r.name, icon: r.icon, cat: r.category, specs: r.specs || {},
         rate: { hr: +r.rate_hr, day: +r.rate_day, mo: +r.rate_mo },
         busy: !!(r.busy_until && Date.parse(r.busy_until) > Date.now())
       })),
-      materials: t.data.map(r => ({ id: r.id, name: r.name, unit: r.unit, price: +r.price, cat: r.category, icon: r.icon, step: r.step }))
+      materials: t.data.map(r => ({ id: r.id, name: r.name, unit: r.unit, price: +r.price, cat: r.category, icon: r.icon, step: r.step,
+        stock: r.stock_qty == null ? null : +r.stock_qty, lowAt: r.low_stock_at == null ? null : +r.low_stock_at }))
     };
   };
 
@@ -208,6 +212,7 @@
       p.project_milestones.sort((a, b) => a.sort - b.sort);
       p.project_updates.sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at));
       for (const u of p.project_updates) u.photo_urls = await Promise.all((u.photos || []).map(x => Y.signedUrl("projects", x).catch(() => null)));
+      p.cover_url = p.cover_path ? await Y.signedUrl("projects", p.cover_path).catch(() => null) : null;
     }
     return data;
   };

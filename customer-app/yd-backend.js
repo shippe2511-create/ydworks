@@ -97,6 +97,9 @@
     ]);
     if (m.error) throw m.error;
     if (t.error) throw t.error;
+    const img = {};
+    m.data.concat(t.data).forEach(r => { if (r.image_url) img[r.id] = r.image_url; });
+    if (window.YDUI && window.YDUI.setImages) window.YDUI.setImages(img);
     return {
       machines: m.data.map(r => ({
         id: r.id, code: r.code, name: r.name, icon: r.icon, cat: r.category, specs: r.specs || {},

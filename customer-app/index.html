@@ -306,7 +306,7 @@ img.pimg{width:100%;height:100%;object-fit:cover;display:block}
 /* ---- feature pack: phone sign-in, notifications, saved sites, booking calendar, stock, payments, invoices, build tracker, language ---- */
 .live-dot{margin-right:0;margin-inline-end:6px}
 /* the hidden attribute must win over component display rules (.field, .cta, .fab …) */
-[hidden]:not(.wa-fab){display:none!important}
+[hidden]{display:none!important}
 [dir="rtl"] .flip{transform:scaleX(-1)}
 [dir="rtl"] .promo::after{background:linear-gradient(270deg,rgba(7,11,22,.88),rgba(7,11,22,.2))}
 html[lang="dv"] body *{letter-spacing:0!important}
@@ -481,17 +481,6 @@ html[dir="rtl"] .inv-link{padding:0 80px 14px 14px}
 .auth-alt{display:flex;align-items:center;gap:12px;margin-top:20px;color:var(--mute);font-size:12px}
 .auth-alt::before,.auth-alt::after{content:"";flex:1;height:1px;background:var(--line-2)}
 .ml{position:absolute;inset:0}
-/* floating WhatsApp button above the tab bar */
-.wa-fab{position:absolute;inset-inline-end:16px;bottom:calc(86px + env(safe-area-inset-bottom,0px));z-index:15;width:52px;height:52px;border-radius:50%;border:0;background:#25D366;color:#fff;display:grid;place-items:center;
-  box-shadow:0 10px 24px -8px rgba(18,140,74,.55),0 2px 6px rgba(0,0,0,.18);transition:transform .25s cubic-bezier(.2,.8,.2,1),opacity .2s,bottom .3s cubic-bezier(.2,.8,.2,1)}
-@media (min-width:600px){.wa-fab{bottom:calc(96px + env(safe-area-inset-bottom,0px))}}
-.wa-fab svg{width:28px;height:28px}
-.wa-fab:active{transform:scale(.94)}
-.wa-fab:focus-visible{outline:3px solid var(--brand);outline-offset:3px}
-.wa-fab[hidden]{display:grid;opacity:0;transform:scale(.6);pointer-events:none;visibility:hidden}
-.wa-fab.raise{bottom:calc(164px + env(safe-area-inset-bottom,0px))}
-@media (min-width:600px){.wa-fab.raise{bottom:calc(174px + env(safe-area-inset-bottom,0px))}}
-#s-shop{padding-bottom:28px}
 
 /* WhatsApp */
 .wa-row{display:flex;align-items:center;gap:12px;width:100%;margin-top:12px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:12px 14px;text-align:start;color:var(--ink);min-height:44px}
@@ -523,6 +512,69 @@ html[dir="rtl"] .sfield{padding:0 14px 0 6px}
 .scount{font-size:12.5px;color:var(--mute);margin:-4px 2px 10px}
 .row .mid .stk{font-weight:500}
 .row .mid span span,.row .mid span bdi{display:inline;white-space:nowrap}
+
+/* ---- trust pack: password reset, account deletion, ratings, reschedule, legal ---- */
+.textbtn{min-height:44px}
+.auth-row.end{justify-content:flex-end;margin-top:2px}
+.legal-line{font-size:12.5px;color:var(--mute);line-height:1.5;margin-top:14px}
+.legal-line button,.legal-link{background:none;border:0;padding:0;color:var(--brand);font:inherit;font-weight:500;text-decoration:underline;text-underline-offset:3px}
+.legal-line button{display:inline;min-height:0}
+.legal-link{display:flex;align-items:center;justify-content:center;min-height:44px;margin:6px auto 0;font-size:13px}
+.srow .ext{width:16px;height:16px;color:var(--mute);flex:none}
+/* external-link and arrow icons point the reading direction */
+[dir="rtl"] .srow .ext{transform:scaleX(-1)}
+.cta.dangerfill{background:var(--busy);box-shadow:0 14px 30px -14px var(--busy)}
+.delacc{margin-top:22px}
+/* full-screen confirmation */
+.page{position:absolute;inset:0;z-index:36;background:var(--bg);overflow-y:auto;display:flex;flex-direction:column}
+.page-top{display:flex;align-items:center;gap:12px;padding:calc(14px + env(safe-area-inset-top,0px)) max(18px,env(safe-area-inset-right,0px)) 0 max(18px,env(safe-area-inset-left,0px))}
+.page-body{padding:10px max(22px,env(safe-area-inset-left,0px)) calc(28px + env(safe-area-inset-bottom,0px)) max(22px,env(safe-area-inset-right,0px))}
+.page-body h1{font-size:28px;letter-spacing:-.04em;margin-top:14px}
+html[lang="dv"] .page-body h1{line-height:1.35}
+.del-ic{width:56px;height:56px;border-radius:18px;display:grid;place-items:center;background:color-mix(in srgb,var(--busy) 13%,transparent);color:var(--busy)}
+.del-ic svg{width:26px;height:26px}
+.dlist{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:14px 16px}
+.dlist h2{font:500 10.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.dlist ul{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:9px;font-size:14px}
+.dlist li{display:flex;gap:10px;align-items:flex-start;line-height:1.4}
+.dlist li i{flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font:600 12px/1 var(--mono);font-style:normal;margin-top:1px;background:color-mix(in srgb,var(--busy) 13%,transparent);color:var(--busy)}
+.dlist.keep li i{background:color-mix(in srgb,var(--ok) 14%,transparent);color:var(--ok)}
+.field input.typeconf{font:600 17px var(--mono);letter-spacing:.2em;text-transform:uppercase;direction:ltr;text-align:center}
+/* driver rating */
+.rate{margin-top:12px;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:16px}
+.rate .rt{display:block;font:600 17px var(--display);letter-spacing:-.02em}
+.rate .sub{display:block;margin-top:2px}
+.stars{display:flex;gap:4px;margin-top:12px}
+.stars button{width:48px;height:48px;border:0;background:none;padding:0;display:grid;place-items:center;color:var(--line-2);border-radius:12px}
+.stars svg{width:34px;height:34px;transition:transform .15s}
+.stars button.on{color:var(--hazard)}
+.stars button:active svg{transform:scale(.88)}
+.stars.static{gap:2px;margin-top:8px}
+.stars.static span{display:grid;place-items:center;color:var(--line-2)}
+.stars.static span.on{color:var(--hazard)}
+.stars.static svg{width:22px;height:22px}
+.starlbl{display:block;font-size:13px;color:var(--mute);min-height:1.4em;margin-top:2px}
+.rchips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.rchips .chip{min-height:44px;padding:8px 14px}
+.rate textarea{font:400 15px var(--body);color:var(--ink);background:var(--bg);border:1px solid var(--line-2);border-radius:14px;padding:12px 14px;width:100%;resize:vertical;min-height:64px}
+.rate textarea:focus{border-color:var(--brand);outline:none;box-shadow:0 0 0 4px var(--brand-soft)}
+.rate .rt-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.rate .rt-row .textbtn{align-self:center;flex:none}
+.rate .rcom{margin-top:8px;font-size:13.5px;color:var(--mute);line-height:1.45}
+.rhint{display:inline-flex!important;align-items:center;gap:4px;margin-top:7px;font:500 12px var(--body)!important;color:var(--hazard)!important;white-space:nowrap}
+.rhint svg{width:13px;height:13px}
+/* order-card links (invoice, rate, reschedule) */
+.olinks{display:flex;flex-wrap:wrap;gap:0 20px;padding:0 14px 4px 80px;margin-top:-8px}
+html[dir="rtl"] .olinks{padding:0 80px 4px 14px}
+.olinks .inv-link,html[dir="rtl"] .olinks .inv-link{padding:0;margin:0;min-height:44px}
+.inv-link .rated{color:var(--hazard)}
+/* booked time + reschedule */
+.whenbox{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:12px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:12px 14px}
+.whenbox b{display:block;font-weight:600;margin-top:2px}
+.whenbox .chip{min-height:44px;color:var(--ink);display:inline-flex;align-items:center;gap:6px}
+.whenbox .chip svg{width:16px;height:16px}
+.tslot.cur{border-style:dashed;border-color:var(--brand);color:var(--brand)}
+.legend .c i{background:transparent;box-shadow:inset 0 0 0 1.5px var(--brand)}
 </style>
 
 <script src="yd-config.js"></script>
@@ -544,7 +596,10 @@ html[dir="rtl"] .sfield{padding:0 14px 0 6px}
 <symbol id="x-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.8 3.6 5.8 3.6 9s-1.1 6.2-3.6 9c-2.5-2.8-3.6-5.8-3.6-9s1.1-6.2 3.6-9z"/></symbol>
 <symbol id="x-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 15a2 2 0 01-2 2H8l-4 4V5a2 2 0 012-2h12a2 2 0 012 2z"/><path d="M8 9h8M8 12.5h5"/></symbol>
 <symbol id="x-wa" viewBox="0 0 24 24"><path fill="#25D366" d="M12 2.2A9.8 9.8 0 003.6 17l-1.4 4.8 4.9-1.3A9.8 9.8 0 1012 2.2z"/><path fill="#fff" d="M8.7 7.1c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.4l.8 1.9c.1.2.1.4 0 .6l-.4.6c-.1.2-.2.3 0 .6.4.7 1 1.4 1.6 1.9.7.6 1.3.9 1.6 1 .2.1.4.1.5-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.4.3.1.2.1.8-.2 1.5-.3.7-1.5 1.3-2.1 1.3-.6.1-1.2.3-4-.8-3.3-1.3-5.4-4.7-5.6-4.9-.2-.2-1.3-1.7-1.3-3.3 0-1.6.8-2.3 1.1-2.6z"/></symbol>
-<symbol id="x-waglyph" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" d="M12 3.2a8.8 8.8 0 00-7.6 13.3L3.2 20.8l4.4-1.2A8.8 8.8 0 1012 3.2z"/><path fill="currentColor" d="M8.9 7.6c.2-.3.3-.3.5-.3h.4c.2 0 .3 0 .5.3l.7 1.7c.1.2.1.3 0 .5l-.4.5c-.1.2-.2.3 0 .5.4.6.9 1.2 1.4 1.7.6.5 1.2.8 1.4.9.2.1.3.1.4-.1l.6-.8c.2-.2.3-.2.5-.1l1.6.8c.2.1.3.2.4.3.1.2.1.7-.2 1.3-.3.6-1.3 1.1-1.9 1.2-.5.1-1.1.2-3.5-.8-2.9-1.2-4.8-4.2-5-4.4-.2-.2-1.2-1.5-1.2-2.9 0-1.4.7-2.1 1-2.3z"/></symbol>
+<symbol id="x-star" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.6l2.85 5.9 6.45.85-4.72 4.48 1.2 6.4L12 17.1l-5.78 3.13 1.2-6.4L2.7 9.35l6.45-.85z"/></symbol>
+<symbol id="x-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></symbol>
+<symbol id="x-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4M9 14.5h2M13 14.5h2"/></symbol>
+<symbol id="x-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 7V4h4v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></symbol>
 <symbol id="x-crane" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21V4l13 3H6M6 7l5 0M15 7v5M13.5 12h3M3 21h8"/></symbol>
 </defs></svg>
 
@@ -642,6 +697,8 @@ html[dir="rtl"] .sfield{padding:0 14px 0 6px}
       </div>
       <div class="seg5" id="seg5"></div>
       <div class="driver" id="drvCard"></div>
+      <div id="whenBox"></div>
+      <div id="rateBox"></div>
       <div class="sec"><h2 id="trkTitle">Order</h2></div>
       <div class="summary" id="trkSummary" style="margin-top:0"></div>
       <div id="payBox"></div>
@@ -698,7 +755,14 @@ html[dir="rtl"] .sfield{padding:0 14px 0 6px}
       <div><span data-i18n="acc.email">Email</span><b style="user-select:all" data-ltr>yd@yd-mv.com</b></div>
       <div><span data-i18n="acc.hours">Hours</span><b style="font-family:var(--mono);font-size:13px" data-ltr>07:30–12:00 · 13:00–18:00</b></div>
     </div>
+    <div class="sec"><h2 data-i18n="legal.title">Legal</h2></div>
+    <div class="settings" id="legalList">
+      <button class="srow" data-legal="privacy"><span><b data-i18n="legal.privacy">Privacy policy</b></span><svg class="ext" aria-hidden="true"><use href="#x-ext"/></svg></button>
+      <button class="srow" data-legal="terms"><span><b data-i18n="legal.terms">Terms</b></span><svg class="ext" aria-hidden="true"><use href="#x-ext"/></svg></button>
+      <button class="srow" data-legal="refunds"><span><b data-i18n="legal.refunds">Cancellations &amp; refunds</b></span><svg class="ext" aria-hidden="true"><use href="#x-ext"/></svg></button>
+    </div>
     <p class="demo-note" data-i18n="acc.note">Prototype. Prices are sample figures. Open the YD Driver app in the same browser to accept and run your orders live.</p>
+    <button class="cta ghost danger delacc" id="delAccBtn" type="button"><svg aria-hidden="true"><use href="#x-trash"/></svg><span data-i18n="del.btn">Delete account</span></button>
   </section>
 
   <nav class="tabbar" aria-label="Main">
@@ -709,7 +773,6 @@ html[dir="rtl"] .sfield{padding:0 14px 0 6px}
     <button data-go="account"><svg><use href="#i-user"/></svg><span data-i18n="nav.account">Account</span></button>
   </nav>
 
-  <button class="wa-fab" id="waFab" data-wa="fab" aria-label="Chat on WhatsApp" data-i18n-aria="wa.chat" hidden><svg aria-hidden="true"><use href="#x-waglyph"/></svg></button>
   <div class="scrim" id="scrim"></div>
   <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle"><div class="grab"></div><div class="inner" id="sheetBody"></div></div>
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo">
@@ -740,15 +803,33 @@ html[dir="rtl"] .sfield{padding:0 14px 0 6px}
         <div class="field" id="fPhone" hidden><label for="aPhone" data-i18n="auth.phone">Phone</label><input id="aPhone" inputmode="tel" autocomplete="tel" placeholder="7XX XXXX" dir="ltr"></div>
         <div class="field"><label for="aEmail" data-i18n="auth.email">Email</label><input id="aEmail" type="email" autocomplete="email" placeholder="you@example.com" dir="ltr"></div>
         <div class="field"><label for="aPass" data-i18n="auth.pass">Password</label><input id="aPass" type="password" autocomplete="current-password" placeholder="At least 8 characters" data-i18n-ph="auth.passPh"></div>
+        <div class="auth-row end" id="forgotRow"><button type="button" class="textbtn" id="aForgot" data-i18n="auth.forgot">Forgot password?</button></div>
         <p class="auth-err" id="aErr" role="alert"></p>
+        <p class="legal-line" id="aLegal" hidden></p>
         <button class="cta" id="aGo" type="submit">Sign in</button>
         <button class="cta ghost" id="aSwitch" type="button">Create an account</button>
         <div class="auth-alt" id="altLine"><span data-i18n="auth.or">or</span></div>
         <button class="cta ghost" id="toPhone" type="button"><svg aria-hidden="true"><use href="#i-phone"/></svg><span data-i18n="auth.phoneBtn">Continue with phone number</span></button>
       </form>
+      <!-- forgot password: request a reset link -->
+      <form id="resetForm" novalidate hidden>
+        <div class="field"><label for="rsEmail" data-i18n="auth.email">Email</label><input id="rsEmail" type="email" autocomplete="email" placeholder="you@example.com" dir="ltr"></div>
+        <p class="auth-err" id="rsErr" role="alert"></p>
+        <button class="cta" id="rsGo" type="submit" data-i18n="auth.resetGo">Send reset link</button>
+        <button class="cta ghost" id="rsBack" type="button" data-i18n="auth.backToSignIn">Back to sign in</button>
+      </form>
+      <!-- password recovery link opened: choose a new password -->
+      <form id="newPwForm" novalidate hidden>
+        <div class="field"><label for="npPass" data-i18n="auth.newPass">New password</label><input id="npPass" type="password" autocomplete="new-password" placeholder="At least 8 characters" data-i18n-ph="auth.passPh"></div>
+        <div class="field"><label for="npPass2" data-i18n="auth.newPass2">Confirm new password</label><input id="npPass2" type="password" autocomplete="new-password"></div>
+        <p class="auth-err" id="npErr" role="alert"></p>
+        <button class="cta" id="npGo" type="submit" data-i18n="auth.newPassGo">Save new password</button>
+      </form>
       <button class="linkbtn" id="aDemo" type="button" data-i18n="auth.demo">Explore the demo without an account</button>
     </div>
   </div>
+  <!-- delete account: full-screen confirmation (filled by openDelete) -->
+  <div class="page" id="delPage" hidden role="dialog" aria-modal="true" aria-labelledby="delTitle"></div>
   <div class="toast" id="toast" role="status"></div>
 </div>
 
@@ -762,8 +843,30 @@ html[dir="rtl"] .sfield{padding:0 14px 0 6px}
  * Placeholders like {ref} are filled at runtime by YDUI.i18n.t(key, vars). */
 YDUI.i18n.add({
 en:{
+"auth.forgot":"Forgot password?","auth.resetTitle":"Reset your password","auth.resetSub":"Enter the email you signed up with. We'll send a link to set a new password.",
+"auth.resetGo":"Send reset link","auth.backToSignIn":"Back to sign in","auth.resetSent":"Check your email for a reset link.",
+"auth.resetDemo":"Password reset needs the live service. In the demo, continue with your phone number.",
+"auth.newTitle":"Set a new password","auth.newSub":"Choose a new password with at least 8 characters.","auth.newPass":"New password","auth.newPass2":"Confirm new password","auth.newPassGo":"Save new password",
+"auth.pwMismatch":"The two passwords don't match.","auth.pwSaved":"Password updated. You're signed in.","auth.linkExpired":"This reset link has expired. Ask for a new one.",
+"auth.agree":"By creating an account you agree to the {terms} and {privacy}.",
+"legal.title":"Legal","legal.privacy":"Privacy policy","legal.terms":"Terms","legal.refunds":"Cancellations & refunds",
+"del.btn":"Delete account","del.title":"Delete your account?","del.sub":"This can't be undone. You'll be signed out on this phone.",
+"del.removed":"What's removed","del.r1":"Your profile, name and phone number","del.r2":"Saved sites and their GPS pins","del.r3":"Your notifications","del.r4":"Access to the build tracker","del.r5":"Orders still waiting for a driver are cancelled",
+"del.kept":"What we keep","del.k1":"Invoices for past orders, anonymised, for tax records",
+"del.active":"You have an order in progress ({refs}). You can delete your account once it's delivered.",
+"del.type":"Type DELETE to confirm","del.go":"Delete my account","del.keep":"Keep my account","del.working":"Deleting…",
+"del.done":"Your account has been deleted","del.doneDemo":"Demo account deleted. Demo data was reset.","del.inProgress":"You have an order in progress. Delete your account after it is delivered.","del.fail":"Couldn't delete your account. Try again or call 992 0202.",
+"rate.title":"Rate your driver","rate.titleOp":"Rate your operator","rate.sub":"How was it with {name}?","rate.group":"Rating","rate.stars":"{n} of 5 stars","rate.tap":"Tap a star",
+"rate.s1":"Poor","rate.s2":"Fair","rate.s3":"Good","rate.s4":"Great","rate.s5":"Excellent",
+"rate.c.ontime":"On time","rate.c.careful":"Careful unloading","rate.c.friendly":"Friendly","rate.c.late":"Late","rate.c.damaged":"Damaged items",
+"rate.more":"Anything else? (optional)","rate.morePh":"What went well, or what can we fix?","rate.send":"Send rating","rate.update":"Update rating","rate.thanks":"Thanks for your rating","rate.you":"You rated {name}","rate.edit":"Edit",
+"rate.fail":"Couldn't send your rating. Try again.","rate.sent":"Thanks! Your rating was sent.","rate.prompt":"Rate driver","rate.promptN":"Rate your driver","rate.rated":"Rated {n}/5","rate.afterOnly":"You can rate the driver after delivery.",
+"rs.btn":"Reschedule","rs.title":"Reschedule booking","rs.sub":"{title}. Same length, new start.","rs.now":"Current start","rs.new":"New start","rs.ends":"Ends","rs.cur":"Current",
+"rs.go":"Move booking","rs.keep":"Keep current time","rs.same":"That's the current time. Pick a different start.","rs.done":"Booking moved to {when}",
+"rs.taken":"{m} is already booked then. Pick another time.","rs.past":"Pick a time in the future.","rs.started":"This booking has started and can no longer be moved. Call the counter.","rs.fail":"Couldn't move the booking. Try again.",
+"rs.booked":"Booked time","rs.until":"until {t}",
 "wa.chat":"Chat on WhatsApp","wa.sub":"YD Works counter","wa.row":"WhatsApp","wa.chatBtn":"Chat","wa.order":"Message the counter on WhatsApp about this order","wa.build":"Message about my build","wa.book":"Ask on WhatsApp","wa.cart":"Order this load on WhatsApp","wa.cartSub":"Sends your list to the counter",
-"wa.msg.hi":"Hi YD Works, ","wa.msg.ask":"Hi YD Works, I'd like to ask about ","wa.msg.order":"Hi YD Works, about my order {ref} ({title}): ","wa.msg.cart":"Hi YD Works, I'd like to order: {items}. ","wa.msg.book":"Hi YD Works, I'd like to book {machine} ","wa.msg.build":"Hi YD Works, about my build {title}: ",
+"wa.msg.hi":"Hi YD Works, ","wa.msg.order":"Hi YD Works, about my order {ref} ({title}): ","wa.msg.cart":"Hi YD Works, I'd like to order: {items}. ","wa.msg.book":"Hi YD Works, I'd like to book {machine} ","wa.msg.build":"Hi YD Works, about my build {title}: ",
 "shop.searchPh":"Search cement, sand, rebar…","shop.searchAria":"Search materials","shop.count":"{n} materials","shop.noMatch":"No materials match “{q}”","shop.noCat":"Nothing in this category","shop.noMatchP":"Try another word, like cement, steel or blocks.",
 "search.aria":"Search machines and materials","search.clear":"Clear","search.clearAria":"Clear search","search.try":"Search machines and materials together. Try:","search.none":"Nothing matches “{q}”","search.noneP":"Try a machine or a material, like excavator, sand or rebar.","search.equip":"Equipment","search.mats":"Materials",
 "nav.home":"Home","nav.equip":"Equipment","nav.shop":"Materials","nav.orders":"Orders","nav.account":"Account",
@@ -853,7 +956,7 @@ en:{
 "acc.reset":"Reset demo data","acc.signOut":"Sign out","acc.signIn":"Sign in to your account","acc.counter":"YD Works counter",
 "acc.hotline":"Hotline","acc.email":"Email","acc.hours":"Hours",
 "acc.note":"Prototype. Prices are sample figures. Open the YD Driver app in the same browser to accept and run your orders live.",
-"theme.system":"Auto","theme.light":"Light","theme.dark":"Dark","theme.aria":"Appearance: {t}. Change","theme.group":"Appearance","lang.group":"Language",
+"theme.system":"Auto","theme.light":"Light","theme.dark":"Dark","theme.group":"Appearance","lang.group":"Language",
 "n.title":"Notifications","n.readAll":"Mark all read","n.empty":"You're all caught up","n.emptyP":"Order, payment and build updates will appear here.",
 "n.gone":"That order is no longer in your list","n.new":"New update",
 "ago.now":"Just now","ago.m":"{n} min ago","ago.h":"{n} h ago","ago.d":"{n} d ago",
@@ -897,8 +1000,30 @@ en:{
 "cal.wd":"Sun|Mon|Tue|Wed|Thu|Fri|Sat","cal.mon":"Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec","d.today":"Today","d.tomorrow":"Tomorrow"
 },
 dv:{
+"auth.forgot":"ޕާސްވޯޑް ހަނދާން ނެތީތަ؟","auth.resetTitle":"ޕާސްވޯޑް ރީސެޓްކުރައްވާ","auth.resetSub":"އެކައުންޓް ހެއްދެވި އީމެއިލް ޖައްސަވާ. އާ ޕާސްވޯޑެއް ހެއްދެވުމަށް ލިންކެއް ފޮނުވާނަން.",
+"auth.resetGo":"ރީސެޓް ލިންކް ފޮނުވާ","auth.backToSignIn":"ސައިން އިން އަށް އެނބުރި","auth.resetSent":"ރީސެޓް ލިންކަށް އީމެއިލް ބައްލަވާ.",
+"auth.resetDemo":"ޕާސްވޯޑް ރީސެޓްކުރުމަށް ލައިވް ސަރވިސް ބޭނުންވޭ. ޑެމޯގައި ފޯނު ނަންބަރުން ކުރިއަށް ދެއްވާ.",
+"auth.newTitle":"އާ ޕާސްވޯޑެއް ހައްދަވާ","auth.newSub":"މަދުވެގެން 8 އަކުރުގެ އާ ޕާސްވޯޑެއް އިޚްތިޔާރުކުރައްވާ.","auth.newPass":"އާ ޕާސްވޯޑް","auth.newPass2":"އާ ޕާސްވޯޑް ކަށަވަރުކުރައްވާ","auth.newPassGo":"އާ ޕާސްވޯޑް ރައްކާކުރޭ",
+"auth.pwMismatch":"ދެ ޕާސްވޯޑް އެއްގޮތެއް ނޫން.","auth.pwSaved":"ޕާސްވޯޑް ބަދަލުކުރެވިއްޖެ. ސައިން އިން ކުރެވިއްޖެ.","auth.linkExpired":"މި ރީސެޓް ލިންކުގެ މުއްދަތު ހަމަވެއްޖެ. އާ ލިންކަކަށް އެދިވަޑައިގަންނަވާ.",
+"auth.agree":"އެކައުންޓެއް ހެއްދެވުމުން {terms} އާއި {privacy} އަށް އެއްބަސްވެވަޑައިގަންނަވާނެ.",
+"legal.title":"ޤާނޫނީ","legal.privacy":"ޕްރައިވެސީ ސިޔާސަތު","legal.terms":"ޝަރުތުތައް","legal.refunds":"ކެންސަލްކުރުމާއި ރީފަންޑް",
+"del.btn":"އެކައުންޓް ފޮހެލާ","del.title":"އެކައުންޓް ފޮހެލަން ބޭނުންތަ؟","del.sub":"މިކަން އަނބުރާ ނުކުރެވޭނެ. މި ފޯނުން ސައިން އައުޓް ކުރެވޭނެ.",
+"del.removed":"ފޮހެލެވޭ އެއްޗެހި","del.r1":"ތިޔަބޭފުޅާގެ ޕްރޮފައިލް، ނަމާއި ފޯނު ނަންބަރު","del.r2":"ރައްކާކުރެވިފައިވާ ސައިޓްތަކާއި ޖީޕީއެސް ޕިން","del.r3":"ތިޔަބޭފުޅާގެ އެންގުންތައް","del.r4":"ގެ ބިނާކުރުމުގެ ޓްރެކަރަށް ވަނުމުގެ ފުރުސަތު","del.r5":"ޑްރައިވަރަކު ނުނަގާ އޮތް އޯޑަރުތައް ކެންސަލްކުރެވޭނެ",
+"del.kept":"ރައްކާކުރެވޭ އެއްޗެހި","del.k1":"ކުރީގެ އޯޑަރުތަކުގެ އިންވޮއިސް، ނަން ފޮހެލައިގެން، ޓެކްސް ރެކޯޑަށްޓަކައި",
+"del.active":"ހިނގަމުންދާ އޯޑަރެއް އެބައޮތް ({refs}). އެ އޯޑަރު ޑެލިވަރކުރުމަށްފަހު އެކައުންޓް ފޮހެލެވޭނެ.",
+"del.type":"ކަށަވަރުކުރުމަށް DELETE ލިޔުއްވާ","del.go":"އަހަރެންގެ އެކައުންޓް ފޮހެލާ","del.keep":"އެކައުންޓް ބާއްވާ","del.working":"ފޮހެލަނީ…",
+"del.done":"ތިޔަބޭފުޅާގެ އެކައުންޓް ފޮހެލެވިއްޖެ","del.doneDemo":"ޑެމޯ އެކައުންޓް ފޮހެލެވިއްޖެ. ޑެމޯ ޑޭޓާ ރީސެޓްކުރެވިއްޖެ.","del.inProgress":"ހިނގަމުންދާ އޯޑަރެއް އެބައޮތް. ޑެލިވަރކުރުމަށްފަހު އެކައުންޓް ފޮހެލައްވާ.","del.fail":"އެކައުންޓް ނުފޮހެލެވުނު. އަލުން މަސައްކަތްކުރައްވާ ނުވަތަ 992 0202 އަށް ގުޅުއްވާ.",
+"rate.title":"ޑްރައިވަރަށް ރޭޓިންގ ދެއްވާ","rate.titleOp":"އޮޕަރޭޓަރަށް ރޭޓިންގ ދެއްވާ","rate.sub":"{name} އާއެކު ކިހިނެއް ހެއްޔެވެ؟","rate.group":"ރޭޓިންގ","rate.stars":"5 ތަރިން {n}","rate.tap":"ތަރިއެއް ފިއްތަވާ",
+"rate.s1":"ދެރަ","rate.s2":"މެދުމިން","rate.s3":"ރަނގަޅު","rate.s4":"ވަރަށް ރަނގަޅު","rate.s5":"މޮޅު",
+"rate.c.ontime":"ވަގުތުގައި","rate.c.careful":"ސަމާލުކަމާއެކު ބޭލި","rate.c.friendly":"ރަޙްމަތްތެރި","rate.c.late":"ލަސްވި","rate.c.damaged":"ގެއްލުން ލިބުނު ތަކެތި",
+"rate.more":"އިތުރު ވާހަކައެއް؟ (އިޚްތިޔާރީ)","rate.morePh":"ރަނގަޅު ވީ ކަމެއް، ނުވަތަ ރަނގަޅުކުރަންޖެހޭ ކަމެއް؟","rate.send":"ރޭޓިންގ ފޮނުވާ","rate.update":"ރޭޓިންގ އަޕްޑޭޓްކުރޭ","rate.thanks":"ރޭޓިންގ ދެއްވީތީ ޝުކުރިއްޔާ","rate.you":"{name} އަށް ދެއްވި ރޭޓިންގ","rate.edit":"ބަދަލުކުރޭ",
+"rate.fail":"ރޭޓިންގ ނުފޮނުވުނު. އަލުން މަސައްކަތްކުރައްވާ.","rate.sent":"ޝުކުރިއްޔާ! ރޭޓިންގ ފޮނުވިއްޖެ.","rate.prompt":"ޑްރައިވަރަށް ރޭޓިންގ","rate.promptN":"ޑްރައިވަރަށް ރޭޓިންގ ދެއްވާ","rate.rated":"ރޭޓިންގ {n}/5","rate.afterOnly":"ޑެލިވަރީއަށްފަހު ރޭޓިންގ ދެއްވޭނެ.",
+"rs.btn":"ވަގުތު ބަދަލުކުރޭ","rs.title":"ބުކިންގގެ ވަގުތު ބަދަލުކުރައްވާ","rs.sub":"{title}. އެއް މުއްދަތު، އާ ފަށާ ވަގުތެއް.","rs.now":"މިހާރުގެ ފަށާ ވަގުތު","rs.new":"އާ ފަށާ ވަގުތު","rs.ends":"ނިމޭނީ","rs.cur":"މިހާރުގެ",
+"rs.go":"ބުކިންގ ބަދަލުކުރޭ","rs.keep":"މިހާރުގެ ވަގުތު ބާއްވާ","rs.same":"މިއީ މިހާރުގެ ވަގުތު. އެހެން ވަގުތެއް އިޚްތިޔާރުކުރައްވާ.","rs.done":"ބުކިންގ {when} އަށް ބަދަލުކުރެވިއްޖެ",
+"rs.taken":"އެ ވަގުތު {m} ބުކްވެފައި. އެހެން ވަގުތެއް އިޚްތިޔާރުކުރައްވާ.","rs.past":"ކުރިއަށް އޮތް ވަގުތެއް އިޚްތިޔާރުކުރައްވާ.","rs.started":"މި ބުކިންގ ފެށިއްޖެ، ވަގުތު ބަދަލެއް ނުކުރެވޭނެ. ކައުންޓަރަށް ގުޅުއްވާ.","rs.fail":"ބުކިންގ ބަދަލު ނުކުރެވުނު. އަލުން މަސައްކަތްކުރައްވާ.",
+"rs.booked":"ބުކްކުރި ވަގުތު","rs.until":"{t} އަށް",
 "wa.chat":"WhatsApp ގައި ވާހަކަދައްކަވާ","wa.sub":"YD Works ކައުންޓަރު","wa.row":"WhatsApp","wa.chatBtn":"ޗެޓް","wa.order":"މި އޯޑަރާ ބެހޭގޮތުން ކައުންޓަރަށް WhatsApp ކުރައްވާ","wa.build":"އަހަރެންގެ ގެއާ ބެހޭގޮތުން މެސެޖުކުރޭ","wa.book":"WhatsApp އިން ސުވާލުކުރައްވާ","wa.cart":"މި ލޯޑު WhatsApp އިން އޯޑަރުކުރައްވާ","wa.cartSub":"ތިޔަ ލިސްޓު ކައުންޓަރަށް ފޮނުވޭނެ",
-"wa.msg.hi":"އައްސަލާމު ޢަލައިކުމް YD Works، ","wa.msg.ask":"އައްސަލާމު ޢަލައިކުމް YD Works، އަހަރެން ސުވާލުކުރަން ބޭނުން: ","wa.msg.order":"އައްސަލާމު ޢަލައިކުމް YD Works، އަހަރެންގެ އޯޑަރު {ref} ({title}) އާ ބެހޭގޮތުން: ","wa.msg.cart":"އައްސަލާމު ޢަލައިކުމް YD Works، އަހަރެން އޯޑަރުކުރަން ބޭނުން: {items}. ","wa.msg.book":"އައްސަލާމު ޢަލައިކުމް YD Works، އަހަރެން ބުކްކުރަން ބޭނުން {machine} ","wa.msg.build":"އައްސަލާމު ޢަލައިކުމް YD Works، އަހަރެންގެ ގެ {title} އާ ބެހޭގޮތުން: ",
+"wa.msg.hi":"އައްސަލާމު ޢަލައިކުމް YD Works، ","wa.msg.order":"އައްސަލާމު ޢަލައިކުމް YD Works، އަހަރެންގެ އޯޑަރު {ref} ({title}) އާ ބެހޭގޮތުން: ","wa.msg.cart":"އައްސަލާމު ޢަލައިކުމް YD Works، އަހަރެން އޯޑަރުކުރަން ބޭނުން: {items}. ","wa.msg.book":"އައްސަލާމު ޢަލައިކުމް YD Works، އަހަރެން ބުކްކުރަން ބޭނުން {machine} ","wa.msg.build":"އައްސަލާމު ޢަލައިކުމް YD Works، އަހަރެންގެ ގެ {title} އާ ބެހޭގޮތުން: ",
 "shop.searchPh":"ސިމެންތި، ވެލި، ދަގަނޑު ހޯއްދަވާ…","shop.searchAria":"މާއްދާ ހޯދުން","shop.count":"{n} މާއްދާ","shop.noMatch":"“{q}” އާ ގުޅޭ މާއްދާއެއް ނެތް","shop.noCat":"މި ބައިގައި އެއްޗެއް ނެތް","shop.noMatchP":"އެހެން ބަހެއް ބޭނުންކޮށްލައްވާ، މިސާލަކަށް ސިމެންތި، ދަގަނޑު ނުވަތަ ބްލޮކް.",
 "search.aria":"މެޝިނާއި މާއްދާ ހޯދުން","search.clear":"ފޮހެލާ","search.clearAria":"ހޯދުން ފޮހެލާ","search.try":"މެޝިނާއި މާއްދާ އެކުގައި ހޯއްދަވާ. މިސާލަކަށް:","search.none":"“{q}” އާ ގުޅޭ އެއްޗެއް ނެތް","search.noneP":"މެޝިނެއް ނުވަތަ މާއްދާއެއް ހޯއްދަވާ، މިސާލަކަށް excavator، ވެލި ނުވަތަ ދަގަނޑު.","search.equip":"އާލާތް","search.mats":"މާއްދާ",
 "nav.home":"ހޯމް","nav.equip":"އާލާތް","nav.shop":"މާއްދާ","nav.orders":"އޯޑަރު","nav.account":"އެކައުންޓް",
@@ -988,7 +1113,7 @@ dv:{
 "acc.reset":"ޑެމޯ ޑޭޓާ ރީސެޓްކުރޭ","acc.signOut":"ސައިން އައުޓް","acc.signIn":"އެކައުންޓަށް ސައިން އިން ކުރައްވާ","acc.counter":"YD Works ކައުންޓަރު",
 "acc.hotline":"ހޮޓްލައިން","acc.email":"އީމެއިލް","acc.hours":"ގަޑި",
 "acc.note":"ޕްރޮޓޮޓައިޕް. އަގުތަކަކީ ނަމޫނާ. ތިޔަ އޯޑަރުތައް ލައިވްކޮށް ހިންގުމަށް މި ބްރައުޒަރުގައި YD Driver އެޕް ހުޅުއްވާ.",
-"theme.system":"އޮޓޯ","theme.light":"އަލި","theme.dark":"އަނދިރި","theme.aria":"ފެނުން: {t}. ބަދަލުކުރޭ","theme.group":"ފެނުން","lang.group":"ބަސް",
+"theme.system":"އޮޓޯ","theme.light":"އަލި","theme.dark":"އަނދިރި","theme.group":"ފެނުން","lang.group":"ބަސް",
 "n.title":"އެންގުންތައް","n.readAll":"ހުރިހާ ކިޔައިފިން","n.empty":"އާ އެންގުމެއް ނެތް","n.emptyP":"އޯޑަރު، ފައިސާ އަދި ގެ ބިނާކުރުމުގެ ޚަބަރު މިތަނުގައި ފެންނާނެ.",
 "n.gone":"އެ އޯޑަރު ލިސްޓުގައި ނެތް","n.new":"އާ ޚަބަރެއް",
 "ago.now":"މިހާރު","ago.m":"{n} މިނެޓް ކުރިން","ago.h":"{n} ގަޑިއިރު ކުރިން","ago.d":"{n} ދުވަސް ކުރިން",
@@ -1068,6 +1193,27 @@ function icon(n,cls){return `<svg aria-hidden="true"${cls?` class="${cls}"`:""}>
 function ix(n,cls){return `<svg aria-hidden="true"${cls?` class="${cls}"`:""}><use href="#x-${n}"/></svg>`}
 const chev=()=>ix("chev","chev flip");
 const thumb=(k,alt)=>window.YDUI?YDUI.thumb(k,alt):icon("box");
+const isNative=()=>{const C=window.Capacitor;return !!(C&&C.isNativePlatform&&C.isNativePlatform())};
+
+/* ---------- anonymous usage events (YDUI.track → console Insights); never breaks the app ---------- */
+function trk(name,detail){try{if(window.YDUI&&typeof YDUI.track==="function")YDUI.track(name,detail||{})}catch(e){}}
+let lastView=null;
+const searchSeen=new Set(),searchT={};
+// debounced; each distinct query is reported once per session (no personal data: just the words typed and the hit count)
+function trackSearch(where,q,count){
+  clearTimeout(searchT[where]);
+  const k=String(q||"").toLowerCase().trim().replace(/\s+/g," ");if(k.length<2)return;
+  searchT[where]=setTimeout(()=>{const key=where+"|"+k;if(searchSeen.has(key))return;searchSeen.add(key);trk("search",{where,q:k.slice(0,60),results:count()})},900);
+}
+
+/* ---------- legal pages (hosted with the website) ---------- */
+function legalUrl(k){const L=CFG.legal||{};const f=L[k]||(k+".html");return /^https?:/.test(f)?f:(L.base||"https://yd-mv.com/")+f}
+function openLegal(k){
+  const url=legalUrl(k);window.__ydLegalLast=url;
+  if(isNative()){const w=window.open(url,"_system");if(!w)location.href=url}else window.open(url,"_blank","noopener");
+  return url;
+}
+document.addEventListener("click",e=>{const l=e.target.closest("[data-legal]");if(l){e.preventDefault();openLegal(l.dataset.legal)}});
 
 /* ---------- demo profile + settings ---------- */
 const MEKEY="ydworks.cust.me.v1";
@@ -1162,6 +1308,23 @@ function markRead(list){
   loadN();nstate.list.forEach(n=>{if(ids.includes(n.id))n.read=true});saveN();
 }
 
+/* ---------- driver ratings ---------- */
+const RKEY="ydworks.cust.ratings.v1";
+let RATINGS={};   // live: order uuid -> {stars, comment} from public.ratings
+const RCHIPS=["ontime","careful","friendly","late","damaged"];
+const RCHIP_EN={ontime:"On time",careful:"Careful unloading",friendly:"Friendly",late:"Late",damaged:"Damaged items"};   // stored in English for the counter
+const canRate=j=>j.status==="completed"&&!!j.driver;
+function getRating(j){if(LIVE)return RATINGS[j.uuid]||null;return LS.get(RKEY,{})[j.id]||null}
+function composeComment(tags,text){return [tags.map(k=>RCHIP_EN[k]).filter(Boolean).join(", "),String(text||"").trim()].filter(Boolean).join(" — ").slice(0,500)}
+function parseComment(c){
+  c=String(c||"");const i=c.indexOf(" — "),head=i<0?c:c.slice(0,i),rest=i<0?"":c.slice(i+3);
+  const hs=head.split(", "),keys=hs.map(h=>RCHIPS.find(k=>RCHIP_EN[k]===h));
+  if(head&&keys.every(Boolean))return{tags:keys,text:rest};
+  return{tags:[],text:c};
+}
+// reschedule: equipment bookings still waiting or assigned, with a future start
+const canResched=j=>j.kind==="hire"&&!!j.startsAt&&["requested","accepted"].includes(j.status)&&j.startsAt>Date.now();
+
 /* ---------- house-building project ---------- */
 let PROJECTS=[],PRJ=null;
 function demoProject(){return{id:"demo-prj",title:"G+2 house, Plot 10234",site:"Plot 10234, Hulhumalé Phase 2",status:"active",start:dayStart(-175),target:dayStart(218),contract:2400000,cover:"assets/house-sm.jpg",
@@ -1192,12 +1355,16 @@ function go(s,opts){opts=opts||{};
   $$(".tabbar button").forEach(b=>{if(b.dataset.go===tab)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current")});
   if(opts.filter)setEquipFilter(opts.filter);
   $("#s-"+s).scrollTop=0;render();
+  if(s!==lastView){lastView=s;trk("screen_view",{screen:s})}
   if(s==="search")setTimeout(()=>$("#gQ").focus(),60);
+  if(s==="track"&&opts.rate)setTimeout(()=>{const r=$("#rateBox");r&&r.firstChild&&r.scrollIntoView({block:"center"})},120);
 }
 document.addEventListener("click",e=>{
   if(e.target.closest("[data-back]")){go(prev&&prev!==cur?prev:"home",{back:true});return}
   const g=e.target.closest("[data-go]");if(g){go(g.dataset.go,{filter:g.dataset.filter});return}
   const t=e.target.closest("[data-track]");if(t){go("track",{id:t.dataset.track});return}
+  const rt=e.target.closest("[data-rate]");if(rt){go("track",{id:rt.dataset.rate,rate:true});return}
+  const rs=e.target.closest("[data-resched]");if(rs){openReschedule(rs.dataset.resched);return}
   const n=e.target.closest("[data-notif]");if(n){openNotif(n.dataset.notif);return}
   const iv=e.target.closest("[data-invoice]");if(iv){openInvoice(iv.dataset.invoice);return}
   const st=e.target.closest("[data-site]");if(st){openSite(st.dataset.site);return}
@@ -1216,8 +1383,7 @@ function waText(ctx,el){
   if(ctx==="order"){const j=jobs.find(x=>x.id===trackId);if(j)return T("wa.msg.order",{ref:j.id,title:jobTitle(j)})}
   if(ctx==="book"&&el&&el.dataset.machineName)return T("wa.msg.book",{machine:el.dataset.machineName});
   if(ctx==="build"&&PRJ)return T("wa.msg.build",{title:PRJ.title});
-  if((ctx==="shop"||ctx==="home"||ctx==="fab_shop")&&Object.keys(cart).length)return T("wa.msg.cart",{items:cartLines()});
-  if(ctx.startsWith("fab_"))return T("wa.msg.ask");
+  if((ctx==="shop"||ctx==="home")&&Object.keys(cart).length)return T("wa.msg.cart",{items:cartLines()});
   return T("wa.msg.hi");
 }
 function openWhatsApp(ctx,el){
@@ -1229,23 +1395,16 @@ function openWhatsApp(ctx,el){
   return url;
 }
 window.__ydWaLast=null;
-document.addEventListener("click",e=>{const w=e.target.closest("[data-wa]");if(w){window.__ydWaLast=openWhatsApp(w.dataset.wa==="fab"?"fab_"+cur:w.dataset.wa,w)}});
-const FAB_ON=["home","equip","shop","orders","account"];
-// show on the main tabs only; hide under sheets/overlays; sit above the Materials cart bar
-function updateFab(){
-  const f=$("#waFab");if(!f)return;
-  const over=$("#sheet").classList.contains("on")||$("#lightbox").classList.contains("on")||!$("#auth").hidden;
-  // on Materials the cart bar takes the bottom edge; its own "Order this load on WhatsApp" row carries the cart instead
-  f.hidden=over||!FAB_ON.includes(cur)||(cur==="shop"&&!$("#cartBar").hidden);
-}
+document.addEventListener("click",e=>{const w=e.target.closest("[data-wa]");if(w){window.__ydWaLast=openWhatsApp(w.dataset.wa,w)}});
 
 /* ---------- sheet + toast ---------- */
-function openSheet(html){$("#sheetBody").innerHTML=html;$("#scrim").classList.add("on");$("#sheet").classList.add("on");$("#sheetBody").scrollTop=0;updateFab()}
-function closeSheet(){$("#scrim").classList.remove("on");$("#sheet").classList.remove("on");updateFab()}
+function openSheet(html){$("#sheetBody").innerHTML=html;$("#scrim").classList.add("on");$("#sheet").classList.add("on");$("#sheetBody").scrollTop=0}
+function closeSheet(){$("#scrim").classList.remove("on");$("#sheet").classList.remove("on")}
 const sheetOpen=()=>$("#sheet").classList.contains("on");
 $("#scrim").addEventListener("click",closeSheet);
 document.addEventListener("keydown",e=>{
   if(e.key!=="Escape")return;
+  if(!$("#delPage").hidden){closeDelete();return}
   if($("#lightbox").classList.contains("on")){closeLightbox();return}
   if(sheetOpen()){closeSheet();return}
   if(cur==="search"){if($("#gQ").value){setGQ("")}else go(prev&&prev!=="search"?prev:"home",{back:true});return}
@@ -1311,7 +1470,7 @@ function renderShop(){
   $("#cartBadge").hidden=!count;$("#cartBadge").textContent=Object.keys(cart).length;
 }
 function setShopQ(v){shopQ=v;const i=$("#shopQ");if(i.value!==v)i.value=v;$("#shopQx").hidden=!v;renderShop()}
-$("#shopQ").addEventListener("input",e=>setShopQ(e.target.value));
+$("#shopQ").addEventListener("input",e=>{setShopQ(e.target.value);trackSearch("materials",shopQ,()=>MATS.filter(m=>matches(m,"m",shopQ)).length)});
 $("#shopQx").addEventListener("click",()=>{setShopQ("");$("#shopQ").focus()});
 $("#shopChips").addEventListener("click",e=>{const c=e.target.closest(".chip");if(c){shopCat=c.dataset.c;renderShop()}});
 document.addEventListener("click",e=>{
@@ -1329,7 +1488,8 @@ function cartTotals(){let sub=0,count=0;for(const id in cart){const m=MATS.find(
 /* ---------- home search: machines + materials ---------- */
 let gQ="";
 function setGQ(v){gQ=v;const i=$("#gQ");if(i.value!==v)i.value=v;$("#gQx").hidden=!v;renderSearch()}
-$("#gQ").addEventListener("input",e=>setGQ(e.target.value));
+const gCount=()=>FLEET.filter(m=>matches(m,"e",gQ)).length+MATS.filter(m=>matches(m,"m",gQ)).length;
+$("#gQ").addEventListener("input",e=>{setGQ(e.target.value);trackSearch("home",gQ,gCount)});
 $("#gQx").addEventListener("click",()=>{setGQ("");$("#gQ").focus()});
 function renderSearch(){
   const box=$("#gRes");
@@ -1339,7 +1499,7 @@ function renderSearch(){
   box.innerHTML=(eq.length?`<div class="sec" style="margin-top:8px"><h2>${T("search.equip")}</h2><span class="sub">${ltr(eq.length)}</span></div><div class="list">${eq.map(m=>`<button class="row" data-machine="${m.id}"><span class="ic">${thumb(m.id,m.name)}</span><span class="mid"><b>${nm(m.name)}</b><span>${Tf("f."+m.cat,m.cat)} · ${m.busy?availLbl(m):T("m.available")}</span></span><span class="end">${mvrH(m.rate.hr)}<small>${T("m.perHour")}</small></span></button>`).join("")}</div>`:"")+
     (ma.length?`<div class="sec"><h2>${T("search.mats")}</h2><span class="sub">${ltr(ma.length)}</span></div><div class="list">${ma.map(matRow).join("")}</div>`:"");
 }
-$("#gRes").addEventListener("click",e=>{const s=e.target.closest("[data-sugg]");if(s)setGQ(s.dataset.sugg)});
+$("#gRes").addEventListener("click",e=>{const s=e.target.closest("[data-sugg]");if(s){setGQ(s.dataset.sugg);trackSearch("home",gQ,gCount)}});
 
 /* ---------- orders ---------- */
 let ordTab="active";
@@ -1349,8 +1509,16 @@ function renderOrders(){
   const list=[...jobs].filter(j=>ordTab==="past"?done(j):!done(j)).sort((a,b)=>b.createdAt-a.createdAt);
   $("#orderList").innerHTML=list.length?list.map(j=>`<div class="orow"><button class="row" data-track="${j.id}"><span class="ic">${thumb(j.icon)}</span>
     <span class="mid"><b>${esc(jobTitle(j))}</b><span>${ltr(j.id)} · ${esc(whenLbl(j))}</span><div class="pills">${statusPill(j.status)}${j.status!=="cancelled"?payPill(j):""}</div></span>
-    <span class="end">${mvrH(j.total)}</span></button>${j.status==="completed"?`<button class="inv-link" data-invoice="${j.id}">${ix("doc")}${T("inv.view")}</button>`:""}</div>`).join(""):(ordTab==="past"?`<div class="empty"><span class="e-ic">${icon("list")}</span><b>${T("orders.noPast")}</b><p>${T("orders.noPastP")}</p></div>`
+    <span class="end">${mvrH(j.total)}</span></button>${orderLinks(j)}</div>`).join(""):(ordTab==="past"?`<div class="empty"><span class="e-ic">${icon("list")}</span><b>${T("orders.noPast")}</b><p>${T("orders.noPastP")}</p></div>`
      :`<div class="empty"><span class="e-ic">${icon("truck")}</span><b>${T("orders.none")}</b><p>${T("orders.noneP")}</p><button class="cta" data-go="equip" style="margin-top:16px">${T("orders.book")}</button></div>`);
+}
+// links under an order card: invoice, rate the driver, reschedule a booking
+function orderLinks(j){
+  const L=[];
+  if(j.status==="completed")L.push(`<button class="inv-link" data-invoice="${j.id}">${ix("doc")}${T("inv.view")}</button>`);
+  if(canRate(j)){const r=getRating(j);L.push(`<button class="inv-link" data-rate="${j.id}">${ix("star",r?"rated":"")}${r?esc(T("rate.rated",{n:r.stars})):T("rate.prompt")}</button>`)}
+  if(canResched(j))L.push(`<button class="inv-link" data-resched="${j.id}">${ix("cal")}${T("rs.btn")}</button>`);
+  return L.length?`<div class="olinks">${L.join("")}</div>`:"";
 }
 function renderBadges(){
   const ns=notifs(),un=ns.filter(n=>!n.read).length,uo=ns.filter(n=>!n.read&&(n.kind==="order"||n.kind==="payment")).length;
@@ -1363,17 +1531,24 @@ const N_ICON={order:icon("truck"),payment:ix("cash"),project:icon("house"),assig
 function renderNotifs(){
   const ns=notifs();
   $("#readAll").hidden=!ns.some(n=>!n.read);
-  $("#notifList").innerHTML=ns.length?ns.map(n=>`<button class="row nrow${n.read?"":" unread"}" data-notif="${esc(n.id)}"><span class="nic k-${esc(n.kind)}">${N_ICON[n.kind]||icon("bell")}</span>
-    <span class="mid"><b>${esc(n.title)}</b><span class="nb">${esc(n.body)}</span></span><span class="end"><small>${ago(n.at)}</small>${n.read?"":'<i class="dot" aria-hidden="true"></i>'}</span></button>`).join("")
+  const asked=new Set();   // a gentle "rate your driver" prompt on the newest delivered-order notification only
+  $("#notifList").innerHTML=ns.length?ns.map(n=>{const rj=rateJobFor(n);const hint=rj&&!asked.has(rj.id);if(rj)asked.add(rj.id);return `<button class="row nrow${n.read?"":" unread"}" data-notif="${esc(n.id)}"><span class="nic k-${esc(n.kind)}">${N_ICON[n.kind]||icon("bell")}</span>
+    <span class="mid"><b>${esc(n.title)}</b><span class="nb">${esc(n.body)}</span>${hint?`<span class="rhint">${ix("star")}${T("rate.promptN")}</span>`:""}</span><span class="end"><small>${ago(n.at)}</small>${n.read?"":'<i class="dot" aria-hidden="true"></i>'}</span></button>`}).join("")
     :`<div class="empty"><span class="e-ic">${icon("bell")}</span><b>${T("n.empty")}</b><p>${T("n.emptyP")}</p></div>`;
 }
 $("#readAll").addEventListener("click",()=>{markRead(notifs());render()});
+const jobForNotif=n=>jobs.find(x=>(n.ref&&x.id===n.ref)||(n.orderUuid&&x.uuid===n.orderUuid));
+// the delivered order behind a notification, when its driver is still waiting for a rating
+function rateJobFor(n){
+  if(n.kind!=="order"||(!LIVE&&n.tk!=="n.completed"))return null;
+  const j=jobForNotif(n);return j&&canRate(j)&&!getRating(j)?j:null;
+}
 function openNotif(id){
   const n=notifs().find(x=>String(x.id)===String(id));if(!n)return;
   markRead([n]);
   if(n.kind==="project"||n.project){if(PRJ){go("build");return}}
-  const j=jobs.find(x=>(n.ref&&x.id===n.ref)||(n.orderUuid&&x.uuid===n.orderUuid));
-  if(j)go("track",{id:j.id});else{toast(T("n.gone"));render()}
+  const j=jobForNotif(n);
+  if(j)go("track",{id:j.id,rate:!!rateJobFor(n)});else{toast(T("n.gone"));render()}
 }
 
 /* ---------- tracking ---------- */
@@ -1422,7 +1597,7 @@ function renderTrack(){
   $("#timeline").innerHTML=STAGES.map((s,i)=>{const cls=j.status==="cancelled"?"":i<si||j.status==="completed"?"done":i===si?"now":"";return `<li class="${cls}"><b>${stageLbl(s)}</b><span data-ltr>${fmt(j.history&&j.history[s])}</span></li>`}).join("");
   $("#trkSummary").innerHTML=(j.lines||[]).map(([n,q,pr])=>`<div><span>${ltr(q+" ×")} ${esc(lineLbl(n))}</span><span>${mvrH(q*pr)}</span></div>`).join("")+
     `<div class="tot"><span>${T("trk.total")} · ${T("pm."+(j.paymentMethod||"cod"))}</span><b>${mvrH(j.total)}</b></div>`+(j.pod?`<div><span>${T("trk.signed")}</span><span>${esc(j.pod)}</span></div>`:"");
-  renderPayBox(j);
+  renderPayBox(j);renderWhen(j);renderRate(j);
   const cb=$("#cancelBtn");cb&&cb.addEventListener("click",()=>{
     if(LIVE){cb.disabled=true;YDB.rpc("cancel_order",{p_order:j.uuid}).then(()=>{toast(T("trk.cancelled"));refreshLive()},e=>{toast(e.message);cb.disabled=false});return}
     releaseDemo(j);upd(j.id,{status:"cancelled"});toast(T("trk.cancelled"))});
@@ -1441,10 +1616,59 @@ function renderPayBox(j){
   const f=$("#tSlip");f&&f.addEventListener("change",()=>{const file=f.files&&f.files[0];if(!file)return;if(!slipOk(file))return;uploadSlip(j,file)});
   const c=$("#tCard");c&&c.addEventListener("click",async()=>{c.disabled=true;try{location.href=await YDB.payCard(j.uuid)}catch(e){toast(e.message||T("pay.cardFail"));c.disabled=false}});
 }
+/* booked time on hire orders, with Reschedule while the booking can still move */
+function fmtEnd(j){return dayDiff(j.endsAt)===dayDiff(j.startsAt)?fmtTime(j.endsAt):fmtWhen(j.endsAt)}
+function renderWhen(j){
+  const box=$("#whenBox");let h="";
+  if(j.kind==="hire"&&j.startsAt&&!["completed","cancelled"].includes(j.status))
+    h=`<div class="whenbox"><span style="min-width:0"><span class="lbl">${T("rs.booked")}</span><b>${esc(fmtWhen(j.startsAt))}${j.endsAt?` <span class="sub">· ${esc(T("rs.until",{t:fmtEnd(j)}))}</span>`:""}</b></span>${canResched(j)?`<button type="button" class="chip" data-resched="${j.id}">${ix("cal")}${T("rs.btn")}</button>`:""}</div>`;
+  if(box._h!==h){box._h=h;box.innerHTML=h}
+}
+
+/* rate the driver once the order is delivered (one rating per order; sending again updates it) */
+let rateDraft=null;
+const starSvg=()=>ix("star");
+function renderRate(j){
+  const box=$("#rateBox");
+  if(!canRate(j)){if(box._h!==""){box._h="";box.innerHTML=""}return}
+  const r=getRating(j);
+  if(!rateDraft||rateDraft.id!==j.id){const pc=r?parseComment(r.comment):{tags:[],text:""};rateDraft={id:j.id,stars:r?r.stars:0,tags:pc.tags,text:pc.text,editing:false}}
+  const form=!r||rateDraft.editing,first=esc(String(j.driver.name||"").split(" ")[0]);
+  const key=[j.id,form,r?r.stars+"|"+r.comment:"",I.get()].join("~");if(box._h===key)return;box._h=key;
+  if(!form){
+    const pc=parseComment(r.comment),txt=[pc.tags.map(k=>T("rate.c."+k)).join(I.get()==="dv"?"، ":", "),pc.text].filter(Boolean).join(" — ");
+    box.innerHTML=`<div class="rate done"><div class="rt-row"><span><b class="rt">${T("rate.thanks")}</b><span class="sub">${T("rate.you",{name:first})}</span></span><button type="button" class="textbtn" id="rateEdit">${T("rate.edit")}</button></div>
+      <div class="stars static" role="img" aria-label="${esc(T("rate.stars",{n:r.stars}))}">${[1,2,3,4,5].map(n=>`<span class="${n<=r.stars?"on":""}">${starSvg()}</span>`).join("")}</div>${txt?`<p class="rcom">${esc(txt)}</p>`:""}</div>`;
+    $("#rateEdit").addEventListener("click",()=>{rateDraft.editing=true;box._h=null;renderRate(j);const s=box.querySelector(".stars button");s&&s.focus()});
+    return;
+  }
+  const D=rateDraft;
+  box.innerHTML=`<div class="rate"><b class="rt">${T(j.kind==="hire"?"rate.titleOp":"rate.title")}</b><span class="sub">${T("rate.sub",{name:first})}</span>
+    <div class="stars" role="group" aria-label="${esc(T("rate.group"))}">${[1,2,3,4,5].map(n=>`<button type="button" data-star="${n}" aria-pressed="${n===D.stars}" aria-label="${esc(T("rate.stars",{n}))}" class="${n<=D.stars?"on":""}">${starSvg()}</button>`).join("")}</div>
+    <span class="starlbl" id="starLbl" aria-live="polite">${D.stars?T("rate.s"+D.stars):T("rate.tap")}</span>
+    <div class="rchips" role="group" aria-label="${esc(T("rate.group"))}">${RCHIPS.map(k=>`<button type="button" class="chip" data-rchip="${k}" aria-pressed="${D.tags.includes(k)}">${T("rate.c."+k)}</button>`).join("")}</div>
+    <div class="field"><label for="rText">${T("rate.more")}</label><textarea id="rText" rows="2" maxlength="300" placeholder="${esc(T("rate.morePh"))}">${esc(D.text)}</textarea></div>
+    <p class="auth-err" id="rateErr" role="alert"></p>
+    <button type="button" class="cta" id="rateGo"${D.stars?"":" disabled"}>${T(r?"rate.update":"rate.send")}</button></div>`;
+  const drawStars=()=>{box.querySelectorAll("[data-star]").forEach(b=>{const n=+b.dataset.star;b.classList.toggle("on",n<=D.stars);b.setAttribute("aria-pressed",String(n===D.stars))});$("#starLbl").textContent=D.stars?T("rate.s"+D.stars):T("rate.tap");$("#rateGo").disabled=!D.stars};
+  box.querySelector(".stars").addEventListener("click",e=>{const b=e.target.closest("[data-star]");if(!b)return;D.stars=+b.dataset.star;drawStars()});
+  box.querySelector(".rchips").addEventListener("click",e=>{const b=e.target.closest("[data-rchip]");if(!b)return;const k=b.dataset.rchip;D.tags=D.tags.includes(k)?D.tags.filter(x=>x!==k):RCHIPS.filter(x=>x===k||D.tags.includes(x));b.setAttribute("aria-pressed",String(D.tags.includes(k)))});
+  $("#rText").addEventListener("input",e=>{D.text=e.target.value});
+  $("#rateGo").addEventListener("click",()=>sendRating(j));
+}
+async function sendRating(j){
+  const D=rateDraft,btn=$("#rateGo"),err=$("#rateErr");if(!D||!D.stars)return;
+  const comment=composeComment(D.tags,D.text);btn.disabled=true;err.textContent="";
+  try{
+    if(LIVE){const row=await YDB.rateOrder(j.uuid,D.stars,comment);RATINGS[j.uuid]={stars:(row&&row.stars)||D.stars,comment:row&&row.comment!=null?row.comment:comment}}
+    else{const all=LS.get(RKEY,{});all[j.id]={stars:D.stars,comment,at:Date.now()};LS.set(RKEY,all)}
+    trk("rating_given",{stars:D.stars});D.editing=false;$("#rateBox")._h=null;toast(T("rate.sent"));render();
+  }catch(e){const m=(e&&e.message)||"";err.textContent=/after delivery/i.test(m)?T("rate.afterOnly"):m||T("rate.fail");btn.disabled=false}
+}
 function slipOk(f){if(!/^image\//.test(f.type)&&!/pdf/.test(f.type)&&!/\.(pdf|jpe?g|png|heic|webp)$/i.test(f.name)){toast(T("slip.type"));return false}if(f.size>8*1024*1024){toast(T("slip.big"));return false}return true}
 async function uploadSlip(j,f){
-  if(LIVE){toast(T("slip.uploading"));try{await YDB.payTransfer(j.uuid,f,j.id);toast(T("slip.sent"));await refreshLive()}catch(e){toast(e.message||T("slip.fail"))}return}
-  upd(j.id,{paymentStatus:"pending",slipAt:Date.now(),slipName:f.name});toast(T("slip.sent"));
+  if(LIVE){toast(T("slip.uploading"));try{await YDB.payTransfer(j.uuid,f,j.id);trk("slip_uploaded",{when:"later"});toast(T("slip.sent"));await refreshLive()}catch(e){toast(e.message||T("slip.fail"))}return}
+  upd(j.id,{paymentStatus:"pending",slipAt:Date.now(),slipName:f.name});trk("slip_uploaded",{when:"later"});toast(T("slip.sent"));
 }
 
 /* ---------- payments (checkout) ---------- */
@@ -1475,11 +1699,11 @@ function wireSite(id){const u=()=>{const r=readSite(id);$("#"+id+"C").textConten
 /* ---------- machine booking with calendar ---------- */
 const BKEY="ydworks.cust.bookings.v1";
 const DEMO_BUSY={exc20:[[1,8,17],[3,13,17]],exc5:[[5,9,15]],wl:[[1,13,17]],tip:[[2,7,12]],lorry:[[6,7,12]],crane:[[1,7,18],[2,7,18]],fork:[[3,8,12]],mixer:[[4,8,14]],roller:[[2,13,17]]};
-function demoBusy(mid){
+function demoBusy(mid,exceptOrder){
   const out=[],c=YDCAT.machines.find(x=>x.id===mid);
   if(c&&c.nextFree){const [h,mm]=c.nextFree.split(":").map(Number);const e=dayStart(0)+h*36e5+mm*6e4;if(e>Date.now())out.push({start:dayStart(0)+7*36e5,end:e})}
   (DEMO_BUSY[mid]||[]).forEach(([d,a,b])=>out.push({start:dayStart(d)+a*36e5,end:dayStart(d)+b*36e5}));
-  LS.get(BKEY,[]).filter(b=>b.machine_id===mid&&b.end>Date.now()).forEach(b=>out.push({start:b.start,end:b.end}));
+  LS.get(BKEY,[]).filter(b=>b.machine_id===mid&&b.end>Date.now()&&(!exceptOrder||b.order!==exceptOrder)).forEach(b=>out.push({start:b.start,end:b.end}));
   return out;
 }
 async function getBusy(mid){if(LIVE)return YDB.machineBusy(dayStart(0),dayStart(15),mid);return demoBusy(mid)}
@@ -1488,66 +1712,127 @@ function releaseDemo(j){
   if(j.kind==="materials"&&j.rpc){j.rpc.items.forEach(it=>{if(STOCK[it.material_id]!=null)STOCK[it.material_id]+= +it.qty});LS.set(STKEY,STOCK)}
 }
 const HOURS=[7,8,9,10,11,12,13,14,15,16,17];
+/* booking calendar (day strip + hourly slots + next free), shared by new bookings ("b") and reschedule ("r") */
+function calHtml(p,cur){return `<div class="field"><span class="lbl" id="${p}DaysL">${T("bk.date")}</span><div class="dstrip" id="${p}Days" role="group" aria-labelledby="${p}DaysL"></div></div>
+    <div class="field"><span class="lbl" id="${p}SlotsL">${T("bk.time")}</span><div class="tslots" id="${p}Slots" role="group" aria-labelledby="${p}SlotsL"><p class="hint">${T("bk.loading")}</p></div>
+      <div class="legend"><span><i></i>${T("bk.leg.free")}</span><span class="p"><i></i>${T("bk.leg.part")}</span><span class="b"><i></i>${T("bk.leg.busy")}</span>${cur?`<span class="c"><i></i>${T("rs.cur")}</span>`:""}</div><div id="${p}Next" aria-live="polite"></div></div>`}
+// o.dur(): booking length in ms; o.current: start of the booking being moved (shown, not selectable); o.onDraw(): after each redraw
+function mountCal(p,o){
+  const st={day:0,hour:null,busy:[],loaded:false};
+  const ov=(s,e)=>st.busy.some(b=>b.start<e&&b.end>s);
+  const isCur=(d,h)=>o.current!=null&&dayStart(d)+h*36e5===o.current;
+  const slot=(d,h)=>{const s=dayStart(d)+h*36e5;if(isCur(d,h))return"cur";if(s<Date.now()-10*6e4)return"past";if(ov(s,s+36e5))return"busy";if(ov(s,s+o.dur()))return"nofit";return"free"};
+  const dayInfo=d=>{const xs=HOURS.map(h=>slot(d,h));if(xs.every(x=>x!=="free"))return"full";if(xs.some(x=>x==="busy"))return"part";return"free"};
+  const firstFree=()=>{for(let d=0;d<14;d++)for(const h of HOURS)if(slot(d,h)==="free")return{d,h};return null};
+  const valid=()=>st.hour!=null&&slot(st.day,st.hour)==="free";
+  const startTs=()=>dayStart(st.day)+st.hour*36e5;
+  function draw(){
+    $("#"+p+"Days").innerHTML=Array.from({length:14},(_,d)=>{const ts=dayStart(d),inf=st.loaded?dayInfo(d):"free",dt=new Date(ts);
+      return `<button type="button" class="dchip ${inf}" data-d="${d}" aria-pressed="${d===st.day}" aria-label="${esc(fmtDate(ts)+" · "+T("bk.day."+inf))}"><small>${d===0?T("d.today"):parts("cal.wd")[dt.getDay()]}</small><b data-ltr>${dt.getDate()}</b><i></i></button>`}).join("");
+    if(!st.loaded)return;
+    $("#"+p+"Slots").innerHTML=HOURS.map(h=>{const s=slot(st.day,h);return `<button type="button" class="tslot ${s}" data-h="${h}" ${s!=="free"?"disabled":""} aria-pressed="${h===st.hour}"${s==="cur"?` aria-label="${pad(h)}:00 · ${esc(T("rs.cur"))}"`:""}>${pad(h)}:00</button>`}).join("");
+    const ff=firstFree(),nx=$("#"+p+"Next");
+    if(!ff)nx.innerHTML=`<div class="nextfree warn"><span>${T("bk.none")}</span></div>`;
+    else{const isSel=ff.d===st.day&&ff.h===st.hour,when=fmtWhen(dayStart(ff.d)+ff.h*36e5);
+      nx.innerHTML=(st.hour!=null&&!valid()?`<div class="nextfree warn" style="margin-bottom:8px"><span>${T("bk.clash")}</span></div>`:st.hour==null?`<p class="hint">${T("bk.pick")}</p>`:"")+
+        `<div class="nextfree"><span>${isSel?"✓ "+T("bk.isNext")+" · "+esc(when):T("bk.next",{when:esc(when)})}</span>${isSel?"":`<button type="button" id="${p}UseNext">${T("bk.use")}</button>`}</div>`;
+      const u=$("#"+p+"UseNext");u&&u.addEventListener("click",()=>{st.day=ff.d;st.hour=ff.h;draw();const sel=$(`#${p}Days [data-d="${ff.d}"]`);sel&&sel.scrollIntoView({inline:"center",block:"nearest"})})}
+    o.onDraw&&o.onDraw();
+  }
+  $("#"+p+"Days").addEventListener("click",e=>{const b=e.target.closest(".dchip");if(!b)return;st.day=+b.dataset.d;if(st.hour!=null&&slot(st.day,st.hour)!=="free"){const h=HOURS.find(h=>slot(st.day,h)==="free");st.hour=h==null?null:h}draw()});
+  $("#"+p+"Slots").addEventListener("click",e=>{const b=e.target.closest(".tslot");if(!b||b.disabled)return;st.hour=+b.dataset.h;draw()});
+  // load busy windows; pick=true selects the earliest free start
+  function setBusy(b,pick){st.busy=b||[];st.loaded=true;if(pick){const ff=firstFree();if(ff){st.day=ff.d;st.hour=ff.h}}else if(st.hour!=null&&!valid())st.hour=null;draw();
+    const sel=$(`#${p}Days [data-d="${st.day}"]`);sel&&sel.scrollIntoView({inline:"center",block:"nearest"})}
+  return{st,draw,valid,startTs,setBusy,slot};
+}
 function openMachine(id){
   const m=FLEET.find(x=>x.id===id);if(!m)return;
-  const st={mode:"hr",qty:4,day:0,hour:null,busy:[],loaded:false};
+  const st={mode:"hr",qty:4};
   openSheet(`<h2 id="sheetTitle">${nm(m.name)}</h2><p class="sub">${m.busy?T("bk.onJob",{t:availLbl(m)}):T("bk.avail")}</p>
     <div class="machine-hero">${thumb(m.id,m.name)}</div>
     <dl class="spec-grid">${Object.entries(m.specs||{}).map(([k,v])=>`<div><dt>${Tf("spec."+k,k)}</dt><dd>${Tf("specv."+v,v)}</dd></div>`).join("")}</dl>
     <div class="field"><span class="lbl">${T("bk.hireBy")}</span><div class="seg" id="segMode"><button data-m="hr" aria-pressed="true">${T("bk.hour")}</button><button data-m="day" aria-pressed="false">${T("bk.day")}</button><button data-m="mo" aria-pressed="false">${T("bk.month")}</button></div></div>
     <div class="field"><label for="bQty" id="bQtyL">${T("bk.hours")}</label><input type="number" id="bQty" min="1" max="999" value="4" inputmode="numeric"></div>
-    <div class="field"><span class="lbl" id="bDaysL">${T("bk.date")}</span><div class="dstrip" id="bDays" role="group" aria-labelledby="bDaysL"></div></div>
-    <div class="field"><span class="lbl" id="bSlotsL">${T("bk.time")}</span><div class="tslots" id="bSlots" role="group" aria-labelledby="bSlotsL"><p class="hint">${T("bk.loading")}</p></div>
-      <div class="legend"><span><i></i>${T("bk.leg.free")}</span><span class="p"><i></i>${T("bk.leg.part")}</span><span class="b"><i></i>${T("bk.leg.busy")}</span></div><div id="bNext" aria-live="polite"></div></div>
+    ${calHtml("b")}
     ${siteField("bSite","bk.site")}
     <div class="field"><label for="bNote">${T("bk.note")}</label><input id="bNote" placeholder="${esc(T("bk.notePh"))}"></div>
     ${payField("b")}
     <div class="summary" id="bSum"></div>
     <button class="cta" id="bGo" disabled>${T("bk.confirm")}</button>
+    <button type="button" class="legal-link" data-legal="refunds">${T("legal.refunds")}</button>
     <button class="cta ghost" data-wa="book" data-machine-name="${esc(m.name)}"><svg class="wa-svg" aria-hidden="true"><use href="#x-wa"/></svg>${T("wa.book")}</button>`);
   wireSite("bSite");const pay=wirePay("b");
   const dur=()=>st.qty*(st.mode==="hr"?36e5:st.mode==="day"?DAY:30*DAY);
-  const ov=(s,e)=>st.busy.some(b=>b.start<e&&b.end>s);
-  const slot=(d,h)=>{const s=dayStart(d)+h*36e5;if(s<Date.now()-10*6e4)return"past";if(ov(s,s+36e5))return"busy";if(ov(s,s+dur()))return"nofit";return"free"};
-  const dayInfo=d=>{const xs=HOURS.map(h=>slot(d,h));if(xs.every(x=>x!=="free"))return"full";if(xs.some(x=>x==="busy"))return"part";return"free"};
-  const firstFree=()=>{for(let d=0;d<14;d++)for(const h of HOURS)if(slot(d,h)==="free")return{d,h};return null};
-  const valid=()=>st.hour!=null&&slot(st.day,st.hour)==="free";
-  const startTs=()=>dayStart(st.day)+st.hour*36e5;
+  const cal=mountCal("b",{dur,onDraw(){$("#bGo").disabled=!cal.valid();calc()}});
   function calc(){
     const sub=m.rate[st.mode]*st.qty,mob=st.mode==="hr"?(PRICING.mobilisation_fee!=null?+PRICING.mobilisation_fee:300):0;const u={hr:"unit.hr",day:"unit.day",mo:"unit.month"}[st.mode];
-    $("#bSum").innerHTML=(st.hour!=null?`<div><span>${T("bk.window")}</span><span>${esc(fmtWhen(startTs()))}</span></div>`:"")+`<div><span>${ltr(st.qty)} ${T(u)} × ${mvrH(m.rate[st.mode])}</span><span>${mvrH(sub)}</span></div><div><span>${T("bk.mob")}</span><span>${mob?mvrH(mob):T("bk.incl")}</span></div><div class="tot"><span>${T("bk.est")}</span><b>${mvrH(sub+mob)}</b></div>`;
+    $("#bSum").innerHTML=(cal.st.hour!=null?`<div><span>${T("bk.window")}</span><span>${esc(fmtWhen(cal.startTs()))}</span></div>`:"")+`<div><span>${ltr(st.qty)} ${T(u)} × ${mvrH(m.rate[st.mode])}</span><span>${mvrH(sub)}</span></div><div><span>${T("bk.mob")}</span><span>${mob?mvrH(mob):T("bk.incl")}</span></div><div class="tot"><span>${T("bk.est")}</span><b>${mvrH(sub+mob)}</b></div>`;
     return{total:sub+mob,mob};
   }
-  function draw(){
-    $("#bDays").innerHTML=Array.from({length:14},(_,d)=>{const ts=dayStart(d),inf=st.loaded?dayInfo(d):"free",dt=new Date(ts);
-      return `<button type="button" class="dchip ${inf}" data-d="${d}" aria-pressed="${d===st.day}" aria-label="${esc(fmtDate(ts)+" · "+T("bk.day."+inf))}"><small>${d===0?T("d.today"):parts("cal.wd")[dt.getDay()]}</small><b data-ltr>${dt.getDate()}</b><i></i></button>`}).join("");
-    if(!st.loaded)return;
-    $("#bSlots").innerHTML=HOURS.map(h=>{const s=slot(st.day,h);return `<button type="button" class="tslot ${s}" data-h="${h}" ${s!=="free"?"disabled":""} aria-pressed="${h===st.hour}">${pad(h)}:00</button>`}).join("");
-    const ff=firstFree(),nx=$("#bNext");
-    if(!ff)nx.innerHTML=`<div class="nextfree warn"><span>${T("bk.none")}</span></div>`;
-    else{const isSel=ff.d===st.day&&ff.h===st.hour,when=fmtWhen(dayStart(ff.d)+ff.h*36e5);
-      nx.innerHTML=(st.hour!=null&&!valid()?`<div class="nextfree warn" style="margin-bottom:8px"><span>${T("bk.clash")}</span></div>`:st.hour==null?`<p class="hint">${T("bk.pick")}</p>`:"")+
-        `<div class="nextfree"><span>${isSel?"✓ "+T("bk.isNext")+" · "+esc(when):T("bk.next",{when:esc(when)})}</span>${isSel?"":`<button type="button" id="bUseNext">${T("bk.use")}</button>`}</div>`;
-      const u=$("#bUseNext");u&&u.addEventListener("click",()=>{st.day=ff.d;st.hour=ff.h;draw();const sel=$(`#bDays [data-d="${ff.d}"]`);sel&&sel.scrollIntoView({inline:"center",block:"nearest"})})}
-    $("#bGo").disabled=!valid();calc();
-  }
-  $("#bDays").addEventListener("click",e=>{const b=e.target.closest(".dchip");if(!b)return;st.day=+b.dataset.d;if(st.hour!=null&&slot(st.day,st.hour)!=="free"){const h=HOURS.find(h=>slot(st.day,h)==="free");st.hour=h==null?null:h}draw()});
-  $("#bSlots").addEventListener("click",e=>{const b=e.target.closest(".tslot");if(!b||b.disabled)return;st.hour=+b.dataset.h;draw()});
   $("#segMode").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;st.mode=b.dataset.m;$$("#segMode button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));
-    $("#bQtyL").textContent=T(st.mode==="hr"?"bk.hours":st.mode==="day"?"bk.days":"bk.months");st.qty=st.mode==="hr"?4:1;$("#bQty").value=st.qty;draw()});
-  $("#bQty").addEventListener("input",()=>{st.qty=Math.max(1,Math.min(999,Math.round(+$("#bQty").value||1)));draw()});
-  draw();calc();
-  getBusy(m.id).then(b=>{st.busy=b||[]},()=>{toast(T("bk.busyErr"));st.busy=[]}).then(()=>{
-    if(!$("#bSlots"))return;st.loaded=true;const ff=firstFree();if(ff){st.day=ff.d;st.hour=ff.h}draw();
-    const sel=$(`#bDays [data-d="${st.day}"]`);sel&&sel.scrollIntoView({inline:"center",block:"nearest"});
-  });
+    $("#bQtyL").textContent=T(st.mode==="hr"?"bk.hours":st.mode==="day"?"bk.days":"bk.months");st.qty=st.mode==="hr"?4:1;$("#bQty").value=st.qty;cal.draw()});
+  $("#bQty").addEventListener("input",()=>{st.qty=Math.max(1,Math.min(999,Math.round(+$("#bQty").value||1)));cal.draw()});
+  cal.draw();calc();
+  getBusy(m.id).then(b=>b||[],()=>{toast(T("bk.busyErr"));return[]}).then(b=>{if(!$("#bSlots"))return;cal.setBusy(b,true)});
   $("#bGo").addEventListener("click",()=>{
-    if(!valid()){toast(T("bk.clash"));draw();return}
-    const {total,mob}=calc(),q=st.qty,start=startTs(),end=start+dur(),site=readSite("bSite");
+    if(!cal.valid()){toast(T("bk.clash"));cal.draw();return}
+    const {total,mob}=calc(),q=st.qty,start=cal.startTs(),end=start+dur(),site=readSite("bSite");
     const unitEn=st.mode==="hr"?"hrs":st.mode==="day"?"days":"months";
     createJob({rpc:{kind:"hire",items:[{machine_id:m.id,mode:st.mode,qty:q,start:new Date(start).toISOString()}]},kind:"hire",title:`${m.name} · ${q} ${unitEn}`,tt:{k:"hire",name:m.name,q,mode:st.mode},icon:m.id,
       lines:[[`${m.name}, ${unitEn}`,q,m.rate[st.mode]]].concat(mob?[["Mobilisation",1,mob]]:[]),site:site.site,siteLat:site.lat,siteLng:site.lng,when:enWhen(start),startsAt:start,endsAt:end,total,note:$("#bNote").value,
       pay:{method:pay.method,file:pay.file},booking:{machine_id:m.id,start,end}});
+  });
+}
+
+/* ---------- reschedule an equipment booking (same length, new start) ---------- */
+function jobMachine(j){
+  const it=j.rpc&&j.rpc.items&&j.rpc.items[0];
+  return FLEET.find(m=>it&&m.id===it.machine_id)||FLEET.find(m=>m.id===j.icon)||FLEET.find(m=>j.title&&j.title.indexOf(m.name)===0)||FLEET.find(m=>m.icon===j.icon)||null;
+}
+function jobDur(j){if(j.endsAt&&j.startsAt)return j.endsAt-j.startsAt;const t=j.tt||{};return (t.q||4)*(t.mode==="day"?DAY:t.mode==="mo"?30*DAY:36e5)}
+function reschedErr(e,m){const s=(e&&e.message)||"";
+  const x=/^(.*) is already booked then/i.exec(s);if(x)return T("rs.taken",{m:x[1]||(m&&m.name)||""});
+  if(/in the future/i.test(s))return T("rs.past");if(/has started|no longer be moved/i.test(s))return T("rs.started");
+  return s||T("rs.fail")}
+async function reschedBusy(j,m){
+  if(LIVE){const b=await YDB.machineBusy(dayStart(0),dayStart(15),m.id);return(b||[]).filter(x=>!(x.start===j.startsAt&&x.end===j.endsAt))}   // leave out this booking's own hold
+  return demoBusy(m.id,j.id);
+}
+function openReschedule(id){
+  const j=jobs.find(x=>x.id===id);if(!j||!canResched(j))return;
+  const m=jobMachine(j),len=jobDur(j);
+  openSheet(`<h2 id="sheetTitle">${T("rs.title")}</h2><p class="sub">${esc(T("rs.sub",{title:jobTitle(j)}))}</p>
+    ${calHtml("r",true)}
+    <div class="summary" id="rSum"></div>
+    <p class="auth-err" id="rErr" role="alert"></p>
+    <button class="cta" id="rGo" disabled>${T("rs.go")}</button>
+    <button class="cta ghost" id="rKeep">${T("rs.keep")}</button>`);
+  const cal=mountCal("r",{dur:()=>len,current:j.startsAt,onDraw(){draw()}});
+  function draw(){
+    const ok=cal.valid();$("#rGo").disabled=!ok;
+    $("#rSum").innerHTML=`<div><span>${T("rs.now")}</span><span>${esc(fmtWhen(j.startsAt))}</span></div>`+(ok?`<div><span>${T("rs.new")}</span><span>${esc(fmtWhen(cal.startTs()))}</span></div><div><span>${T("rs.ends")}</span><span>${esc(fmtWhen(cal.startTs()+len))}</span></div>`:"");
+  }
+  const d0=Math.max(0,Math.min(13,dayDiff(j.startsAt)));cal.st.day=d0;
+  cal.draw();draw();
+  const loadBusy=pick=>(m?reschedBusy(j,m):Promise.resolve([])).then(b=>b,()=>{toast(T("bk.busyErr"));return[]}).then(b=>{if($("#rSlots"))cal.setBusy(b,pick)});
+  loadBusy(false);
+  $("#rKeep").addEventListener("click",closeSheet);
+  $("#rGo").addEventListener("click",async()=>{
+    const err=$("#rErr"),btn=$("#rGo");err.textContent="";
+    if(!cal.valid()){err.textContent=T("bk.clash");return}
+    const start=cal.startTs();if(start===j.startsAt){err.textContent=T("rs.same");return}
+    btn.disabled=true;
+    try{
+      if(LIVE){await YDB.reschedule(j.uuid,new Date(start).toISOString());await refreshLive()}
+      else{
+        jobs=load()||jobs;const dj=jobs.find(x=>x.id===j.id);
+        if(m&&demoBusy(m.id,j.id).some(b=>b.start<start+len&&b.end>start))throw new Error(`${m.name} is already booked then. Pick another time.`);
+        dj.startsAt=start;dj.endsAt=start+len;dj.when=enWhen(start);if(dj.rpc&&dj.rpc.items&&dj.rpc.items[0])dj.rpc.items[0].start=new Date(start).toISOString();
+        save(jobs);LS.set(BKEY,LS.get(BKEY,[]).map(b=>b.order===j.id?Object.assign(b,{start,end:start+len}):b));
+      }
+      trk("booking_rescheduled",{kind:j.kind});closeSheet();toast(T("rs.done",{when:fmtWhen(start)}));render();
+    }catch(e){err.textContent=reschedErr(e,m);btn.disabled=false;loadBusy(false)}
   });
 }
 
@@ -1560,7 +1845,7 @@ $("#cartBar").addEventListener("click",()=>{
     ${siteField("cSite","co.deliverTo")}
     <div class="field"><label for="cWhen">${T("co.when")}</label><select id="cWhen"><option value="asap">${T("when.asap")}</option><option value="pm">${T("when.pm")}</option><option value="tmrw">${T("when.tmrw")}</option></select></div>
     ${payField("c")}
-    <button class="cta" id="cGo">${T("co.place")}</button><button class="cta ghost" id="cClose">${T("co.keep")}</button>`);
+    <button class="cta" id="cGo">${T("co.place")}</button><button type="button" class="legal-link" data-legal="refunds">${T("legal.refunds")}</button><button class="cta ghost" id="cClose">${T("co.keep")}</button>`);
   wireSite("cSite");const pay=wirePay("c");
   $("#cClose").addEventListener("click",closeSheet);
   $("#cGo").addEventListener("click",()=>{
@@ -1611,9 +1896,9 @@ function renderBuild(){
     ${u.photos.length?`<div class="photos n${Math.min(3,u.photos.length)}">${u.photos.map((src,i)=>`<button data-photo="${i}" data-u="${ui}" aria-label="${esc(T("build.open",{i:i+1}))}"><img src="${esc(src)}" alt="" loading="lazy"></button>`).join("")}</div>`:""}</div>`).join("")
     :`<div class="empty"><span class="e-ic">${icon("camera")}</span><p>${T("build.noUpd")}</p></div>`;
 }
-function openLightbox(u,i){LB={u,i};drawLightbox();$("#lightbox").classList.add("on");updateFab();$("#lbClose").focus()}
+function openLightbox(u,i){LB={u,i};drawLightbox();$("#lightbox").classList.add("on");$("#lbClose").focus()}
 function drawLightbox(){const ph=(PRJ&&PRJ.updates[LB.u]||{photos:[]}).photos;if(!ph.length)return;LB.i=(LB.i+ph.length)%ph.length;$("#lbImg").src=ph[LB.i];$("#lbCount").textContent=`${LB.i+1} / ${ph.length}`;$("#lbImg").alt=T("build.photo",{i:LB.i+1,n:ph.length});$("#lbPrev").hidden=$("#lbNext").hidden=ph.length<2}
-function closeLightbox(){$("#lightbox").classList.remove("on");updateFab()}
+function closeLightbox(){$("#lightbox").classList.remove("on")}
 $("#lbClose").addEventListener("click",closeLightbox);
 $("#lightbox").addEventListener("click",e=>{if(e.target.id==="lightbox"||e.target.id==="lbImg")closeLightbox()});
 $("#lbPrev").addEventListener("click",()=>{LB.i-=I.isRTL()?-1:1;drawLightbox()});
@@ -1630,7 +1915,7 @@ function openInvoice(id){
     <button class="cta" id="invPdf">${ix("down")}${T("inv.pdf")}</button><button class="cta ghost" id="invClose">${T("common.close")}</button>`);
   $("#invClose").addEventListener("click",closeSheet);
   $("#invPdf").addEventListener("click",async()=>{const b=$("#invPdf");b.disabled=true;$("#invErr").textContent="";
-    try{const r=await YDDOCS.invoicePdf(o,SETTINGS);toast(T(r==="shared"?"inv.shared":"inv.saved"))}catch(e){$("#invErr").textContent=T("inv.blocked")}
+    try{const r=await YDDOCS.invoicePdf(o,SETTINGS);trk("invoice_downloaded",{via:r==="shared"?"share":"download"});toast(T(r==="shared"?"inv.shared":"inv.saved"))}catch(e){$("#invErr").textContent=T("inv.blocked")}
     b.disabled=false});
 }
 
@@ -1702,18 +1987,14 @@ $("#chSeg").addEventListener("click",async e=>{
   if(LIVE){try{await YDB.updateProfile({notify_channel:c})}catch(x){toast(T("ch.fail"));return}}else LS.set(CHKEY,c);
   renderAccount();toast(T("ch.saved",{ch:T("ch."+c)}));
 });
-function localizeTheme(){
-  $$("[data-yd-theme-set]").forEach(b=>{const n=[...b.childNodes].reverse().find(x=>x.nodeType===3);if(n)n.textContent=T("theme."+b.dataset.ydThemeSet)});
-  const t=YDUI.theme.get();$$("[data-yd-theme-cycle]").forEach(b=>{b.setAttribute("aria-label",T("theme.aria",{t:T("theme."+t)}));b.title=T("theme.aria",{t:T("theme."+t)})});
-  const g=$("#themeSeg .seg");g&&g.setAttribute("aria-label",T("theme.group"));
-}
+// yd-ui.js labels the theme controls (Auto/Light/Dark, translated); only the group's accessible name is set here
+function localizeTheme(){try{YDUI.theme.sync()}catch(e){}const g=$("#themeSeg .seg");g&&g.setAttribute("aria-label",T("theme.group"))}
 window.addEventListener("yd-theme",localizeTheme);
 
 function render(){
   jobs=load()||jobs;syncDemoNotifs();renderBadges();renderOrders();
   if(cur==="home")renderHome();if(cur==="equip")renderEquip();if(cur==="shop"||cur==="home")renderShop();
   if(cur==="track")renderTrack();if(cur==="notifs")renderNotifs();if(cur==="build")renderBuild();if(cur==="account")renderAccount();if(cur==="search")renderSearch();
-  updateFab();
 }
 
 /* ---------- create order ---------- */
@@ -1722,9 +2003,9 @@ function createJob(j){
   jobs=load()||jobs;
   const pay=j.pay||{method:"cod"},booking=j.booking;delete j.pay;delete j.booking;
   const job=Object.assign({id:"YD-"+Math.floor(48300+Math.random()*1600),status:"requested",progress:0,driver:null,createdAt:Date.now(),history:{requested:Date.now()},paymentMethod:pay.method,paymentStatus:"unpaid",customer:me()},j);
-  if(pay.method==="transfer"&&pay.file){job.paymentStatus="pending";job.slipAt=Date.now();job.slipName=pay.file.name}
+  if(pay.method==="transfer"&&pay.file){job.paymentStatus="pending";job.slipAt=Date.now();job.slipName=pay.file.name;trk("slip_uploaded",{when:"checkout"})}
   if(pay.method==="card")job.paymentStatus="paid";
-  jobs.push(job);save(jobs);
+  jobs.push(job);save(jobs);trk("order_placed",{kind:job.kind,payment:pay.method});
   if(booking){const b=LS.get(BKEY,[]);b.push(Object.assign({order:job.id},booking));LS.set(BKEY,b)}
   if(job.kind==="materials"){job.rpc.items.forEach(it=>{if(STOCK[it.material_id]!=null)STOCK[it.material_id]=Math.max(0,STOCK[it.material_id]-it.qty)});LS.set(STKEY,STOCK)}
   closeSheet();toast(pay.method==="card"?T("pay.demoCard")+" · "+job.id:T("toast.placed",{ref:job.id}));go("track",{id:job.id});
@@ -1739,7 +2020,7 @@ setInterval(()=>{
   for(const j of jobs){
     const since=now-((j.history&&j.history[j.status])||j.createdAt);
     if(j.status==="requested"&&since>9000){j.status="accepted";j.driver=DRIVERS[Math.floor(Math.random()*DRIVERS.length)];j.history.accepted=now;j.demo=true;changed=true;alerts&&toast(T("toast.accepted",{name:j.driver.name,ref:j.id}))}
-    else if(j.demo&&j.status==="accepted"&&since>6000){j.status="loading";j.history.loading=now;changed=true}
+    else if(j.demo&&j.status==="accepted"&&since>6000&&!(j.kind==="hire"&&j.startsAt&&j.startsAt-now>36e5)){j.status="loading";j.history.loading=now;changed=true}
     else if(j.demo&&j.status==="loading"&&since>6000){j.status="enroute";j.progress=0;j.history.enroute=now;changed=true;alerts&&toast(T("toast.enroute",{ref:j.id}))}
     else if(j.status==="enroute"&&j.demo){j.progress=Math.min(1,(j.progress||0)+.02);if(j.progress>=1){j.status="arrived";j.history.arrived=now;alerts&&toast(T("toast.arrived",{ref:j.id}))}changed=true}
     // demo counter "checks" an uploaded transfer slip after a few seconds
@@ -1751,9 +2032,11 @@ setInterval(()=>{
 /* ---------- sync from driver app ---------- */
 window.addEventListener("storage",e=>{if(e.key===KEY||e.key===NKEY)render()});
 ch&&ch.addEventListener("message",()=>render());
-$("#resetBtn").addEventListener("click",()=>{
-  jobs=seed();save(jobs);nstate=demoNotifSeed();saveN();SITES=clone(DEMO_SITES);saveSitesDemo();STOCK=clone(DEMO_STOCK);LS.set(STKEY,STOCK);LS.set(BKEY,[]);LS.set(CHKEY,"push");
-  for(const k in cart)delete cart[k];toast(T("toast.reset"));render()});
+function resetDemoData(){
+  jobs=seed();save(jobs);nstate=demoNotifSeed();saveN();SITES=clone(DEMO_SITES);saveSitesDemo();STOCK=clone(DEMO_STOCK);LS.set(STKEY,STOCK);LS.set(BKEY,[]);LS.set(CHKEY,"push");LS.set(RKEY,{});rateDraft=null;
+  for(const k in cart)delete cart[k];
+}
+$("#resetBtn").addEventListener("click",()=>{resetDemoData();toast(T("toast.reset"));render()});
 
 /* ---------- language ---------- */
 window.addEventListener("yd-lang",e=>{
@@ -1768,6 +2051,8 @@ window.addEventListener("yd-lang",e=>{
 $("#themeSeg").innerHTML=YDUI.theme.segment("seg tseg");
 I.apply();localizeTheme();
 loadN();render();go("home");
+const FLASH="yd-cust-flash";
+try{const f=sessionStorage.getItem(FLASH);if(f){sessionStorage.removeItem(FLASH);if(f==="del.done")setTimeout(()=>toast(T(f)),400)}}catch(e){}
 
 /* ---------- sign in: phone (SMS code) + email ---------- */
 let authMode="in",authMethod=CFG.phoneLogin?"phone":"email",pStep="phone",pDigits="",resendLeft=0,resendT=null;
@@ -1787,10 +2072,14 @@ function authErr(e){const m=(e&&e.message)||"";
   if(/sms|phone.*(provider|disabled|not enabled|unsupported)|provider/i.test(m))return T("auth.smsOff");
   if(/fetch|network|failed to fetch|load failed/i.test(m))return T("auth.net");
   return m||T("auth.net")}
-function showAuth(on){$("#auth").hidden=!on;updateFab();if(on){setAuthView();setTimeout(()=>(authMethod==="phone"?$("#pPhone"):$("#aEmail")).focus(),50)}}
+const AUTH_FOCUS={phone:"#pPhone",email:"#aEmail",reset:"#rsEmail",recover:"#npPass"};
+function showAuth(on){$("#auth").hidden=!on;if(on){setAuthView();setTimeout(()=>{const f=$(AUTH_FOCUS[authMethod]||"#aEmail");f&&f.focus()},50)}}
 function setAuthView(){
-  const ph=authMethod==="phone";$("#phoneForm").hidden=!ph;$("#authForm").hidden=ph;
-  if(ph)setPStep(pStep);else setAuthMode(authMode);
+  const m=authMethod;$("#phoneForm").hidden=m!=="phone";$("#authForm").hidden=m!=="email";$("#resetForm").hidden=m!=="reset";$("#newPwForm").hidden=m!=="recover";
+  $("#aDemo").hidden=m==="recover";   // a recovery link must end with a new password
+  if(m==="phone")setPStep(pStep);else if(m==="email")setAuthMode(authMode);
+  else if(m==="reset"){$("#authTitle").textContent=T("auth.resetTitle");$("#authSub").textContent=T("auth.resetSub");$("#rsErr").textContent="";$("#rsErr").className="auth-err"}
+  else{$("#authTitle").textContent=T("auth.newTitle");$("#authSub").textContent=T("auth.newSub");$("#npErr").textContent=""}
 }
 function setPStep(s){
   pStep=s;$("#pfPhone").hidden=s!=="phone";$("#pfCode").hidden=s!=="code";$("#pfName").hidden=s!=="name";$("#toEmail").hidden=s!=="phone";
@@ -1831,12 +2120,42 @@ function setAuthMode(m){authMode=m;const up=m==="up";
   $("#fName").hidden=!up;$("#fPhone").hidden=!up;$("#aGo").textContent=T(up?"auth.createGo":"auth.signIn");
   $("#aSwitch").textContent=T(up?"auth.have":"auth.create");
   $("#authTitle").textContent=T(up?"auth.createTitle":"auth.welcome");$("#authSub").textContent=T("auth.sub");
-  $("#aPass").autocomplete=up?"new-password":"current-password";$("#aErr").textContent="";$("#aErr").className="auth-err"}
+  $("#aPass").autocomplete=up?"new-password":"current-password";$("#aErr").textContent="";$("#aErr").className="auth-err";
+  $("#forgotRow").hidden=up;$("#aLegal").hidden=!up;
+  if(up)$("#aLegal").innerHTML=T("auth.agree",{terms:`<button type="button" data-legal="terms">${esc(T("legal.terms"))}</button>`,privacy:`<button type="button" data-legal="privacy">${esc(T("legal.privacy"))}</button>`})}
 $("#aSwitch").addEventListener("click",()=>setAuthMode(authMode==="in"?"up":"in"));
 $("#aDemo").addEventListener("click",()=>showAuth(false));
+/* forgot password → reset link by email; the link opens the app in recovery mode → set a new password */
+const EMAIL_RE=/^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+$("#aForgot").addEventListener("click",()=>{authMethod="reset";$("#rsEmail").value=$("#aEmail").value.trim();setAuthView();$("#rsEmail").focus()});
+$("#rsBack").addEventListener("click",()=>{authMethod="email";setAuthView();$("#aEmail").focus()});
+$("#resetForm").addEventListener("submit",async e=>{
+  e.preventDefault();const em=$("#rsEmail").value.trim(),err=$("#rsErr"),btn=$("#rsGo");err.className="auth-err";err.textContent="";
+  if(!EMAIL_RE.test(em)){err.textContent=T("auth.emailBad");$("#rsEmail").focus();return}
+  if(!backendUp()){err.textContent=T("auth.resetDemo");return}
+  btn.disabled=true;
+  try{await YDB.resetPassword(em);err.className="auth-err ok";err.textContent=T("auth.resetSent")}catch(x){err.textContent=authErr(x)}
+  finally{btn.disabled=false}
+});
+function showRecovery(){authMethod="recover";$("#npPass").value=$("#npPass2").value="";showAuth(true)}
+window.addEventListener("yd-recovery",showRecovery);
+$("#newPwForm").addEventListener("submit",async e=>{
+  e.preventDefault();const a=$("#npPass").value,b=$("#npPass2").value,err=$("#npErr"),btn=$("#npGo");err.className="auth-err";err.textContent="";
+  if(a.length<8){err.textContent=T("auth.passBad");$("#npPass").focus();return}
+  if(a!==b){err.textContent=T("auth.pwMismatch");$("#npPass2").focus();return}
+  if(!backendUp()){err.textContent=T("auth.resetDemo");return}
+  btn.disabled=true;
+  try{
+    await YDB.setNewPassword(a);
+    authMethod=CFG.phoneLogin?"phone":"email";
+    if(LIVE)showAuth(false);else await enterLive();
+    toast(T("auth.pwSaved"));
+  }catch(x){const m=(x&&x.message)||"";err.textContent=/expired|invalid|session|missing/i.test(m)?T("auth.linkExpired"):authErr(x)}
+  finally{btn.disabled=false}
+});
 $("#authForm").addEventListener("submit",async e=>{
   e.preventDefault();const em=$("#aEmail").value.trim(),pw=$("#aPass").value,err=$("#aErr");err.className="auth-err";
-  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){err.textContent=T("auth.emailBad");return}
+  if(!EMAIL_RE.test(em)){err.textContent=T("auth.emailBad");return}
   if(pw.length<8){err.textContent=T("auth.passBad");return}
   if(authMode==="up"&&!$("#aName").value.trim()){err.textContent=T("auth.nameBad");return}
   if(!backendUp()){err.textContent=T("auth.demoEmail");return}
@@ -1851,12 +2170,53 @@ $("#authForm").addEventListener("submit",async e=>{
   $("#aGo").disabled=false;
 });
 
+/* ---------- delete my account ---------- */
+const activeOrders=()=>jobs.filter(j=>["accepted","loading","enroute","arrived"].includes(j.status));
+function openDelete(){
+  const pg=$("#delPage"),act=activeOrders();
+  pg.innerHTML=`<div class="page-top"><button type="button" class="icon-btn" id="delBack" aria-label="${esc(T("common.back"))}"><svg class="flip" aria-hidden="true"><use href="#i-back"/></svg></button></div>
+    <div class="page-body"><span class="del-ic">${ix("trash")}</span><h1 id="delTitle">${T("del.title")}</h1><p class="sub" style="margin-top:6px">${T("del.sub")}</p>
+    ${act.length?`<div class="ann warn" style="margin:16px 0 0"><i></i><span>${esc(T("del.active",{refs:"\u2066"+act.map(j=>j.id).join(", ")+"\u2069"}))}</span></div>`:""}
+    <div class="dlist"><h2>${T("del.removed")}</h2><ul>${["r1","r2","r3","r4","r5"].map(k=>`<li><i aria-hidden="true">×</i><span>${T("del."+k)}</span></li>`).join("")}</ul></div>
+    <div class="dlist keep"><h2>${T("del.kept")}</h2><ul><li><i aria-hidden="true">✓</i><span>${T("del.k1")}</span></li></ul></div>
+    <div class="field"><label for="delType">${T("del.type")}</label><input id="delType" class="typeconf" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="12" dir="ltr" lang="en"></div>
+    <p class="auth-err" id="delErr" role="alert"></p>
+    <button type="button" class="cta dangerfill" id="delGo" disabled>${T("del.go")}</button>
+    <button type="button" class="cta ghost" id="delKeep">${T("del.keep")}</button></div>`;
+  pg.hidden=false;pg.scrollTop=0;
+  $("#delBack").addEventListener("click",closeDelete);$("#delKeep").addEventListener("click",closeDelete);
+  $("#delType").addEventListener("input",e=>{$("#delGo").disabled=e.target.value.trim().toUpperCase()!=="DELETE"});
+  $("#delGo").addEventListener("click",doDelete);
+  setTimeout(()=>$("#delBack")&&$("#delBack").focus(),50);
+}
+function closeDelete(){const pg=$("#delPage");pg.hidden=true;pg.innerHTML="";const b=$("#delAccBtn");if(cur==="account"&&b)b.focus()}
+$("#delAccBtn").addEventListener("click",openDelete);
+async function doDelete(){
+  const btn=$("#delGo"),err=$("#delErr");if(!btn||btn.disabled)return;err.textContent="";btn.disabled=true;btn.textContent=T("del.working");
+  if(LIVE){
+    try{await YDB.deleteAccount()}
+    catch(e){const m=(e&&e.message)||"";err.textContent=/in progress/i.test(m)?T("del.inProgress"):m||T("del.fail");btn.textContent=T("del.go");btn.disabled=false;return}
+    trk("account_deleted");unwatch.forEach(f=>{try{f()}catch(x){}});unwatch=[];
+    try{sessionStorage.setItem(FLASH,"del.done")}catch(x){}
+    location.reload();return;
+  }
+  // demo: nothing leaves the phone; wipe the demo data and show the signed-out welcome screen
+  await sleep(450);
+  resetDemoData();ME=Object.assign({},DEMO_ME);try{localStorage.removeItem(MEKEY)}catch(x){}
+  trk("account_deleted",{demo:true});closeDelete();go("home");authMethod=CFG.phoneLogin?"phone":"email";pStep="phone";setAuthMode("in");showAuth(true);toast(T("del.doneDemo"));
+}
+
 /* ---------- live backend ---------- */
 let unwatch=[];
 async function refreshLive(){try{jobs=await YDB.fetchOrders();mem=jobs;render()}catch(e){toast(T("toast.refreshFail"))}}
 async function liveNotifs(){const rows=await YDB.notifications();LIVE_N=rows.map(r=>({id:r.id,kind:r.kind==="assigned"?"order":r.kind,title:r.title,body:r.body||"",orderUuid:r.order_id,project:r.project_id,at:Date.parse(r.created_at),read:!!r.read_at}))}
 async function liveSites(){const rows=await YDB.sites();SITES=rows.map(s=>({id:s.id,label:s.label,area:s.area||"",lat:s.lat,lng:s.lng,is_default:!!s.is_default}))}
 async function liveStock(){const r=await YDB.sb.from("materials").select("id,stock_qty,low_stock_at");if(r.error)throw r.error;(r.data||[]).forEach(x=>{const m=MATS.find(y=>y.id===x.id);if(m){m.stock=x.stock_qty==null?null:+x.stock_qty;m.low=x.low_stock_at==null?null:+x.low_stock_at}})}
+async function liveRatings(){
+  if(!YDB.sb||typeof YDB.sb.from!=="function")return;
+  const r=await YDB.sb.from("ratings").select("order_id,stars,comment");if(r.error)throw r.error;
+  RATINGS={};(r.data||[]).forEach(x=>{if(x&&x.order_id)RATINGS[x.order_id]={stars:+x.stars,comment:x.comment||""}});
+}
 async function liveProjects(){
   const rows=await YDB.projects();
   PROJECTS=await Promise.all(rows.map(async p=>({id:p.id,title:p.title,site:p.site,status:p.status,start:p.start_date?Date.parse(p.start_date):null,target:p.target_date?Date.parse(p.target_date):null,contract:+p.contract_value,
@@ -1869,7 +2229,8 @@ async function liveCreate(j){
   const btn=$("#bGo")||$("#cGo");if(btn)btn.disabled=true;
   try{
     const o=await YDB.rpc("create_order",{p_kind:j.rpc.kind,p_items:j.rpc.items,p_site:j.site,p_when:j.when,p_note:j.note||"",p_site_lat:j.siteLat==null?null:j.siteLat,p_site_lng:j.siteLng==null?null:j.siteLng,p_payment:(j.pay&&j.pay.method)||"cod"});
-    if(j.pay&&j.pay.method==="transfer"&&j.pay.file){try{await YDB.payTransfer(o.id,j.pay.file,o.ref)}catch(e){toast(T("slip.failLater"))}}
+    trk("order_placed",{kind:j.rpc.kind,payment:(j.pay&&j.pay.method)||"cod"});
+    if(j.pay&&j.pay.method==="transfer"&&j.pay.file){try{await YDB.payTransfer(o.id,j.pay.file,o.ref);trk("slip_uploaded",{when:"checkout"})}catch(e){toast(T("slip.failLater"))}}
     if(j.pay&&j.pay.method==="card"){try{const url=await YDB.payCard(o.id);await refreshLive();closeSheet();go("track",{id:o.ref});location.href=url;return}catch(e){toast(e.message||T("pay.cardFail"))}}
     await refreshLive();liveStock().catch(()=>{});closeSheet();if(!(j.pay&&j.pay.method==="card"))toast(T("toast.placed",{ref:o.ref}));go("track",{id:o.ref});
   }catch(e){toast(e.message||T("toast.orderFail"));if(btn)btn.disabled=false}
@@ -1883,7 +2244,8 @@ async function enterLive(){
   $("#demoRow").hidden=true;$("#resetBtn").hidden=true;$("#signOutBtn").hidden=false;$("#signInBtn").hidden=true;
   if(p.lang==="dv"&&I.get()!=="dv")I.set("dv");else if(I.get()==="dv"&&p.lang!=="dv")YDB.updateProfile({lang:"dv"}).catch(()=>{});
   showAuth(false);jobs=[];mem=jobs;LIVE_N=[];SITES=[];PROJECTS=[];PRJ=null;
-  await Promise.allSettled([refreshLive(),liveNotifs(),liveSites(),liveStock(),liveProjects(),YDB.settings().then(applySettings)]);
+  RATINGS={};
+  await Promise.allSettled([refreshLive(),liveNotifs(),liveSites(),liveStock(),liveProjects(),liveRatings(),YDB.settings().then(applySettings)]);
   unwatch.forEach(f=>{try{f()}catch(e){}});
   unwatch=[YDB.watch(refreshLive),
     YDB.watchTable("notifications",()=>liveNotifs().then(render).catch(()=>{})),
@@ -1913,6 +2275,7 @@ function applySettings(s){
   if(!ok)return;                       // offline or sandboxed: stay in demo mode
   YDB.settings().then(applySettings).catch(()=>{});
   $("#signInBtn").hidden=false;
+  if(YDB.recovery){showRecovery();return}   // opened from a password-reset email
   if(YDB.user)await enterLive();else showAuth(true);
 })();
 // test hook (read-only state for automated UI tests)
