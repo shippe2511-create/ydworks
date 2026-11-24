@@ -457,3 +457,49 @@ begin
 end $$;
 create trigger quote_requests_notify after insert on public.quote_requests for each row execute function private.lead_notify();
 alter publication supabase_realtime add table public.quotes;
+
+-- ═════════════ driver fixes ═════════════
+-- a driver whose last delivery is waiting to upload (offline proof of delivery, still "arrived") may take the next job
+create or replace function public.accept_order(p_order uuid) returns public.orders
+language plpgsql security definer set search_path = '' as $$
+declare me public.profiles; o public.orders;
+begin
+  select * into me from public.profiles where id = (select auth.uid());
+  if me.role is distinct from 'driver' then raise exception 'Driver accounts only'; end if;
+  if exists (select 1 from public.orders where driver_id = me.id and status in ('accepted','loading','enroute')) then
+    raise exception 'Finish your current job first';
+  end if;
+  update public.orders
+     set status = 'accepted', driver_id = me.id, driver_name = me.full_name,
+         driver_unit = coalesce(me.unit_code || ' · ' || me.unit_name, me.unit_code, '')
+   where id = p_order and status = 'requested' and driver_id is null
+  returning * into o;
+  if not found then raise exception 'Another driver took this job'; end if;
+  return o;
+end $$;
+
+-- defect photos reach the workshop
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('defects', 'defects', false, 8388608, array['image/jpeg','image/png','image/webp']) on conflict (id) do nothing;
+create policy "driver uploads own defect photos" on storage.objects for insert to authenticated
+  with check (bucket_id = 'defects' and (storage.foldername(name))[1] = (select auth.uid())::text and private.real_role() = 'driver');
+create policy "driver and staff read defect photos" on storage.objects for select to authenticated
+  using (bucket_id = 'defects' and ((storage.foldername(name))[1] = (select auth.uid())::text or private.my_role() = 'admin'));
+alter table public.inspections add column photo_path text;
+drop function public.driver_submit_inspection(jsonb, boolean, text);
+create function public.driver_submit_inspection(p_items jsonb, p_passed boolean, p_defects text default '', p_photo text default null)
+returns public.inspections language plpgsql security definer set search_path = '' as $$
+declare i public.inspections; me public.profiles;
+begin
+  select * into me from public.profiles where id = (select auth.uid());
+  if me.role <> 'driver' then raise exception 'Driver accounts only'; end if;
+  if p_photo is not null and p_photo not like me.id::text || '/%' then raise exception 'Invalid photo'; end if;
+  insert into public.inspections (machine_id, driver_id, items, passed, defects, photo_path)
+  values (private.my_machine(), me.id, p_items, p_passed, left(coalesce(p_defects,''),1000), p_photo) returning * into i;
+  if not p_passed or coalesce(trim(p_defects),'') <> '' then
+    perform private.notify_admins('defect', 'Defect reported on ' || coalesce(me.unit_code,'a vehicle'), me.full_name || ': ' || left(coalesce(nullif(p_defects,''),'checklist item failed'),140));
+  end if;
+  return i;
+end $$;
+revoke execute on function public.driver_submit_inspection(jsonb,boolean,text,text) from public, anon;
+grant execute on function public.driver_submit_inspection(jsonb,boolean,text,text), public.accept_order(uuid) to authenticated;
