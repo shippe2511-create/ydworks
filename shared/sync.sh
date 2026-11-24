@@ -9,4 +9,5 @@ for d in website customer-app driver-app admin; do
   cp shared/catalog/*.jpg "$d/catalog/"
   cp shared/vendor/* "$d/vendor/"
 done
+cp shared/yd-content-catalog.js admin/   # Content page: every editable text of the website and apps (regenerate: node shared/gen-content.js)
 echo "shared modules synced to website, customer-app, driver-app, admin"

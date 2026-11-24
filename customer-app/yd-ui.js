@@ -157,8 +157,13 @@
   const LANG_KEY = "yd-lang", DICT = { en: {}, dv: {} };
   function getLang() { try { return localStorage.getItem(LANG_KEY) === "dv" ? "dv" : "en"; } catch (e) { return "en"; } }
   let lang = getLang();
+  /* Text edited in the console (Content page) wins over the built-in wording. Order: edited text in this
+     language, built-in text in this language, edited English, built-in English. < and > are neutralised so
+     edited text can never inject markup (some strings are placed with innerHTML). */
+  const OVR = { en: {}, dv: {} };
+  const clean = v => String(v).replace(/</g, "‹").replace(/>/g, "›");
   function t(key, vars) {
-    let s = (DICT[lang] && DICT[lang][key]) ?? DICT.en[key] ?? key;
+    let s = OVR[lang][key] ?? (DICT[lang] && DICT[lang][key]) ?? OVR.en[key] ?? DICT.en[key] ?? key;
     if (vars) s = s.replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? "");
     return s;
   }
@@ -211,6 +216,17 @@
   window.addEventListener("yd-lang", () => syncThemeUI());
   const i18n = {
     add(d) { for (const l of ["en", "dv"]) Object.assign(DICT[l], d[l] || {}); },
+    // map = { key: { en: "…", dv: "…" } } (empty strings ignored). Re-renders when the edits changed.
+    override(map) {
+      const next = { en: {}, dv: {} };
+      Object.keys(map || {}).forEach(k => { const v = map[k] || {}; if (v.en) next.en[k] = clean(v.en); if (v.dv) next.dv[k] = clean(v.dv); });
+      if (JSON.stringify(next) === JSON.stringify(OVR)) return false;
+      OVR.en = next.en; OVR.dv = next.dv;
+      if (document.readyState !== "loading") { applyLang(); window.dispatchEvent(new CustomEvent("yd-lang", { detail: lang, bubbles: false })); }
+      return true;
+    },
+    // every built-in string of this page, for the console's Content editor
+    dump: () => ({ en: Object.assign({}, DICT.en), dv: Object.assign({}, DICT.dv) }),
     t, get: () => lang, set: setLang, apply: applyLang, isRTL: () => lang === "dv",
     segment(cls) { return `<div class="${cls || "seg"}" role="group" aria-label="Language"><button type="button" data-yd-lang-set="en" aria-pressed="${lang === "en"}">English</button><button type="button" data-yd-lang-set="dv" aria-pressed="${lang === "dv"}" lang="dv" style="font-family:Faruma,var(--body)">ދިވެހި</button></div>`; }
   };
@@ -263,8 +279,13 @@
   const navUrl = (lat, lng) => `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&travelmode=driving`;
 
   /* ── error & usage reporting → console Insights (anonymous; only when the backend is configured) ── */
-  const SURFACE = /\/driver/.test(location.pathname) ? "driver" : /\/(console|admin)/.test(location.pathname) ? "console"
-                : /\/(app|customer-app)/.test(location.pathname) ? "customer" : "website";
+  const SURFACE = window.YD_SURFACE || (/\/driver/.test(location.pathname) ? "driver" : /\/(console|admin)/.test(location.pathname) ? "console"
+                : /\/(app|customer-app)/.test(location.pathname) ? "customer" : "website");
+  /* console Content edits for this page (from yd-settings.js: content_website / content_customer_app / content_driver_app) */
+  const CONTENT_KEY = { website: "content_website", customer: "content_customer_app", driver: "content_driver_app" }[SURFACE];
+  function applyContent() { if (CONTENT_KEY && window.YDSET) i18n.override((YDSET.get() || {})[CONTENT_KEY] || {}); }
+  applyContent();
+  window.addEventListener("yd-settings", applyContent);
   const SESSION = (() => { try { let s = sessionStorage.getItem("yd-sid"); if (!s) { s = Math.random().toString(36).slice(2, 14); sessionStorage.setItem("yd-sid", s); } return s; } catch (e) { return Math.random().toString(36).slice(2, 14); } })();
   let queue = [], timer = null, sentErrors = 0;
   function flush() {
