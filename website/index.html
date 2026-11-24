@@ -1276,7 +1276,7 @@ const YD_DV_TERMS = {
     if(ogT)ogT.content=st||OGT0;if(ogD)ogD.content=sd||OGD0;
     // contact: hotline + counter hours
     const hot=String(c.hotline||DEF_C.hotline||"992 0202").trim(),dig=hot.replace(/\D/g,"");
-    $$(".info .big").forEach(e=>{e.textContent=hot});
+    $$(".info .big,.hero .ticker > div:last-child b > [data-ltr]").forEach(e=>{e.textContent=hot});
     $$(".nav .hot").forEach(e=>{e.textContent="+960 "+hot;if(dig.length===7)e.href="tel:+960"+dig});
     $$('.info .copy[data-copy^="+960"]').forEach(b=>{b.dataset.copy="+960 "+hot});
     const td=$$(".hours td:last-child");
