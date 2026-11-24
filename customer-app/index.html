@@ -1235,8 +1235,8 @@ const FAB_ON=["home","equip","shop","orders","account"];
 function updateFab(){
   const f=$("#waFab");if(!f)return;
   const over=$("#sheet").classList.contains("on")||$("#lightbox").classList.contains("on")||!$("#auth").hidden;
-  f.hidden=over||!FAB_ON.includes(cur);
-  f.classList.toggle("raise",cur==="shop"&&!$("#cartBar").hidden);
+  // on Materials the cart bar takes the bottom edge; its own "Order this load on WhatsApp" row carries the cart instead
+  f.hidden=over||!FAB_ON.includes(cur)||(cur==="shop"&&!$("#cartBar").hidden);
 }
 
 /* ---------- sheet + toast ---------- */
@@ -1690,7 +1690,7 @@ function renderAccount(){
   renderSites();
   const c=getChannel(),ph=who.phone||"";
   $("#chSeg").innerHTML=CHANNELS.map(k=>`<button type="button" data-ch="${k}" aria-pressed="${k===c}">${T("ch."+k)}</button>`).join("");
-  $("#chHint").textContent=T("ch."+c+".hint",{phone:ph});
+  $("#chHint").textContent=T("ch."+c+".hint",{phone:"\u2066"+ph+"\u2069"});
   if(!$("#langSeg").firstChild){$("#langSeg").innerHTML=I.segment("seg lseg");}
   $("#langSeg .seg").setAttribute("aria-label",T("lang.group"));
   $$("#langSeg [data-yd-lang-set]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.ydLangSet===I.get())));
@@ -1780,7 +1780,7 @@ const DEMOAUTH={
   async updateProfile(p){if(p.full_name)ME.name=p.full_name;return p}
 };
 const authApi=()=>backendUp()?YDB:DEMOAUTH;
-const fmtPhone=d=>"+960 "+d.slice(0,3)+" "+d.slice(3);
+const fmtPhone=d=>"\u2066+960 "+d.slice(0,3)+" "+d.slice(3)+"\u2069";   // LTR-isolated inside Dhivehi sentences
 function authErr(e){const m=(e&&e.message)||"";
   if(/expired|invalid.*(otp|token)|token.*invalid|otp/i.test(m))return T("auth.codeWrong");
   if(/security purposes|rate limit|too many|after \d+ seconds/i.test(m))return T("auth.wait");
@@ -1825,7 +1825,7 @@ $("#phoneForm").addEventListener("submit",async e=>{
 async function authDone(){
   clearInterval(resendT);resendLeft=0;
   if(backendUp()){await enterLive();return}
-  ME.phone=fmtPhone(pDigits);ME.signedIn=true;LS.set(MEKEY,ME);showAuth(false);setPStep("phone");toast(T("auth.demoIn",{name:ME.name}));render();
+  ME.phone=fmtPhone(pDigits).replace(/[\u2066\u2069]/g,"");ME.signedIn=true;LS.set(MEKEY,ME);showAuth(false);setPStep("phone");toast(T("auth.demoIn",{name:ME.name}));render();
 }
 function setAuthMode(m){authMode=m;const up=m==="up";
   $("#fName").hidden=!up;$("#fPhone").hidden=!up;$("#aGo").textContent=T(up?"auth.createGo":"auth.signIn");
