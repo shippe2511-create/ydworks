@@ -6,8 +6,9 @@
  */
 (function () {
   "use strict";
-  const URL = "__SUPABASE_URL__";
-  const KEY = "__SUPABASE_PUBLISHABLE_KEY__";
+  const CFG = window.YD_CONFIG || {};
+  const URL = CFG.supabaseUrl || "__SUPABASE_URL__";
+  const KEY = CFG.supabaseKey || "__SUPABASE_PUBLISHABLE_KEY__";
 
   const Y = { live: false, sb: null, user: null, profile: null, url: URL, key: KEY };
 
@@ -23,9 +24,13 @@
       clearTimeout(t);
       if (!r.ok) return false;
     } catch (e) { return false; }
+    // a password-reset email link lands here with #...type=recovery; let supabase-js read it
+    const recovering = /type=recovery/.test(location.hash);
     Y.sb = window.supabase.createClient(URL, KEY, {
-      auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: false, storageKey: "ydworks-auth" }
+      auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: recovering, storageKey: "ydworks-auth" }
     });
+    Y.recovery = recovering;
+    Y.sb.auth.onAuthStateChange(ev => { if (ev === "PASSWORD_RECOVERY") { Y.recovery = true; window.dispatchEvent(new CustomEvent("yd-recovery")); } });
     Y.live = true;
     const { data } = await Y.sb.auth.getSession();
     if (data.session) { Y.user = data.session.user; await Y.loadProfile(); }
@@ -56,6 +61,29 @@
     await Y.loadProfile();
     return "signed-in";
   };
+
+  /* ── forgot password ── */
+  Y.resetPassword = async function (email) {
+    const { error } = await Y.sb.auth.resetPasswordForEmail(String(email).trim(), { redirectTo: location.origin + location.pathname });
+    if (error) throw error;
+  };
+  Y.setNewPassword = async function (password) {
+    const { data, error } = await Y.sb.auth.updateUser({ password });
+    if (error) throw error;
+    Y.recovery = false; Y.user = data.user;
+    history.replaceState(null, "", location.pathname + location.search);
+    await Y.loadProfile();
+    return Y.profile;
+  };
+
+  /* ── account ── */
+  Y.deleteAccount = async function () {
+    await Y.rpc("delete_my_account", {});
+    try { await Y.sb.auth.signOut(); } catch (e) {}
+    Y.user = null; Y.profile = null;
+  };
+  Y.rateOrder = (orderUuid, stars, comment) => Y.rpc("rate_order", { p_order: orderUuid, p_stars: stars, p_comment: comment || "" });
+  Y.reschedule = (orderUuid, startIso) => Y.rpc("reschedule_order", { p_order: orderUuid, p_start: startIso });
 
   Y.signOut = async function () {
     await Y.sb.auth.signOut();

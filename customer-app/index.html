@@ -305,6 +305,8 @@ img.pimg{width:100%;height:100%;object-fit:cover;display:block}
 <style>
 /* ---- feature pack: phone sign-in, notifications, saved sites, booking calendar, stock, payments, invoices, build tracker, language ---- */
 .live-dot{margin-right:0;margin-inline-end:6px}
+/* the hidden attribute must win over component display rules (.field, .cta, .fab …) */
+[hidden]:not(.wa-fab){display:none!important}
 [dir="rtl"] .flip{transform:scaleX(-1)}
 [dir="rtl"] .promo::after{background:linear-gradient(270deg,rgba(7,11,22,.88),rgba(7,11,22,.2))}
 html[lang="dv"] body *{letter-spacing:0!important}
@@ -1603,7 +1605,7 @@ function renderBuild(){
   $("#bldPay").innerHTML=`<div class="tot"><span class="sub">${T("build.contract")}</span><b>${mvrH(contract)}</b></div>
     <div class="paybar" role="img" aria-label="${esc(T("build.paid")+" "+mvr(paid))}"><i style="width:${w(paid)}%"></i><i class="d" style="width:${w(due)}%"></i></div>
     <div class="cols"><span><i></i>${T("build.paid")}<b>${mvrH(paid)}</b></span><span class="d"><i></i>${T("build.dueNow")}<b>${mvrH(due)}</b></span><span class="r"><i></i>${T("build.toPay")}<b>${mvrH(rest)}</b></span></div>`;
-  $("#bldMs").innerHTML=p.milestones.map(m=>`<li class="${m.status}"><span><b>${esc(msTitle(m))}</b><small>${m.due?esc(T(m.status==="done"?"build.doneOn":"build.dueOn",{d:fmtDate(m.due,{wd:false,year:true})})):""} · ${T("ms."+m.status)}</small></span>
+  $("#bldMs").innerHTML=p.milestones.map(m=>`<li class="${m.status}"><span><b>${esc(msTitle(m))}</b><small>${m.status==="done"?esc(m.due?T("build.doneOn",{d:fmtDate(m.due,{wd:false,year:true})}):T("ms.done")):(m.due?esc(T("build.dueOn",{d:fmtDate(m.due,{wd:false,year:true})}))+" · ":"")+(m.status==="done"?"":T("ms."+m.status))}</small></span>
     <span class="amt">${m.amount?`<span>${mvrH(m.amount)}</span><span class="pill ${m.pay==="paid"?"ok":m.pay==="due"?"warn":"mute"}">${T("msp."+m.pay)}</span>`:""}</span></li>`).join("");
   $("#bldUpd").innerHTML=p.updates.length?p.updates.map((u,ui)=>`<div class="upd"><div class="uh"><span>${esc(fmtDate(u.at))}</span><span>${ago(u.at)}</span></div><p>${esc(u.nk?T(u.nk):u.note)}</p>
     ${u.photos.length?`<div class="photos n${Math.min(3,u.photos.length)}">${u.photos.map((src,i)=>`<button data-photo="${i}" data-u="${ui}" aria-label="${esc(T("build.open",{i:i+1}))}"><img src="${esc(src)}" alt="" loading="lazy"></button>`).join("")}</div>`:""}</div>`).join("")

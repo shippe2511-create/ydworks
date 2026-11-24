@@ -238,5 +238,30 @@
   }
   const navUrl = (lat, lng) => `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&travelmode=driving`;
 
-  window.YDUI = { thumb, file, map, place, i18n, liveMap, navUrl, theme: { get: getTheme, set: setTheme, isDark: () => isDark(getTheme()), sync: syncThemeUI, segment: themeSegment } };
+  /* ── error & usage reporting → console Insights (anonymous; only when the backend is configured) ── */
+  const SURFACE = /\/driver/.test(location.pathname) ? "driver" : /\/(console|admin)/.test(location.pathname) ? "console"
+                : /\/(app|customer-app)/.test(location.pathname) ? "customer" : "website";
+  const SESSION = (() => { try { let s = sessionStorage.getItem("yd-sid"); if (!s) { s = Math.random().toString(36).slice(2, 14); sessionStorage.setItem("yd-sid", s); } return s; } catch (e) { return Math.random().toString(36).slice(2, 14); } })();
+  let queue = [], timer = null, sentErrors = 0;
+  function flush() {
+    timer = null;
+    const cfg = window.YD_CONFIG || {};
+    if (!cfg.monitoring || !cfg.supabaseUrl || cfg.supabaseUrl.indexOf("__") === 0 || !queue.length) { queue = []; return; }
+    const rows = queue.splice(0, 20);
+    try {
+      fetch(cfg.supabaseUrl + "/rest/v1/client_events", { method: "POST", keepalive: true,
+        headers: { apikey: cfg.supabaseKey, "Content-Type": "application/json", Prefer: "return=minimal" }, body: JSON.stringify(rows) }).catch(() => {});
+    } catch (e) {}
+  }
+  function report(kind, name, message, detail) {
+    queue.push({ kind, surface: SURFACE, name: String(name).slice(0, 80), message: String(message || "").slice(0, 1000),
+      detail: detail || {}, url: (location.pathname + location.hash).slice(0, 300), session_id: SESSION, app_version: "1.0.0" });
+    if (!timer) timer = setTimeout(flush, kind === "error" ? 500 : 4000);
+  }
+  window.addEventListener("error", e => { if (sentErrors++ < 10) report("error", (e.error && e.error.name) || "Error", e.message, { src: e.filename, line: e.lineno, stack: e.error && String(e.error.stack).slice(0, 1500) }); });
+  window.addEventListener("unhandledrejection", e => { if (sentErrors++ < 10) report("error", "UnhandledRejection", (e.reason && (e.reason.message || e.reason)) || "", { stack: e.reason && String(e.reason.stack || "").slice(0, 1500) }); });
+  window.addEventListener("pagehide", flush);
+  const track = (name, detail) => report("event", name, "", detail);
+
+  window.YDUI = { thumb, file, map, place, i18n, liveMap, navUrl, track, surface: SURFACE, theme: { get: getTheme, set: setTheme, isDark: () => isDark(getTheme()), sync: syncThemeUI, segment: themeSegment } };
 })();

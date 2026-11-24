@@ -445,3 +445,15 @@ begin
   perform private.require_perm('sales');
   update public.quote_requests set status = p_status where id = p_lead;
 end $function$;
+
+-- ═════════════ new website leads notify staff; quotes update live in the console ═════════════
+create function private.lead_notify() returns trigger
+language plpgsql security definer set search_path = '' as $$
+begin
+  insert into public.notifications (user_id, kind, title, body)
+  select id, 'lead', 'New quote request from ' || new.name, array_to_string(new.needs, ', ') || ' · ' || new.site || ' · ' || new.phone
+    from public.profiles where role in ('admin','counter');
+  return new;
+end $$;
+create trigger quote_requests_notify after insert on public.quote_requests for each row execute function private.lead_notify();
+alter publication supabase_realtime add table public.quotes;
