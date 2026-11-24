@@ -519,6 +519,69 @@ textarea.inp{min-height:80px;resize:vertical}
 .ck-n{font:600 12px var(--mono);color:var(--faint);padding-top:24px;text-align:center}
 .ck-f{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
 .ck-b{display:flex;gap:6px;padding-top:21px}
+/* ── Content (every text and photo of the website and apps) ── */
+.sc-xl{display:flex;gap:12px;align-items:flex-start;text-decoration:none;color:var(--ink);padding:12px 14px;min-height:44px;transition:border-color .15s}
+.sc-xl:hover{border-color:var(--brand)}
+.sc-xl svg{color:var(--brand);flex:none;margin-top:1px}
+.sc-xl b{display:block;font-weight:600;font-size:14px}
+.sc-tabs button{flex-direction:column;align-items:flex-start;gap:2px;padding:7px 16px}
+.sc-tabs .tl{display:inline-flex;align-items:center;gap:7px;font-weight:600}
+.sc-tabs .tn{font:500 11px var(--mono);color:var(--faint);white-space:nowrap}
+.sc-tabs button[aria-selected="true"] .tn{color:var(--mute)}
+.sc-help a{color:var(--brand);font-weight:500}
+.sc-tools{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr) auto;gap:12px;align-items:end}
+.sc-tools .sw-row{border:1px solid var(--line-2);border-radius:10px;padding:0 12px;min-height:40px;gap:12px}
+.sc-tools .sw-row b{font-weight:500;font-size:13.5px;white-space:nowrap}
+.sc-count{margin:12px 0 0}
+.sc-gh{display:flex;align-items:baseline;gap:8px;margin:20px 0 0;padding-bottom:8px;border-bottom:1px solid var(--line);font:600 15px var(--display,inherit);letter-spacing:-.01em}
+.sc-gh span{font:500 11px var(--mono);color:var(--faint)}
+.sc-row{display:flex;flex-direction:column;gap:8px;padding:14px 0;border-bottom:1px solid var(--line)}
+.sc-row:last-child{border-bottom:0}
+.sc-row.is-dirty{box-shadow:inset 3px 0 0 var(--warn);padding-left:12px;margin-left:-12px}
+.sc-rh{display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-height:28px}
+.sc-rh .grow{flex:1}
+.sc-key{font:500 11.5px var(--mono);color:var(--faint);word-break:break-all}
+.sc-ed{background:color-mix(in srgb,var(--brand) 13%,transparent);color:var(--brand)}
+.sc-un{background:color-mix(in srgb,var(--warn) 16%,transparent);color:var(--warn)}
+.sc-orig{font-size:13px;color:var(--mute);line-height:1.45;overflow-wrap:anywhere}
+.sc-orig[lang="dv"]{text-align:right}
+.sc-chips{display:flex;flex-wrap:wrap;gap:6px}
+.sc-chip{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--mute);background:var(--surface-2);border-radius:999px;padding:3px 10px}
+.sc-chip code{font:500 11.5px var(--mono);color:var(--ink)}
+textarea.inp.sc-ta{min-height:42px;resize:vertical;overflow:hidden;line-height:1.45}
+.sc-warn{display:flex;flex-direction:column;gap:6px}.sc-warn:empty{display:none}
+.sc-warn .ap-note{padding:8px 12px}
+.sc-more{display:flex;justify-content:center;padding-top:14px}
+.sc-bar{position:sticky;bottom:14px;z-index:5;display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 12px 10px 16px;border:1px solid var(--line-2);border-radius:14px;background:color-mix(in srgb,var(--surface) 96%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 8px 28px rgba(0,0,0,.16)}
+.sc-bar[hidden]{display:none}
+.sc-bar .tx{flex:1;min-width:160px;font-size:13.5px}.sc-bar .tx b{font-weight:600}
+.sc-ph-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.sc-ph{margin:0;padding:0;overflow:hidden;display:flex;flex-direction:column}
+.sc-img{position:relative;aspect-ratio:16/10;background:var(--surface-2);display:grid;place-items:center;overflow:hidden}
+.sc-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.sc-img img[hidden]{display:none}
+.sc-noimg{display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--mute);font:500 12px var(--mono);padding:10px;text-align:center;word-break:break-all}
+.sc-noimg[hidden]{display:none}
+.sc-img .pill{position:absolute;top:8px;left:8px;background:var(--surface);color:var(--brand);box-shadow:0 1px 4px rgba(0,0,0,.18)}
+.sc-ph figcaption{display:flex;flex-direction:column;gap:3px;padding:10px 12px 0;min-width:0}
+.sc-ph figcaption b{font-weight:600;font-size:14px}
+.sc-ph-acts{display:flex;flex-wrap:wrap;gap:8px;padding:10px 12px 12px;margin-top:auto}
+.sc-ph.busy{opacity:.6;pointer-events:none}
+.sc-ph-st{padding:0 12px;font-size:12.5px;color:var(--mute)}.sc-ph-st:empty{display:none}
+@media (max-width:900px){.sc-tools{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.sc-tools .sc-q{grid-column:1/-1}}
+@media (max-width:760px){
+  .sc-tabs button{align-items:center;text-align:center;padding:6px 6px}
+  .sc-tabs .tn{font-size:10.5px;display:flex;flex-direction:column;align-items:center;gap:1px}.sc-tabs .tn .sep{display:none}
+  .sc-ph-acts{flex-direction:column}.sc-ph-acts .btn{width:100%}
+  .sc-tools{grid-template-columns:minmax(0,1fr)}
+  .sc-tools .sw-row{min-height:44px}
+  textarea.inp.sc-ta{min-height:44px}
+  .sc-bar{bottom:calc(74px + env(safe-area-inset-bottom));padding:10px 12px}
+  .sc-bar .tx{flex-basis:100%}.sc-bar .btn{flex:1 1 auto}
+  .sc-ph-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+  .sc-ph-acts .btn{flex:1 1 auto}
+  .sc-row.is-dirty{padding-left:10px;margin-left:-10px}
+}
 @media (max-width:1100px){.ap-grid{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:760px){
   .ap-top{flex-direction:column;align-items:stretch}
@@ -750,13 +813,14 @@ details.more pre{margin:6px 0 0;font:500 11.5px/1.5 var(--mono);background:var(-
       <div class="nav-l">Fleet &amp; catalog</div>
       <a href="#fleet" data-p="fleet"><svg><use href="#i-truck"/></svg>Fleet &amp; materials<span class="cnt warn" id="nStock" hidden></span></a>
       <a href="#health" data-p="health"><svg><use href="#i-wrench"/></svg>Fleet health<span class="cnt warn" id="nDefects" hidden></span></a>
-      <a href="#content" data-p="content"><svg><use href="#i-edit"/></svg>Content &amp; pricing</a>
+      <a href="#content" data-p="content"><svg><use href="#i-edit"/></svg>Pricing &amp; settings</a>
       <div class="nav-l">Insights</div>
       <a href="#reports" data-p="reports"><svg><use href="#i-chart"/></svg>Reports</a>
       <a href="#insights" data-p="insights"><svg><use href="#i-pulse"/></svg>App insights<span class="cnt warn" id="nErr" hidden></span></a>
       <a href="#activity" data-p="activity"><svg><use href="#i-hist"/></svg>Activity log</a>
       <div class="nav-l">Admin</div>
       <a href="#apps" data-p="apps"><svg><use href="#i-apps"/></svg>Website &amp; apps</a>
+      <a href="#sitecontent" data-p="sitecontent"><svg><use href="#i-text"/></svg>Content</a>
       <a href="#staff" data-p="staff"><svg><use href="#i-shield"/></svg>Staff &amp; roles</a>
     </nav>
     <div class="me-wrap">
@@ -789,6 +853,8 @@ details.more pre{margin:6px 0 0;font:500 11.5px/1.5 var(--mono);background:var(-
 <div class="scrim" id="scrim"></div>
 <svg width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><defs>
 <symbol id="i-apps" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="13" height="11" rx="1.5"/><path d="M2.5 8h13M6 19h6M9 15v4"/><rect x="16.5" y="9" width="5" height="11" rx="1.2"/><path d="M18.5 17.5h1"/></symbol>
+<symbol id="i-text" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V5h12v2M10 5v14M7.5 19h5M14 12h6M14 16h6M17 12v7"/></symbol>
+<symbol id="i-img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="15" rx="2"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="M21 15.5l-5-5-9 9"/></symbol>
 <symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M7 14h4M7 17h7"/></symbol>
 <symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l5 5v13H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></symbol>
 <symbol id="i-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></symbol>
@@ -873,7 +939,7 @@ const rolePill=(r,id)=>`<span class="pill role r-${esc(r)}"${id?` id="${id}"`:""
 function whoCan(p){const rs=STAFF.filter(r=>PERMS[r].includes(p)).map(r=>ROLE_PL[r]);return (rs.length>1?rs.slice(0,-1).join(", ")+" & "+rs.at(-1):rs[0])+" only"}
 const gate=p=>can(p)?"":`disabled data-gated title="${whoCan(p)}" aria-label="${whoCan(p)}"`;
 // page → permissions that open it (none = every staff role)
-const PAGE_PERM={payments:["payments"],calendar:["orders","fleet"],drivers:["assign","fleet","orders","team"],leads:["sales"],quotes:["sales"],projects:["projects"],fleet:["catalog"],health:["fleet"],content:["settings"],reports:["reports"],insights:["reports","settings"],activity:["reports","settings"],apps:["settings"],staff:["team"]};
+const PAGE_PERM={payments:["payments"],calendar:["orders","fleet"],drivers:["assign","fleet","orders","team"],leads:["sales"],quotes:["sales"],projects:["projects"],fleet:["catalog"],health:["fleet"],content:["settings"],sitecontent:["settings"],reports:["reports"],insights:["reports","settings"],activity:["reports","settings"],apps:["settings"],staff:["team"]};
 const canPage=pg=>!PAGE_PERM[pg]||PAGE_PERM[pg].some(can);
 
 /* remote settings for the website, customer app and driver app (shapes in yd-settings.js) */
@@ -1149,8 +1215,8 @@ const A={
     if(role==="driver"&&!dv)S.drivers.push({id:"d"+Date.now(),full_name:who,unit_code:code,unit_name:name,is_online:false,rating:5,role:"driver",email:em,phone:(cu&&cu.phone)||""});
     const c={};if(was!==role)c.role={from:was,to:role};if(role==="driver"&&code)c.unit_code={from:dv?dv.unit_code||null:null,to:code};
     logDemo("update","profiles",(sf||dv||cu||{}).id||em,who,c)},
-  async setting(key,value){if(LIVE){const{error}=await YDB.sb.from("app_settings").upsert({key,value,updated_at:new Date().toISOString()});if(error)throw error;return load()}
-    const old=S.settings[key];S.settings[key]=value;if(JSON.stringify(old)!==JSON.stringify(value))logDemo(old?"update":"insert","app_settings",key,"",{value:{from:old??null,to:value}});demoSync()},
+  async setting(key,value,logCh){if(LIVE){const{error}=await YDB.sb.from("app_settings").upsert({key,value,updated_at:new Date().toISOString()});if(error)throw error;return load()}
+    const old=S.settings[key];S.settings[key]=value;if(JSON.stringify(old)!==JSON.stringify(value))logDemo(old?"update":"insert","app_settings",key,"",logCh||{value:{from:old??null,to:value}});demoSync()},
   /* move a hire booking (reschedule_order on the server) */
   async reschedule(o,t){
     if(LIVE){await YDB.reschedule(o.uuid,new Date(t).toISOString());return load()}
@@ -1317,19 +1383,20 @@ async function loadAudit(){if(!LIVE)return;try{const r=await YDB.sb.from("audit_
 /* ═════════════ routing ═════════════ */
 const PAGES={overview:["Operations","Overview"],orders:["Operations","Orders & dispatch"],payments:["Operations","Payments"],calendar:["Operations","Booking calendar"],drivers:["Operations","Drivers"],customers:["Operations","Customers"],
   leads:["Sales & projects","Website leads"],quotes:["Sales & projects","Quotes"],projects:["Sales & projects","Projects"],
-  fleet:["Fleet & catalog","Fleet & materials"],health:["Fleet & catalog","Fleet health"],content:["Fleet & catalog","Content & pricing"],reports:["Insights","Reports"],insights:["Insights","App insights"],activity:["Insights","Activity log"],apps:["Admin","Website & apps"],staff:["Admin","Staff & roles"]};
+  fleet:["Fleet & catalog","Fleet & materials"],health:["Fleet & catalog","Fleet health"],content:["Fleet & catalog","Pricing & settings"],reports:["Insights","Reports"],insights:["Insights","App insights"],activity:["Insights","Activity log"],apps:["Admin","Website & apps"],sitecontent:["Admin","Content"],staff:["Admin","Staff & roles"]};
 let showRemoved=false,ordersShown=50,page="overview",orderFilter="all",catTab="machines",chartView="chart",REP={};
 function setSide(open){$("#side").classList.toggle("open",open);$("#sideScrim").classList.toggle("on",open);$("#bnMore").setAttribute("aria-expanded",open)}
 $("#bnMore").onclick=()=>setSide(!$("#side").classList.contains("open"));$("#sideScrim").onclick=()=>setSide(false);
 function route(){const h=location.hash.slice(1);
   if(page==="apps"&&h!=="apps"&&apAnyDirty()&&route._ready){if(!confirm("You have unsaved changes on Website & apps. Leave without saving them?")){history.replaceState(null,"","#apps");return}}
+  if(page==="sitecontent"&&h!=="sitecontent"&&scAnyDirty()&&route._ready){if(!confirm("You have unsaved text changes on Content. Leave without saving them?")){history.replaceState(null,"","#sitecontent");return}}
   page=PAGES[h]?h:"overview";
   if(!canPage(page)){toast(`${PAGES[page][1]} is for ${whoCan(PAGE_PERM[page][0]).replace(/ only$/,"").replace(/^Managers/,"managers")}`);page="overview";history.replaceState(null,"","#overview")}
   $$(".nav a,.bnav a").forEach(a=>a.toggleAttribute("aria-current",a.dataset.p===page));$$('.nav a[aria-current],.bnav a[aria-current]').forEach(a=>a.setAttribute("aria-current","page"));
   const quick=BN.includes(page);$("#bnMore").classList.toggle("cur",!quick);closeMe();
   if(route._last!==page){route._last=page;trk("console_page",{page,role:ROLE})}
   document.body.classList.toggle("has-search",["orders","customers","fleet"].includes(page));setSide(false);
-  if(page!=="apps")apDiscard();route._ready=true;
+  if(page!=="apps")apDiscard();if(page!=="sitecontent")scDiscard();route._ready=true;
   $("#crumb").textContent=PAGES[page][0];$("#title").textContent=PAGES[page][1];$("#side").classList.remove("open");closeInbox();render();window.scrollTo(0,0)}
 addEventListener("hashchange",route);
 /* role → what the sidebar, bottom bar and profile show */
@@ -1404,8 +1471,8 @@ function render(){
   const v=$("#view");
   const viewAs=!LIVE&&ROLE!=="admin"?`<div class="viewas"><svg width="18" height="18" style="color:var(--brand);flex:none"><use href="#i-shield"/></svg><div style="flex:1;min-width:200px">Viewing as <b>${esc(roleName(ROLE))}</b>: ${esc(ROLES[ROLE][1])} Hidden pages and greyed-out buttons are for other roles.</div><button class="btn sm" id="vaBack">Back to manager view</button></div>`:"";
   const banner=LIVE?"":viewAs+`<div class="demo-banner"><svg width="18" height="18" style="color:var(--warn);flex:none"><use href="#i-alert"/></svg><div><b>You're looking at demo data.</b> Changes here aren't saved. Once the Supabase backend is connected, staff sign in and this console runs the real website and apps.</div></div>`;
-  const V={overview:vOverview,orders:vOrders,payments:vPayments,calendar:vCalendar,drivers:vDrivers,leads:vLeads,quotes:vQuotes,projects:vProjects,customers:vCustomers,fleet:vFleet,health:vHealth,content:vContent,reports:vReports,insights:vInsights,activity:vActivity,apps:vApps,staff:vStaff};
-  const W={overview:wOverview,orders:wOrders,payments:wPayments,calendar:wCalendar,drivers:wDrivers,leads:wLeads,quotes:wQuotes,projects:wProjects,customers:()=>{},fleet:wFleet,health:wHealth,content:wContent,reports:wReports,insights:wInsights,activity:wActivity,apps:wApps,staff:wStaff};
+  const V={overview:vOverview,orders:vOrders,payments:vPayments,calendar:vCalendar,drivers:vDrivers,leads:vLeads,quotes:vQuotes,projects:vProjects,customers:vCustomers,fleet:vFleet,health:vHealth,content:vContent,reports:vReports,insights:vInsights,activity:vActivity,apps:vApps,sitecontent:vSite,staff:vStaff};
+  const W={overview:wOverview,orders:wOrders,payments:wPayments,calendar:wCalendar,drivers:wDrivers,leads:wLeads,quotes:wQuotes,projects:wProjects,customers:()=>{},fleet:wFleet,health:wHealth,content:wContent,reports:wReports,insights:wInsights,activity:wActivity,apps:wApps,sitecontent:wSite,staff:wStaff};
   v.innerHTML=banner+V[page]()+`<footer class="pfoot">YD Works Console</footer>`;W[page]();
   $("#vaBack")&&($("#vaBack").onclick=()=>{ROLE="admin";toast("Back to the manager view");applyRole()});
 }
@@ -1496,7 +1563,7 @@ function attention(){
   if(can("fleet"))openDefects().forEach(({m,i})=>items.push([i.passed?"warn":"crit","i-wrench",`${i.passed?"Defect noted":"Failed check"} on ${esc(m.code)} ${esc(m.name)}`,esc(String(i.defects||(inspFailed(i).length?"Failed: "+inspFailed(i).join(", "):"Checklist item failed")).slice(0,90)),`data-href="#health"`]));
   if(can("catalog"))lowStock().forEach(m=>items.push([m.stock_qty<=0?"crit":"warn","i-box",m.stock_qty<=0?`${esc(m.name)} is out of stock`:`Low stock: ${esc(m.name)}`,`${m.stock_qty} × ${esc(m.unit)} left · reorder at ${m.low_stock_at??0}`,`data-href="#fleet" data-tab="materials"`]));
   if(can("catalog"))S.materials.filter(m=>!m.active).forEach(m=>items.push(["warn","i-box",`${esc(m.name)} is hidden from the app`,"Marked out of stock · customers can't order it",`data-href="#fleet" data-tab="materials"`]));
-  if(S.settings.ordering&&S.settings.ordering.accepting_orders===false)items.unshift(["crit","i-alert","The apps are not accepting orders","Turned off in Content & pricing",canPage("content")?`data-href="#content"`:""]);
+  if(S.settings.ordering&&S.settings.ordering.accepting_orders===false)items.unshift(["crit","i-alert","The apps are not accepting orders","Turned off in Pricing & settings",canPage("content")?`data-href="#content"`:""]);
   if(curSet("customer_app").maintenance.active)items.unshift(["crit","i-alert","The customer app is in maintenance mode","Customers see a “back soon” message and new app orders are blocked",canPage("apps")?`data-href="#apps" data-apt="customer"`:""]);
   if(curSet("website").maintenance.active)items.push(["warn","i-alert","Online quote requests are paused on the website","Visitors are asked to call the hotline instead",canPage("apps")?`data-href="#apps" data-apt="website"`:""]);
   if(canPage("drivers"))lowRatings().forEach(x=>{const d=S.drivers.find(y=>y.id===x.driver_id),o=orderBy(x.order_id);items.push(["crit","i-star",`${x.stars}★ rating for ${esc(d?d.full_name:"a driver")}`,`${o?o.ref+" · ":""}${x.comment?"“"+esc(String(x.comment).slice(0,80))+"”":"No comment"} · ${ago(x.created_at)}`,`data-drv="${esc(x.driver_id)}"`])});
@@ -1988,7 +2055,7 @@ function openRemoveDriver(id){const d=S.drivers.find(x=>String(x.id)===String(id
     try{await A.disableDriver(d);toast(`${d.full_name} removed. Past jobs are kept.`);closeDrawer();render()}catch(e){$("#rmErr").textContent=e.message||String(e);b.disabled=false}}}
 
 /* ═════════════ Staff & roles ═════════════ */
-const MX_AREAS=[["Orders & dispatch","orders",["orders"]],["Assign drivers","assign",["orders"]],["Payments","payments",["payments"]],["Quotes & leads","sales",["quotes","leads"]],["Projects","projects",["projects"]],["Fleet & bookings","fleet",["calendar","health"]],["Catalog & prices","catalog",["fleet"]],["Reports & insights","reports",["reports","insights"]],["Content & pricing settings","settings",["content"]],["Staff & roles","team",["staff"]]];
+const MX_AREAS=[["Orders & dispatch","orders",["orders"]],["Assign drivers","assign",["orders"]],["Payments","payments",["payments"]],["Quotes & leads","sales",["quotes","leads"]],["Projects","projects",["projects"]],["Fleet & bookings","fleet",["calendar","health"]],["Catalog & prices","catalog",["fleet"]],["Reports & insights","reports",["reports","insights"]],["Pricing, settings & site content","settings",["content","sitecontent"]],["Staff & roles","team",["staff"]]];
 const canR=(r,p)=>(PERMS[r]||[]).includes(p);
 const canPageR=(r,pg)=>STAFF.includes(r)&&(!PAGE_PERM[pg]||PAGE_PERM[pg].some(p=>canR(r,p)));
 function mxCell(r,[,perm,pages]){if(canR(r,perm))return tone("Full","ok");if(pages.some(pg=>canPageR(r,pg)))return tone("View","brand");return `<span class="muted" aria-label="No access">—</span>`}
@@ -2360,6 +2427,7 @@ function vApps(){const t=APT[appsTab]?appsTab:"website",T=APT[t];appsTab=t;
   return `<div class="ap-top"><div class="seg ap-tabs" role="tablist" aria-label="Choose what to manage">${Object.entries(APT).map(([k,x])=>`<button type="button" role="tab" id="apt-${k}" data-apt="${k}" aria-selected="${k===t}" aria-controls="ap-panel" tabindex="${k===t?0:-1}">${x.l}<i class="tdot" hidden></i></button>`).join("")}</div>
     <div class="ap-meta"><span class="hint" id="apLast">${apLast(T.key)}</span><a class="btn sm" id="apOpen" href="${T.url}" target="_blank" rel="noopener" aria-label="Open the ${T.l.toLowerCase()} preview in a new tab"><svg><use href="#i-ne"/></svg>Open preview</a></div></div>
   <p class="hint ap-intro">${T.intro}${LIVE?"":" In this demo, the website and apps opened from this address show your saved changes."}</p>
+  ${canPage("sitecontent")?`<a class="box sc-xl" href="#sitecontent" id="apToContent"><svg width="20" height="20"><use href="#i-text"/></svg><span><b>Edit any text or photo → Content</b><span class="hint">Every heading, button and message on the website and in both apps, in English and Dhivehi.</span></span></a>`:""}
   <div class="ap-grid" role="tabpanel" id="ap-panel" aria-labelledby="apt-${t}">${T.cols.map(col=>`<div class="ap-col">${col.map(c=>AP_CARDS[c]()).join("")}</div>`).join("")}</div>`}
 function wApps(){
   const go=n=>{appsTab=n;render();const b=$("#apt-"+n);if(b)b.focus()};
@@ -2369,7 +2437,214 @@ function wApps(){
   const edit=e=>{const el=e.target.closest("[data-ac]");if(!el)return;const c=el.dataset.ac,v=el.type==="checkbox"?el.checked:el.hasAttribute("data-num")?+el.value:el.value;apSet(apDraft(c),el.dataset.ap,v);apUpd(c)};
   pn.addEventListener("input",edit);pn.addEventListener("change",edit);
   pn.addEventListener("click",e=>{const s=e.target.closest("[data-asave]");if(s){if(!s.disabled)apSave(s.dataset.asave);return}const k=e.target.closest("[data-ck]");if(k&&!k.disabled)apCk(k.dataset.ck,+k.dataset.i)});
-  Object.keys(AC).forEach(apUpd);apTabDots()}
+  Object.keys(AC).forEach(apUpd);apTabDots();
+  $("#apToContent")&&($("#apToContent").onclick=()=>{scTab=appsTab})}
+
+/* ═════════════ Content: every text and photo on the website, the customer app and the driver app ═════════════ */
+// Built-in texts come from yd-content-catalog.js ({surface:{key:[en,dv]}}, loaded the first time this page opens).
+// Only edits are stored: app_settings content_<surface> = { key: {en, dv} } (empty = built-in) and media_<surface> = { "assets/x.jpg": url }.
+// Unsaved text edits live in SCD per surface, so filtering, "Show more" and tab switches never lose them.
+let scTab="website",scQ="",scGrp="all",scOnly=false,scShown=60;
+const SC_STEP=60,SC_DEMO_MAX=3e6;
+const SCS={
+  website:{l:"Website",cat:"website",ck:"content_website",mk:"media_website",url:"../",img:["../website/","../"]},
+  customer:{l:"Customer app",cat:"customer_app",ck:"content_customer_app",mk:"media_customer_app",url:"../app/",img:["../customer-app/","../app/"]},
+  driver:{l:"Driver app",cat:"driver_app",ck:"content_driver_app",mk:"media_driver_app",url:"../driver/",img:["../driver-app/","../driver/"]}};
+const SCD={website:{},customer:{},driver:{}};
+// friendly group names by key prefix (trailing digits ignored: cap1…cap4 → cap); unknown prefixes are capitalised
+const SC_GRP={
+  all:{hero:"Hero",fleet:"Fleet",mat:"Materials",est:"Estimate",sent:"Quote form",err:"Quote form",q:"Quote form",nav:"Menu",foot:"Footer",wa:"WhatsApp",set:"Settings",tab:"Tab bar",
+    toast:"Pop-up messages",legal:"Legal",auth:"Sign in",del:"Delete account",rate:"Ratings",build:"House building",cat:"Categories",upd:"App update",up:"App update",aria:"Screen-reader labels",a:"Screen-reader labels"},
+  website:{ac:"Customer app card",ad:"Driver app card",alt:"Photo descriptions",apps:"Apps section",avail:"Availability",brand:"Brand",btn:"Buttons",cta:"Buttons",cap:"Services",ct:"Contact",i:"Contact",
+    doc:"Page title",f:"Quote form",need:"Quote form",site:"Quote form",feat:"App features",ft:"App features",h:"Opening hours",logi:"Logistics",menu:"Menu",msg:"WhatsApp messages",place:"Places",
+    qty:"Estimate",tm:"Estimate",rate:"Rates",s:"Build steps",status:"Availability",tick:"Ticker",tr:"Project tracking",who:"About us",z:"Delivery zones"},
+  customer_app:{acc:"Account",ago:"Times",ann:"Notices",bank:"Bank transfer",bk:"Booking",cal:"Calendar",ch:"Notification channels",co:"Checkout",common:"Common buttons",d:"Dates",equip:"Equipment",
+    eta:"Arrival time",f:"Filters",gps:"Location",home:"Home",inv:"Invoices",lang:"Language",lb:"Photo viewer",line:"Order lines",m:"Machine status",map:"Map",ms:"Milestones",msp:"Milestone payments",
+    mt:"Maintenance notice",n:"Notifications",na:"Not available",nav:"Tab bar",og:"Ordering paused",orders:"Orders",pay:"Payment",pm:"Payment methods",prj:"Projects",promo:"Promo",rs:"Reschedule",
+    search:"Search",seed:"Sample orders",seg:"Order progress",shop:"Materials shop",site:"Sites",slip:"Transfer slip",sp:"Promo",spec:"Machine specs",specv:"Machine specs",st:"Order status",stk:"Stock",
+    title:"Order titles",trk:"Tracking",unit:"Units",upd:"Project updates",visit:"Site visit",when:"Delivery time"},
+  driver_app:{al:"Alerts",before:"Before you start",c:"Vehicle checklist",callBase:"Calls",callCust:"Calls",ct:"Calls",cash:"Cash",collect:"Cash",chip:"Job details",kv:"Job details",day:"Dates",mon:"Dates",
+    def:"Defects",earn:"Earnings",err:"Errors",flag:"Status flags",fuel:"Fuel log",gate:"Daily check",hist:"History",jobs:"Jobs",msg:"Messages",nav:"Navigation",next:"Next step",off:"Off duty",
+    offline:"Status",online:"Status",pend:"Uploads",pod:"Proof of delivery",req:"Job requests",st:"Stats",stage:"Job stages",step:"Job steps",veh:"Vehicle",wait:"Waiting"}};
+const scCat=t=>(window.YD_CONTENT_CATALOG||{})[SCS[t].cat]||{};
+const scMediaCat=t=>(window.YD_MEDIA_CATALOG||{})[SCS[t].cat]||{};
+const scObj=v=>v&&typeof v==="object"&&!Array.isArray(v)?v:{};
+const scSaved=t=>scObj(S.settings[SCS[t].ck]);
+const scMedia=t=>scObj(S.settings[SCS[t].mk]);
+const scStrip=s=>String(s==null?"":s).replace(/<[^>]*>/g,"");
+const scPh=s=>[...new Set(String(s||"").match(/\{\w+\}/g)||[])];
+const scHtml=s=>/<\/?[a-z][^>]*>/i.test(String(s||""));
+function scGroup(t,k){const p=k.split(".")[0],b=p.replace(/\d+$/,"")||p,m=SC_GRP[SCS[t].cat]||{};
+  return m[p]||m[b]||SC_GRP.all[p]||SC_GRP.all[b]||(b.charAt(0).toUpperCase()+b.slice(1))}
+const SC_IDX={};
+function scIdx(t){if(SC_IDX[t])return SC_IDX[t];const c=scCat(t);
+  const rows=Object.keys(c).map((k,i)=>({k,i,g:scGroup(t,k),en:String(c[k][0]??""),dv:String(c[k][1]??"")}));
+  rows.sort((a,b)=>a.g.localeCompare(b.g)||a.i-b.i);return(SC_IDX[t]=rows)}
+// a typed edit, trimmed, with "same as built-in" counted as no edit
+function scNorm(t,k,v){const b=scCat(t)[k]||["",""],en=String((v&&v.en)||"").trim(),dv=String((v&&v.dv)||"").trim();
+  return{en:en===String(b[0]||"").trim()?"":en,dv:dv===String(b[1]||"").trim()?"":dv}}
+const scCur=(t,k)=>SCD[t][k]||scSaved(t)[k]||{en:"",dv:""};
+const scDirty=(t,k)=>!!SCD[t][k]&&JSON.stringify(scNorm(t,k,SCD[t][k]))!==JSON.stringify(scNorm(t,k,scSaved(t)[k]));
+const scPending=t=>Object.keys(SCD[t]).filter(k=>scDirty(t,k));
+const scHas=v=>!!(v&&(String(v.en||"").trim()||String(v.dv||"").trim()));
+const scIsEdited=(t,k)=>{const n=scNorm(t,k,scCur(t,k));return!!(n.en||n.dv)};
+const scEditedN=t=>{const s=scSaved(t);return Object.keys(s).filter(k=>scHas(s[k])).length};
+function scAnyDirty(){return Object.keys(SCS).some(t=>scPending(t).length>0)}
+function scDiscard(){Object.keys(SCD).forEach(t=>SCD[t]={})}
+addEventListener("beforeunload",e=>{if(page==="sitecontent"&&scAnyDirty()){e.preventDefault();e.returnValue=""}});
+// the catalog is ~110 KB, so it loads only when this page is first opened
+function scLoad(){if(window.YD_CONTENT_CATALOG||scLoad.p)return;scLoad.p=1;const s=document.createElement("script");s.src="yd-content-catalog.js";
+  s.onload=()=>{if(page==="sitecontent")render()};s.onerror=()=>{scLoad.err=true;scLoad.p=0;if(page==="sitecontent")render()};document.head.appendChild(s)}
+function scRowsFor(t){const words=scQ.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  return scIdx(t).filter(r=>{if(scGrp!=="all"&&r.g!==scGrp)return false;
+    if(scOnly&&!scIsEdited(t,r.k)&&!scDirty(t,r.k)&&!scHas(scSaved(t)[r.k]))return false;
+    if(!words.length)return true;const c=scCur(t,r.k),hay=[r.k,r.en,r.dv,c.en,c.dv].join("\n").toLowerCase();return words.every(w=>hay.includes(w))})}
+const scFmt=v=>scHas(v)?[v.en,v.dv].filter(x=>String(x||"").trim()).join(" · "):"built-in";
+const scPretty=f=>{const b=f.split("/").pop().replace(/\.\w+$/,""),sm=/-sm$/.test(b),n=b.replace(/-sm$/,"").replace(/[-_]+/g," ");return n.charAt(0).toUpperCase()+n.slice(1)+(sm?" (small)":"")};
+
+const scTabN=k=>`<span>${Object.keys(scCat(k)).length} texts</span><span class="sep"> · </span><span>${scEditedN(k)} edited</span>`;
+function scTabsHtml(t){return `<div class="seg ap-tabs sc-tabs" role="tablist" aria-label="Choose where to edit">${Object.entries(SCS).map(([k,x])=>{
+  return `<button type="button" role="tab" id="sct-${k}" data-sct="${k}" aria-selected="${k===t}" aria-controls="sc-panel" tabindex="${k===t?0:-1}"><span class="tl">${x.l}<i class="tdot" hidden></i></span><span class="tn" id="sct-${k}-n">${scTabN(k)}</span></button>`}).join("")}</div>`}
+function vSite(){
+  if(!window.YD_CONTENT_CATALOG){scLoad();return `<div class="card"><div class="empty" role="status">${scLoad.err?`Couldn't load the list of texts. Check the connection, then <button type="button" class="btn sm" id="scRetry">Try again</button>`:"Loading the texts of the website and apps…"}</div></div>`}
+  const t=SCS[scTab]?scTab:"website",T=SCS[t];scTab=t;
+  const groups={};scIdx(t).forEach(r=>groups[r.g]=(groups[r.g]||0)+1);if(scGrp!=="all"&&!groups[scGrp])scGrp="all";
+  const lk=(pg,l)=>canPage(pg)?`<a href="#${pg}">${l}</a>`:l;
+  return `<div class="ap-top">${scTabsHtml(t)}
+    <div class="ap-meta"><span class="hint" id="scLast">${apLast(T.ck)}</span><a class="btn sm" id="scOpen" href="${T.url}" target="_blank" rel="noopener" aria-label="Open the ${T.l.toLowerCase()} preview in a new tab"><svg><use href="#i-ne"/></svg>Open preview</a></div></div>
+  <p class="hint ap-intro sc-help">Changes show on the website and in the apps the next time they're opened. Prices, machines and materials are edited in ${lk("fleet","Fleet &amp; materials")}; projects in ${lk("projects","Projects")}.${LIVE?"":" In this demo, the website and apps opened from this address show your saved changes."}</p>
+  ${canPage("apps")?`<a class="box sc-xl" href="#apps" id="scToApps"><svg width="20" height="20"><use href="#i-apps"/></svg><span><b>Banner, sections, maintenance and app rules → Website &amp; apps</b><span class="hint">Switch sections on or off, pause ordering, set the search listing and update rules.</span></span></a>`:""}
+  <div class="stack" style="gap:20px" role="tabpanel" id="sc-panel" aria-labelledby="sct-${t}">
+  ${scPhotosHtml(t)}
+  <section class="card" id="scTexts" aria-labelledby="scTxT"><div class="card-h"><div><h2 id="scTxT">Texts</h2><div class="sub">Every heading, button and message ${t==="website"?"on the website":"in the "+T.l.toLowerCase()}. Leave a box empty to use the built-in text; an empty Dhivehi box uses the built-in Dhivehi.</div></div></div>
+    <div class="card-b">
+      <div class="sc-tools">
+        <div class="field sc-q"><label for="scQ">Search texts</label><input class="inp" id="scQ" type="search" value="${esc(scQ)}" placeholder="A word, a phrase or a key" autocomplete="off" aria-describedby="scCount"></div>
+        <div class="field"><label for="scG">Group</label><select class="inp" id="scG"><option value="all">All groups (${scIdx(t).length})</option>${Object.keys(groups).map(g=>`<option value="${esc(g)}" ${g===scGrp?"selected":""}>${esc(g)} (${groups[g]})</option>`).join("")}</select></div>
+        <label class="sw-row" for="scOnly"><span class="tx"><b>Show edited only</b></span><input type="checkbox" class="switch" id="scOnly" ${scOnly?"checked":""}></label>
+      </div>
+      <p class="hint sc-count" id="scCount" aria-live="polite"></p>
+      <div id="scList"></div>
+      <div class="sc-more" id="scMoreW"></div>
+    </div></section>
+  <div class="sc-bar" id="scBar" role="region" aria-label="Unsaved text changes" hidden><span class="tx" id="scBarT"></span><button type="button" class="btn" id="scDisc">Discard</button><button type="button" class="btn pri" id="scSave">Save changes</button></div>
+  </div>`}
+
+function scRowHtml(t,r){const id="sc-"+t+"-"+r.i,c=scCur(t,r.k),ph=scPh(r.en),pipes=r.en.includes("|")?r.en.split("|").length:0;
+  return `<div class="sc-row" data-k="${esc(r.k)}" data-id="${id}">
+    <div class="sc-rh"><code class="sc-key">${esc(r.k)}</code><span class="pill sc-ed" data-ed hidden>Edited</span><span class="pill sc-un" data-un hidden>Unsaved</span><span class="grow"></span><button type="button" class="btn sm" data-reset aria-label="Reset ${esc(r.k)} to the built-in text" hidden>Reset</button></div>
+    <div class="sc-orig" title="Built-in English"><span class="sr">Built-in English: </span>${esc(scStrip(r.en))||"<i>(empty)</i>"}</div>
+    ${ph.length?`<div class="sc-chips">${ph.map(p=>`<span class="sc-chip">Keep <code>${esc(p)}</code> in your text</span>`).join("")}</div>`:""}
+    ${pipes?`<div class="hint">A list of ${pipes} items. Keep the | between them, in the same order.</div>`:""}
+    ${scHtml(r.en)?`<div class="hint">Formatting (bold etc.) is removed when you edit this text.</div>`:""}
+    <div class="pair">
+      <div class="field"><label for="${id}-en"><span class="sr">${esc(r.k)} · </span>English</label><textarea class="inp sc-ta" id="${id}-en" data-l="en" rows="1" placeholder="${esc(scStrip(r.en))}" aria-describedby="${id}-w" autocomplete="off">${esc(c.en||"")}</textarea></div>
+      <div class="field"><label for="${id}-dv"><span class="sr">${esc(r.k)} · </span>Dhivehi</label><textarea class="inp sc-ta" id="${id}-dv" data-l="dv" rows="1" dir="rtl" lang="dv" spellcheck="false" placeholder="${esc(scStrip(r.dv))}" aria-describedby="${id}-w" autocomplete="off">${esc(c.dv||"")}</textarea></div>
+    </div>
+    <div class="sc-warn" id="${id}-w" aria-live="polite"></div></div>`}
+function scGrow(tas){tas.forEach(ta=>ta.style.height="auto");const hs=tas.map(ta=>ta.scrollHeight);tas.forEach((ta,i)=>ta.style.height=(hs[i]+2)+"px")}
+function scUpdRow(t,row){const k=row.dataset.k,b=scCat(t)[k]||["",""],saved=scSaved(t)[k]||{},cur=scCur(t,k),n=scNorm(t,k,cur),dirty=scDirty(t,k);
+  row.querySelector("[data-ed]").hidden=!(n.en||n.dv);row.querySelector("[data-un]").hidden=!dirty;row.classList.toggle("is-dirty",dirty);
+  row.querySelector("[data-reset]").hidden=!(String(cur.en||"").trim()||String(cur.dv||"").trim()||scHas(saved));
+  row.querySelectorAll("textarea").forEach(ta=>{const l=ta.dataset.l;ta.classList.toggle("dirty",String(cur[l]||"").trim()!==String(saved[l]||"").trim())});
+  const msg=[];[["en","English",b[0]],["dv","Dhivehi",b[1]]].forEach(([l,L,bt])=>{const v=n[l];if(!v)return;
+    const miss=scPh(bt).filter(p=>!v.includes(p));if(miss.length)msg.push(`Your ${L} text is missing ${miss.map(p=>`<code>${esc(p)}</code>`).join(", ")}. The app fills ${miss.length>1?"these":"this"} in, so without ${miss.length>1?"them":"it"} that detail won't show.`);
+    const np=String(bt||"").includes("|")?String(bt).split("|").length:0;if(np&&v.split("|").length!==np)msg.push(`Your ${L} list has ${v.split("|").length} item${v.split("|").length>1?"s":""}; it needs ${np}, separated by |.`)});
+  row.querySelector(".sc-warn").innerHTML=msg.map(m=>`<div class="ap-note warn"><svg width="16" height="16"><use href="#i-alert"/></svg><span>${m}</span></div>`).join("")}
+function scDrawList(){const t=scTab,list=$("#scList");if(!list)return;const rows=scRowsFor(t),shown=rows.slice(0,scShown);
+  let g=null;const cnt={};rows.forEach(r=>cnt[r.g]=(cnt[r.g]||0)+1);
+  list.innerHTML=shown.length?shown.map(r=>{const h=r.g!==g?`<h3 class="sc-gh">${esc(r.g)}<span>${cnt[r.g]}</span></h3>`:"";g=r.g;return h+scRowHtml(t,r)}).join("")
+    :`<div class="empty">${scOnly&&!scQ.trim()?"No edited texts yet. Everything shows the built-in wording.":`No texts match${scQ.trim()?` “${esc(scQ.trim())}”`:""}${scGrp!=="all"?` in ${esc(scGrp)}`:""}${scOnly?" among the edited ones":""}.`}</div>`;
+  const all=scIdx(t).length;
+  $("#scCount").textContent=rows.length===all?`${all} texts${shown.length<rows.length?` · showing ${shown.length}`:""}`:`${rows.length} of ${all} texts match${shown.length<rows.length?` · showing ${shown.length}`:""}`;
+  const left=rows.length-shown.length;
+  $("#scMoreW").innerHTML=left>0?`<button type="button" class="btn" id="scMore">Show ${Math.min(SC_STEP,left)} more <span class="muted">(${left} left)</span></button>`:"";
+  list.querySelectorAll(".sc-row").forEach(row=>scUpdRow(t,row));scGrow([...list.querySelectorAll("textarea")])}
+function scBar(){const t=scTab,n=scPending(t).length,bar=$("#scBar");
+  Object.keys(SCS).forEach(k=>{const b=$("#sct-"+k);if(!b)return;const d=scPending(k).length>0;b.querySelector(".tdot").hidden=!d;
+    $("#sct-"+k+"-n").innerHTML=scTabN(k);b.setAttribute("aria-label",SCS[k].l+(d?", unsaved changes":""))});
+  if(!bar)return;bar.hidden=!n;if(!n)return;
+  $("#scBarT").innerHTML=`<b>${n} unsaved change${n>1?"s":""}</b> ${SCS[t].l==="Website"?"on the website":"in the "+SCS[t].l.toLowerCase()}`;
+  const s=$("#scSave");if(!s.disabled)s.textContent=`Save changes (${n})`}
+async function scSave(){const t=scTab,T=SCS[t],keys=scPending(t);if(!keys.length){toast("No changes to save");return}
+  const old=scSaved(t),next=jclone(old),from={},to={};
+  keys.forEach(k=>{const n=scNorm(t,k,SCD[t][k]);from[k]=scFmt(old[k]);if(n.en||n.dv)next[k]=n;else delete next[k];to[k]=scFmt(next[k])});
+  const b=$("#scSave");b.disabled=true;b.textContent="Saving…";
+  try{await A.setting(T.ck,next,{value:{from,to}});keys.forEach(k=>delete SCD[t][k]);trk("console_content_saved",{surface:T.cat,n:keys.length});
+    toast(`Saved ${keys.length} text change${keys.length>1?"s":""}. ${t==="website"?"The website":"The "+T.l.toLowerCase()} shows ${keys.length>1?"them":"it"} the next time it's opened`);
+    if(page==="sitecontent"){const y=scrollY;render();scrollTo(0,y)}}
+  catch(e){const nb=$("#scSave");if(nb){nb.disabled=false;scBar()}toast("Couldn't save: "+(e.message||e))}}
+
+/* photos: current (replaced or original), Replace, Restore original */
+function scPhotosHtml(t){const cat=scMediaCat(t),files=Object.keys(cat),m=scMedia(t),rep=files.filter(f=>m[f]).length;
+  return `<section class="card" id="scPhotos" aria-labelledby="scPhT"><div class="card-h"><div><h2 id="scPhT">Photos</h2><div class="sub">${files.length} photo${files.length===1?"":"s"}${rep?` · ${rep} replaced`:""}. Landscape photos work best; big photos are made smaller before ${LIVE?"upload":"saving"}.</div></div></div>
+    <div class="card-b">${files.length?`<div class="sc-ph-grid">${files.map((f,i)=>{const name=scPretty(f),d=cat[f]||"",r=m[f];
+      return `<figure class="box sc-ph" data-f="${esc(f)}"><div class="sc-img"><img alt="${esc(d||name)}" data-ph="${i}" decoding="async"><span class="sc-noimg" hidden><svg width="26" height="26"><use href="#i-img"/></svg><span>${esc(f.split("/").pop())}</span></span>${r?`<span class="pill">Replaced</span>`:""}</div>
+        <figcaption><b>${esc(name)}</b>${d?`<span class="hint">${esc(d)}</span>`:""}<code class="sc-key">${esc(f)}</code></figcaption>
+        <div class="sc-ph-st" aria-live="polite"></div>
+        <div class="sc-ph-acts"><button type="button" class="btn sm" data-rep aria-label="Replace the ${esc(name)} photo"><svg><use href="#i-camera"/></svg>Replace</button>${r?`<button type="button" class="btn sm" data-restore aria-label="Restore the original ${esc(name)} photo">Restore original</button>`:""}</div>
+        <input type="file" accept="image/*" hidden data-file aria-label="Choose a new photo for ${esc(f)}"></figure>`}).join("")}</div>`:`<div class="empty">This ${t==="website"?"website":"app"} has no replaceable photos.</div>`}</div></section>`}
+// downscale with a canvas (white behind transparent PNGs), JPEG out
+async function scShrink(file,maxW,q,as){let src,w,h,done=()=>{};
+  try{src=await createImageBitmap(file);w=src.width;h=src.height;done=()=>src.close&&src.close()}
+  catch(e){src=await new Promise((res,rej)=>{const u=URL.createObjectURL(file),im=new Image();im.onload=()=>res(im);im.onerror=()=>rej(new Error("That file isn't a photo we can read. Try a JPG or PNG"));im.src=u});w=src.naturalWidth;h=src.naturalHeight}
+  const s=Math.min(1,maxW/w,(maxW*2)/h),c=document.createElement("canvas");c.width=Math.max(1,Math.round(w*s));c.height=Math.max(1,Math.round(h*s));
+  const x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);x.drawImage(src,0,0,c.width,c.height);done();
+  if(as==="url")return c.toDataURL("image/jpeg",q);
+  return await new Promise((res,rej)=>c.toBlob(b=>b?res(b):rej(new Error("Couldn't prepare the photo")),"image/jpeg",q))}
+const scDemoBytes=()=>Object.keys(SCS).reduce((a,t)=>a+Object.values(scMedia(t)).reduce((n,v)=>n+(/^data:/.test(String(v))?String(v).length:0),0),0);
+async function scReplace(t,f,file){const T=SCS[t],old=scMedia(t),next=Object.assign({},old);let url;
+  if(LIVE){const blob=await scShrink(file,1600,.82,"blob"),name=f.split("/").pop().replace(/\.\w+$/,"").replace(/[^\w-]/g,"-"),path=`site/${T.cat}/${name}-${Date.now()}.jpg`;
+    const up=await YDB.sb.storage.from("catalog").upload(path,blob,{contentType:"image/jpeg",upsert:false});
+    if(up.error)throw new Error("Photo upload failed: "+up.error.message);url=`${YDB.url}/storage/v1/object/public/catalog/${path}`}
+  else url=await scShrink(file,1200,.75,"url");
+  next[f]=url;
+  await A.setting(T.mk,next,{value:{from:{[f]:old[f]?"replaced photo":"original"},to:{[f]:"new photo · "+file.name}}});
+  if(!LIVE){let st=null;try{st=JSON.parse(localStorage.getItem("yd-demo-settings")||"null")}catch(e){}
+    if(!st||!st[T.mk]||st[T.mk][f]!==url){S.settings[T.mk]=old;if(S.audit[0]&&S.audit[0].entity_id===T.mk)S.audit.shift();demoSync();
+      throw new Error("this browser's storage is full. Restore another demo photo first, then try again")}
+    const mb=scDemoBytes();if(mb>SC_DEMO_MAX)return `Photo replaced. Demo photos now use ${(mb/1e6).toFixed(1)} MB of this browser's storage; restore some if the website stops showing new ones`}
+  return `Photo replaced. ${t==="website"?"The website":"The "+T.l.toLowerCase()} shows it the next time it's opened`}
+async function scRestore(t,f){const T=SCS[t],old=scMedia(t),next=Object.assign({},old);delete next[f];
+  await A.setting(T.mk,next,{value:{from:{[f]:"replaced photo"},to:{[f]:"original"}}})}
+function scWirePhotos(t){const m=scMedia(t),T=SCS[t];
+  $$("#scPhotos .sc-ph").forEach(card=>{const f=card.dataset.f,img=card.querySelector("img"),no=card.querySelector(".sc-noimg"),st=card.querySelector(".sc-ph-st"),inp=card.querySelector("[data-file]");
+    const r=m[f],srcs=r?(/^(https?:|data:|blob:)/.test(r)?[r]:T.img.map(b=>b+r)):T.img.map(b=>b+f);let i=0;
+    img.onerror=()=>{i++;if(i<srcs.length)img.src=srcs[i];else{img.hidden=true;no.hidden=false}};img.src=srcs[0];
+    const busy=(on,txt)=>{card.classList.toggle("busy",on);card.querySelectorAll("button").forEach(b=>b.disabled=on);st.textContent=txt||""};
+    card.querySelector("[data-rep]").onclick=()=>inp.click();
+    inp.onchange=async()=>{const file=inp.files&&inp.files[0];inp.value="";if(!file)return;
+      if(!/^image\//.test(file.type)){toast("Choose a photo (JPG or PNG)");return}
+      busy(true,LIVE?"Uploading…":"Saving…");
+      try{const msg=await scReplace(t,f,file);trk("console_photo_replaced",{surface:T.cat});toast(msg);if(page==="sitecontent"){const y=scrollY;render();scrollTo(0,y);const b=$(`#scPhotos .sc-ph[data-f="${CSS.escape(f)}"] [data-rep]`);b&&b.focus({preventScroll:true})}}
+      catch(e){busy(false);toast("Couldn't replace the photo: "+(e.message||e))}};
+    const rs=card.querySelector("[data-restore]");if(rs)rs.onclick=async()=>{busy(true,"Restoring…");
+      try{await scRestore(t,f);toast("Original photo restored");if(page==="sitecontent"){const y=scrollY;render();scrollTo(0,y);const b=$(`#scPhotos .sc-ph[data-f="${CSS.escape(f)}"] [data-rep]`);b&&b.focus({preventScroll:true})}}
+      catch(e){busy(false);toast("Couldn't restore the photo: "+(e.message||e))}}})}
+function wSite(){
+  $("#scRetry")&&($("#scRetry").onclick=()=>{scLoad.err=false;scLoad();render()});
+  if(!$("#sc-panel"))return;const t=scTab;
+  const go=n=>{scTab=n;scShown=SC_STEP;render();const b=$("#sct-"+n);if(b)b.focus()};
+  $$("#view [data-sct]").forEach(b=>b.onclick=()=>{if(b.dataset.sct!==scTab)go(b.dataset.sct)});
+  $(".sc-tabs").onkeydown=e=>{const ks=Object.keys(SCS),i=ks.indexOf(scTab),m={ArrowRight:ks[(i+1)%ks.length],ArrowLeft:ks[(i+ks.length-1)%ks.length],Home:ks[0],End:ks[ks.length-1]}[e.key];if(m){e.preventDefault();go(m)}};
+  $("#scToApps")&&($("#scToApps").onclick=()=>{appsTab=scTab});
+  let qt=0;$("#scQ").oninput=e=>{clearTimeout(qt);qt=setTimeout(()=>{scQ=e.target.value;scShown=SC_STEP;scDrawList()},120)};
+  $("#scQ").onkeydown=e=>{if(e.key==="Escape"&&e.target.value){e.preventDefault();e.target.value="";scQ="";scShown=SC_STEP;scDrawList()}};
+  $("#scG").onchange=e=>{scGrp=e.target.value;scShown=SC_STEP;scDrawList()};
+  $("#scOnly").onchange=e=>{scOnly=e.target.checked;scShown=SC_STEP;scDrawList()};
+  const list=$("#scList");
+  list.addEventListener("input",e=>{const ta=e.target.closest("textarea");if(!ta)return;const row=ta.closest(".sc-row"),k=row.dataset.k;
+    SCD[t][k]={en:row.querySelector('[data-l="en"]').value,dv:row.querySelector('[data-l="dv"]').value};if(!scDirty(t,k))delete SCD[t][k];
+    scGrow([ta]);scUpdRow(t,row);scBar()});
+  list.addEventListener("click",e=>{const b=e.target.closest("[data-reset]");if(!b)return;const row=b.closest(".sc-row"),k=row.dataset.k;
+    SCD[t][k]={en:"",dv:""};if(!scDirty(t,k))delete SCD[t][k];row.querySelectorAll("textarea").forEach(ta=>ta.value="");scGrow([...row.querySelectorAll("textarea")]);scUpdRow(t,row);scBar();
+    if(b.hidden)row.querySelector("textarea").focus();
+    toast(scHas(scSaved(t)[k])?"Back to the built-in text once you save":"Back to the built-in text")});
+  $("#scMoreW").onclick=e=>{if(!e.target.closest("#scMore"))return;const before=$$("#scList .sc-row").length;scShown+=SC_STEP;scDrawList();
+    const nx=$$("#scList .sc-row")[before];if(nx)nx.querySelector("textarea").focus({preventScroll:false});else{const m=$("#scMore");m&&m.focus()}};
+  $("#scSave").onclick=()=>scSave();
+  $("#scDisc").onclick=()=>{const n=scPending(t).length;if(n>1&&!confirm(`Discard ${n} unsaved text changes?`))return;SCD[t]={};scDrawList();scBar();toast("Changes discarded")};
+  scWirePhotos(t);scDrawList();scBar()}
 
 /* ═════════════ Payments ═════════════ */
 let payFilter="all",payMethodF="all",payShown=40;const slipCache={};
@@ -2822,7 +3097,8 @@ function wReports(){
 const AREA={orders:"orders",payments:"payments",machines:"catalog",materials:"catalog",app_settings:"settings",profiles:"team",quotes:"quotes",projects:"projects",project_milestones:"projects",machine_bookings:"bookings"};
 const AREA_L={orders:"Orders",payments:"Payments",catalog:"Catalog",settings:"Settings",team:"Team",quotes:"Quotes",projects:"Projects",bookings:"Bookings"};
 const ENT_L={orders:"Order",payments:"Payment",machines:"Machine",materials:"Material",app_settings:"Setting",profiles:"Person",quotes:"Quote",projects:"Project",machine_bookings:"Booking"};
-const SET_L={pricing:"Pricing rules",contact:"Contact & hours",announcement:"Announcement banner",ordering:"Ordering",payments:"Payment settings",channels:"Messaging channels",maps:"Map",website:"Website",customer_app:"Customer app",driver_app:"Driver app"};
+const SET_L={pricing:"Pricing rules",contact:"Contact & hours",announcement:"Announcement banner",ordering:"Ordering",payments:"Payment settings",channels:"Messaging channels",maps:"Map",website:"Website",customer_app:"Customer app",driver_app:"Driver app",
+  content_website:"Website texts",content_customer_app:"Customer app texts",content_driver_app:"Driver app texts",media_website:"Website photos",media_customer_app:"Customer app photos",media_driver_app:"Driver app photos"};
 const HIDE_K=new Set(["id","driver_id","verified_by","actor_id","updated_at","created_at","customer_id","created_by","sort"]);
 let actF={who:"all",area:"all",from:"",to:"",q:""},actShown=100;
 function actLabel(e){const c=e.changes||{},to=k=>c[k]&&c[k].to,en=e.entity,op=e.action;
