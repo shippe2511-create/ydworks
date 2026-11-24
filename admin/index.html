@@ -301,27 +301,10 @@ textarea.inp{min-height:80px;resize:vertical}
 .doc-sheet{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:20px;overflow-x:auto}
 .doc-sheet table{min-width:420px}
 
-/* WhatsApp */
-.btn.wa svg.wa-i{width:15px;height:15px;flex:none}
-.wa-ico{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:8px;border:1px solid var(--line-2);background:var(--surface);flex:none;transition:border-color .2s}
-.wa-ico:hover{border-color:#25D366}
-.wa-ico svg{width:15px;height:15px}
-.wa-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-@media (max-width:760px){.wa-ico{width:44px;height:44px}}
 
-.wa-side{display:flex;align-items:center;gap:10px;margin-top:auto;padding:10px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(37,211,102,.08);color:var(--night-fg);text-decoration:none;font-size:13px;font-weight:500;white-space:nowrap;transition:background .2s,border-color .2s}
-.wa-side:hover{background:rgba(37,211,102,.15);border-color:rgba(37,211,102,.45)}
-.wa-side svg{width:18px;height:18px;flex:none}
-.wa-side b{font:500 12px var(--mono);color:var(--night-fg)}
-.wa-side + .me{margin-top:10px}
-.wa-card{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 14px;border:1px solid color-mix(in srgb,#25D366 35%,var(--line));border-radius:14px;background:color-mix(in srgb,#25D366 6%,var(--surface))}
-.wa-badge{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,#25D366 14%,transparent);flex:none}
-.wa-badge svg{width:22px;height:22px}
-.wa-num{flex:1;min-width:160px}
-.wa-num b{display:block;font:600 17px var(--mono);letter-spacing:.02em;font-variant-numeric:tabular-nums}
-.wa-num span{font-size:12.5px;color:var(--mute)}
+.act-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .pfoot{display:none}
-@media (max-width:760px){.wa-side{min-height:44px}.pfoot{display:block;text-align:center;font-size:12px;line-height:1.5;color:var(--mute);padding:4px 0 0}.pfoot a{color:var(--mute);text-decoration:underline;text-underline-offset:2px;display:inline-block;padding:12px 2px}}
+@media (max-width:760px){.pfoot{display:block;text-align:center;font-size:12px;line-height:1.5;color:var(--mute);padding:4px 0 0}}
 
 /* bell + inbox */
 .bell{position:relative;width:38px;height:38px;border-radius:10px;border:1px solid var(--line-2);background:var(--surface);display:grid;place-items:center;flex:none;color:var(--ink)}
@@ -521,7 +504,6 @@ textarea.inp{min-height:80px;resize:vertical}
 .side .me .pill.r-admin::before{background:#7d97ff}
 .side .me .pill.r-accounts::before{background:#a993ff}
 .me-wrap{position:relative;margin-top:auto}
-.wa-side + .me-wrap{margin-top:10px}
 .side .me{margin-top:0;width:100%;border:0;border-top:1px solid rgba(255,255,255,.08);background:none;color:inherit;text-align:left;font:inherit;border-radius:0;transition:background .2s}
 .side .me:hover,.side .me[aria-expanded="true"]{background:rgba(255,255,255,.05)}
 .side .me .meta{display:flex;align-items:center;gap:6px;margin-top:3px}
@@ -569,6 +551,38 @@ textarea.inp{min-height:80px;resize:vertical}
 .ropt b{font-weight:600;font-size:13.5px}
 .ropt span{font-size:12px;color:var(--mute);line-height:1.35}
 
+.g-5{grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+@media (max-width:1100px){.g-5{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:700px){.g-5{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.kbtn{text-align:left;font:inherit;color:inherit;cursor:pointer;transition:border-color .2s}
+.kbtn:hover{border-color:var(--line-2)}
+.kbtn[aria-pressed="true"]{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
+.mx-wrap{overscroll-behavior-x:contain}
+table.mx{min-width:760px}
+.mx th small{display:block;font:400 11.5px/1.35 var(--body);letter-spacing:0;text-transform:none;color:var(--mute);margin-top:3px;white-space:normal;max-width:150px}
+.mx thead th span{font:600 12.5px var(--body);letter-spacing:0;text-transform:none;color:var(--ink)}
+.mx thead th{vertical-align:bottom}
+.t.mx tbody th{letter-spacing:0;text-transform:none;color:var(--ink);font:500 13.5px var(--body);text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+.mx th:first-child{position:sticky;left:0;z-index:2;background:var(--surface);box-shadow:1px 0 0 var(--line)}
+.row-acts{display:flex;gap:6px;justify-content:flex-end;align-items:center;flex-wrap:wrap}
+.icon-btn.armed{color:#fff;background:var(--crit);border-color:var(--crit)}
+tr.gone .item .th{opacity:.5}tr.gone .item b{color:var(--mute)}
+.photo-pick{display:flex;gap:14px;align-items:center}
+.photo-pick > .th{width:96px;height:96px;border-radius:14px;overflow:hidden;background:var(--tile);display:grid;place-items:center;flex:none;color:var(--mute)}
+.photo-pick > .th svg{width:28px;height:28px}
+.drop{position:relative}
+.vchip{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.vchip .th,.veh .th{width:30px;height:30px;border-radius:8px;overflow:hidden;background:var(--tile);display:grid;place-items:center;flex:none;color:var(--mute)}
+.vchip .th svg,.veh .th svg{width:16px;height:16px}
+.veh{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--line);border-radius:12px;font-size:12.5px}
+.veh .th{width:40px;height:40px}
+.veh > div{flex:1}
+.veh b{display:block;font-size:12.5px;font-weight:500;color:var(--ink)}
+.veh span:not(.th){display:block;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dcard .top .nm{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:4px}
+.vpick .pk small{white-space:normal}
+.form-grid.spec-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:8px}
+.pk .th svg{width:24px;height:24px;color:var(--mute)}
 /* ratings */
 .stars{position:relative;display:inline-block;font-size:14px;letter-spacing:1px;line-height:1;color:var(--line-2);white-space:nowrap;vertical-align:-1px}
 .stars::before{content:"★★★★★"}
@@ -609,6 +623,8 @@ details.more pre{margin:6px 0 0;font:500 11.5px/1.5 var(--mono);background:var(-
   details.more summary{min-height:44px;display:flex;align-items:center}
   .rolepick{grid-template-columns:1fr}
   .reschedule .inp{flex:1 1 200px}
+  .row-acts{justify-content:flex-start}
+  .photo-pick > .th{width:76px;height:76px}
 }
 </style>
 <script src="yd-config.js"></script>
@@ -639,11 +655,12 @@ details.more pre{margin:6px 0 0;font:500 11.5px/1.5 var(--mono);background:var(-
       <a href="#reports" data-p="reports"><svg><use href="#i-chart"/></svg>Reports</a>
       <a href="#insights" data-p="insights"><svg><use href="#i-pulse"/></svg>App insights<span class="cnt warn" id="nErr" hidden></span></a>
       <a href="#activity" data-p="activity"><svg><use href="#i-hist"/></svg>Activity log</a>
+      <div class="nav-l">Admin</div>
+      <a href="#staff" data-p="staff"><svg><use href="#i-shield"/></svg>Staff &amp; roles</a>
     </nav>
-    <a class="wa-side" id="waSide" href="https://web.whatsapp.com/" target="_blank" rel="noopener" data-wa="console_sidebar" title="Open the company WhatsApp in WhatsApp Web">WhatsApp chats</a>
     <div class="me-wrap">
       <div class="me-menu" id="meMenu" role="menu" aria-label="Your account" hidden></div>
-      <button type="button" class="me" id="meBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="meMenu"><span class="av" id="meAv">YD</span><div><b id="meName">Shifan Ahmed</b><span class="meta"><span class="pill role r-admin" id="meRolePill">Manager</span><small id="meRole">DEMO</small></span></div><svg><use href="#i-up"/></svg></button>
+      <button type="button" class="me" id="meBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="meMenu"><span class="av" id="meAv">YD</span><div><b id="meName">Counter staff</b><span class="meta"><span class="pill role r-admin" id="meRolePill">Manager</span><small id="meRole">DEMO</small></span></div><svg><use href="#i-up"/></svg></button>
     </div>
   </aside>
   <div class="main">
@@ -754,7 +771,7 @@ const rolePill=(r,id)=>`<span class="pill role r-${esc(r)}"${id?` id="${id}"`:""
 function whoCan(p){const rs=STAFF.filter(r=>PERMS[r].includes(p)).map(r=>ROLE_PL[r]);return (rs.length>1?rs.slice(0,-1).join(", ")+" & "+rs.at(-1):rs[0])+" only"}
 const gate=p=>can(p)?"":`disabled data-gated title="${whoCan(p)}" aria-label="${whoCan(p)}"`;
 // page → permissions that open it (none = every staff role)
-const PAGE_PERM={payments:["payments"],calendar:["orders","fleet"],drivers:["assign","fleet","orders","team"],leads:["sales"],quotes:["sales"],projects:["projects"],fleet:["catalog"],health:["fleet"],content:["settings"],reports:["reports"],insights:["reports","settings"],activity:["reports","settings"]};
+const PAGE_PERM={payments:["payments"],calendar:["orders","fleet"],drivers:["assign","fleet","orders","team"],leads:["sales"],quotes:["sales"],projects:["projects"],fleet:["catalog"],health:["fleet"],content:["settings"],reports:["reports"],insights:["reports","settings"],activity:["reports","settings"],staff:["team"]};
 const canPage=pg=>!PAGE_PERM[pg]||PAGE_PERM[pg].some(can);
 
 /* ═════════════ data: demo store (replaced by Supabase when signed in) ═════════════ */
@@ -898,8 +915,8 @@ function seedDemo(){
 /* demo: staff team, driver ratings, activity log */
 function seedTrust(){
   const r2=rng(99),H=36e5;
-  S.staff=[["Shifan Ahmed","shifan@yd-mv.com","admin",true],["Mariyam Nuha","nuha@yd-mv.com","dispatcher"],["Ahmed Zaid","zaid@yd-mv.com","counter"],["Hussain Latheef","latheef@yd-mv.com","counter"],["Fathimath Rifga","rifga@yd-mv.com","accounts"]]
-    .map(([full_name,email,role,me],i)=>({id:"s"+i,full_name,email,role,me:!!me,created_at:now-(400-i*60)*DAY}));
+  S.staff=[["Counter staff","counter@yd-mv.com","admin",true],["Shifan Ahmed","shifan@yd-mv.com","admin"],["Mariyam Nuha","nuha@yd-mv.com","dispatcher"],["Ahmed Zaid","zaid@yd-mv.com","counter"],["Hussain Latheef","latheef@yd-mv.com","counter"],["Fathimath Rifga","rifga@yd-mv.com","accounts"]]
+    .map(([full_name,email,role,me],i)=>({id:"s"+i,full_name,email,role,me:!!me,phone:me?"":"7"+String(7710000+i*2311).slice(-6),last_seen:me?Date.now():now-[0,.4,3,1.2,26,50][i]*36e5,created_at:now-(400-i*60)*DAY}));
   // ratings: about half of the recent completed jobs get rated in the app
   const C5=["On time and very careful at the gate.","Called before arriving. Great service.","Fast delivery, thank you!","Helped unload at the back of the plot.","","","",""],C4=["Good, a little late.","Fine. Unloaded where we asked.","",""],C3=["Okay. The truck blocked the road for a while.","Late, but called to explain."];
   S.ratings=[];
@@ -927,7 +944,7 @@ function seedTrust(){
     E(20,"Shifan Ahmed","update","materials","cem","Portland cement",ch("price",118,125)),
     E(22,"Shifan Ahmed","update","app_settings","pricing","",ch("value",{delivery_fee:200,free_delivery_over:15000,mobilisation_fee:300,driver_share:.06,min_driver_pay:150,gst_rate:.08,gst_inclusive:true},{delivery_fee:250,free_delivery_over:15000,mobilisation_fee:300,driver_share:.06,min_driver_pay:150,gst_rate:.08,gst_inclusive:true})),
     E(26,"Ahmed Zaid","update","quotes","QT-2102","Nashid Hameed",ob(ch("status","accepted","converted"),ch("order_id",null,"8c41e0d2-5b7a-4f0e-9d1c-2a3f6b7e9c10"))),
-    E(30,"Shifan Ahmed","update","profiles","s1","Mariyam Nuha",ch("role","counter","dispatcher")),
+    E(30,"Shifan Ahmed","update","profiles","s2","Mariyam Nuha",ch("role","counter","dispatcher")),
     E(31,"Mariyam Nuha","update","orders",ord(done,4).ref,ord(done,4).title,ob(ch("driver_name","Ahmed Fayaz","Ibrahim Shareef"),ch("driver_unit","CR-01 · Lorry crane","TP-04 · Tipper 10m³"))),
     E(45,"Fathimath Rifga","update","payments",rejP.id,"",ob(ch("status","pending","rejected"),ch("note","","Amount on slip doesn't match the order. Paid cash on delivery instead."))),
     E(49,"Mariyam Nuha","insert","machine_bookings","b-roller","",ob(ch("machine_id",null,"roller"),ch("status",null,"blocked"),ch("note",null,"500 h service"))),
@@ -938,7 +955,7 @@ function seedTrust(){
     E(77,"Mariyam Nuha","update","orders",ord(done,7).ref,ord(done,7).title,ob(ch("status","requested","accepted"),ch("driver_name",null,"Mohamed Rasheed"))),
     E(95,"Ahmed Zaid","update","projects","p2","Boundary wall & annex, Villimalé",ch("start_date","2026-11-28","2026-12-04")),
     E(98,"Shifan Ahmed","update","app_settings","announcement","",ch("value",{active:true,text:"Closed Friday for Republic Day. Hotline stays open.",tone:"warn"},{active:false,text:"",tone:"info"})),
-    E(118,"Shifan Ahmed","update","profiles","s4","Fathimath Rifga",ch("role","customer","accounts")),
+    E(118,"Shifan Ahmed","update","profiles","s5","Fathimath Rifga",ch("role","customer","accounts")),
     E(121,"Fathimath Rifga","update","payments",(S.payments.filter(p=>p.status==="paid"&&p.method==="transfer")[1]||pend).id,"",ob(ch("status","pending","paid"),ch("note","","Matched BML statement"))),
     E(140,"Shifan Ahmed","update","app_settings","ordering","",ch("value",{accepting_orders:true,same_day_cutoff:"13:00"},{accepting_orders:true,same_day_cutoff:"14:00"})),
     E(146,"Shifan Ahmed","update","materials","y16","Rebar Y16",ob(ch("active",true,false),ch("stock_qty",12,0))),
@@ -950,7 +967,7 @@ function seedTrust(){
 
 /* who is signed in (demo: the owner, seen through the "View as" role) */
 function ME(){if(LIVE){const p=YDB.profile||{},u=YDB.user||{};return{name:p.full_name||u.email||"Staff",email:u.email||p.email||"",role:p.role||ROLE}}
-  const m=S.staff.find(x=>x.me)||{full_name:"Shifan Ahmed",email:"shifan@yd-mv.com"};return{name:m.full_name,email:m.email,role:ROLE}}
+  const m=S.staff.find(x=>x.me)||{full_name:"Counter staff",email:"counter@yd-mv.com"};return{name:m.full_name,email:m.email,role:ROLE}}
 /* demo only: the server writes audit_log from triggers; here the console appends the same rows */
 function logDemo(action,entity,entity_id,summary,changes){if(LIVE||!changes||!Object.keys(changes).length)return;const me=ME();
   S.audit.unshift({id:"a"+Date.now()+Math.random().toString(36).slice(2,6),at:Date.now(),actor_name:me.name,actor_role:ROLE,action,entity,entity_id:String(entity_id??""),summary:summary||"",changes})}
@@ -966,6 +983,30 @@ const A={
     S.bookings.forEach(b=>{if(b.order_uuid===o.uuid)b.status="released"});logDemo("update","orders",o.ref,o.title,{status:{from:was,to:"cancelled"}})},
   async saveMachine(m,patch){if(LIVE){const{error}=await YDB.sb.from("machines").update(patch).eq("id",m.id);if(error)throw error;return load()}const c=diffOf(m,patch);Object.assign(m,patch);logDemo("update","machines",m.id,m.name,c)},
   async saveMaterial(m,patch){if(LIVE){const{error}=await YDB.sb.from("materials").update(patch).eq("id",m.id);if(error)throw error;return load()}const c=diffOf(m,patch);Object.assign(m,patch);logDemo("update","materials",m.id,m.name,c)},
+  /* add or edit a machine/material; kind 'machine'|'material', x = existing row or null */
+  async saveItem(kind,x,row,file){
+    const isM=kind==="machine",tbl=isM?"machines":"materials",list=isM?S.machines:S.materials,id=x?x.id:uniqueId(row.name);
+    if(!x)Object.assign(row,{id,icon:isM?(MICON[row.category]||"excavator"):"bag",sort:Math.max(0,...list.map(m=>+m.sort||0))+1});
+    if(LIVE){let image_url=x?x.image_url||null:null;
+      if(file){const blob=await YDB.compressImage(file),path=`${tbl}/${id}-${Date.now()}.jpg`,up=await YDB.sb.storage.from("catalog").upload(path,blob,{contentType:"image/jpeg",upsert:false});
+        if(up.error)throw new Error("Photo upload failed: "+up.error.message);image_url=`${YDB.url}/storage/v1/object/public/catalog/${path}`}
+      const body=Object.assign({},row,image_url?{image_url}:{});
+      const r=x?await YDB.sb.from(tbl).update(body).eq("id",id).select().single():await YDB.sb.from(tbl).insert(body).select().single();
+      if(r.error){const m=r.error.message||"";throw new Error(/duplicate|unique/i.test(m)?"That ID or code already exists. Change the name or code.":/row-level|permission/i.test(m)?"Only managers can change the catalog. "+m:m)}
+      if(image_url&&window.YDUI&&YDUI.setImages)YDUI.setImages({[id]:image_url});await load();return Object.assign({id},row)}
+    let image_url=x?x.image_url||null:null;if(file){image_url=URL.createObjectURL(file);window.YDUI&&YDUI.setImages&&YDUI.setImages({[id]:image_url})}
+    const photo=file?{image_url:{from:x&&x.image_url?"previous photo":null,to:file.name}}:{};
+    if(x){const c=Object.assign(diffOf(x,row),photo);Object.assign(x,row,{image_url});logDemo("update",tbl,id,x.name,c);return x}
+    const n=Object.assign({},row,{image_url},isM?{hours_meter:0,busy_until:null}:{});list.push(n);
+    logDemo("insert",tbl,id,n.name,Object.assign({},...Object.entries(row).filter(([k])=>!["sort","icon","id"].includes(k)).map(([k,v])=>({[k]:{from:null,to:v}})),photo));return n},
+  /* give a driver a fleet machine (unit_code = machines.code); a machine in use is swapped with the other driver */
+  async vehicle(d,code){
+    const m=code?S.machines.find(x=>x.code===code):null,other=m?S.drivers.find(x=>x!==d&&String(x.unit_code||"").toUpperCase()===m.code.toUpperCase()):null,old=machOf(d);
+    if(LIVE){if(!d.email||(other&&!other.email))throw new Error("This driver has no email on file, so the vehicle can't be changed here.");
+      if(other)await YDB.rpc("admin_set_role",{p_email:other.email,p_role:"driver",p_unit_code:old?old.code:null,p_unit_name:old?old.name:null});
+      await YDB.rpc("admin_set_role",{p_email:d.email,p_role:"driver",p_unit_code:m?m.code:null,p_unit_name:m?m.name:null});return load()}
+    if(other){logDemo("update","profiles",other.id,other.full_name,{unit_code:{from:other.unit_code||null,to:old?old.code:null},unit_name:{from:other.unit_name||null,to:old?old.name:null}});other.unit_code=old?old.code:null;other.unit_name=old?old.name:null}
+    logDemo("update","profiles",d.id,d.full_name,{unit_code:{from:d.unit_code||null,to:m?m.code:null},unit_name:{from:d.unit_name||null,to:m?m.name:null}});d.unit_code=m?m.code:null;d.unit_name=m?m.name:null},
   async lead(l,status){if(LIVE){await YDB.rpc("admin_update_lead",{p_lead:l.id,p_status:status});return load()}l.status=status},
   async role(email,role,code,name){if(LIVE){await YDB.rpc("admin_set_role",{p_email:email,p_role:role,p_unit_code:code||null,p_unit_name:name||null});return load()}
     // same rules as admin_set_role
@@ -977,6 +1018,7 @@ const A={
     if(sf&&!STAFF.includes(role))S.staff=S.staff.filter(x=>x!==sf);
     if(dv&&role!=="driver")S.drivers=S.drivers.filter(x=>x!==dv);
     if(STAFF.includes(role)){if(sf)sf.role=role;else S.staff.push({id:"s"+Date.now(),full_name:who,email:em,role,created_at:Date.now()})}
+    if(role==="driver"&&dv&&code!==undefined){dv.unit_code=code||null;dv.unit_name=name||null}
     if(role==="driver"&&!dv)S.drivers.push({id:"d"+Date.now(),full_name:who,unit_code:code,unit_name:name,is_online:false,rating:5,role:"driver",email:em,phone:(cu&&cu.phone)||""});
     const c={};if(was!==role)c.role={from:was,to:role};if(role==="driver"&&code)c.unit_code={from:dv?dv.unit_code||null:null,to:code};
     logDemo("update","profiles",(sf||dv||cu||{}).id||em,who,c)},
@@ -1104,6 +1146,7 @@ async function load(){
     S.staff=p.data.filter(x=>STAFF.includes(x.role)).map(x=>Object.assign(x,{me:x.id===YDB.user.id,created_at:Date.parse(x.created_at)}));
     const nn=v=>v==null||v===""?null:+v;
     S.machines=m.data.map(x=>Object.assign(x,{rate_hr:+x.rate_hr,rate_day:+x.rate_day,rate_mo:+x.rate_mo,hours_meter:+x.hours_meter||0}));S.materials=t.data.map(x=>Object.assign(x,{price:+x.price,stock_qty:nn(x.stock_qty),low_stock_at:nn(x.low_stock_at)}));
+    const img={};S.machines.concat(S.materials).forEach(x=>{if(x.image_url)img[x.id]=x.image_url});window.YDUI&&YDUI.setImages&&YDUI.setImages(img);
     S.leads=l.data.map(x=>Object.assign(x,{created_at:Date.parse(x.created_at)}));
     S.settings={};st.data.forEach(x=>S.settings[x.key]=x.value);
   }catch(e){toast("Couldn't load data: "+(e.message||e))}
@@ -1147,8 +1190,8 @@ async function loadAudit(){if(!LIVE)return;try{const r=await YDB.sb.from("audit_
 /* ═════════════ routing ═════════════ */
 const PAGES={overview:["Operations","Overview"],orders:["Operations","Orders & dispatch"],payments:["Operations","Payments"],calendar:["Operations","Booking calendar"],drivers:["Operations","Drivers"],customers:["Operations","Customers"],
   leads:["Sales & projects","Website leads"],quotes:["Sales & projects","Quotes"],projects:["Sales & projects","Projects"],
-  fleet:["Fleet & catalog","Fleet & materials"],health:["Fleet & catalog","Fleet health"],content:["Fleet & catalog","Content & pricing"],reports:["Insights","Reports"],insights:["Insights","App insights"],activity:["Insights","Activity log"]};
-let ordersShown=50,page="overview",orderFilter="all",catTab="machines",chartView="chart",REP={};
+  fleet:["Fleet & catalog","Fleet & materials"],health:["Fleet & catalog","Fleet health"],content:["Fleet & catalog","Content & pricing"],reports:["Insights","Reports"],insights:["Insights","App insights"],activity:["Insights","Activity log"],staff:["Admin","Staff & roles"]};
+let showRemoved=false,ordersShown=50,page="overview",orderFilter="all",catTab="machines",chartView="chart",REP={};
 function setSide(open){$("#side").classList.toggle("open",open);$("#sideScrim").classList.toggle("on",open);$("#bnMore").setAttribute("aria-expanded",open)}
 $("#bnMore").onclick=()=>setSide(!$("#side").classList.contains("open"));$("#sideScrim").onclick=()=>setSide(false);
 function route(){const h=location.hash.slice(1);page=PAGES[h]?h:"overview";
@@ -1161,7 +1204,7 @@ function route(){const h=location.hash.slice(1);page=PAGES[h]?h:"overview";
 addEventListener("hashchange",route);
 /* role → what the sidebar, bottom bar and profile show */
 const BN_PREF=["overview","orders","payments","projects","calendar","health","drivers","quotes","reports","insights","activity","customers"];
-const BN_LBL={overview:"Overview",orders:"Orders",payments:"Payments",projects:"Projects",calendar:"Calendar",health:"Health",drivers:"Drivers",quotes:"Quotes",reports:"Reports",insights:"Insights",activity:"Activity",customers:"Customers"};
+const BN_LBL={staff:"Staff",overview:"Overview",orders:"Orders",payments:"Payments",projects:"Projects",calendar:"Calendar",health:"Health",drivers:"Drivers",quotes:"Quotes",reports:"Reports",insights:"Insights",activity:"Activity",customers:"Customers"};
 const BN_CNT={orders:"bnW",payments:"bnP"};
 let BN=["overview","orders","payments","projects"];
 function applyRole(){
@@ -1205,8 +1248,8 @@ $("#q").addEventListener("input",()=>{const q=$("#q").value.trim().toLowerCase()
   render()});
 function fleetFilter(){const q=$("#q").value.trim().toLowerCase(),list=catTab==="machines"?S.machines:S.materials,other=catTab==="machines"?S.materials:S.machines;let n=0;
   // rows are hidden, not re-rendered, so unsaved edits in filtered-out rows survive
-  $$("tr[data-id]").forEach(tr=>{const x=list.find(y=>y.id===tr.dataset.id),hit=!q||(x&&catHit(x,q));tr.hidden=!hit;if(hit)n++});
-  const e=$("#fleetEmpty");if(!e)return;e.hidden=n>0;
+  $$("tr[data-id]").forEach(tr=>{const x=list.find(y=>y.id===tr.dataset.id),hit=(!q||(x&&catHit(x,q)))&&(showRemoved||!x||x.active!==false);tr.hidden=!hit;if(hit)n++});
+  const e=$("#fleetEmpty");if(!e)return;e.hidden=n>0;if(!q&&!n){$("#fleetEmptyTx").textContent="Nothing here yet.";return}
   const o=q?other.filter(x=>catHit(x,q)).length:0;
   $("#fleetEmptyTx").innerHTML=`No items match “${esc(q)}”.${o?` <button class="btn sm" id="fleetOther">${o} match${o>1?"es":""} in ${catTab==="machines"?"Materials":"Machines"}</button>`:""}`;
   $("#fleetOther")&&($("#fleetOther").onclick=()=>{catTab=catTab==="machines"?"materials":"machines";render()});
@@ -1227,11 +1270,9 @@ function render(){
   const v=$("#view");
   const viewAs=!LIVE&&ROLE!=="admin"?`<div class="viewas"><svg width="18" height="18" style="color:var(--brand);flex:none"><use href="#i-shield"/></svg><div style="flex:1;min-width:200px">Viewing as <b>${esc(roleName(ROLE))}</b>: ${esc(ROLES[ROLE][1])} Hidden pages and greyed-out buttons are for other roles.</div><button class="btn sm" id="vaBack">Back to manager view</button></div>`:"";
   const banner=LIVE?"":viewAs+`<div class="demo-banner"><svg width="18" height="18" style="color:var(--warn);flex:none"><use href="#i-alert"/></svg><div><b>You're looking at demo data.</b> Changes here aren't saved. Once the Supabase backend is connected, staff sign in and this console runs the real website and apps.</div></div>`;
-  const V={overview:vOverview,orders:vOrders,payments:vPayments,calendar:vCalendar,drivers:vDrivers,leads:vLeads,quotes:vQuotes,projects:vProjects,customers:vCustomers,fleet:vFleet,health:vHealth,content:vContent,reports:vReports,insights:vInsights,activity:vActivity};
-  const W={overview:wOverview,orders:wOrders,payments:wPayments,calendar:wCalendar,drivers:wDrivers,leads:wLeads,quotes:wQuotes,projects:wProjects,customers:()=>{},fleet:wFleet,health:wHealth,content:wContent,reports:wReports,insights:wInsights,activity:wActivity};
-  // the company number itself is shown only in Content & pricing → Contact
-  if(!$("#waSide svg"))$("#waSide").innerHTML=`${WA_SVG}<span>WhatsApp chats</span>`;
-  v.innerHTML=banner+V[page]()+`<footer class="pfoot">YD Works Console · <a href="https://web.whatsapp.com/" target="_blank" rel="noopener" data-wa="console_footer" title="Open the company WhatsApp in WhatsApp Web">WhatsApp chats</a></footer>`;W[page]();
+  const V={overview:vOverview,orders:vOrders,payments:vPayments,calendar:vCalendar,drivers:vDrivers,leads:vLeads,quotes:vQuotes,projects:vProjects,customers:vCustomers,fleet:vFleet,health:vHealth,content:vContent,reports:vReports,insights:vInsights,activity:vActivity,staff:vStaff};
+  const W={overview:wOverview,orders:wOrders,payments:wPayments,calendar:wCalendar,drivers:wDrivers,leads:wLeads,quotes:wQuotes,projects:wProjects,customers:()=>{},fleet:wFleet,health:wHealth,content:wContent,reports:wReports,insights:wInsights,activity:wActivity,staff:wStaff};
+  v.innerHTML=banner+V[page]()+`<footer class="pfoot">YD Works Console</footer>`;W[page]();
   $("#vaBack")&&($("#vaBack").onclick=()=>{ROLE="admin";toast("Back to the manager view");applyRole()});
 }
 
@@ -1255,27 +1296,14 @@ document.addEventListener("click",e=>{if(!$("#inbox").hidden&&!e.target.closest(
 const trk=(name,detail)=>{try{window.YDUI&&YDUI.track&&YDUI.track(name,detail||{})}catch(e){}};
 const tone=(label,t)=>`<span class="pill t-${t}">${esc(label)}</span>`;
 
-/* WhatsApp: wa.me links with a prefilled message; Maldives 7-digit numbers get 960 */
-const WA_SVG=`<svg class="wa-i" viewBox="0 0 24 24" aria-hidden="true"><path fill="#25D366" d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.7.63.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.28-.2-.57-.35zM12.05 21.79h-.01a9.87 9.87 0 01-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 01-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.82 9.82 0 012.89 6.99c0 5.45-4.44 9.88-9.88 9.88zm8.41-18.3A11.82 11.82 0 0012.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 005.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89 0-3.18-1.24-6.17-3.48-8.42z"/></svg>`;
-const waDigits=p=>{let d=String(p||"").replace(/\D/g,"");if(d.startsWith("00"))d=d.slice(2);if(d.length===7)d="960"+d;return d.length>=8?d:""};
-const waUrl=(phone,text)=>{const d=waDigits(phone);return d?`https://wa.me/${d}?text=${encodeURIComponent(text||"")}`:""};
+/* phone: tel: links (Maldives 7-digit numbers get +960) */
+const phoneDigits=p=>{let d=String(p||"").replace(/\D/g,"");if(d.startsWith("00"))d=d.slice(2);if(d.length===7)d="960"+d;return d.length>=8?d:""};
+const telUrl=p=>{const d=phoneDigits(p);return d?"tel:+"+d:""};
 const first=n=>String(n||"").trim().split(/\s+/)[0]||"there";
-function waBtn(phone,text,label,ctx,extra){const u=waUrl(phone,text);
-  return u?`<a class="btn sm wa" href="${esc(u)}" target="_blank" rel="noopener" data-wa="${ctx}" ${extra||""}>${WA_SVG}${esc(label||"WhatsApp")}</a>`:`<button class="btn sm wa" type="button" disabled title="No phone number on file">${WA_SVG}${esc(label||"WhatsApp")}</button>`}
-function waIco(phone,text,label,ctx){const u=waUrl(phone,text);return u?`<a class="wa-ico" href="${esc(u)}" target="_blank" rel="noopener" data-wa="${ctx}" aria-label="${esc(label)}" title="${esc(label)}">${WA_SVG}</a>`:""}
-const WADYN={}; // links whose message is built at click time (e.g. the quote being edited)
-const waOrderText=o=>`Hi ${first(o.customer)}, this is YD Works about your order ${o.ref} (${o.title}). `;
-WADYN.quote=()=>{if(!QB)return"";if(QB.status!=="converted")syncQB();
-  if(!waDigits(QB.phone)){toast("Add the customer's phone number first");return""}
-  const ls=QB.lines.filter(l=>l.label);const rows=ls.slice(0,6).map(l=>`${+l.qty} × ${l.label} — ${mvr((+l.qty||0)*(+l.unit_price||0))}`);if(ls.length>6)rows.push(`+ ${ls.length-6} more item${ls.length-6>1?"s":""}`);
-  const tot=QB.lines.reduce((s,l)=>s+(+l.qty||0)*(+l.unit_price||0),0);
-  return waUrl(QB.phone,`Hi ${first(QB.customer_name)}, here is your YD Works quote ${QB.ref||"(draft)"}:\n${rows.join("\n")}\nTotal ${mvr(tot)} (incl. GST)${QB.valid_until?`, valid until ${dlong(pdate(QB.valid_until))}`:""}. Reply to confirm.`)};
-const waCompany=()=>{const c=(S.settings.contact||{}).whatsapp||(window.YD_CONFIG||{}).whatsapp||"";return c};
-const waPretty=n=>{const d=waDigits(n).replace(/^960/,"");return d.length===7?d.slice(0,3)+" "+d.slice(3):n||""};
-// capture phase: track, refresh dynamic links, and keep the click from opening the row or card underneath
-document.addEventListener("click",e=>{const a=e.target.closest("[data-wa]");if(!a)return;e.stopPropagation();
-  if(a.dataset.wadyn&&WADYN[a.dataset.wadyn]){const u=WADYN[a.dataset.wadyn]();if(u)a.href=u;else{e.preventDefault();return}}
-  window.YDUI&&YDUI.track&&YDUI.track("whatsapp_click",{context:a.dataset.wa})},true);
+function callBtn(phone,label,extra){const u=telUrl(phone);
+  return u?`<a class="btn sm" href="${esc(u)}" ${extra||""}><svg><use href="#i-phone"/></svg>${esc(label||"Call")}</a>`:`<button class="btn sm" type="button" disabled title="No phone number on file"><svg><use href="#i-phone"/></svg>${esc(label||"Call")}</button>`}
+// the company WhatsApp number is a setting used by the website and customer app (no chat UI in the console)
+const companyWa=()=>(S.settings.contact||{}).whatsapp||(window.YD_CONFIG||{}).whatsapp||"";
 const PAYM={cash:"Cash",card:"Card",transfer:"Transfer",cod:"Cash on delivery"};
 function payPill(o){if(o.payStatus==="paid")return tone("Paid · "+(PAYM[o.paidWith]||PAYM[o.payMethod]||""),"ok");if(o.payStatus==="pending")return tone("Checking","warn");if(o.payStatus==="refunded")return tone("Refunded","mute");return tone("Unpaid","mute")}
 const srcBadge=o=>`<span class="src ${o.source==="counter"?"counter":""}">${o.source==="counter"?"Counter":"App"}</span>`;
@@ -1390,7 +1418,7 @@ function vOrders(){
   <div class="card"><div class="tw"><table class="t cards" style="min-width:980px"><thead><tr><th>Order</th><th>Items</th><th>Customer</th><th>Site</th><th>Driver</th><th>Status</th><th>Payment</th><th class="num">Total</th></tr></thead><tbody>
   ${list.length?list.slice(0,ordersShown).map(o=>`<tr class="click" data-order="${o.ref}"><td class="m-l"><b style="font-family:var(--mono);font-size:13px;font-weight:500">${o.ref}</b>${srcBadge(o)}<div class="mono">${dmy(o.created_at)} · ${hhmm(o.created_at)}</div></td>
     <td><div class="item"><span class="th">${thumb(o.icon)}</span><div style="min-width:0"><b>${esc(o.title)}</b><small>${o.kind==="hire"?"Equipment hire":"Materials"}</small></div></div></td>
-    <td><div class="who"><span class="av">${ini(o.customer)}</span><div style="min-width:0"><div>${esc(o.customer)}</div><div class="mono">${esc(o.phone)}</div></div>${waIco(o.phone,waOrderText(o),"WhatsApp "+o.customer,"orders_row")}</div></td>
+    <td><div class="who"><span class="av">${ini(o.customer)}</span><div style="min-width:0"><div>${esc(o.customer)}</div><div class="mono">${esc(o.phone)}</div></div></div></td>
     <td class="muted m-sub" style="max-width:180px">${esc(o.site)}</td>
     <td class="m-drv">${o.driver?esc(o.driver):o.status==="requested"?(can("assign")?`<button class="btn sm pri" data-assign="${o.ref}">Assign</button>`:'<span class="muted">Not assigned</span>'):'<span class="muted">—</span>'}</td>
     <td class="m-h"><span class="pill p-${o.status}">${STATUS[o.status]}</span></td><td class="m-h m-rt">${o.status==="cancelled"?'<span class="muted">—</span>':payPill(o)}</td><td class="num m-r">${mvr(o.total)}</td></tr>`).join(""):`<tr><td colspan="8"><div class="empty">No orders match this filter.</div></td></tr>`}
@@ -1419,7 +1447,7 @@ function openOrder(ref,focusAssign){
   openDrawer(`<div class="dh"><div class="item"><span class="th" style="width:52px;height:52px;border-radius:14px">${thumb(o.icon)}</span><div><span class="pill p-${o.status}">${STATUS[o.status]}</span>${srcBadge(o)}<h2 id="dTitle" style="margin-top:6px">${esc(o.title)}</h2><div class="mono">${o.ref} · ${dmy(o.created_at)} ${hhmm(o.created_at)}</div></div></div>${xBtn}</div>
   <div class="db">
     <dl class="kv"><dt>Customer</dt><dd>${esc(o.customer)}</dd><dt>Phone</dt><dd style="font-family:var(--mono)">${esc(o.phone||"—")}</dd><dt>Site</dt><dd>${esc(o.site)}</dd>${o.when?`<dt>Schedule</dt><dd>${esc(o.when)}</dd>`:""}${bk.length?`<dt>Machine booked</dt><dd>${bk.map(b=>`${dmy(b.starts_at)} ${hhmm(b.starts_at)} → ${dmy(b.ends_at)} ${hhmm(b.ends_at)}`).join("<br>")}</dd>`:""}<dt>Driver</dt><dd>${esc(o.driver||"Not assigned")}</dd>${o.note?`<dt>Note</dt><dd>${esc(o.note)}</dd>`:""}${o.pod?`<dt>Signed by</dt><dd>${esc(o.pod)}</dd>`:""}${o.earning?`<dt>Driver pay</dt><dd>${mvr(o.earning)}</dd>`:""}</dl>
-    <div class="wa-row">${waBtn(o.phone,waOrderText(o),"WhatsApp customer","order_customer")}${(()=>{const d=o.driver_id&&S.drivers.find(x=>x.id===o.driver_id);return d?waBtn(d.phone,`${first(d.full_name)}, about ${o.ref} at ${o.site}: `,"WhatsApp driver","order_driver"):""})()}</div>
+    <div class="act-row">${callBtn(o.phone,"Call customer")}${(()=>{const d=o.driver_id&&S.drivers.find(x=>x.id===o.driver_id);return d?callBtn(d.phone,"Call driver"):""})()}</div>
     <div><div class="lbl" style="margin-bottom:8px">Items</div><div class="lines">${o.lines.map(([n,q,p])=>`<div><span>${q} × ${esc(n)}</span><span>${mvr(q*p)}</span></div>`).join("")}<div><span>Total · incl. GST ${mvr(o.gst!=null?o.gst:gstOf(o.total))}</span><span>${mvr(o.total)}</span></div></div></div>
     ${o.status==="cancelled"?"":`<div class="box stack"><div class="row-flex"><div><div class="lbl">Payment</div><div style="margin-top:4px;font-weight:500">${PAYM[o.payMethod]||esc(o.payMethod)} chosen${o.invoiceNo?` · <span class="mono">${esc(o.invoiceNo)}</span>`:""}</div></div>${payPill(o)}</div>
       ${pays.length?`<div class="stack" style="gap:6px">${pays.map(p=>`<div class="row-flex" style="font-size:13px"><span>${PAYM[p.method]||esc(p.method)} · ${mvr(p.amount)}<span class="muted"> · ${dmy(p.created_at)} ${hhmm(p.created_at)}${p.note?" · "+esc(p.note):""}</span></span>${tone(p.status==="pending"?"Checking":p.status,p.status==="paid"?"ok":p.status==="pending"?"warn":p.status==="rejected"?"crit":"mute")}</div>`).join("")}</div>`:""}
@@ -1546,49 +1574,35 @@ const starsHtml=v=>`<span class="stars" style="--v:${Math.max(0,Math.min(100,v/5
 function drvRatings(id){const rs=S.ratings.filter(x=>x.driver_id===id);return{list:rs,n:rs.length,avg:rs.length?rs.reduce((s,x)=>s+x.stars,0)/rs.length:null}}
 const lowRatings=()=>S.ratings.filter(x=>x.stars<=2&&x.created_at>Date.now()-7*DAY);
 function vDrivers(){
-  const t0=sod(now),active=S.orders.filter(o=>ACTIVE.includes(o.status));
-  return `<div class="dgrid">${S.drivers.map(d=>{const today=S.orders.filter(o=>o.driver_id===d.id&&o.status==="completed"&&(o.events.completed||0)>=t0),j=active.find(o=>o.driver_id===d.id),R=drvRatings(d.id),avg=R.avg!=null?R.avg:(d.rating!=null?+d.rating:null),lowN=R.list.filter(x=>x.stars<=2&&x.created_at>Date.now()-30*DAY).length;
-    return `<div class="card dcard"><div class="top"><span class="av ${d.is_online?"on":""}">${ini(d.full_name)}</span><div style="min-width:0;flex:1"><b style="font-weight:600">${esc(d.full_name)}</b><div class="mono">${esc(d.unit_code||"No vehicle")} · ${esc(d.unit_name||"")}</div></div>${j?`<span class="pill p-${j.status}">${STATUS[j.status]}</span>`:d.is_online?`<span class="pill p-completed">Free</span>`:`<span class="pill p-cancelled">Offline</span>`}</div>
+  const t0=sod(now),active=S.orders.filter(o=>ACTIVE.includes(o.status)),mgr=can("team");
+  return `<div class="dgrid">${S.drivers.map(d=>{const today=S.orders.filter(o=>o.driver_id===d.id&&o.status==="completed"&&(o.events.completed||0)>=t0),j=active.find(o=>o.driver_id===d.id),R=drvRatings(d.id),avg=R.avg!=null?R.avg:(d.rating!=null?+d.rating:null),lowN=R.list.filter(x=>x.stars<=2&&x.created_at>Date.now()-30*DAY).length,m=machOf(d);
+    return `<div class="card dcard"><div class="top"><span class="av ${d.is_online?"on":""}">${ini(d.full_name)}</span><div style="min-width:0;flex:1"><b class="nm">${esc(d.full_name)}</b>${j?`<span class="pill p-${j.status}">${STATUS[j.status]}</span>`:d.is_online?`<span class="pill p-completed">Free</span>`:`<span class="pill p-cancelled">Offline</span>`}</div></div>
+      <div class="veh">${m?`<span class="th">${thumb(m.id,m.name)}</span><div style="min-width:0"><b class="mono">${esc(m.code)}</b><span>${esc(m.name)}</span></div>`:`<span class="th"><svg><use href="#i-truck"/></svg></span><div style="min-width:0"><b class="mono">${esc(d.unit_code||"No vehicle")}</b><span>${esc(d.unit_name||(d.unit_code?"Not in the fleet list":"Pick one from the fleet"))}</span></div>`}<button class="btn sm" data-veh-d="${esc(d.id)}" ${gate("team")}>Vehicle</button></div>
       <div class="rate-row" data-rate="${esc(d.id)}">${avg!=null?`${starsHtml(avg)}<b>${avg.toFixed(1)}</b><span>${R.n?`${R.n} rating${R.n>1?"s":""}`:"no app ratings yet"}</span>`:`<span>No ratings yet</span>`}${lowN?tone(lowN+" low","crit"):""}</div>
       <div class="stats"><div><span>Today</span><b>${today.length}</b></div><div><span>Earned</span><b>${kfmt(today.reduce((s,o)=>s+(o.earning||0),0))}</b></div><div><span>Rating</span><b>${avg!=null?avg.toFixed(1):"—"}</b></div></div>
-      <div class="wa-row">${j?`<button class="btn sm" data-order="${j.ref}">Current job · ${j.ref}</button>`:""}<button class="btn sm" data-drv="${esc(d.id)}"><svg><use href="#i-star"/></svg>Ratings</button><span style="flex:1"></span>${waBtn(d.phone,j?`${first(d.full_name)}, about ${j.ref} at ${j.site}: `:`Hi ${first(d.full_name)}, this is the YD Works counter: `,"WhatsApp","driver_card")}</div></div>`}).join("")||`<div class="card empty">No drivers yet.</div>`}</div>
-  ${can("team")?vTeam():`<p class="hint">Drivers and staff are added by managers under Drivers → Team.</p>`}`;
-}
-let teamPick="dispatcher";
-function vTeam(){
-  const staff=S.staff.slice().sort((a,b)=>STAFF.indexOf(a.role)-STAFF.indexOf(b.role)||String(a.full_name).localeCompare(b.full_name));
-  const nMgr=staff.filter(x=>x.role==="admin").length;
-  return `<div class="grid g-main">
-    <div class="card" id="teamCard"><div class="card-h"><div><h2>Team</h2><div class="sub">Everyone who can sign in to this console. ${nMgr} manager${nMgr===1?"":"s"} · ${staff.length} staff</div></div></div>
-      <div>${staff.map(x=>`<div class="team-row"><span class="av">${ini(x.full_name||x.email)}</span><div class="tx"><b>${esc(x.full_name||"—")}${x.me?` <small class="muted" style="font-weight:400">(you)</small>`:""}</b><span>${esc(x.email||"")}</span></div>${rolePill(x.role)}<button class="btn sm" data-team="${esc(x.email||"")}" data-role="${esc(x.role)}" aria-label="Change access for ${esc(x.full_name||x.email)}">Change</button></div>`).join("")||`<div class="empty">No staff yet.</div>`}</div></div>
-    <div class="card"><div class="card-h"><div><h2>Add a driver</h2><div class="sub">They sign up in the YD Works app first, then you turn the account into a driver account here.</div></div></div>
-      <form class="card-b form-grid" id="addDrv" novalidate>
-        <div class="field full"><label for="aEm">Their account email</label><input class="inp" id="aEm" type="email" placeholder="driver@example.com"></div>
-        <div class="field"><label for="aCode">Vehicle code</label><input class="inp" id="aCode" placeholder="TP-05"></div>
-        <div class="field"><label for="aName">Vehicle</label><input class="inp" id="aName" placeholder="Tipper 10m³"></div>
-        <div class="full row-flex"><span class="hint" id="aErr"></span><button class="btn pri" type="submit"><svg><use href="#i-plus"/></svg>Make driver</button></div>
+      <div class="act-row">${j?`<button class="btn sm" data-order="${j.ref}">Current job · ${j.ref}</button>`:""}<button class="btn sm" data-drv="${esc(d.id)}"><svg><use href="#i-star"/></svg>Ratings</button><span style="flex:1"></span>${callBtn(d.phone,"Call")}</div></div>`}).join("")||`<div class="card empty">No drivers yet.</div>`}</div>
+  ${mgr?`<div class="grid g-main">
+    <div class="card"><div class="card-h"><div><h2>Add a driver</h2><div class="sub">They sign up in the YD Works app first, then you turn the account into a driver account and give them a vehicle.</div></div></div>
+      <form class="card-b stack" id="addDrv" novalidate style="gap:14px">
+        <div class="field" style="max-width:420px"><label for="aEm">Their account email</label><input class="inp" id="aEm" type="email" placeholder="driver@example.com" autocomplete="off"></div>
+        <div><div class="sec-t">Vehicle</div><div id="aPick">${vehPicker(ADDV,null)}</div></div>
+        <div class="row-flex" style="flex-wrap:wrap"><span class="hint" id="aErr" style="color:var(--crit)"></span><button class="btn pri" type="submit"><svg><use href="#i-plus"/></svg>Make driver</button></div>
       </form></div>
-  </div>
-  <div class="card"><div class="card-h"><div><h2>Add or change access</h2><div class="sub">The person signs up in the YD Works app first. Changes apply the next time they open the console or app.</div></div></div>
-    <form class="card-b stack" id="teamForm" novalidate style="gap:14px">
-      <div class="field" style="max-width:420px"><label for="tEm">Account email</label><input class="inp" id="tEm" type="email" placeholder="staff@yd-mv.com" autocomplete="off"></div>
-      <fieldset style="border:0;margin:0;padding:0"><legend class="lbl" style="margin-bottom:8px">Access</legend><div class="rolepick">${["admin","dispatcher","counter","accounts","driver","customer"].map(r=>`<label class="ropt"><input type="radio" name="tRole" value="${r}" ${teamPick===r?"checked":""}><b>${esc(ROLES[r][0])}</b><span>${esc(ROLES[r][1])}</span></label>`).join("")}</div></fieldset>
-      <div class="row-flex" style="flex-wrap:wrap"><span class="hint" id="tErr"></span><button class="btn pri" type="submit" id="tGo">Update access</button></div>
-    </form></div>`;
+    <div class="card"><div class="card-h"><div><h2>Staff &amp; roles</h2><div class="sub">${S.staff.length} staff · ${S.staff.filter(x=>x.role==="admin").length} managers · ${S.drivers.length} drivers</div></div><a class="btn sm" href="#staff">Manage</a></div>
+      <div>${S.staff.slice().sort((a,b)=>STAFF.indexOf(a.role)-STAFF.indexOf(b.role)).slice(0,6).map(x=>`<div class="team-row"><span class="av">${ini(x.full_name||x.email)}</span><div class="tx"><b>${esc(x.full_name||"—")}${x.me?` <small class="muted" style="font-weight:400">(you)</small>`:""}</b><span>${esc(x.email||"")}</span></div>${rolePill(x.role)}</div>`).join("")}</div></div>
+  </div>`:`<p class="hint">Drivers, vehicles and staff roles are managed by managers.</p>`}`;
 }
+let ADDV="";
 function wDrivers(){
   $$("[data-order]").forEach(b=>b.onclick=()=>openOrder(b.dataset.order));
   $$("[data-drv]").forEach(b=>b.onclick=()=>openDriver(b.dataset.drv));
+  $$("[data-veh-d]").forEach(b=>b.onclick=()=>openVehicle(b.dataset.vehD));
   if(!can("team"))return;
-  $("#addDrv").addEventListener("submit",async e=>{e.preventDefault();const em=$("#aEm").value.trim();if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){$("#aErr").textContent="Enter the email they signed up with.";return}
-    try{await A.role(em,"driver",$("#aCode").value.trim(),$("#aName").value.trim());toast(em+" is now a driver");render()}catch(x){$("#aErr").textContent=x.message}});
-  $$("[data-team]").forEach(b=>b.onclick=()=>{$("#tEm").value=b.dataset.team;const r=$(`#teamForm input[value="${b.dataset.role}"]`);if(r)r.checked=true;$("#teamForm").scrollIntoView({behavior:"smooth",block:"center"});setTimeout(()=>$("#tEm").focus({preventScroll:true}),300)});
-  $$("#teamForm [name=tRole]").forEach(i=>i.onchange=()=>teamPick=i.value);
-  $("#teamForm").addEventListener("submit",async e=>{e.preventDefault();const em=$("#tEm").value.trim(),r=($("#teamForm [name=tRole]:checked")||{}).value,err=$("#tErr");err.style.color="var(--crit)";
-    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){err.textContent="Enter the email they signed in or signed up with.";$("#tEm").focus();return}
-    if(!r){err.textContent="Choose the access to give.";return}
-    const b=$("#tGo");b.disabled=true;
-    try{await A.role(em,r);toast(`${em} · ${ROLES[r][0]}`);render()}catch(x){err.textContent=x.message;b.disabled=false}});
+  wirePicker($("#aPick"),v=>ADDV=v);
+  $("#addDrv").addEventListener("submit",async e=>{e.preventDefault();const em=$("#aEm").value.trim(),err=$("#aErr");err.textContent="";if(!emailOk(em)){err.textContent="Enter the email they signed up with.";$("#aEm").focus();return}
+    try{const m=ADDV?S.machines.find(x=>x.code===ADDV):null,o=m&&drvOf(m.code);
+      if(o&&(o.email||"").toLowerCase()!==em.toLowerCase())await A.vehicle(o,null);
+      await A.role(em,"driver",m?m.code:null,m?m.name:null);toast(em+" is now a driver"+(m?" · "+m.code:""));ADDV="";render()}catch(x){err.textContent=x.message}});
 }
 function openDriver(id){
   const d=S.drivers.find(x=>String(x.id)===String(id));if(!d)return;
@@ -1607,7 +1621,7 @@ function openDriver(id){
       ${x.comment?`<p>“${esc(x.comment)}”</p>`:`<span class="hint">No comment</span>`}
       <div class="row-flex"><span class="hint">${esc(o?o.customer:"")}${o?" · "+esc(o.title):""}</span>${o?`<button class="btn sm" data-o2="${esc(o.ref)}">${esc(o.ref)}</button>`:""}</div></div>`}).join(""):`<div class="hint">Customers rate the driver in the app after delivery. None yet.</div>`}</div></div>
   </div>
-  <div class="df">${waBtn(d.phone,`Hi ${first(d.full_name)}, this is the YD Works counter: `,"WhatsApp driver","driver_drawer",'style="padding:9px 14px;font-size:13.5px"')}<span style="flex:1"></span><button class="btn" id="drvClose">Close</button></div>`);
+  <div class="df">${callBtn(d.phone,"Call driver",'style="padding:9px 14px;font-size:13.5px"')}<span style="flex:1"></span><button class="btn" id="drvClose">Close</button></div>`);
   $("#drvClose").onclick=closeDrawer;
   $$("[data-o2]").forEach(b=>b.onclick=()=>openOrder(b.dataset.o2));
 }
@@ -1622,7 +1636,7 @@ function vLeads(){
     <div class="tags">${(x.needs||[]).map(n=>`<span>${esc(n)}</span>`).join("")}</div>
     ${x.details?`<p>${esc(x.details)}</p>`:""}
     <div class="mv"><select data-lead="${x.id}" aria-label="Move ${esc(x.name)}">${LEAD_COLS.map(([k2,l2])=>`<option value="${k2}" ${k2===k?"selected":""}>${l2}</option>`).join("")}</select>${(()=>{const q=S.quotes.find(q=>q.lead_id===x.id);return q?`<button class="btn sm" data-lq="${esc(q.id)}" title="Open quote">${esc(q.ref)}</button>`:`<button class="btn sm" data-mkq="${x.id}">Create quote</button>`})()}</div>
-    <div class="wa-row">${waBtn(x.phone,`Hi ${x.name}, thanks for your quote request to YD Works (${(x.needs||[]).join(", ")||"general enquiry"}). `,"WhatsApp","lead")}</div>
+    <div class="act-row">${callBtn(x.phone,"Call")}</div>
   </div>`).join("")||`<div class="hint" style="padding:8px 6px">Nothing here</div>`}</div>`}).join("")}</div>`;
 }
 function wLeads(){$$("[data-lead]").forEach(s=>s.addEventListener("change",async()=>{const l=S.leads.find(x=>x.id===s.dataset.lead);try{await A.lead(l,s.value);toast(`${l.name} moved to ${s.value}`);render()}catch(e){toast(e.message)}}));
@@ -1888,10 +1902,8 @@ function vContent(){
       <div class="field"><label for="cAm">Morning hours</label><input class="inp" id="cAm" value="${esc(c.hours_am||"")}"></div>
       <div class="field"><label for="cPm">Afternoon hours</label><input class="inp" id="cPm" value="${esc(c.hours_pm||"")}"></div>
       <div class="field full"><label for="cFri">Friday</label><input class="inp" id="cFri" value="${esc(c.friday||"")}"></div>
-      <div class="field full"><label for="cWa">Company WhatsApp</label>
-        <div class="wa-card"><span class="wa-badge">${WA_SVG}</span><div class="wa-num"><b>+${esc(waDigits(waCompany()).replace(/^(960)(\d{3})(\d+)$/,"$1 $2 $3")||"not set")}</b><span>The number customers reach from the website and apps</span></div>
-          <input class="inp" id="cWa" inputmode="tel" value="${esc(waCompany())}" aria-label="Company WhatsApp number" style="font-family:var(--mono);max-width:200px">
-          ${waIco(waCompany(),"Test message from the YD Works console","Send a test message to the company WhatsApp","settings_test")}</div></div>
+      <div class="field full"><label for="cWa">Company WhatsApp number</label>
+        <input class="inp" id="cWa" inputmode="tel" value="${esc(companyWa())}" style="font-family:var(--mono);max-width:240px" aria-describedby="cWaH"><span class="hint" id="cWaH">The number customers reach from the website and the customer app.${phoneDigits(companyWa())?` Saved as +${esc(phoneDigits(companyWa()).replace(/^(960)(\d{3})(\d+)$/,"$1 $2 $3"))}.`:""}</span></div>
       <div class="full row-flex"><span></span><button class="btn pri" id="cSave">Save contact</button></div></div></div>
   </div>
   <div class="grid g-main">
@@ -1957,7 +1969,7 @@ function vPayments(){
         <div><div style="font:600 22px var(--display);letter-spacing:-.03em;font-variant-numeric:tabular-nums">${mvr(p.amount)}</div><div class="hint">${esc(o.customer||"")} · ${esc(o.phone||"")}</div></div>
         <dl class="kv" style="grid-template-columns:74px minmax(0,1fr);font-size:12.5px;gap:4px 10px"><dt>Reference</dt><dd style="font-family:var(--mono)">${esc(p.provider_ref||"—")}</dd><dt>Sent</dt><dd>${ago(p.created_at)}</dd><dt>Order total</dt><dd>${mvr(o.total||0)}${o.total&&Math.abs(o.total-p.amount)>.5?` ${tone("Differs","crit")}`:""}</dd></dl>
         <input class="inp" data-note placeholder="Note (required to reject)" aria-label="Review note for ${esc(o.ref||"")}" style="padding:7px 10px;font-size:13px">
-        <div class="acts"><button class="btn sm pri" data-ok ${gate("payments")}>Approve</button><button class="btn sm danger" data-no ${gate("payments")}>Reject</button>${o.ref?`<button class="btn sm" data-o="${o.ref}">Order</button>`:""}${waBtn(o.phone,`Hi ${first(o.customer)}, this is YD Works about your bank transfer for ${o.ref} (${mvr(p.amount)}). We couldn't match it yet. Could you send the transfer reference or a clearer photo of the slip? `,"WhatsApp customer","payment_slip")}</div>
+        <div class="acts"><button class="btn sm pri" data-ok ${gate("payments")}>Approve</button><button class="btn sm danger" data-no ${gate("payments")}>Reject</button>${o.ref?`<button class="btn sm" data-o="${o.ref}">Order</button>`:""}${callBtn(o.phone,"Call customer")}</div>
       </div></div>`}).join("")}</div>`:`<div class="empty">No slips waiting. New ones appear here (and in the bell) the moment a customer uploads one.</div>`}</div></div>
   <div class="card"><div class="card-h"><div><h2>Recent payments</h2><div class="sub">Cash collected on delivery, counter payments, card and approved transfers</div></div>
     <div class="row-flex" style="gap:10px;flex-wrap:wrap"><div class="chips" id="payChips">${[["all","All"],["paid","Paid"],["pending","Checking"],["rejected","Rejected"]].map(([k,l])=>`<button class="chip" data-k="${k}" aria-pressed="${payFilter===k}">${l}<b>${cnt(k)}</b></button>`).join("")}</div>
@@ -1992,7 +2004,7 @@ function vCalendar(){
   const ahead=inWin.filter(b=>b.ends_at>Date.now()&&b.status!=="blocked");
   const wk=days.map((d,i)=>[5,6].includes(new Date(d).getDay())?`<i class="cal-wk" style="left:calc(var(--cw) * ${i});width:var(--cw)"></i>`:"").join("");
   const rows=S.machines.map(m=>{const bs=inWin.filter(b=>b.machine_id===m.id);
-    return `<div class="cal-row"><div class="cal-l"><span class="item"><span class="th">${thumb(m.id,m.name)}</span></span><div style="min-width:0"><b>${esc(m.name)}</b><small>${esc(m.code)} · ${bs.length?bs.length+" booking"+(bs.length>1?"s":""):"free"}</small></div></div>
+    return `<div class="cal-row"><div class="cal-l"><span class="item"><span class="th">${thumb(m.id,m.name)}</span></span><div style="min-width:0"><b>${esc(m.name)}</b><small title="${esc(drvOf(m.code)?"Driver: "+drvOf(m.code).full_name:"No driver assigned")}">${esc(m.code)}${drvOf(m.code)?" · "+esc(first(drvOf(m.code).full_name)):""} · ${bs.length?bs.length+" booking"+(bs.length>1?"s":""):"free"}</small></div></div>
       <div class="cal-t">${wk}${bs.map(b=>{const s=Math.max(b.starts_at,t0),e=Math.min(b.ends_at,t1),o=orderBy(b.order_uuid),tn=bookingTone(b);
         const lab=b.status==="blocked"?`<b>Blocked</b><span>${esc(b.note||"Maintenance")}</span>`:`<b>${esc(o?o.customer:"Booking")}</b><span>${esc(o?o.ref:"")} · ${hhmm(b.starts_at)}</span>`;
         const nar=(e-s)/DAY<.7;return `<button class="cal-bar c-${tn}${nar?" nar":""}" aria-label="${esc(o?o.ref+" "+o.customer:"Blocked "+(b.note||""))}" data-b="${esc(b.id)}" style="left:calc(var(--cw) * ${((s-t0)/DAY).toFixed(4)});width:calc(var(--cw) * ${Math.max((e-s)/DAY,.02).toFixed(4)} - 2px)" title="${esc((o?o.ref+" · "+o.customer:b.note||"Blocked")+" · "+dmy(b.starts_at)+" "+hhmm(b.starts_at)+" → "+dmy(b.ends_at)+" "+hhmm(b.ends_at))}">${nar?"":lab}</button>`}).join("")}</div></div>`}).join("");
@@ -2078,10 +2090,9 @@ function openQuote(q){
       <div class="field"><label for="qbStatus">Status</label><select class="inp" id="qbStatus" ${locked?"disabled":""}>${Object.entries(QST).filter(([k])=>k!=="converted"||locked).map(([k,v])=>`<option value="${k}" ${QB.status===k?"selected":""}>${v[0]}</option>`).join("")}</select></div>
       <div class="field full"><label for="qbNotes">Notes on the quote</label><textarea class="inp" id="qbNotes" style="min-height:70px" ${locked?"disabled":""}>${esc(QB.notes)}</textarea></div>
     </div>
-    <p class="hint">Send on WhatsApp writes a summary of this quote. WhatsApp links can't carry files, so download the PDF and attach it in the chat.</p>
     <p class="hint" id="qbErr" role="alert" style="color:var(--crit)"></p>
   </div>
-  <div class="df">${locked?"":`<button class="btn" id="qbSave">Save draft</button><button class="btn" id="qbSent">Mark sent</button>`}<button class="btn" id="qbPdf"><svg><use href="#i-dl"/></svg>PDF</button><a class="btn wa" id="qbWa" href="#" target="_blank" rel="noopener" data-wa="quote" data-wadyn="quote" title="Opens WhatsApp with a summary. Attach the PDF yourself.">${WA_SVG}Send on WhatsApp</a><span style="flex:1"></span>${locked?`<button class="btn" id="qbClose">Close</button>`:`<button class="btn pri" id="qbConv">Convert to order</button>`}</div>`,true);
+  <div class="df">${locked?"":`<button class="btn" id="qbSave">Save draft</button><button class="btn" id="qbSent">Mark sent</button>`}<button class="btn" id="qbPdf"><svg><use href="#i-dl"/></svg>PDF</button><span style="flex:1"></span>${locked?`<button class="btn" id="qbClose">Close</button>`:`<button class="btn pri" id="qbConv">Convert to order</button>`}</div>`,true);
   $("#qOrd")&&($("#qOrd").onclick=()=>openOrder(orderBy(QB.order_uuid).ref));
   drawQB();
   if(locked){$("#qbClose").onclick=closeDrawer}
@@ -2202,7 +2213,7 @@ function openProject(id){
       <div class="row-flex"><span class="hint">The customer gets a notification.</span><button class="btn pri sm" id="upGo">Post update</button></div></div>
     <div><div class="sec-t">Updates</div><div class="feed">${(p.updates||[]).length?p.updates.map(u=>`<div class="upd"><div class="row-flex"><span class="mono">${dlong(u.created_at)} · ${hhmm(u.created_at)}</span><span class="hint">${(u.photo_urls||[]).filter(Boolean).length?(u.photo_urls||[]).filter(Boolean).length+" photo"+((u.photo_urls||[]).filter(Boolean).length>1?"s":""):""}</span></div>${u.note?`<p>${esc(u.note)}</p>`:""}${(u.photo_urls||[]).filter(Boolean).length?`<div class="phs">${u.photo_urls.filter(Boolean).map(s=>`<a href="${esc(s)}" target="_blank" rel="noopener"><img src="${esc(s)}" alt="Site photo" loading="lazy"></a>`).join("")}</div>`:""}</div>`).join(""):`<div class="hint">No updates yet.</div>`}</div></div>
   </div>
-  <div class="df"><button class="btn" id="pjEdit"><svg><use href="#i-edit"/></svg>Edit details</button>${waBtn(p.customer_phone,`Hi ${first(p.customer_name)}, an update on your project ${p.title}: `,"WhatsApp customer","project_customer",'style="padding:9px 14px;font-size:13.5px"')}<span style="flex:1"></span><button class="btn" id="pjClose">Close</button></div>`,true);
+  <div class="df"><button class="btn" id="pjEdit"><svg><use href="#i-edit"/></svg>Edit details</button>${callBtn(p.customer_phone,"Call customer",'style="padding:9px 14px;font-size:13.5px"')}<span style="flex:1"></span><button class="btn" id="pjClose">Close</button></div>`,true);
   $("#pjClose").onclick=closeDrawer;$("#pjEdit").onclick=()=>editProject(p);
   drawMs(p);
   $("#msAdd").onclick=()=>{syncMs();MSW.push({id:null,title:"",status:"todo",due_date:null,payment_amount:0,payment_status:"none"});drawMs(p,true);const t=$$("#msList [data-f=title]");t.length&&t[t.length-1].focus()};
@@ -2256,7 +2267,7 @@ function vHealth(){
     <div class="tw"><table class="t" style="min-width:900px"><thead><tr><th>Machine</th><th class="num">Hours</th><th>Last check</th><th class="num">Fuel this month</th><th>Maintenance</th><th></th></tr></thead><tbody>
     ${S.machines.map(m=>{const i=S.inspections.filter(x=>x.machine_id===m.id).sort((a,b)=>b.created_at-a.created_at)[0],f=fuelM.filter(x=>x.machine_id===m.id),mo=open.filter(x=>x.machine_id===m.id);
       const worst=mo.map(x=>maintDue(x,m)).sort((a,b)=>["crit","warn","mute"].indexOf(a)-["crit","warn","mute"].indexOf(b))[0];
-      return `<tr class="click" data-mh="${m.id}"><td><div class="item"><span class="th">${thumb(m.id,m.name)}</span><div><b>${esc(m.name)}</b><small class="mono">${esc(m.code)}</small></div></div></td>
+      return `<tr class="click" data-mh="${m.id}"><td><div class="item"><span class="th">${thumb(m.id,m.name)}</span><div><b>${esc(m.name)}</b><small class="mono">${esc(m.code)}</small>${drvOf(m.code)?`<small style="display:block">${esc(drvOf(m.code).full_name)}</small>`:""}</div></div></td>
       <td class="num">${(+m.hours_meter||0).toLocaleString("en-US",{maximumFractionDigits:1})} h</td>
       <td>${i?`${i.passed?(String(i.defects||"").trim()?tone("Pass · note","warn"):tone("Pass","ok")):tone("Fail","crit")}<div class="mono" style="margin-top:4px">${ago(i.created_at)} · ${esc(drvName(i.driver_id))}</div>`:'<span class="muted">No checks yet</span>'}</td>
       <td class="num">${f.length?`${Math.round(f.reduce((s,x)=>s+x.litres,0))} L<div class="mono">${mvr(f.reduce((s,x)=>s+x.cost,0))}</div>`:'<span class="muted">—</span>'}</td>
@@ -2460,14 +2471,14 @@ function wActivity(){
 let insDays=30,insSurf="all";const INS={};
 const SURF={website:"Website",customer:"Customer app",driver:"Driver app",console:"Console"};
 const EV_L={order_placed:"Order placed",search:"Search",quote_request:"Quote request sent",whatsapp_click:"WhatsApp tapped",transfer_slip_uploaded:"Transfer slip uploaded",rate_driver:"Driver rated",reschedule:"Booking rescheduled",job_status:"Job status updated",fuel_logged:"Fuel logged",inspection_submitted:"Daily check submitted",console_page:"Page opened",counter_order_created:"Counter order created",payment_reviewed:"Payment reviewed",quote_converted:"Quote converted"};
-const WA_L={website_float:"Website · floating button",website_contact:"Website · contact section",website_product:"Website · product page",app_order:"Customer app · order",app_help:"Customer app · help",driver_customer:"Driver app · call customer",orders_row:"Console · order list",order_customer:"Console · order, customer",order_driver:"Console · order, driver",payment_slip:"Console · transfer slip",lead:"Console · website lead",quote:"Console · quote",driver_card:"Console · driver card",driver_drawer:"Console · driver ratings",project_customer:"Console · project",console_sidebar:"Console · sidebar",console_footer:"Console · footer",settings_test:"Console · settings test"};
+const WA_L={website_float:"Website · floating button",website_contact:"Website · contact section",website_product:"Website · product page",app_order:"Customer app · order",app_help:"Customer app · help",driver_customer:"Driver app · call customer",app_project:"Customer app · project",app_payment:"Customer app · payment"};
 const human=s=>{s=String(s||"").replace(/_/g," ");return s.charAt(0).toUpperCase()+s.slice(1)};
 function insErrCount(){if(!LIVE&&canPage("insights")&&!INS[insDays])INS[insDays]=demoIns(insDays);if(!canPage("insights"))return 0;const d=INS[insDays];return d&&d.errors?d.errors.length:0}
 function demoIns(days){
   const f=days===7?.24:days===90?2.8:1,r=rng(days*7+3),sc=v=>Math.max(1,Math.round(v*f*(.85+r()*.3))),by=(a,b)=>b.value-a.value;
   const searches=[["cement",214],["sand",168],["excavator",131],["blocks",117],["rebar y12",96],["tipper",84],["crane hire",61],["plywood",47],["aggregate",44],["mini excavator",39],["mixer",31],["roof sheet",22],["forklift",18],["y16",14],["pvc pipe",11]].map(([label,v])=>({label,value:sc(v)})).sort(by);
-  const events=[["console","console_page",2210],["driver","job_status",1240],["customer","search",512],["customer","order_placed",388],["website","search",341],["console","whatsapp_click",206],["driver","inspection_submitted",188],["website","whatsapp_click",163],["website","quote_request",142],["console","counter_order_created",134],["customer","whatsapp_click",97],["driver","fuel_logged",96],["console","payment_reviewed",91],["customer","transfer_slip_uploaded",88],["customer","rate_driver",71],["console","quote_converted",17],["customer","reschedule",12]].map(([surface,name,v])=>({surface,name,value:sc(v)})).sort(by);
-  const wa=[["website_float",121],["orders_row",77],["order_customer",64],["app_order",58],["website_contact",42],["app_help",39],["payment_slip",23],["lead",19],["driver_card",14],["quote",9]].map(([label,v])=>({label,value:sc(v)})).sort(by);
+  const events=[["console","console_page",2210],["driver","job_status",1240],["customer","search",512],["customer","order_placed",388],["website","search",341],["driver","inspection_submitted",188],["website","whatsapp_click",163],["website","quote_request",142],["console","counter_order_created",134],["customer","whatsapp_click",97],["driver","fuel_logged",96],["console","payment_reviewed",91],["customer","transfer_slip_uploaded",88],["customer","rate_driver",71],["console","quote_converted",17],["customer","reschedule",12]].map(([surface,name,v])=>({surface,name,value:sc(v)})).sort(by);
+  const wa=[["website_float",121],["app_order",58],["website_contact",42],["app_help",39],["website_product",31],["app_project",17],["app_payment",12]].map(([label,v])=>({label,value:sc(v)})).sort(by);
   const errors=[["website","ResizeObserver loop completed with undelivered notifications.",21,1.1],["customer","TypeError: Cannot read properties of null (reading 'getContext')",14,3.2],["driver","TypeError: Failed to fetch",9,.6],["driver","NotAllowedError: User denied Geolocation",6,26],["customer","Upload failed: The object exceeded the maximum allowed size",4,50],["console","UnhandledRejection: JWT expired",2,140],["website","SyntaxError: Unexpected token '<' in JSON at position 0",3,400]]
     .filter(x=>x[3]<days*24).map(([surface,message,c,h])=>({surface,message,count:sc(c),last:now-h*36e5})).sort((a,b)=>b.count-a.count);
   return{searches,events,wa,errors}}
@@ -2505,7 +2516,7 @@ function vInsights(){
   <div class="grid g-2">
     <div class="card"><div class="card-h"><div><h2>Top searches</h2><div class="sub">What people look for on the website and in the app · last ${d} days</div></div></div>
       <div class="card-b">${barList(D.searches.slice(0,12),x=>esc(x.label))}</div></div>
-    <div class="card"><div class="card-h"><div><h2>WhatsApp taps by place</h2><div class="sub">Where people open a WhatsApp chat with YD Works</div></div></div>
+    <div class="card"><div class="card-h"><div><h2>WhatsApp taps by place</h2><div class="sub">Where people open a WhatsApp chat with YD Works on the website and in the customer app</div></div></div>
       <div class="card-b">${barList(D.wa.slice(0,10),x=>{const l=WA_L[x.label]||human(x.label),[a,b]=l.split(" · ");return b?`${esc(b)}<small>${esc(a)}</small>`:esc(a)})}</div></div>
   </div>
   <div class="card"><div class="card-h"><div><h2>Most-used actions</h2><div class="sub">Events by surface · last ${d} days</div></div>
