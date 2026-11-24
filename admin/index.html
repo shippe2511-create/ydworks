@@ -1004,9 +1004,7 @@ const A={
   /* give a driver a fleet machine (unit_code = machines.code); a machine in use is swapped with the other driver */
   async vehicle(d,code){
     const m=code?S.machines.find(x=>x.code===code):null,other=m?S.drivers.find(x=>x!==d&&String(x.unit_code||"").toUpperCase()===m.code.toUpperCase()):null,old=machOf(d);
-    if(LIVE){if(!d.email||(other&&!other.email))throw new Error("This driver has no email on file, so the vehicle can't be changed here.");
-      if(other)await YDB.rpc("admin_set_role",{p_email:other.email,p_role:"driver",p_unit_code:old?old.code:null,p_unit_name:old?old.name:null});
-      await YDB.rpc("admin_set_role",{p_email:d.email,p_role:"driver",p_unit_code:m?m.code:null,p_unit_name:m?m.name:null});return load()}
+    if(LIVE){await YDB.rpc("admin_set_vehicle",{p_driver:d.id,p_machine_code:m?m.code:null});return load()} // one step; swaps with the other driver on the server
     if(other){logDemo("update","profiles",other.id,other.full_name,{unit_code:{from:other.unit_code||null,to:old?old.code:null},unit_name:{from:other.unit_name||null,to:old?old.name:null}});other.unit_code=old?old.code:null;other.unit_name=old?old.name:null}
     logDemo("update","profiles",d.id,d.full_name,{unit_code:{from:d.unit_code||null,to:m?m.code:null},unit_name:{from:d.unit_name||null,to:m?m.name:null}});d.unit_code=m?m.code:null;d.unit_name=m?m.name:null},
   async lead(l,status){if(LIVE){await YDB.rpc("admin_update_lead",{p_lead:l.id,p_status:status});return load()}l.status=status},
@@ -1124,7 +1122,7 @@ const A={
   async addMaint(x){if(LIVE){const r=await YDB.sb.from("maintenance").insert({machine_id:x.machine_id,title:x.title,due_date:x.due_date||null,due_hours:x.due_hours||null,note:x.note||""});if(r.error)throw new Error(r.error.message);return load()}
     S.maintenance.unshift(Object.assign({id:"mt"+Date.now(),status:"due",done_at:null,note:"",created_at:Date.now()},x))},
   async doneMaint(x){if(LIVE){const r=await YDB.sb.from("maintenance").update({status:"done",done_at:new Date().toISOString()}).eq("id",x.id);if(r.error)throw new Error(r.error.message);return load()}x.status="done";x.done_at=Date.now()},
-  async setHours(m,h){if(LIVE){const r=await YDB.sb.from("machines").update({hours_meter:h}).eq("id",m.id);if(r.error)throw new Error(r.error.message);return load()}m.hours_meter=h},
+  async setHours(m,h){if(LIVE){await YDB.rpc("admin_log_hours",{p_machine:m.id,p_hours:h});return load()}m.hours_meter=h},
   async readNotifs(list){const ids=list.filter(n=>!n.read_at).map(n=>n.id);if(!ids.length)return;list.forEach(n=>n.read_at=n.read_at||Date.now());if(LIVE){try{await YDB.markRead(ids)}catch(e){}}}
 };
 const STD_MS=["Site visit & survey","Design & permits","Foundation","Ground floor structure","First floor structure","Roof & services","Finishing & handover"];
@@ -2287,7 +2285,7 @@ function openMachine(id,prefill){
   const mt=S.maintenance.filter(x=>x.machine_id===id).sort((a,b)=>(a.status==="done")-(b.status==="done")||(pdate(a.due_date)||9e15)-(pdate(b.due_date)||9e15));
   openDrawer(`<div class="dh"><div class="item"><span class="th" style="width:56px;height:56px;border-radius:14px">${thumb(m.id,m.name)}</span><div><span class="mono">${esc(m.code)}</span><h2 id="dTitle" style="margin-top:2px">${esc(m.name)}</h2></div></div>${xBtn}</div>
   <div class="db">
-    <div class="box row-flex" style="flex-wrap:wrap"><div><div class="lbl">Hours meter</div><div class="hint">Update after a service or when the driver reports it.</div></div><div class="row-flex" style="gap:8px"><input class="inp num" id="hmV" value="${m.hours_meter||0}" inputmode="decimal" aria-label="Hours meter" ${can("catalog")?"":"disabled"}><button class="btn sm" id="hmS" ${gate("catalog")}>Save</button></div></div>
+    <div class="box row-flex" style="flex-wrap:wrap"><div><div class="lbl">Hours meter</div><div class="hint">Update after a service or when the driver reports it.</div></div><div class="row-flex" style="gap:8px"><input class="inp num" id="hmV" value="${m.hours_meter||0}" inputmode="decimal" aria-label="Hours meter" ${(can("fleet")||can("catalog"))?"":"disabled"}><button class="btn sm" id="hmS" ${gate(can("fleet")?"fleet":"catalog")}>Save</button></div></div>
     <div><div class="sec-t">Maintenance</div><div class="stack">${mt.length?mt.map(x=>{const t=maintDue(x,m);return `<div class="box row-flex" style="padding:10px 12px"><div style="min-width:0"><b style="font-weight:600">${esc(x.title)}</b><div class="hint">${x.status==="done"?"Done "+(x.done_at?dmy(x.done_at):""):[x.due_date?"Due "+dlong(pdate(x.due_date)):"",x.due_hours!=null?"at "+x.due_hours+" h":""].filter(Boolean).join(" · ")||"No due date"}</div></div>
       ${x.status==="done"?tone("Done","ok"):`<span class="row-flex" style="gap:8px">${tone(t==="crit"?"Overdue":t==="warn"?"Due soon":"Planned",t)}<button class="btn sm" data-done="${esc(x.id)}" ${gate("fleet")}>Mark done</button></span>`}</div>`}).join(""):`<div class="hint">No maintenance recorded.</div>`}</div></div>
     <form class="box stack" id="mtF" novalidate ${can("fleet")?"":"hidden"}><div class="lbl">Add maintenance item</div>

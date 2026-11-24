@@ -1235,9 +1235,9 @@ async function loadRatings(force){
   if(!force&&Date.now()-ratingsAt<60000)return;
   ratingsBusy=true;ratingsAt=Date.now();
   try{
-    const {data,error}=await YDB.sb.from("ratings").select("*").eq("driver_id",ME.id).order("created_at",{ascending:false}).limit(RATE_LIMIT);
+    const {data,error}=await YDB.sb.from("ratings").select("*, orders(ref)").eq("driver_id",ME.id).order("created_at",{ascending:false}).limit(RATE_LIMIT);
     if(error)throw error;
-    ratings=(data||[]).map(r=>({stars:Math.max(1,Math.min(5,Math.round(+r.stars||0))),at:Date.parse(r.created_at),comment:r.comment||"",orderId:r.order_id}));ratingsErr=false;
+    ratings=(data||[]).map(r=>({stars:Math.max(1,Math.min(5,Math.round(+r.stars||0))),at:Date.parse(r.created_at),comment:r.comment||"",orderId:r.order_id,ref:r.orders&&r.orders.ref||""}));ratingsErr=false;
   }catch(_){ratingsErr=true}
   ratingsBusy=false;
   if(cur==="earn")renderRating();
