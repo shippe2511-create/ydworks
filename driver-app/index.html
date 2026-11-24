@@ -404,6 +404,14 @@ html[lang="dv"] .rv .ref,html[lang="dv"] .rv-top small{letter-spacing:0}
 .upd a.big-btn{text-decoration:none;margin-top:26px}
 .upd small{display:block;color:var(--mute);font-size:13px;margin-top:12px;text-align:center}
 html[lang="dv"] .upd h1{letter-spacing:0}
+/* ---- sign-in: phone & PIN ---- */
+.seg.seg3{grid-template-columns:repeat(3,1fr)}
+.seg button{min-width:0;text-align:center;line-height:1.2}
+.pin-in{position:relative;direction:ltr}
+.pin-in .code-in{padding-left:14px;padding-right:84px;letter-spacing:.32em}
+.pin-eye{position:absolute;top:50%;transform:translateY(-50%);right:6px;min-width:70px;min-height:44px;border:0;border-radius:11px;background:var(--surface-2);color:var(--ink);font:500 13px var(--body);padding:0 10px}
+.pin-hint{margin-top:4px;font-size:13.5px}
+.pin-call{text-decoration:none;margin-top:12px;min-height:52px;padding:12px}
 html[lang="dv"] .upd .u-ver,html[lang="dv"] .dmsg .lbl{letter-spacing:0}
 </style>
 <svg width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><defs>
@@ -545,10 +553,16 @@ html[lang="dv"] .upd .u-ver,html[lang="dv"] .dmsg .lbl{letter-spacing:0}
     <div class="auth-body">
       <h1 id="aTitle">YD Driver</h1>
       <p class="sub" id="aSub">Sign in with the driver account the YD Works counter gave you.</p>
-      <div class="seg seg2" id="aSeg" role="group" aria-label="Sign-in method" hidden style="margin-top:18px">
-        <button type="button" data-mode="phone" aria-pressed="true"><svg aria-hidden="true" width="16" height="16"><use href="#i-phone"/></svg><span data-i18n="auth.tabPhone">Phone</span></button>
-        <button type="button" data-mode="email" aria-pressed="false"><svg aria-hidden="true" width="16" height="16"><use href="#i-user"/></svg><span data-i18n="auth.tabEmail">Email</span></button>
+      <div class="seg seg2" id="aSeg" role="group" aria-label="Sign-in method" style="margin-top:18px">
+        <button type="button" data-mode="pin" aria-pressed="true"><span data-i18n="auth.tabPin">Phone &amp; PIN</span></button>
+        <button type="button" data-mode="email" aria-pressed="false"><span data-i18n="auth.tabEmail">Email</span></button>
+        <button type="button" data-mode="phone" aria-pressed="false" hidden><span data-i18n="auth.tabSms">SMS code</span></button>
       </div>
+      <form id="pinForm" novalidate>
+        <div class="field"><label class="lbl" for="pPhone" data-i18n="auth.mobile">Mobile number</label><div class="phone-in"><span>+960</span><input id="pPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="7XX XXXX"></div></div>
+        <div class="field"><label class="lbl" for="pPin" data-i18n="auth.pin">6-digit PIN</label><div class="pin-in"><input class="inp code-in" id="pPin" type="password" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="••••••"><button class="pin-eye" id="pEye" type="button" aria-pressed="false">Show</button></div></div>
+        <button class="big-btn amber" id="pGo" type="submit" data-i18n="auth.go">Sign in</button>
+      </form>
       <form id="phoneForm" novalidate hidden>
         <div class="field"><label class="lbl" for="aPhone" data-i18n="auth.mobile">Mobile number</label><div class="phone-in"><span>+960</span><input id="aPhone" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="8" placeholder="7XX XXXX"></div></div>
         <button class="big-btn amber" id="aSend" type="submit" data-i18n="auth.send">Send code</button>
@@ -560,7 +574,7 @@ html[lang="dv"] .upd .u-ver,html[lang="dv"] .dmsg .lbl{letter-spacing:0}
         <button class="linkbtn" id="aResend" type="button"></button>
         <button class="linkbtn" id="aChange" type="button" style="margin-top:0" data-i18n="auth.change">Change number</button>
       </form>
-      <form id="authForm" novalidate>
+      <form id="authForm" novalidate hidden>
         <div class="field"><label class="lbl" for="aEmail" data-i18n="auth.email">Email</label><input class="inp" id="aEmail" type="email" autocomplete="username" placeholder="you@yd-mv.com" data-ltr></div>
         <div class="field"><label class="lbl" for="aPass" data-i18n="auth.pass">Password</label><input class="inp" id="aPass" type="password" autocomplete="current-password"></div>
         <button class="big-btn amber" id="aGo" type="submit" data-i18n="auth.go">Sign in</button>
@@ -579,6 +593,10 @@ html[lang="dv"] .upd .u-ver,html[lang="dv"] .dmsg .lbl{letter-spacing:0}
       </form>
       <p class="auth-err" id="aErr" role="alert"></p>
       <p class="auth-ok" id="aOk" role="status"></p>
+      <div id="pinHelp">
+        <p class="sub pin-hint" data-i18n="auth.pinHint">Your manager gives you a PIN. Forgot it? Ask the counter to reset it.</p>
+        <a class="big-btn ghost pin-call" id="pCall" href="tel:+9609920202"><svg aria-hidden="true"><use href="#i-phone"/></svg><span data-i18n="callBase">Call counter</span></a>
+      </div>
       <div class="authfoot">
         <button class="linkbtn" id="aDemo" type="button" data-i18n="auth.demo">Explore the demo instead</button>
         <button class="linkbtn small" id="aPrivacy" type="button" data-legal="privacy" data-i18n="auth.privacy">Privacy</button>
@@ -677,6 +695,8 @@ const STR={en:{
   "toast.acceptedQueued":"Job accepted · your last delivery will upload when you're back online",
   "msg.lbl":"From YD Works","msg.close":"Dismiss message","pod.photoOpt":"Add a photo of the unloaded materials (optional)","veh.inspSubOpt":"Walk around {unit} before your first job.",
   "gate.h":"Do today's vehicle check first","gate.p":"YD Works asks for the daily vehicle check before you accept jobs. {n}/{total} items passed.","gate.go":"Do check now","gate.later":"Not now",
+  "auth.tabPin":"Phone & PIN","auth.tabSms":"SMS code","auth.pinSub":"Sign in with your mobile number and the PIN your manager gave you.","auth.pin":"6-digit PIN","auth.pinShow":"Show","auth.pinHide":"Hide","auth.pinShowAria":"Show PIN","auth.pinHideAria":"Hide PIN",
+  "auth.pinHint":"Your manager gives you a PIN. Forgot it? Ask the counter to reset it.","err.pin":"Enter your 6-digit PIN","err.pinLogin":"Phone number or PIN is wrong.",
   "upd.h":"Update YD Driver","upd.p":"This version of YD Driver is no longer supported. Install the latest version to keep receiving jobs.","upd.ver":"Your version {have} · needed {need}","upd.call":"Call the counter","upd.help":"Not sure how? Call the counter and we'll help."
 },dv:{
   "tab.today":"މިއަދު","tab.jobs":"މަސައްކަތް","tab.vehicle":"ގާޑި","tab.earn":"އާމްދަނީ",
@@ -730,6 +750,8 @@ const STR={en:{
   "toast.acceptedQueued":"މަސައްކަތް ނެގިއްޖެ · ފަހުގެ ޑެލިވަރީ އިންޓަނެޓް ލިބުމުން އަޕްލޯޑް ވާނެ",
   "msg.lbl":"YD Works ގެ މެސެޖު","msg.close":"މެސެޖު ފޮރުވާ","pod.photoOpt":"ބާލާފައިވާ މުދަލުގެ ފޮޓޯއެއް ނަގާ (ބޭނުންނަމަ)","veh.inspSubOpt":"ފުރަތަމަ މަސައްކަތުގެ ކުރިން {unit} ވަށައިގެން ބައްލަވާ.",
   "gate.h":"ފުރަތަމަ މިއަދުގެ ގާޑީގެ ޗެކްކުރުން ނިންމާ","gate.p":"މަސައްކަތް ނެގުމުގެ ކުރިން ދުވަހުގެ ގާޑީގެ ޗެކްކުރުން ނިންމަން ޖެހޭ. {n}/{total} ޗެކް ފާސްވެއްޖެ.","gate.go":"މިހާރު ޗެކްކުރޭ","gate.later":"މިހާރެއް ނޫން",
+  "auth.tabPin":"ފޯނާއި ޕިން","auth.tabSms":"އެސްއެމްއެސް ކޯޑު","auth.pinSub":"ތިބާގެ މޯބައިލް ނަންބަރާއި މެނޭޖަރު ދީފައިވާ ޕިން ޖައްސަވައިގެން ސައިން އިން ކުރައްވާ.","auth.pin":"6 ނަންބަރުގެ ޕިން","auth.pinShow":"ދައްކާ","auth.pinHide":"ފޮރުވާ","auth.pinShowAria":"ޕިން ދައްކާ","auth.pinHideAria":"ޕިން ފޮރުވާ",
+  "auth.pinHint":"ޕިން ދެނީ ތިބާގެ މެނޭޖަރު. ހަނދާން ނެތިއްޖެނަމަ، ރީސެޓްކޮށްދިނުމަށް ކައުންޓަރާ ގުޅުއްވާ.","err.pin":"6 ނަންބަރުގެ ޕިން ޖައްސަވާ","err.pinLogin":"ފޯނު ނަންބަރު ނުވަތަ ޕިން ރަނގަޅެއް ނޫން.",
   "upd.h":"YD ޑްރައިވަރ އަޕްޑޭޓްކުރޭ","upd.p":"YD ޑްރައިވަރގެ މި ވަރޝަން މިހާރު ބޭނުމެއް ނުކުރެވޭނެ. މަސައްކަތް ލިބެން ކުރިއަށް ދިއުމަށް އެންމެ ފަހުގެ ވަރޝަން އިންސްޓޯލްކުރޭ.","upd.ver":"ތިބާގެ ވަރޝަން {have} · ބޭނުންވަނީ {need}","upd.call":"ކައުންޓަރަށް ގުޅާ","upd.help":"ނޭނގޭނަމަ ކައުންޓަރަށް ގުޅުއްވާ، އެހީތެރިވެދޭނަން."
 }};
 const I18N=window.YDUI&&YDUI.i18n;
@@ -1553,13 +1575,19 @@ async function liveAdvance(a){
 }
 
 /* ---------- sign-in: phone (SMS code) or email ---------- */
-let authMode=CFG.phoneLogin?"phone":"email",authSub=null,phoneStep="num",phoneNum="",resendLeft=0,resendT=null;   // authSub: null | "forgot" | "recovery"
+// sign-in modes: "pin" (phone + PIN from the manager, default), "email", and "phone" (SMS code; only when CFG.phoneLogin is on)
+const LOGIN_KEY="yd-driver-login";   // remembers the last-used mode and phone number (never the PIN)
+const MODES=()=>CFG.phoneLogin?["pin","email","phone"]:["pin","email"];
+const loginPref=ls.get(LOGIN_KEY,{})||{};
+let authMode=MODES().includes(loginPref.mode)?loginPref.mode:"pin",authSub=null,phoneStep="num",phoneNum="",resendLeft=0,resendT=null;   // authSub: null | "forgot" | "recovery"
 function showAuth(on){$("#auth").hidden=!on;if(on)renderAuthMode()}
 function renderAuthMode(keepErr){
   const sub=authSub;
-  $("#aSeg").hidden=!CFG.phoneLogin||!!sub;
+  $("#aSeg").hidden=!!sub;
   $("#aSeg").setAttribute("aria-label",t("auth.method"));
-  $$("#aSeg button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.mode===authMode)));
+  $("#aSeg").className="seg "+(CFG.phoneLogin?"seg3":"seg2");
+  $$("#aSeg button").forEach(b=>{b.hidden=!MODES().includes(b.dataset.mode);b.setAttribute("aria-pressed",String(b.dataset.mode===authMode))});
+  $("#pinForm").hidden=$("#pinHelp").hidden=!!sub||authMode!=="pin";
   $("#authForm").hidden=!!sub||authMode!=="email";
   $("#phoneForm").hidden=!!sub||authMode!=="phone"||phoneStep!=="num";
   $("#codeForm").hidden=!!sub||authMode!=="phone"||phoneStep!=="code";
@@ -1567,14 +1595,40 @@ function renderAuthMode(keepErr){
   $("#newPassForm").hidden=sub!=="recovery";
   $("#aDemo").hidden=sub==="recovery";
   $("#aTitle").textContent=t(sub==="forgot"?"auth.forgotH":sub==="recovery"?"auth.newH":"auth.title");
-  $("#aSub").textContent=t(sub==="forgot"?"auth.forgotSub":sub==="recovery"?"auth.newSub":authMode==="phone"?"auth.phoneSub":"auth.sub");
+  $("#aSub").textContent=t(sub==="forgot"?"auth.forgotSub":sub==="recovery"?"auth.newSub":authMode==="phone"?"auth.phoneSub":authMode==="pin"?"auth.pinSub":"auth.sub");
+  renderPinEye();$("#pCall").href=$("#ctCall").href;$("#pCall").setAttribute("aria-label",t("ct.callAria")+" "+fmtLocal(HOTLINE));
   $("#aSentTo").innerHTML=t("auth.sentTo",{phone:ltr("+960 "+phoneNum.slice(0,3)+" "+phoneNum.slice(3))});
   renderResend();
   if(!keepErr){$("#aErr").textContent="";$("#aOk").textContent="";$("#fDone").textContent=""}
 }
 function renderResend(){const b=$("#aResend");b.disabled=resendLeft>0;b.textContent=resendLeft>0?t("auth.resendIn",{s:resendLeft}):t("auth.resend")}
 function startResend(){resendLeft=30;renderResend();clearInterval(resendT);resendT=setInterval(()=>{resendLeft--;renderResend();if(resendLeft<=0)clearInterval(resendT)},1000)}
-$$("#aSeg button").forEach(b=>b.addEventListener("click",()=>{authMode=b.dataset.mode;renderAuthMode();(authMode==="phone"?(phoneStep==="num"?$("#aPhone"):$("#aCode")):$("#aEmail")).focus()}));
+function saveLogin(patch){ls.set(LOGIN_KEY,Object.assign({},ls.get(LOGIN_KEY,{})||{},patch))}
+$$("#aSeg button").forEach(b=>b.addEventListener("click",()=>{authMode=b.dataset.mode;saveLogin({mode:authMode});renderAuthMode();(authMode==="pin"?($("#pPhone").value?$("#pPin"):$("#pPhone")):authMode==="phone"?(phoneStep==="num"?$("#aPhone"):$("#aCode")):$("#aEmail")).focus()}));
+/* phone & PIN */
+const fmtPhone=d=>d.length>3?d.slice(0,3)+" "+d.slice(3):d;
+function phoneDigits(v){let d=String(v||"").replace(/\D/g,"");if(d.length>7&&d.startsWith("960"))d=d.slice(3);return d.slice(0,7)}
+if(loginPref.phone)$("#pPhone").value=fmtPhone(phoneDigits(loginPref.phone));
+$("#pPhone").addEventListener("input",e=>{e.target.value=fmtPhone(phoneDigits(e.target.value))});
+$("#pPin").addEventListener("input",e=>{e.target.value=e.target.value.replace(/\D/g,"").slice(0,6)});
+function renderPinEye(){const shown=$("#pPin").type==="text",b=$("#pEye");b.textContent=t(shown?"auth.pinHide":"auth.pinShow");b.setAttribute("aria-pressed",String(shown));b.setAttribute("aria-label",t(shown?"auth.pinHideAria":"auth.pinShowAria"))}
+$("#pEye").addEventListener("click",()=>{const i=$("#pPin");i.type=i.type==="password"?"text":"password";renderPinEye();i.focus()});
+// no backend (DEMO): any valid phone + 6 digits continues as the demo driver
+const backendLive=()=>!!(window.YDB&&YDB.sb);
+$("#pinForm").addEventListener("submit",async e=>{
+  e.preventDefault();const err=$("#aErr"),b=$("#pGo");err.textContent="";
+  const d=phoneDigits($("#pPhone").value),pin=$("#pPin").value.replace(/\D/g,"");
+  if(!/^[79]\d{6}$/.test(d)){err.textContent=t("err.phone");$("#pPhone").focus();return}
+  if(!/^\d{6}$/.test(pin)){err.textContent=t("err.pin");$("#pPin").focus();return}
+  if(b.disabled)return;b.disabled=true;
+  try{
+    if(!backendLive()){saveLogin({mode:"pin",phone:d});$("#pPin").value="";showAuth(false);b.disabled=false;return}
+    await YDB.signInPhonePin(d,pin);
+    saveLogin({mode:"pin",phone:d});$("#pPin").value="";$("#pPin").type="password";
+    await enterLive();
+  }catch(x){err.textContent=/invalid login credentials|invalid.*(grant|credentials)/i.test((x&&x.message)||"")?t("err.pinLogin"):((x&&x.message)||t("err.pinLogin"));try{err.scrollIntoView({block:"nearest"})}catch(_){}}
+  b.disabled=false;
+});
 $("#aPhone").addEventListener("input",e=>{const d=e.target.value.replace(/\D/g,"").slice(0,7);e.target.value=d.length>3?d.slice(0,3)+" "+d.slice(3):d});
 $("#aCode").addEventListener("input",e=>{e.target.value=e.target.value.replace(/\D/g,"").slice(0,6);if(e.target.value.length===6)$("#codeForm").requestSubmit()});
 async function sendCode(){
@@ -1628,7 +1682,8 @@ $("#newPassForm").addEventListener("submit",async e=>{
 });
 $("#authForm").addEventListener("submit",async e=>{
   e.preventDefault();const err=$("#aErr");$("#aGo").disabled=true;err.textContent="";
-  try{await YDB.signIn($("#aEmail").value.trim(),$("#aPass").value);await enterLive()}
+  try{if(!backendLive()){saveLogin({mode:"email"});showAuth(false);$("#aGo").disabled=false;return}
+    await YDB.signIn($("#aEmail").value.trim(),$("#aPass").value);saveLogin({mode:"email"});await enterLive()}
   catch(x){err.textContent=x.message==="Invalid login credentials"?t("err.login"):x.message}
   $("#aGo").disabled=false;
 });
@@ -1651,6 +1706,7 @@ async function enterLive(){
   ratings=null;ratingsAt=0;loadRatings(true);
   loadVehicleLive();flush();go("today");
 }
+renderAuthMode();
 (async function boot(){
   if(!window.YDB)return;
   const ok=await YDB.init();if(!ok)return;

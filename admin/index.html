@@ -439,6 +439,23 @@ textarea.inp{min-height:80px;resize:vertical}
 .pg-head > div{display:flex;flex-direction:column;gap:2px;min-width:0}
 .card:has(> #addDrv){scroll-margin-top:96px}
 @media (max-width:760px){.pg-head{flex-direction:column;align-items:stretch}.pg-head .btn{width:100%}}
+/* driver sign-in: phone + PIN */
+.mode-seg{display:flex;flex-wrap:wrap;align-self:flex-start;max-width:100%}
+.mode-seg button{flex:1 1 auto}
+.pin-f{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;max-width:640px}
+.pin-f[hidden],#asModeW[hidden]{display:none}
+.ph-in{display:flex;align-items:stretch}
+.ph-in span{display:flex;align-items:center;padding:0 10px;border:1px solid var(--line-2);border-right:0;border-radius:10px 0 0 10px;background:var(--surface-2);font:500 14px var(--mono);color:var(--mute)}
+.ph-in .inp{border-radius:0 10px 10px 0;font-family:var(--mono);min-width:0}
+.pin-box{border:1px solid var(--line-2);border-radius:16px;padding:16px;text-align:center;background:var(--surface)}
+.pin-d{font:600 44px/1.1 var(--mono);letter-spacing:.12em;margin-top:8px;color:var(--ink)}
+.mgr-row{border-top:1px dashed var(--line);padding-top:10px;margin-top:2px}
+@media (max-width:760px){.pin-f{grid-template-columns:minmax(0,1fr)}.mode-seg{align-self:stretch}.mode-seg button{white-space:normal;flex:1 1 100%}.pin-d{font-size:40px}}
+@media print{
+  body.print-pin > *:not(#drawer){display:none!important}
+  body.print-pin #drawer{position:static;transform:none;box-shadow:none;width:auto;height:auto;background:#fff;color:#000}
+  body.print-pin #drawer .df,body.print-pin #drawer .x,body.print-pin #pinMsg{display:none!important}
+}
 /* ── Website & apps ── */
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .ap-top{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;justify-content:space-between}
@@ -1103,6 +1120,20 @@ const A={
     if(other){logDemo("update","profiles",other.id,other.full_name,{unit_code:{from:other.unit_code||null,to:old?old.code:null},unit_name:{from:other.unit_name||null,to:old?old.name:null}});other.unit_code=old?old.code:null;other.unit_name=old?old.name:null}
     logDemo("update","profiles",d.id,d.full_name,{unit_code:{from:d.unit_code||null,to:m?m.code:null},unit_name:{from:d.unit_name||null,to:m?m.name:null}});d.unit_code=m?m.code:null;d.unit_name=m?m.name:null},
   async lead(l,status){if(LIVE){await YDB.rpc("admin_update_lead",{p_lead:l.id,p_status:status});return load()}l.status=status},
+  /* drivers without email: phone + 6-digit PIN (staff-accounts function on the server) */
+  async createDriver(name,phone,code){const m=code?S.machines.find(x=>x.code===code):null,o=m&&drvOf(m.code);
+    if(LIVE){if(o)await A.vehicle(o,null);const r=await YDB.createDriver(name,phone,code||null);await load();return Object.assign({phone},r||{})}
+    if(S.drivers.some(d=>phoneDigits(d.phone)===phoneDigits(phone)))throw new Error("A driver with this phone number already exists.");
+    if(o)await A.vehicle(o,null);
+    const id="d"+Date.now(),pin=newPin();
+    S.drivers.push({id,full_name:name,unit_code:m?m.code:null,unit_name:m?m.name:null,is_online:false,rating:null,role:"driver",email:"",phone,login:"pin",created_at:Date.now()});
+    logDemo("insert","profiles",id,name,Object.assign({role:{from:null,to:"driver"},phone:{from:null,to:phone}},m?{unit_code:{from:null,to:m.code}}:{}));
+    return{driver_id:id,phone,pin}},
+  async resetPin(d){if(LIVE)return Object.assign({phone:d.phone},await YDB.resetDriverPin(d.id));
+    if(d.login!=="pin")throw new Error(`${d.full_name} signs in with an email address (${d.email||"their app account"}), not a PIN. They can reset their password from the sign-in screen.`);
+    logDemo("update","profiles",d.id,d.full_name,{pin:{from:"••••••",to:"new PIN"}});return{driver_id:d.id,phone:d.phone,pin:newPin()}},
+  async disableDriver(d){if(LIVE){await YDB.disableDriver(d.id);return load()}
+    logDemo("update","profiles",d.id,d.full_name,{role:{from:"driver",to:"removed"}});S.drivers=S.drivers.filter(x=>x!==d)},
   async role(email,role,code,name){if(LIVE){await YDB.rpc("admin_set_role",{p_email:email,p_role:role,p_unit_code:code||null,p_unit_name:name||null});return load()}
     // same rules as admin_set_role
     if(!ROLES[role])throw new Error("Unknown role");
@@ -1682,13 +1713,16 @@ function vDrivers(){
       <div class="veh">${m?`<span class="th">${thumb(m.id,m.name)}</span><div style="min-width:0"><b class="mono">${esc(m.code)}</b><span>${esc(m.name)}</span></div>`:`<span class="th"><svg><use href="#i-truck"/></svg></span><div style="min-width:0"><b class="mono">${esc(d.unit_code||"No vehicle")}</b><span>${esc(d.unit_name||(d.unit_code?"Not in the fleet list":"Pick one from the fleet"))}</span></div>`}<button class="btn sm" data-veh-d="${esc(d.id)}" ${gate("team")}>Vehicle</button></div>
       <div class="rate-row" data-rate="${esc(d.id)}">${avg!=null?`${starsHtml(avg)}<b>${avg.toFixed(1)}</b><span>${R.n?`${R.n} rating${R.n>1?"s":""}`:"no app ratings yet"}</span>`:`<span>No ratings yet</span>`}${lowN?tone(lowN+" low","crit"):""}</div>
       <div class="stats"><div><span>Today</span><b>${today.length}</b></div><div><span>Earned</span><b>${kfmt(today.reduce((s,o)=>s+(o.earning||0),0))}</b></div><div><span>Rating</span><b>${avg!=null?avg.toFixed(1):"—"}</b></div></div>
-      <div class="act-row">${j?`<button class="btn sm" data-order="${j.ref}">Current job · ${j.ref}</button>`:""}<button class="btn sm" data-drv="${esc(d.id)}"><svg><use href="#i-star"/></svg>Ratings</button><span style="flex:1"></span>${callBtn(d.phone,"Call")}</div></div>`}).join("")||`<div class="card empty stack" style="align-items:center">No drivers yet.${mgr?addBtn:""}</div>`}</div>
+      <div class="act-row">${j?`<button class="btn sm" data-order="${j.ref}">Current job · ${j.ref}</button>`:""}<button class="btn sm" data-drv="${esc(d.id)}"><svg><use href="#i-star"/></svg>Ratings</button><span style="flex:1"></span>${callBtn(d.phone,"Call")}</div>
+      ${mgr?`<div class="act-row mgr-row"><button class="btn sm" data-pin-d="${esc(d.id)}"><svg><use href="#i-shield"/></svg>Reset PIN</button><button class="btn sm danger" data-rm-d="${esc(d.id)}"><svg><use href="#i-trash"/></svg>Remove driver</button></div>`:""}</div>`}).join("")||`<div class="card empty stack" style="align-items:center">No drivers yet.${mgr?addBtn:""}</div>`}</div>
   ${mgr?`<div class="grid g-main">
-    <div class="card"><div class="card-h"><div><h2>Add a driver</h2><div class="sub">They sign up in the YD Works app first, then you turn the account into a driver account and give them a vehicle.</div></div></div>
+    <div class="card"><div class="card-h"><div><h2>Add a driver</h2><div class="sub">Most drivers sign in with their phone number and a PIN you give them. No email needed.</div></div></div>
       <form class="card-b stack" id="addDrv" novalidate style="gap:14px">
-        <div class="field" style="max-width:420px"><label for="aEm">Their account email</label><input class="inp" id="aEm" type="email" placeholder="driver@example.com" autocomplete="off"></div>
-        <div><div class="sec-t">Vehicle</div><div id="aPick">${vehPicker(ADDV,null)}</div></div>
-        <div class="row-flex" style="flex-wrap:wrap"><span class="hint" id="aErr" style="color:var(--crit)"></span><button class="btn pri" type="submit"><svg><use href="#i-plus"/></svg>Make driver</button></div>
+        ${modeSeg("adMode",addMode)}
+        ${pinFields("a",addMode!=="pin")}
+        <div class="field" id="aEmW" style="max-width:420px" ${addMode==="pin"?"hidden":""}><label for="aEm">Their account email</label><input class="inp" id="aEm" type="email" placeholder="driver@example.com" autocomplete="off" aria-describedby="aEmH"><span class="hint" id="aEmH">They sign up in the YD Works app first; this turns that account into a driver account.</span></div>
+        <div><div class="sec-t">Vehicle <span class="muted" style="text-transform:none;letter-spacing:0">· optional</span></div><div id="aPick">${vehPicker(ADDV,null)}</div></div>
+        <div class="row-flex" style="flex-wrap:wrap"><span class="hint" id="aErr" role="alert" style="color:var(--crit)"></span><button class="btn pri" type="submit" id="aGo"><svg><use href="#i-plus"/></svg>${addMode==="pin"?"Create driver":"Make driver"}</button></div>
       </form></div>
     <div class="card"><div class="card-h"><div><h2>Staff &amp; roles</h2><div class="sub">${S.staff.length} staff · ${S.staff.filter(x=>x.role==="admin").length} managers · ${S.drivers.length} drivers</div></div><a class="btn sm" href="#staff">Manage</a></div>
       <div>${S.staff.slice().sort((a,b)=>STAFF.indexOf(a.role)-STAFF.indexOf(b.role)).slice(0,6).map(x=>`<div class="team-row"><span class="av">${ini(x.full_name||x.email)}</span><div class="tx"><b>${esc(x.full_name||"—")}${x.me?` <small class="muted" style="font-weight:400">(you)</small>`:""}</b><span>${esc(x.email||"")}</span></div>${rolePill(x.role)}</div>`).join("")}</div></div>
@@ -1701,9 +1735,20 @@ function wDrivers(){
   $$("[data-veh-d]").forEach(b=>b.onclick=()=>openVehicle(b.dataset.vehD));
   if(!can("team"))return;
   $$("[data-add-drv]").forEach(b=>b.onclick=()=>{const f=$("#addDrv");if(!f)return;const rm=matchMedia("(prefers-reduced-motion: reduce)").matches;
-    f.closest(".card").scrollIntoView({behavior:rm?"auto":"smooth",block:"start"});$("#aEm").focus({preventScroll:true})});
+    f.closest(".card").scrollIntoView({behavior:rm?"auto":"smooth",block:"start"});$(addMode==="pin"?"#aNm":"#aEm").focus({preventScroll:true})});
+  $$("[data-pin-d]").forEach(b=>b.onclick=()=>openResetPin(b.dataset.pinD));
+  $$("[data-rm-d]").forEach(b=>b.onclick=()=>openRemoveDriver(b.dataset.rmD));
   wirePicker($("#aPick"),v=>ADDV=v);
-  $("#addDrv").addEventListener("submit",async e=>{e.preventDefault();const em=$("#aEm").value.trim(),err=$("#aErr");err.textContent="";if(!emailOk(em)){err.textContent="Enter the email they signed up with.";$("#aEm").focus();return}
+  $$("#adMode [data-mode]").forEach(b=>b.onclick=()=>{addMode=b.dataset.mode;$$("#adMode [data-mode]").forEach(x=>x.setAttribute("aria-pressed",x===b));$("#aPinW").hidden=addMode!=="pin";$("#aEmW").hidden=addMode==="pin";$("#aErr").textContent="";
+    $("#aGo").lastChild.textContent=addMode==="pin"?"Create driver":"Make driver"});
+  $("#addDrv").addEventListener("submit",async e=>{e.preventDefault();const err=$("#aErr");err.textContent="";
+    if(addMode==="pin"){const nm=$("#aNm").value.trim().replace(/\s+/g," "),ph=readPhone($("#aPh").value);
+      if(nm.length<2){err.textContent="Enter the driver's full name.";$("#aNm").focus();return}
+      if(!ph){err.textContent="Enter a 7-digit Maldives mobile number, like 777 1234.";$("#aPh").focus();return}
+      const b=$("#aGo");b.disabled=true;
+      try{const r=await A.createDriver(nm,ph,ADDV||null),code=ADDV||null;ADDV="";trk("driver_created",{login:"pin"});render();openPin({name:nm,phone:r.phone||ph,pin:String(r.pin),unit_code:code})}
+      catch(x){err.textContent=x.message||String(x);b.disabled=false}return}
+    const em=$("#aEm").value.trim();if(!emailOk(em)){err.textContent="Enter the email they signed up with.";$("#aEm").focus();return}
     try{const m=ADDV?S.machines.find(x=>x.code===ADDV):null,o=m&&drvOf(m.code);
       if(o&&(o.email||"").toLowerCase()!==em.toLowerCase())await A.vehicle(o,null);
       await A.role(em,"driver",m?m.code:null,m?m.name:null);toast(em+" is now a driver"+(m?" · "+m.code:""));ADDV="";render()}catch(x){err.textContent=x.message}});
@@ -1894,6 +1939,49 @@ function openVehicle(id){
   $("#vhGo").onclick=async()=>{const b=$("#vhGo");b.disabled=true;try{await A.vehicle(d,sel||null);const m=sel&&S.machines.find(x=>x.code===sel);toast(m?`${d.full_name} · ${m.code} ${m.name}`:`${d.full_name} has no vehicle now`);closeDrawer();render()}catch(e){$("#vhErr").textContent=e.message||String(e);b.disabled=false}};
 }
 
+/* ═════════════ drivers with phone + PIN (no email) ═════════════ */
+const newPin=()=>{const a=new Uint32Array(1);(window.crypto||{getRandomValues:x=>{x[0]=Math.random()*4294967296;return x}}).getRandomValues(a);return String(a[0]%1000000).padStart(6,"0")};
+const mvPhone=p=>{const d=phoneDigits(p);return d.startsWith("960")&&d.length===10?"+960 "+d.slice(3,6)+" "+d.slice(6):d?"+"+d:String(p||"")};
+// a Maldives mobile number: 7 digits (spaces and a 960 / +960 prefix are fine)
+function readPhone(v){let d=String(v||"").replace(/\D/g,"");if(d.length===10&&d.startsWith("960"))d=d.slice(3);return /^[3-9]\d{6}$/.test(d)?d:null}
+let addMode="pin",asMode="pin";
+const modeSeg=(id,mode)=>`<div class="seg mode-seg" id="${id}" role="group" aria-label="How the driver signs in"><button type="button" data-mode="pin" aria-pressed="${mode==="pin"}">Phone + PIN (no email)</button><button type="button" data-mode="email" aria-pressed="${mode==="email"}">Existing app account (email)</button></div>`;
+const pinFields=(px,hidden)=>`<div class="pin-f" id="${px}PinW" ${hidden?"hidden":""}>
+  <div class="field"><label for="${px}Nm">Full name</label><input class="inp" id="${px}Nm" autocomplete="off" maxlength="80" placeholder="e.g. Ibrahim Shareef"></div>
+  <div class="field"><label for="${px}Ph">Phone</label><div class="ph-in"><span aria-hidden="true">+960</span><input class="inp" id="${px}Ph" inputmode="tel" autocomplete="off" maxlength="12" placeholder="777 1234" aria-describedby="${px}PhH"></div><span class="hint" id="${px}PhH">7-digit mobile number. The driver signs in with it and a 6-digit PIN.</span></div></div>`;
+function pinText(r){return `YD Driver sign-in\nPhone: ${mvPhone(r.phone)}\nPIN: ${r.pin}\nOpen the YD Driver app → Phone & PIN.`}
+async function copyText(t){try{await navigator.clipboard.writeText(t);return true}catch(e){const ta=document.createElement("textarea");ta.value=t;ta.setAttribute("readonly","");ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();let ok=false;try{ok=document.execCommand("copy")}catch(_){}ta.remove();return ok}}
+function openPin(r,title){const m=r.unit_code?S.machines.find(x=>x.code===r.unit_code):null,txt=pinText(r);
+  openDrawer(`<div class="dh"><div class="item"><span class="av" style="width:52px;height:52px;font-size:16px">${ini(r.name)}</span><div style="min-width:0"><span class="lbl">${esc(title||"Driver account ready")}</span><h2 id="dTitle" style="margin-top:4px">${esc(r.name)}</h2><div class="mono">${esc(mvPhone(r.phone))}</div></div></div>${xBtn}</div>
+  <div class="db stack" style="gap:16px" id="pinSheet">
+    <div class="pin-box"><span class="lbl">Sign-in PIN</span><div class="pin-d" id="pinDigits" aria-label="PIN ${esc(r.pin.split("").join(" "))}">${esc(r.pin.slice(0,3))}<span> </span>${esc(r.pin.slice(3))}</div></div>
+    <div class="ann warn" role="note"><i></i><span><b>Shown once. Write it down or share it now.</b> The PIN can't be shown again; you can only reset it.</span></div>
+    <div class="lines"><div><span>Name</span><span>${esc(r.name)}</span></div><div><span>Phone</span><span class="mono">${esc(mvPhone(r.phone))}</span></div><div><span>Vehicle</span><span>${m?esc(m.code+" · "+m.name):r.unit_code?esc(r.unit_code):"None yet"}</span></div></div>
+    <p class="hint">The driver opens the YD Driver app, picks <b>Phone &amp; PIN</b> and enters these.</p>
+    <p class="hint" id="pinMsg" role="status"></p></div>
+  <div class="df"><button class="btn pri" id="pinCopy"><svg><use href="#i-doc"/></svg>Copy</button>${navigator.share?`<button class="btn" id="pinShare"><svg><use href="#i-ne"/></svg>Share</button>`:""}<button class="btn" id="pinPrint"><svg><use href="#i-dl"/></svg>Print</button><span style="flex:1"></span><button class="btn" id="pinDone">Done</button></div>`);
+  $("#pinCopy").onclick=async()=>{const ok=await copyText(txt);$("#pinMsg").textContent=ok?"Copied. Paste it in a message to the driver.":"Couldn't copy. Write the PIN down instead.";toast(ok?"Sign-in details copied":"Couldn't copy")};
+  $("#pinShare")&&($("#pinShare").onclick=async()=>{try{await navigator.share({title:"YD Driver sign-in",text:txt})}catch(e){}});
+  $("#pinPrint").onclick=()=>{document.body.classList.add("print-pin");const off=()=>{document.body.classList.remove("print-pin");removeEventListener("afterprint",off)};addEventListener("afterprint",off);try{window.print()}finally{setTimeout(off,1500)}};
+  $("#pinDone").onclick=closeDrawer;setTimeout(()=>{const b=$("#pinCopy");b&&b.focus({preventScroll:true})},60)}
+function openResetPin(id){const d=S.drivers.find(x=>String(x.id)===String(id));if(!d)return;
+  openDrawer(`<div class="dh"><div class="item"><span class="av" style="width:52px;height:52px;font-size:16px">${ini(d.full_name)}</span><div style="min-width:0"><span class="lbl">Reset PIN</span><h2 id="dTitle" style="margin-top:4px">${esc(d.full_name)}</h2><div class="mono">${esc(d.phone?mvPhone(d.phone):"No phone on file")}</div></div></div>${xBtn}</div>
+  <div class="db stack"><p>Make a new 6-digit PIN for ${esc(first(d.full_name))}? The old PIN stops working straight away and they'll need the new one to sign in.</p><p class="hint">Only for drivers who sign in with phone + PIN.</p><p class="hint" id="rpErr" role="alert" style="color:var(--crit)"></p></div>
+  <div class="df"><button class="btn pri" id="rpGo">Make a new PIN</button><span style="flex:1"></span><button class="btn" id="rpC">Cancel</button></div>`);
+  $("#rpC").onclick=closeDrawer;
+  $("#rpGo").onclick=async()=>{const b=$("#rpGo");b.disabled=true;$("#rpErr").textContent="";
+    try{const r=await A.resetPin(d);trk("driver_pin_reset",{});openPin({name:d.full_name,phone:r.phone||d.phone,pin:String(r.pin),unit_code:d.unit_code},"New PIN");render()}
+    catch(e){$("#rpErr").textContent=e.message||String(e);b.disabled=false}}}
+function openRemoveDriver(id){const d=S.drivers.find(x=>String(x.id)===String(id));if(!d)return;const done=S.orders.filter(o=>o.driver_id===d.id).length;
+  openDrawer(`<div class="dh"><div class="item"><span class="av" style="width:52px;height:52px;font-size:16px">${ini(d.full_name)}</span><div style="min-width:0"><span class="lbl">Remove driver</span><h2 id="dTitle" style="margin-top:4px">${esc(d.full_name)}</h2><div class="mono">${esc(d.unit_code||"No vehicle")}</div></div></div>${xBtn}</div>
+  <div class="db stack"><div class="ann crit"><i></i><span><b>${esc(first(d.full_name))} won't be able to sign in to the driver app any more.</b> Their vehicle is freed up for someone else.</span></div>
+    <p>Past jobs${done?` (${done} on record)`:""}, fuel logs, checks and ratings are kept for your reports and the activity log.</p>
+    <p class="hint" id="rmErr" role="alert" style="color:var(--crit)"></p></div>
+  <div class="df"><button class="btn crit" id="rmGo"><svg><use href="#i-trash"/></svg>Remove driver</button><span style="flex:1"></span><button class="btn" id="rmC">Cancel</button></div>`);
+  $("#rmC").onclick=closeDrawer;
+  $("#rmGo").onclick=async()=>{const b=$("#rmGo");b.disabled=true;$("#rmErr").textContent="";
+    try{await A.disableDriver(d);toast(`${d.full_name} removed. Past jobs are kept.`);closeDrawer();render()}catch(e){$("#rmErr").textContent=e.message||String(e);b.disabled=false}}}
+
 /* ═════════════ Staff & roles ═════════════ */
 const MX_AREAS=[["Orders & dispatch","orders",["orders"]],["Assign drivers","assign",["orders"]],["Payments","payments",["payments"]],["Quotes & leads","sales",["quotes","leads"]],["Projects","projects",["projects"]],["Fleet & bookings","fleet",["calendar","health"]],["Catalog & prices","catalog",["fleet"]],["Reports & insights","reports",["reports","insights"]],["Content & pricing settings","settings",["content"]],["Staff & roles","team",["staff"]]];
 const canR=(r,p)=>(PERMS[r]||[]).includes(p);
@@ -1926,10 +2014,12 @@ function vStaff(){
   <div class="grid g-main">
     <div class="card"><div class="card-h"><div><h2>Add staff member</h2><div class="sub">They sign up in the YD Works app (or on the website) first with their email. Then enter that email here and pick their role.</div></div></div>
       <form class="card-b stack" id="addStaff" novalidate style="gap:14px">
-        <div class="field" style="max-width:420px"><label for="asEm">Their account email</label><input class="inp" id="asEm" type="email" placeholder="name@example.com" autocomplete="off"></div>
         <fieldset style="border:0;margin:0;padding:0"><legend class="lbl" style="margin-bottom:8px">Role</legend><div class="rolepick">${["admin","dispatcher","counter","accounts","driver"].map(r=>`<label class="ropt"><input type="radio" name="asRole" value="${r}" ${addPick===r?"checked":""}><b>${esc(ROLES[r][0])}</b><span>${esc(ROLES[r][1])}</span></label>`).join("")}</div></fieldset>
-        <div id="asVehW" ${addPick==="driver"?"":"hidden"}><div class="sec-t">Vehicle</div><div id="asVeh">${vehPicker(addVeh,null)}</div></div>
-        <div class="row-flex" style="flex-wrap:wrap"><span class="hint" id="asErr" style="color:var(--crit)"></span><button class="btn pri" type="submit" id="asGo"><svg><use href="#i-plus"/></svg>Give access</button></div>
+        <div id="asModeW" ${addPick==="driver"?"":"hidden"}>${modeSeg("asMode",asMode)}</div>
+        ${pinFields("as",!(addPick==="driver"&&asMode==="pin"))}
+        <div class="field" id="asEmW" style="max-width:420px" ${addPick==="driver"&&asMode==="pin"?"hidden":""}><label for="asEm">Their account email</label><input class="inp" id="asEm" type="email" placeholder="name@example.com" autocomplete="off"></div>
+        <div id="asVehW" ${addPick==="driver"?"":"hidden"}><div class="sec-t">Vehicle <span class="muted" style="text-transform:none;letter-spacing:0">· optional</span></div><div id="asVeh">${vehPicker(addVeh,null)}</div></div>
+        <div class="row-flex" style="flex-wrap:wrap"><span class="hint" id="asErr" role="alert" style="color:var(--crit)"></span><button class="btn pri" type="submit" id="asGo"><svg><use href="#i-plus"/></svg>${addPick==="driver"&&asMode==="pin"?"Create driver":"Give access"}</button></div>
       </form></div>
     <div class="card"><div class="card-h"><div><h2>Recent role changes</h2><div class="sub">From the activity log</div></div>${canPage("activity")?`<a class="btn sm" href="#activity" id="toAct">Activity log</a>`:""}</div>
       ${roleCh.length?`<div>${roleCh.map(e=>{const c=e.changes,fr=c.role?c.role.from:null,to=c.role?c.role.to:null,w=actWhat(e);return `<div class="team-row"><span class="av">${ini(w.sum||"?")}</span><div class="tx"><b>${esc(w.sum||"Someone")}</b><span>${c.role?`${esc(fr?roleName(fr):"—")} → ${esc(roleName(to))}`:`Vehicle ${esc(fmtVal("unit_code",c.unit_code.from))} → ${esc(fmtVal("unit_code",c.unit_code.to))}`} · by ${esc(e.actor_name)} · ${ago(e.at)}</span></div>${c.role?rolePill(to):tone("Vehicle","mute")}</div>`}).join("")}</div>`:`<div class="empty">No role changes recorded yet.</div>`}</div>
@@ -1941,9 +2031,19 @@ function wStaff(){
   $$("[data-kr]").forEach(b=>b.onclick=()=>{stF.role=stF.role===b.dataset.kr?"all":b.dataset.kr;render();$("#staffCard").scrollIntoView({behavior:"smooth",block:"start"})});
   $$("[data-chrole]").forEach(b=>b.onclick=()=>openRole(b.dataset.chrole));
   $$("[data-veh-d]").forEach(b=>b.onclick=()=>openVehicle(b.dataset.vehD));
-  $$("#addStaff [name=asRole]").forEach(i=>i.onchange=()=>{addPick=i.value;$("#asVehW").hidden=addPick!=="driver"});
+  const asSync=()=>{const drv=addPick==="driver",pin=drv&&asMode==="pin";$("#asVehW").hidden=!drv;$("#asModeW").hidden=!drv;$("#asPinW").hidden=!pin;$("#asEmW").hidden=pin;
+    $$("#asMode [data-mode]").forEach(x=>x.setAttribute("aria-pressed",x.dataset.mode===asMode));$("#asGo").lastChild.textContent=pin?"Create driver":"Give access"};
+  $$("#addStaff [name=asRole]").forEach(i=>i.onchange=()=>{addPick=i.value;asSync()});
+  $$("#asMode [data-mode]").forEach(b=>b.onclick=()=>{asMode=b.dataset.mode;$("#asErr").textContent="";asSync()});
   wirePicker($("#asVeh"),v=>addVeh=v);
-  $("#addStaff").onsubmit=async e=>{e.preventDefault();const em=$("#asEm").value.trim(),err=$("#asErr");err.textContent="";
+  $("#addStaff").onsubmit=async e=>{e.preventDefault();const err=$("#asErr");err.textContent="";
+    if(addPick==="driver"&&asMode==="pin"){const nm=$("#asNm").value.trim().replace(/\s+/g," "),ph=readPhone($("#asPh").value);
+      if(nm.length<2){err.textContent="Enter the driver's full name.";$("#asNm").focus();return}
+      if(!ph){err.textContent="Enter a 7-digit Maldives mobile number, like 777 1234.";$("#asPh").focus();return}
+      const b=$("#asGo");b.disabled=true;
+      try{const code=addVeh||null,r=await A.createDriver(nm,ph,code);addVeh="";trk("driver_created",{login:"pin"});render();openPin({name:nm,phone:r.phone||ph,pin:String(r.pin),unit_code:code})}
+      catch(x){err.textContent=x.message||String(x);b.disabled=false}return}
+    const em=$("#asEm").value.trim();
     if(!emailOk(em)){err.textContent="Enter the email they signed up with.";$("#asEm").focus();return}
     const b=$("#asGo");b.disabled=true;
     try{const m=addPick==="driver"&&addVeh?S.machines.find(x=>x.code===addVeh):null,o=m&&drvOf(m.code);
