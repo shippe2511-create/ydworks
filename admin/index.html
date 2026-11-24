@@ -1806,7 +1806,7 @@ function vStaff(){
     .sort((a,b)=>["admin","dispatcher","counter","accounts","driver"].indexOf(a.role)-["admin","dispatcher","counter","accounts","driver"].indexOf(b.role)||String(a.full_name).localeCompare(b.full_name));
   const roleCh=S.audit.filter(e=>e.entity==="profiles"&&e.changes&&(e.changes.role||e.changes.unit_code)).slice(0,8);
   return `<p class="hint">Who can sign in to the console and the driver app, and what each role can do. Everyone signs up in the YD Works app first; a manager then gives them a role here.</p>
-  <section class="grid g-5">${[["admin","Managers"],["dispatcher","Dispatchers"],["counter","Counter"],["accounts","Accounts"],["driver","Drivers"]].map(([r,l])=>`<button type="button" class="card kpi kbtn" data-kr="${r}" aria-pressed="${stF.role===r}"><div class="l">${l}</div><div class="v">${cnt(r)}</div><div class="d">${r==="driver"?S.drivers.filter(d=>d.is_online).length+" online now":rolePill(r)}</div></button>`).join("")}</section>
+  <section class="grid g-5">${[["admin","Managers"],["dispatcher","Dispatchers"],["counter","Counter"],["accounts","Accounts"],["driver","Drivers"]].map(([r,l])=>`<button type="button" class="card kpi kbtn" data-kr="${r}" aria-pressed="${stF.role===r}"><div class="l">${l}</div><div class="v">${cnt(r)}</div><div class="d">${r==="driver"?S.drivers.filter(d=>d.is_online).length+" online now":esc(ROLE_SHORT[r])}</div></button>`).join("")}</section>
   <div class="card"><div class="card-h"><div><h2>Roles &amp; permissions</h2><div class="sub">Read-only: roles are fixed by the server, which checks every change. Full = can change, View = can see.</div></div></div>
     <div class="tw mx-wrap"><table class="t mx"><thead><tr><th>Area</th>${["admin","dispatcher","counter","accounts","driver"].map(r=>`<th><span>${esc(roleName(r))}</span><small>${esc(ROLE_SHORT[r]||"Driver app only")}</small></th>`).join("")}</tr></thead><tbody>
     ${MX_AREAS.map(a=>`<tr><th scope="row">${esc(a[0])}</th>${["admin","dispatcher","counter","accounts","driver"].map(r=>`<td>${r==="driver"?`<span class="muted">—</span>`:mxCell(r,a)}</td>`).join("")}</tr>`).join("")}
@@ -2571,7 +2571,7 @@ function setMode(){$("#liveChip").classList.toggle("demo",!LIVE);$("#liveTxt").t
 async function enterLive(){
   const p=YDB.profile||{};
   if(!STAFF.includes(p.role)){try{await YDB.signOut()}catch(e){}showLogin("signin");$("#lErr").textContent="This account doesn't have staff access. Ask a manager to add you under Drivers → Team.";return}
-  LIVE=true;ROLE=p.role;$("#login").hidden=true;setMode();applyRole();
+  LIVE=true;ROLE=p.role;$("#login").hidden=true;for(const k in INS)delete INS[k];setMode();applyRole();
   await load();if(unwatch)unwatch();
   const offs=[YDB.watch(load)];
   try{offs.push(YDB.watchTable("notifications",load,"user_id=eq."+YDB.user.id),YDB.watchTable("payments",load),YDB.watchTable("machine_bookings",load),YDB.watchTable("project_updates",load),YDB.watchTable("ratings",load));
