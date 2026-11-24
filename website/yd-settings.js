@@ -47,7 +47,9 @@
     contact: { hotline: "992 0202", email: "yd@yd-mv.com", hours_am: "07:30 – 12:00", hours_pm: "13:00 – 18:00", friday: "Call to confirm" },
     ordering: { accepting_orders: true, same_day_cutoff: "14:00" },
     // Content page in the console: { "<text key>": { en: "…", dv: "…" } } — only edited texts are stored
-    content_website: {}, content_customer_app: {}, content_driver_app: {}
+    content_website: {}, content_customer_app: {}, content_driver_app: {},
+    // photo swaps: { "assets/hero.jpg": "https://…/catalog/site/hero.jpg" } — only replaced photos are stored
+    media_website: {}, media_customer_app: {}, media_driver_app: {}
   };
   const KEYS = Object.keys(DEFAULTS);
   const LS_CACHE = "yd-settings-cache", LS_DEMO = "yd-demo-settings";

@@ -283,7 +283,32 @@
                 : /\/(app|customer-app)/.test(location.pathname) ? "customer" : "website");
   /* console Content edits for this page (from yd-settings.js: content_website / content_customer_app / content_driver_app) */
   const CONTENT_KEY = { website: "content_website", customer: "content_customer_app", driver: "content_driver_app" }[SURFACE];
-  function applyContent() { if (CONTENT_KEY && window.YDSET) i18n.override((YDSET.get() || {})[CONTENT_KEY] || {}); }
+  /* console photo swaps (media_website / media_customer_app / media_driver_app): { "assets/hero.jpg": "https://…" } */
+  const MEDIA_KEY = CONTENT_KEY && CONTENT_KEY.replace("content_", "media_");
+  let MEDIA = {};
+  function swapImgs(root) {
+    (root.querySelectorAll ? root.querySelectorAll("img") : []).forEach(img => {
+      const orig = img.dataset.ydOrig || img.getAttribute("src") || "";
+      const want = MEDIA[orig.split("?")[0]];
+      if (want && /^(https:|data:image\/|blob:|assets\/|catalog\/)/.test(want)) {
+        if (!img.dataset.ydOrig) img.dataset.ydOrig = orig;
+        if (img.getAttribute("src") !== want) { img.removeAttribute("srcset"); img.setAttribute("src", want); }
+      } else if (img.dataset.ydOrig) { img.setAttribute("src", img.dataset.ydOrig); delete img.dataset.ydOrig; }
+    });
+  }
+  let mediaObs = null;
+  function applyMedia() {
+    MEDIA = (MEDIA_KEY && window.YDSET && (YDSET.get() || {})[MEDIA_KEY]) || {};
+    const go = () => {
+      swapImgs(document);
+      if (!mediaObs && Object.keys(MEDIA).length && window.MutationObserver) {   // images drawn later by the page
+        mediaObs = new MutationObserver(list => list.forEach(m => m.addedNodes.forEach(n => { if (n.nodeType === 1) { if (n.tagName === "IMG") swapImgs(n.parentNode || document); else swapImgs(n); } })));
+        mediaObs.observe(document.body, { childList: true, subtree: true });
+      }
+    };
+    if (document.body) go(); else document.addEventListener("DOMContentLoaded", go);
+  }
+  function applyContent() { if (CONTENT_KEY && window.YDSET) { i18n.override((YDSET.get() || {})[CONTENT_KEY] || {}); applyMedia(); } }
   applyContent();
   window.addEventListener("yd-settings", applyContent);
   const SESSION = (() => { try { let s = sessionStorage.getItem("yd-sid"); if (!s) { s = Math.random().toString(36).slice(2, 14); sessionStorage.setItem("yd-sid", s); } return s; } catch (e) { return Math.random().toString(36).slice(2, 14); } })();
