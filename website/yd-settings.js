@@ -40,7 +40,7 @@
       require_pod_photo: true,                        // a delivery photo is needed to complete a job
       require_daily_check: true,                      // the daily vehicle check must be done before accepting jobs
       fuel_logging: true,                             // show the fuel log
-      location_every_sec: 30,                         // how often an online driver's location is sent
+      location_every_sec: 15,                         // how often an online driver's location is sent
       min_version: "", update_text_en: "", update_text_dv: ""
     },
     announcement: { active: false, text: "", text_dv: "", tone: "info", where: { website: true, customer_app: true } },

@@ -11,7 +11,7 @@ insert into public.app_settings (key, value) values
     "maintenance":{"active":false,"text_en":"","text_dv":""},
     "min_version":"","update_url_ios":"","update_url_android":"","update_text_en":"","update_text_dv":""}'),
   ('driver_app', '{"message":{"active":false,"text_en":"","text_dv":"","tone":"info"},"checklist":[],
-    "require_pod_photo":true,"require_daily_check":true,"fuel_logging":true,"location_every_sec":30,
+    "require_pod_photo":true,"require_daily_check":true,"fuel_logging":true,"location_every_sec":15,
     "min_version":"","update_text_en":"","update_text_dv":""}')
 on conflict (key) do nothing;
 update public.app_settings set value = '{"text_dv":"","where":{"website":true,"customer_app":true}}'::jsonb || value where key = 'announcement';
