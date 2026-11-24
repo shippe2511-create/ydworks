@@ -39,18 +39,32 @@ by order number, customer, phone or site. Click an order to see its items, timel
 saved changes are live in the customer app immediately. The server always prices orders from this
 catalog, so a modified app can't change a total.
 
-**Content & pricing**
-- *Announcement banner*: one message shown on the website and in the customer app (Information / Notice / Urgent).
+**Pricing & settings**
 - *Ordering*: pause new app orders (holidays, bad weather); customers are told to call the counter.
 - *Pricing rules*: delivery fee, free-delivery threshold, mobilisation fee for hourly hire, driver pay %
   and minimum driver pay. Applies to new orders only. An example calculation updates as you type.
 - *Contact & hours*: hotline, email and counter hours used across the website and apps.
 
+**Website & apps** (Managers)
+- *Website*: headline, show/hide sections, floating WhatsApp button, Google search text, pause online quotes.
+- *Customer app*: home text, service tiles, WhatsApp, promo card, maintenance mode (also stops new orders),
+  force update for old versions.
+- *Driver app*: message to all drivers, daily vehicle checklist, delivery photo / daily check required,
+  fuel log, location interval, force update.
+- *Announcement banner*: English + Dhivehi, shown on the website and/or the customer app.
+
+**Content** (Managers) — every text and photo of the website, customer app and driver app.
+- Pick a tab, search or filter by section, type the new English and/or Dhivehi text, then *Save changes*.
+  *Reset* brings back the original. Keep any `{placeholder}` the original has (the page warns you).
+- *Photos*: *Replace* uploads a new photo (resized automatically); *Restore original* undoes it.
+- Every save is in the Activity log. Apps pick up changes the next time they are opened.
+
 ## Things you still change in code
 
-Page wording, photos and layout of the website and apps live in `website/`, `customer-app/` and
-`driver-app/`. After editing the apps, rebuild them: `cd mobile/customer && npm run sync` (same for driver),
-then publish new versions to the stores.
+Layout and new features of the website and apps live in `website/`, `customer-app/` and `driver-app/`.
+After changing app texts in code, refresh the Content page's list: `node shared/gen-content.js`, then
+`bash shared/sync.sh`. After editing the apps, rebuild them: `cd mobile/customer && npm run sync`
+(same for driver), then publish new versions to the stores.
 
 ## Before go-live
 
