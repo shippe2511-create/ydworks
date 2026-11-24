@@ -4,8 +4,6 @@
 <meta name="theme-color" content="#070b16">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- Thaana face (only downloaded when Thaana text is on screen, e.g. the ދިވެހި language button) -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thaana:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400;500;600&display=swap">
 <style>
 /* Layout: driver console — night header with the truck behind the driver's card, one gold primary action in the thumb zone, hairline cards below */
@@ -327,7 +325,7 @@ img.pimg{width:100%;height:100%;object-fit:cover;display:block}
 
 /* ---- right-to-left (Dhivehi) ---- */
 [dir="rtl"] .flip{transform:scaleX(-1)}
-html[lang="dv"]{--display:"Geist","Noto Sans Thaana","MV Faseyha",ui-sans-serif,system-ui,sans-serif;--body:"Geist","Noto Sans Thaana","MV Faseyha",ui-sans-serif,system-ui,sans-serif;--mono:"Geist Mono","Noto Sans Thaana",ui-monospace,monospace}
+html[lang="dv"]{--display:"Geist","Faruma","MV Faseyha",ui-sans-serif,system-ui,sans-serif;--body:"Geist","Faruma","MV Faseyha",ui-sans-serif,system-ui,sans-serif;--mono:"Geist Mono","Faruma",ui-monospace,monospace}
 html[lang="dv"] .lbl,html[lang="dv"] .pill,html[lang="dv"] .stat span,html[lang="dv"] .stepnames,html[lang="dv"] .online,html[lang="dv"] .note,html[lang="dv"] .sig .hint,html[lang="dv"] .al small{letter-spacing:0;text-transform:none}
 html[lang="dv"] .lbl{font-size:11.5px}
 html[lang="dv"] .stat span{font-size:11px}
@@ -1163,7 +1161,7 @@ function renderDel(){
     <div class="del-btns" style="margin-top:6px"><button class="big-btn ghost" id="delCancel" type="button">${t("del.cancel")}</button><button class="big-btn ghost danger" id="delNext" type="button">${t("del.cont")}</button></div>`;
   else P.innerHTML=`<div class="sheet-top"><h2 id="delTitle">${t("del.h2")}</h2><button class="close-btn" id="delClose" type="button" aria-label="${esc(t("al.close"))}">${icon("x")}</button></div>
     <p class="sub" style="color:var(--ink)">${t("del.p2")}</p>
-    <p class="del-err" id="delErr" role="alert"></p>
+    <p class="del-err" id="delErr" role="alert" dir="auto"></p>
     <div class="del-btns" style="margin-top:-4px"><button class="big-btn ghost" id="delCancel" type="button">${t("del.cancel")}</button><button class="big-btn del" id="delGo" type="button">${icon("trash")}<span>${t("del.go")}</span></button></div>`;
   $("#delClose").onclick=$("#delCancel").onclick=closeDel;
   $("#delNext")&&($("#delNext").onclick=()=>{delStep=2;renderDel();$("#delCancel").focus()});

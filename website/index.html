@@ -4,7 +4,7 @@
 <meta name="description" content="YD Works – heavy equipment hire, building materials, house construction and logistics in Hulhumalé, Maldives. Hotline 9920202.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400;500;600&family=Noto+Sans+Thaana:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400;500;600&display=swap">
 <style>
 /* Layout: cinematic photo bands (always night) alternating with quiet editorial sections; hairline rules, one blue accent, sand for small marks on dark */
 :root{
@@ -23,11 +23,11 @@
 :root[data-theme="dark"]{
   --bg:#070b16;--surface:#0d1322;--surface-2:#121a2e;--line:rgba(255,255,255,.09);--line-2:rgba(255,255,255,.16);
   --fg:#eef1f8;--mute:#8e97ad;--accent:#4c6fff;--accent-soft:rgba(76,111,255,.12);--ok:#2fc78a;--busy:#ff7a45;color-scheme:dark}
-/* Dhivehi: Latin, digits and codes stay in Geist; Thaana falls through to Noto Sans Thaana */
+/* Dhivehi: Latin, digits and codes stay in Geist; Thaana falls through to Faruma */
 html[lang="dv"]{
-  --display:"Geist","Noto Sans Thaana","MV Faseyha",ui-sans-serif,system-ui,sans-serif;
-  --body:"Geist","Noto Sans Thaana","MV Faseyha",ui-sans-serif,system-ui,sans-serif;
-  --mono:"Geist Mono","Noto Sans Thaana",ui-monospace,Menlo,monospace;
+  --display:"Geist","Faruma","MV Faseyha",ui-sans-serif,system-ui,sans-serif;
+  --body:"Geist","Faruma","MV Faseyha",ui-sans-serif,system-ui,sans-serif;
+  --mono:"Geist Mono","Faruma",ui-monospace,Menlo,monospace;
 }
 
 *{box-sizing:border-box}
@@ -80,7 +80,7 @@ p{margin:0}
 /* language switch: compact EN | ދިވެހި pill */
 .lang{display:inline-flex;align-items:center;height:40px;padding:0 4px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);flex:none}
 .lang button{border:0;background:none;color:rgba(255,255,255,.6);cursor:pointer;font:500 13px/1 var(--body);padding:8px 9px;border-radius:999px;transition:color .2s,background .2s}
-.lang button[lang="dv"]{font-family:"Noto Sans Thaana",var(--body);font-size:14px;padding-block:6px}
+.lang button[lang="dv"]{font-family:"Faruma",var(--body);font-size:14px;padding-block:6px}
 .lang button:hover{color:#fff}
 .lang button[aria-pressed="true"]{color:#fff;background:rgba(255,255,255,.14)}
 .lang .sep{width:1px;height:14px;background:rgba(255,255,255,.22)}
@@ -417,7 +417,7 @@ footer{background:var(--night);color:var(--night-mute);padding-block:72px 40px;o
 .theme-btn:hover{background:rgba(255,255,255,.16)}
 .tseg{display:inline-flex;gap:2px;background:rgba(255,255,255,.06);border:1px solid var(--night-line);border-radius:999px;padding:3px}
 .tseg button{display:inline-flex;align-items:center;gap:6px;border:0;background:none;color:var(--night-mute);font:500 12px var(--body);padding:6px 11px;border-radius:999px;cursor:pointer}
-.tseg button[lang="dv"]{font-family:"Noto Sans Thaana",var(--body);font-size:13px;padding-block:4px}
+.tseg button[lang="dv"]{font-family:"Faruma",var(--body);font-size:13px;padding-block:4px}
 .tseg button[aria-pressed="true"]{background:rgba(255,255,255,.12);color:#fff}
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(20px);opacity:0;background:var(--fg);color:var(--bg);padding:12px 18px;border-radius:999px;font-weight:500;font-size:14px;transition:.3s var(--ease);z-index:80;pointer-events:none;max-width:calc(100vw - 32px)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
