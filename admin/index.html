@@ -1642,29 +1642,36 @@ function vCustomers(){
 
 /* ═════════════ Fleet & materials ═════════════ */
 function vFleet(){
-  const mRows=S.machines.map(m=>`<tr data-id="${m.id}"><td><div class="item"><span class="th">${thumb(m.id)}</span><div><b>${esc(m.name)}</b><small class="mono">${esc(m.code)}</small></div></div></td>
+  const list=catTab==="machines"?S.machines:S.materials,removed=list.filter(x=>x.active===false).length,mgr=can("catalog");
+  const acts=m=>`<td><div class="row-acts"><button class="btn sm pri" data-save hidden>Save</button><button type="button" class="icon-btn" data-edit aria-label="Edit ${esc(m.name)}" title="Edit details and photo" ${gate("catalog")}><svg><use href="#i-edit"/></svg></button>${m.active!==false?`<button type="button" class="icon-btn" data-rm aria-label="Remove ${esc(m.name)}" title="Remove from the apps and website" ${gate("catalog")}><svg><use href="#i-trash"/></svg></button>`:`<button type="button" class="btn sm" data-restore ${gate("catalog")}>Restore</button>`}</div></td>`;
+  const gone=m=>m.active===false?` <span class="pill t-mute" style="padding:3px 7px">${catTab==="machines"?"Removed":"Hidden"}</span>`:"";
+  const mRows=S.machines.map(m=>{const d=drvOf(m.code);return `<tr data-id="${m.id}" class="${m.active===false?"gone":""}"><td><div class="item"><span class="th">${thumb(m.id,m.name)}</span><div style="min-width:0"><b>${esc(m.name)}${gone(m)}</b><small class="mono">${esc(m.code)}${d?" · "+esc(d.full_name):""}</small></div></div></td>
     <td class="num"><input class="inp num" data-f="rate_hr" value="${m.rate_hr}" inputmode="decimal" aria-label="${esc(m.name)} hourly rate"></td>
     <td class="num"><input class="inp num" data-f="rate_day" value="${m.rate_day}" inputmode="decimal" aria-label="${esc(m.name)} daily rate"></td>
     <td class="num"><input class="inp num" data-f="rate_mo" value="${m.rate_mo}" inputmode="decimal" aria-label="${esc(m.name)} monthly rate"></td>
     <td><input type="checkbox" class="switch" data-f="active" ${m.active?"checked":""} aria-label="Show ${esc(m.name)} in the app"></td>
-    <td><button class="btn sm pri" data-save hidden>Save</button></td></tr>`).join("");
-  const tRows=S.materials.map(m=>`<tr data-id="${m.id}"><td><div class="item"><span class="th">${thumb(m.id)}</span><div><b>${esc(m.name)}</b><small>${esc(m.category)}</small></div></div></td>
+    ${acts(m)}</tr>`}).join("");
+  const tRows=S.materials.map(m=>`<tr data-id="${m.id}" class="${m.active===false?"gone":""}"><td><div class="item"><span class="th">${thumb(m.id,m.name)}</span><div style="min-width:0"><b>${esc(m.name)}${gone(m)}</b><small>${esc(m.category)}</small></div></div></td>
     <td class="muted">${esc(m.unit)}</td>
     <td class="num"><input class="inp num" data-f="price" value="${m.price}" inputmode="decimal" aria-label="${esc(m.name)} price"></td>
     <td class="num"><input class="inp num" data-f="step" value="${m.step}" inputmode="numeric" aria-label="${esc(m.name)} order step"></td>
     <td class="num"><input class="inp num" data-f="stock_qty" data-opt value="${m.stock_qty??""}" placeholder="—" inputmode="decimal" aria-label="${esc(m.name)} in stock" style="max-width:96px">${m.stock_qty!=null&&(m.stock_qty<=0||m.low_stock_at!=null&&m.stock_qty<=m.low_stock_at)?`<div style="margin-top:4px">${tone(m.stock_qty<=0?"Out":"Low",m.stock_qty<=0?"crit":"warn")}</div>`:""}</td>
     <td class="num"><input class="inp num" data-f="low_stock_at" data-opt value="${m.low_stock_at??""}" placeholder="—" inputmode="decimal" aria-label="${esc(m.name)} low stock level" style="max-width:96px"></td>
     <td><input type="checkbox" class="switch" data-f="active" ${m.active?"checked":""} aria-label="${esc(m.name)} on sale in the app"></td>
-    <td><button class="btn sm pri" data-save hidden>Save</button></td></tr>`).join("");
+    ${acts(m)}</tr>`).join("");
   const low=lowStock().length;
   return `<div class="row-flex" style="flex-wrap:wrap"><div class="seg" id="catSeg"><button data-t="machines" aria-pressed="${catTab==="machines"}">Machines</button><button data-t="materials" aria-pressed="${catTab==="materials"}">Materials${low?` <span class="pill t-warn" style="padding:2px 7px;margin-left:4px">${low} low</span>`:""}</button></div>
-    <span class="hint" id="fleetHint" data-base="Edits go live in the customer app the moment you save.${catTab==="materials"?" Leave stock blank to stop tracking an item.":""}">Edits go live in the customer app the moment you save.${catTab==="materials"?" Leave stock blank to stop tracking an item.":""}</span></div>
+    <div class="row-flex" style="gap:10px;flex-wrap:wrap"><label class="chip" for="showRm" style="cursor:pointer"><input type="checkbox" id="showRm" ${showRemoved?"checked":""} style="margin:0;accent-color:var(--brand)">Show removed<b>${removed}</b></label>
+    <button class="btn pri" id="addItem" ${gate("catalog")}><svg><use href="#i-plus"/></svg>${catTab==="machines"?"Add machine":"Add material"}</button></div></div>
+  <span class="hint" id="fleetHint" data-base="Edits go live in the customer app the moment you save. Removing hides an item from the apps and website; old orders keep it.${catTab==="materials"?" Leave stock blank to stop tracking an item.":""}">Edits go live in the customer app the moment you save.</span>
   <div class="card"><div class="tw"><table class="t">${catTab==="machines"?
     `<thead><tr><th>Machine</th><th class="num">Per hour</th><th class="num">Per day</th><th class="num">Per month</th><th>Bookable</th><th></th></tr></thead><tbody>${mRows}<tr id="fleetEmpty" hidden><td colspan="6"><div class="empty" id="fleetEmptyTx">No items match.</div></td></tr></tbody>`:
     `<thead><tr><th>Material</th><th>Unit</th><th class="num">Price (MVR)</th><th class="num">Order step</th><th class="num">In stock</th><th class="num">Low at</th><th>On sale</th><th></th></tr></thead><tbody>${tRows}<tr id="fleetEmpty" hidden><td colspan="8"><div class="empty" id="fleetEmptyTx">No items match.</div></td></tr></tbody>`}</table></div></div>`;
 }
 function wFleet(){
   $("#catSeg").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;catTab=b.dataset.t;render()});
+  $("#showRm").onchange=e=>{showRemoved=e.target.checked;fleetFilter()};
+  $("#addItem").onclick=()=>openItem(catTab==="machines"?"machine":"material");
   fleetFilter();
   $$("tr[data-id]").forEach(tr=>{const save=tr.querySelector("[data-save]"),src=(catTab==="machines"?S.machines:S.materials).find(x=>x.id===tr.dataset.id);
     const val=i=>i.type==="checkbox"?i.checked:i.hasAttribute("data-opt")?(i.value.trim()===""?null:+i.value):+i.value;
@@ -1672,7 +1679,179 @@ function wFleet(){
     tr.querySelectorAll("[data-f]").forEach(i=>i.addEventListener(i.type==="checkbox"?"change":"input",dirty));
     save.addEventListener("click",async()=>{const patch={};let bad=false,badStock=false;tr.querySelectorAll("[data-f]").forEach(i=>{const v=val(i);if(i.hasAttribute("data-opt")){if(v!=null&&!(v>=0))badStock=true}else if(i.type!=="checkbox"&&!(v>0))bad=true;patch[i.dataset.f]=v});
       if(bad){toast("Prices must be numbers above zero");return}if(badStock){toast("Stock levels must be zero or more, or blank to stop tracking");return}save.disabled=true;
-      try{await(catTab==="machines"?A.saveMachine(src,patch):A.saveMaterial(src,patch));toast(src.name+" saved");render()}catch(e){toast(e.message);save.disabled=false}})});
+      try{await(catTab==="machines"?A.saveMachine(src,patch):A.saveMaterial(src,patch));toast(src.name+(patch.active===false&&src.active===false?" saved · hidden from the apps (Show removed to see it)":" saved"));render()}catch(e){toast(e.message);save.disabled=false}});
+    const ed=tr.querySelector("[data-edit]");ed&&(ed.onclick=()=>openItem(catTab==="machines"?"machine":"material",src));
+    const setActive=async on=>{try{await(catTab==="machines"?A.saveMachine(src,{active:on}):A.saveMaterial(src,{active:on}));toast(on?`${src.name} restored · back in the apps`:`${src.name} removed · hidden from the apps and website. Old orders keep it.`);render()}catch(e){toast(e.message)}};
+    const rm=tr.querySelector("[data-rm]");rm&&(rm.onclick=()=>{if(!rm.dataset.armed){rm.dataset.armed=1;rm.classList.add("armed");rm.title="Tap again to remove";toast(`Tap the bin again to remove ${src.name}`);setTimeout(()=>{if(rm.isConnected){delete rm.dataset.armed;rm.classList.remove("armed")}},3500);return}setActive(false)});
+    const rs=tr.querySelector("[data-restore]");rs&&(rs.onclick=()=>setActive(true));
+  });
+}
+/* add / edit a machine or material (managers: perm 'catalog') */
+const MICON={earth:"excavator",haul:"tipper",lift:"crane",site:"mixer"};
+const slug=s=>String(s||"").toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,40);
+function uniqueId(name){const b=slug(name)||"item",all=new Set([...S.machines,...S.materials].map(x=>x.id));let id=b,i=2;while(all.has(id))id=b+"-"+i++;return id}
+let ITEMFILE=null;
+function openItem(kind,x){
+  const isM=kind==="machine",isNew=!x;ITEMFILE=null;
+  x=x||(isM?{name:"",code:"",category:"earth",specs:{},rate_hr:"",rate_day:"",rate_mo:"",active:true}:{name:"",category:(S.materials[0]||{}).category||"",unit:"",price:"",step:1,stock_qty:null,low_stock_at:null,active:true});
+  const specs=Object.entries(x.specs||{}).slice(0,4);while(specs.length<4)specs.push(["",""]);
+  const mcats=[...new Set(S.materials.map(m=>m.category).filter(Boolean))];
+  openDrawer(`<div class="dh"><div><span class="lbl">Fleet &amp; materials · ${isM?"machine":"material"}</span><h2 id="dTitle" style="margin-top:4px">${isNew?(isM?"Add machine":"Add material"):"Edit "+esc(x.name)}</h2><div class="hint">${isNew?"Shows in the apps, the website and the console as soon as you save.":"Changes show everywhere as soon as you save."}</div></div>${xBtn}</div>
+  <form class="db" id="itF" novalidate>
+    <div class="photo-pick"><span class="th" id="itPrev">${isNew?`<svg><use href="#i-camera"/></svg>`:thumb(x.id,x.name)}</span>
+      <div class="stack" style="gap:6px;flex:1;min-width:0"><label class="drop"><svg width="18" height="18"><use href="#i-camera"/></svg><span id="itFileL">${isNew?"Add a photo":"Replace photo"}</span><input type="file" id="itFile" accept="image/jpeg,image/png,image/webp"></label><span class="hint">JPEG, PNG or WebP. Resized before upload; a clear side view on a plain background works best.</span></div></div>
+    <div class="form-grid">
+      <div class="field ${isM?"":"full"}"><label for="itName">Name</label><input class="inp" id="itName" value="${esc(x.name)}" placeholder="${isM?"e.g. Bulldozer D6":"e.g. Hollow block 8&quot;"}" maxlength="60"></div>
+      ${isM?`<div class="field"><label for="itCode">Code</label><input class="inp" id="itCode" value="${esc(x.code)}" placeholder="BD-01" maxlength="8" style="font-family:var(--mono);text-transform:uppercase"></div>
+      <div class="field"><label for="itCat">Category</label><select class="inp" id="itCat">${Object.entries(YDCAT.categories).map(([k,l])=>`<option value="${k}" ${x.category===k?"selected":""}>${esc(l)}</option>`).join("")}</select></div>`
+      :`<div class="field"><label for="itCat">Category</label><select class="inp" id="itCat">${mcats.map(c=>`<option ${x.category===c?"selected":""}>${esc(c)}</option>`).join("")}<option value="__new">New category…</option></select></div>
+      <div class="field" id="itNewCatF" hidden><label for="itNewCat">New category</label><input class="inp" id="itNewCat" maxlength="30" placeholder="e.g. Tiles"></div>`}
+      <div class="field"><span class="lbl">ID</span><div class="inp" style="background:var(--surface-2);font-family:var(--mono);font-size:13px;color:var(--mute)" id="itId">${esc(isNew?"—":x.id)}</div></div>
+    </div>
+    ${isM?`<div><div class="sec-t"><span>Specs shown in the apps</span><span>label · value</span></div><div class="stack" style="gap:8px">${specs.map(([k,v],i)=>`<div class="form-grid spec-row"><input class="inp" data-sk="${i}" value="${esc(k)}" placeholder="${["Weight","Bucket","Dig depth","Crew"][i]}" aria-label="Spec ${i+1} label" maxlength="20"><input class="inp" data-sv="${i}" value="${esc(v)}" placeholder="${["18 t","1.0 m³","6 m","Operator"][i]}" aria-label="Spec ${i+1} value" maxlength="30"></div>`).join("")}</div></div>
+    <div class="form-grid" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+      <div class="field"><label for="itHr">Per hour (MVR)</label><input class="inp" id="itHr" inputmode="decimal" value="${esc(x.rate_hr)}"></div>
+      <div class="field"><label for="itDay">Per day</label><input class="inp" id="itDay" inputmode="decimal" value="${esc(x.rate_day)}"></div>
+      <div class="field"><label for="itMo">Per month</label><input class="inp" id="itMo" inputmode="decimal" value="${esc(x.rate_mo)}"></div></div>
+    <label class="row-flex box" for="itOn"><span><b style="font-weight:600">Bookable</b><br><span class="hint">Customers can book it in the app and on the website.</span></span><input type="checkbox" class="switch" id="itOn" ${x.active!==false?"checked":""}></label>`
+    :`<div class="form-grid">
+      <div class="field"><label for="itUnit">Unit</label><input class="inp" id="itUnit" value="${esc(x.unit)}" placeholder="e.g. 50 kg bag, m³, piece" maxlength="20"></div>
+      <div class="field"><label for="itPrice">Price (MVR, incl. GST)</label><input class="inp" id="itPrice" inputmode="decimal" value="${esc(x.price)}"></div>
+      <div class="field"><label for="itStep">Order step</label><input class="inp" id="itStep" inputmode="numeric" value="${esc(x.step)}"></div>
+      <div class="field"><label for="itStock">In stock</label><input class="inp" id="itStock" inputmode="decimal" value="${esc(x.stock_qty??"")}" placeholder="Blank = not tracked"></div>
+      <div class="field"><label for="itLow">Low at</label><input class="inp" id="itLow" inputmode="decimal" value="${esc(x.low_stock_at??"")}" placeholder="Blank = no alert"></div></div>
+    <label class="row-flex box" for="itOn"><span><b style="font-weight:600">On sale</b><br><span class="hint">Customers can order it in the app.</span></span><input type="checkbox" class="switch" id="itOn" ${x.active!==false?"checked":""}></label>`}
+    <p class="hint" id="itErr" role="alert" style="color:var(--crit)"></p>
+  </form>
+  <div class="df"><button class="btn pri" type="submit" form="itF" id="itGo">${isNew?(isM?"Add machine":"Add material"):"Save changes"}</button><span style="flex:1"></span><button class="btn" type="button" id="itC">Cancel</button></div>`,true);
+  $("#itC").onclick=closeDrawer;
+  if(isNew)$("#itName").addEventListener("input",()=>{$("#itId").textContent=$("#itName").value.trim()?uniqueId($("#itName").value):"—"});
+  if(!isM)$("#itCat").onchange=()=>{$("#itNewCatF").hidden=$("#itCat").value!=="__new";if(!$("#itNewCatF").hidden)$("#itNewCat").focus()};
+  $("#itFile").onchange=e=>{const f=e.target.files[0];if(!f)return;if(!/^image\//.test(f.type)){$("#itErr").textContent="Choose an image file.";return}if(f.size>15e6){$("#itErr").textContent="That photo is too large (max 15 MB).";return}
+    ITEMFILE=f;$("#itPrev").innerHTML=`<img class="pimg" src="${URL.createObjectURL(f)}" alt="">`;$("#itFileL").textContent=f.name.length>28?f.name.slice(0,25)+"…":f.name};
+  $("#itF").onsubmit=async e=>{e.preventDefault();const err=$("#itErr");err.textContent="";const name=$("#itName").value.trim(),num=id=>{const v=$("#"+id).value.trim();return v===""?NaN:+v};
+    if(!name){err.textContent="Give it a name.";$("#itName").focus();return}
+    const dupName=(isM?S.machines:S.materials).find(m=>m.name.toLowerCase()===name.toLowerCase()&&m.id!==x.id);if(dupName){err.textContent=`There's already a ${isM?"machine":"material"} called ${dupName.name}.`;return}
+    let row;
+    if(isM){const code=$("#itCode").value.trim().toUpperCase();
+      if(!/^[A-Z]{1,4}-?\d{1,3}$/.test(code)){err.textContent="Use a short code like BD-01 (letters, dash, number).";$("#itCode").focus();return}
+      const dup=S.machines.find(m=>m.code.toUpperCase()===code&&m.id!==x.id);if(dup){err.textContent=`${code} is already used by ${dup.name}. Codes must be unique.`;$("#itCode").focus();return}
+      const sp={};let badSpec=false;$$("#itF .spec-row").forEach(r=>{const k=r.querySelector("[data-sk]").value.trim(),v=r.querySelector("[data-sv]").value.trim();if(k&&v)sp[k]=v;else if(k||v)badSpec=true});
+      if(badSpec){err.textContent="Each spec needs both a label and a value (or leave both blank).";return}
+      const hr=num("itHr"),day=num("itDay"),mo=num("itMo");if(!(hr>0&&day>0&&mo>0)){err.textContent="Rates per hour, day and month must be numbers above zero.";return}
+      row={name,code,category:$("#itCat").value,specs:sp,rate_hr:hr,rate_day:day,rate_mo:mo,active:$("#itOn").checked}}
+    else{const cat=$("#itCat").value==="__new"?$("#itNewCat").value.trim():$("#itCat").value,unit=$("#itUnit").value.trim(),price=num("itPrice"),step=num("itStep"),st=$("#itStock").value.trim(),lo=$("#itLow").value.trim();
+      if(!cat){err.textContent="Pick or name a category.";return}if(!unit){err.textContent="Add the unit it's sold in.";$("#itUnit").focus();return}
+      if(!(price>0)){err.textContent="The price must be a number above zero.";$("#itPrice").focus();return}
+      if(!(Number.isInteger(step)&&step>=1)){err.textContent="The order step must be a whole number, 1 or more.";$("#itStep").focus();return}
+      if(st!==""&&!(+st>=0)||lo!==""&&!(+lo>=0)){err.textContent="Stock levels must be zero or more, or blank.";return}
+      row={name,category:cat,unit,price,step,stock_qty:st===""?null:+st,low_stock_at:lo===""?null:+lo,active:$("#itOn").checked}}
+    const b=$("#itGo");b.disabled=true;b.textContent=ITEMFILE?"Uploading…":"Saving…";
+    try{const r=await A.saveItem(kind,isNew?null:x,row,ITEMFILE);toast(`${r.name} ${isNew?"added":"saved"}${row.active===false?" · hidden from the apps":""}`);
+      catTab=isM?"machines":"materials";if(row.active===false)showRemoved=true;closeDrawer();if(page!=="fleet")location.hash="fleet";else render()}
+    catch(x2){err.textContent=x2.message||String(x2);b.disabled=false;b.textContent=isNew?(isM?"Add machine":"Add material"):"Save changes"}};
+}
+
+/* vehicles: a driver's unit_code is the machine code (fuel logs and checks link through it) */
+const drvOf=code=>code?S.drivers.find(d=>d.unit_code&&String(d.unit_code).toUpperCase()===String(code).toUpperCase()):null;
+const machOf=d=>d&&d.unit_code?S.machines.find(m=>m.code.toUpperCase()===String(d.unit_code).toUpperCase()):null;
+function vehPicker(sel,forId){
+  return `<div class="picker vpick" role="radiogroup" aria-label="Vehicle">${[`<button type="button" class="pk" role="radio" data-veh="" aria-checked="${!sel}" aria-pressed="${!sel}"><span class="th"><svg><use href="#i-x"/></svg></span><b>No vehicle</b><small>Unassigned</small></button>`,
+    ...S.machines.filter(m=>m.active!==false||m.code===sel).map(m=>{const o=drvOf(m.code),other=o&&String(o.id)!==String(forId);
+      return `<button type="button" class="pk" role="radio" data-veh="${esc(m.code)}" aria-checked="${sel===m.code}" aria-pressed="${sel===m.code}"><span class="th">${thumb(m.id,m.name)}</span><b>${esc(m.name)}</b><small>${esc(m.code)}${other?` · <span style="color:var(--busy)">in use by ${esc(first(o.full_name))}</span>`:""}</small></button>`})].join("")}</div>`}
+function wirePicker(root,onPick){root.querySelectorAll("[data-veh]").forEach(b=>b.onclick=()=>{root.querySelectorAll("[data-veh]").forEach(x=>{x.setAttribute("aria-pressed",x===b);x.setAttribute("aria-checked",x===b)});onPick(b.dataset.veh)})}
+function openVehicle(id){
+  const d=S.drivers.find(x=>String(x.id)===String(id));if(!d)return;const cur=machOf(d);let sel=cur?cur.code:"";
+  openDrawer(`<div class="dh"><div class="item"><span class="th" style="width:52px;height:52px;border-radius:14px">${cur?thumb(cur.id,cur.name):`<svg><use href="#i-truck"/></svg>`}</span><div style="min-width:0"><span class="lbl">Vehicle</span><h2 id="dTitle" style="margin-top:4px">${esc(d.full_name)}</h2><div class="mono">${cur?esc(cur.code+" · "+cur.name):d.unit_code?esc(d.unit_code)+" · not in the fleet list":"No vehicle"}</div></div></div>${xBtn}</div>
+  <div class="db"><p class="hint">The driver's fuel log and daily checks are recorded against this machine. Pick from the fleet.</p>
+    <div id="vhPick">${vehPicker(sel,d.id)}</div>
+    <div class="ann warn" id="vhConf" hidden><i></i><span id="vhConfTx"></span></div>
+    <p class="hint" id="vhErr" role="alert" style="color:var(--crit)"></p></div>
+  <div class="df"><button class="btn pri" id="vhGo" disabled>Save vehicle</button><span style="flex:1"></span><button class="btn" id="vhC">Cancel</button></div>`);
+  $("#vhC").onclick=closeDrawer;
+  const upd=()=>{const m=sel?S.machines.find(x=>x.code===sel):null,o=m&&drvOf(m.code),other=o&&o!==d?o:null,same=(cur?cur.code:"")===sel;
+    $("#vhGo").disabled=same;$("#vhConf").hidden=!other;$("#vhGo").textContent=other?"Swap vehicles":"Save vehicle";
+    if(other)$("#vhConfTx").innerHTML=`<b>${esc(m.code)}</b> is driven by <b>${esc(other.full_name)}</b>. Swap: ${esc(first(d.full_name))} takes ${esc(m.code)}, ${esc(first(other.full_name))} ${cur?`takes ${esc(cur.code)} · ${esc(cur.name)}`:"is left with no vehicle"}.`};
+  wirePicker($("#vhPick"),v=>{sel=v;upd()});upd();
+  $("#vhGo").onclick=async()=>{const b=$("#vhGo");b.disabled=true;try{await A.vehicle(d,sel||null);const m=sel&&S.machines.find(x=>x.code===sel);toast(m?`${d.full_name} · ${m.code} ${m.name}`:`${d.full_name} has no vehicle now`);closeDrawer();render()}catch(e){$("#vhErr").textContent=e.message||String(e);b.disabled=false}};
+}
+
+/* ═════════════ Staff & roles ═════════════ */
+const MX_AREAS=[["Orders & dispatch","orders",["orders"]],["Assign drivers","assign",["orders"]],["Payments","payments",["payments"]],["Quotes & leads","sales",["quotes","leads"]],["Projects","projects",["projects"]],["Fleet & bookings","fleet",["calendar","health"]],["Catalog & prices","catalog",["fleet"]],["Reports & insights","reports",["reports","insights"]],["Content & pricing settings","settings",["content"]],["Staff & roles","team",["staff"]]];
+const canR=(r,p)=>(PERMS[r]||[]).includes(p);
+const canPageR=(r,pg)=>STAFF.includes(r)&&(!PAGE_PERM[pg]||PAGE_PERM[pg].some(p=>canR(r,p)));
+function mxCell(r,[,perm,pages]){if(canR(r,perm))return tone("Full","ok");if(pages.some(pg=>canPageR(r,pg)))return tone("View","brand");return `<span class="muted" aria-label="No access">—</span>`}
+let stF={q:"",role:"all"},addPick="counter",addVeh="";
+function people(){return[...S.staff.map(x=>Object.assign({},x,{kind:"staff"})),...S.drivers.map(x=>Object.assign({},x,{role:"driver",kind:"driver"}))]}
+function lastSeen(x){if(x.kind==="driver"&&x.is_online)return`<span style="color:var(--ok)">●</span> Online now`;const t=x.last_seen||x.last_seen_at;return t?ago(typeof t==="number"?t:Date.parse(t)):"—"}
+function vStaff(){
+  const ps=people(),cnt=r=>ps.filter(x=>x.role===r).length,q=stF.q.trim().toLowerCase();
+  const list=ps.filter(x=>(stF.role==="all"||x.role===stF.role)&&(!q||[x.full_name,x.email,x.phone,roleName(x.role),x.unit_code].some(v=>String(v||"").toLowerCase().includes(q))))
+    .sort((a,b)=>["admin","dispatcher","counter","accounts","driver"].indexOf(a.role)-["admin","dispatcher","counter","accounts","driver"].indexOf(b.role)||String(a.full_name).localeCompare(b.full_name));
+  const roleCh=S.audit.filter(e=>e.entity==="profiles"&&e.changes&&(e.changes.role||e.changes.unit_code)).slice(0,8);
+  return `<p class="hint">Who can sign in to the console and the driver app, and what each role can do. Everyone signs up in the YD Works app first; a manager then gives them a role here.</p>
+  <section class="grid g-5">${[["admin","Managers"],["dispatcher","Dispatchers"],["counter","Counter"],["accounts","Accounts"],["driver","Drivers"]].map(([r,l])=>`<button type="button" class="card kpi kbtn" data-kr="${r}" aria-pressed="${stF.role===r}"><div class="l">${l}</div><div class="v">${cnt(r)}</div><div class="d">${r==="driver"?S.drivers.filter(d=>d.is_online).length+" online now":rolePill(r)}</div></button>`).join("")}</section>
+  <div class="card"><div class="card-h"><div><h2>Roles &amp; permissions</h2><div class="sub">Read-only: roles are fixed by the server, which checks every change. Full = can change, View = can see.</div></div></div>
+    <div class="tw mx-wrap"><table class="t mx"><thead><tr><th>Area</th>${["admin","dispatcher","counter","accounts","driver"].map(r=>`<th><span>${esc(roleName(r))}</span><small>${esc(ROLE_SHORT[r]||"Driver app only")}</small></th>`).join("")}</tr></thead><tbody>
+    ${MX_AREAS.map(a=>`<tr><th scope="row">${esc(a[0])}</th>${["admin","dispatcher","counter","accounts","driver"].map(r=>`<td>${r==="driver"?`<span class="muted">—</span>`:mxCell(r,a)}</td>`).join("")}</tr>`).join("")}
+    <tr><th scope="row">Driver app (jobs, fuel, checks)</th>${["admin","dispatcher","counter","accounts"].map(()=>`<td><span class="muted">—</span></td>`).join("")}<td>${tone("Full","ok")}</td></tr></tbody></table></div></div>
+  <div class="card" id="staffCard"><div class="card-h"><div><h2>Staff &amp; drivers</h2><div class="sub">${ps.length} people · ${cnt("admin")} manager${cnt("admin")===1?"":"s"}</div></div>
+    <div class="filters"><label class="search"><svg><use href="#i-search"/></svg><input id="stQ" placeholder="Search name, email, phone…" value="${esc(stF.q)}" autocomplete="off" aria-label="Search staff"></label>
+    <select class="inp" id="stRole" aria-label="Role filter"><option value="all">All roles</option>${["admin","dispatcher","counter","accounts","driver"].map(r=>`<option value="${r}" ${stF.role===r?"selected":""}>${esc(roleName(r))}</option>`).join("")}</select></div></div>
+    <div class="tw"><table class="t cards" style="min-width:900px"><thead><tr><th>Person</th><th>Phone</th><th>Role</th><th>Vehicle</th><th>Last active</th><th></th></tr></thead><tbody>
+    ${list.length?list.map(x=>{const m=x.kind==="driver"?machOf(x):null;return `<tr data-person="${esc(x.id)}"><td class="m-l"><div class="who"><span class="av ${x.kind==="driver"&&x.is_online?"on":""}">${ini(x.full_name||x.email)}</span><div style="min-width:0"><div style="font-weight:600">${esc(x.full_name||"—")}${x.me?` <span class="muted" style="font-weight:400">(you)</span>`:""}</div><div class="mono">${esc(x.email||"")}</div></div></div></td>
+      <td class="mono m-sub">${esc(x.phone||"—")}</td><td class="m-r">${rolePill(x.role)}</td>
+      <td class="m-sub" data-l="Vehicle">${x.kind==="driver"?(m?`<span class="vchip"><span class="th">${thumb(m.id,m.name)}</span><span class="mono">${esc(m.code)}</span> ${esc(m.name)}</span>`:x.unit_code?`<span class="mono">${esc(x.unit_code)}</span>`:'<span class="muted">No vehicle</span>'):'<span class="muted">—</span>'}</td>
+      <td class="muted m-sub2" data-l="Last active">${lastSeen(x)}</td>
+      <td><div class="row-acts"><button class="btn sm" data-chrole="${esc(x.id)}">Change role</button>${x.kind==="driver"?`<button class="btn sm" data-veh-d="${esc(x.id)}"><svg><use href="#i-truck"/></svg>Vehicle</button>`:""}</div></td></tr>`}).join(""):`<tr><td colspan="6"><div class="empty">Nobody matches.</div></td></tr>`}
+    </tbody></table></div></div>
+  <div class="grid g-main">
+    <div class="card"><div class="card-h"><div><h2>Add staff member</h2><div class="sub">They sign up in the YD Works app (or on the website) first with their email. Then enter that email here and pick their role.</div></div></div>
+      <form class="card-b stack" id="addStaff" novalidate style="gap:14px">
+        <div class="field" style="max-width:420px"><label for="asEm">Their account email</label><input class="inp" id="asEm" type="email" placeholder="name@example.com" autocomplete="off"></div>
+        <fieldset style="border:0;margin:0;padding:0"><legend class="lbl" style="margin-bottom:8px">Role</legend><div class="rolepick">${["admin","dispatcher","counter","accounts","driver"].map(r=>`<label class="ropt"><input type="radio" name="asRole" value="${r}" ${addPick===r?"checked":""}><b>${esc(ROLES[r][0])}</b><span>${esc(ROLES[r][1])}</span></label>`).join("")}</div></fieldset>
+        <div id="asVehW" ${addPick==="driver"?"":"hidden"}><div class="sec-t">Vehicle</div><div id="asVeh">${vehPicker(addVeh,null)}</div></div>
+        <div class="row-flex" style="flex-wrap:wrap"><span class="hint" id="asErr" style="color:var(--crit)"></span><button class="btn pri" type="submit" id="asGo"><svg><use href="#i-plus"/></svg>Give access</button></div>
+      </form></div>
+    <div class="card"><div class="card-h"><div><h2>Recent role changes</h2><div class="sub">From the activity log</div></div>${canPage("activity")?`<a class="btn sm" href="#activity" id="toAct">Activity log</a>`:""}</div>
+      ${roleCh.length?`<div>${roleCh.map(e=>{const c=e.changes,fr=c.role?c.role.from:null,to=c.role?c.role.to:null,w=actWhat(e);return `<div class="team-row"><span class="av">${ini(w.sum||"?")}</span><div class="tx"><b>${esc(w.sum||"Someone")}</b><span>${c.role?`${esc(fr?roleName(fr):"—")} → ${esc(roleName(to))}`:`Vehicle ${esc(fmtVal("unit_code",c.unit_code.from))} → ${esc(fmtVal("unit_code",c.unit_code.to))}`} · by ${esc(e.actor_name)} · ${ago(e.at)}</span></div>${c.role?rolePill(to):tone("Vehicle","mute")}</div>`}).join("")}</div>`:`<div class="empty">No role changes recorded yet.</div>`}</div>
+  </div>`;
+}
+function wStaff(){
+  let t=null;$("#stQ").addEventListener("input",e=>{clearTimeout(t);const v=e.target.value;t=setTimeout(()=>{stF.q=v;render();const i=$("#stQ");if(i){i.focus();i.setSelectionRange(i.value.length,i.value.length)}},220)});
+  $("#stRole").onchange=e=>{stF.role=e.target.value;render()};
+  $$("[data-kr]").forEach(b=>b.onclick=()=>{stF.role=stF.role===b.dataset.kr?"all":b.dataset.kr;render();$("#staffCard").scrollIntoView({behavior:"smooth",block:"start"})});
+  $$("[data-chrole]").forEach(b=>b.onclick=()=>openRole(b.dataset.chrole));
+  $$("[data-veh-d]").forEach(b=>b.onclick=()=>openVehicle(b.dataset.vehD));
+  $$("#addStaff [name=asRole]").forEach(i=>i.onchange=()=>{addPick=i.value;$("#asVehW").hidden=addPick!=="driver"});
+  wirePicker($("#asVeh"),v=>addVeh=v);
+  $("#addStaff").onsubmit=async e=>{e.preventDefault();const em=$("#asEm").value.trim(),err=$("#asErr");err.textContent="";
+    if(!emailOk(em)){err.textContent="Enter the email they signed up with.";$("#asEm").focus();return}
+    const b=$("#asGo");b.disabled=true;
+    try{const m=addPick==="driver"&&addVeh?S.machines.find(x=>x.code===addVeh):null,o=m&&drvOf(m.code);
+      if(o&&(o.email||"").toLowerCase()!==em.toLowerCase())await A.vehicle(o,null);
+      await A.role(em,addPick,m?m.code:null,m?m.name:null);toast(`${em} · ${ROLES[addPick][0]}`);addVeh="";render()}catch(x){err.textContent=x.message||String(x);b.disabled=false}};
+}
+function openRole(id){
+  const x=people().find(p=>String(p.id)===String(id));if(!x)return;let pick=x.role;
+  openDrawer(`<div class="dh"><div class="item"><span class="av" style="width:52px;height:52px;font-size:16px">${ini(x.full_name||x.email)}</span><div style="min-width:0">${rolePill(x.role)}<h2 id="dTitle" style="margin-top:6px">${esc(x.full_name||x.email)}</h2><div class="mono">${esc(x.email||"no email on file")}</div></div></div>${xBtn}</div>
+  <div class="db"><div class="sec-t">Change role</div>
+    <div class="rolepick" id="crPick">${["admin","dispatcher","counter","accounts","driver","customer"].map(r=>`<label class="ropt"><input type="radio" name="crRole" value="${r}" ${x.role===r?"checked":""}><b>${esc(ROLES[r][0])}${x.role===r?" · current":""}</b><span>${esc(ROLES[r][1])}</span></label>`).join("")}</div>
+    <div class="ann info" id="crDiff" hidden><i></i><span id="crDiffTx"></span></div>
+    <p class="hint" id="crErr" role="alert" style="color:var(--crit)"></p></div>
+  <div class="df"><button class="btn pri" id="crGo" disabled>Confirm change</button><span style="flex:1"></span><button class="btn" id="crC">Cancel</button></div>`);
+  $("#crC").onclick=closeDrawer;
+  const PL=p=>p.map(k=>PERM_L[k]).join(", ");
+  const upd=()=>{const same=pick===x.role;$("#crGo").disabled=same;$("#crDiff").hidden=same;$("#crErr").textContent="";if(same)return;
+    const a=PERMS[x.role]||[],b=PERMS[pick]||[],gain=b.filter(p=>!a.includes(p)),lose=a.filter(p=>!b.includes(p)),nm=esc(first(x.full_name||x.email));
+    let tx=`${nm} goes from <b>${esc(roleName(x.role))}</b> to <b>${esc(roleName(pick))}</b>.`;
+    if(pick==="customer")tx+=` ${nm} loses all staff access${x.role==="driver"?" and the driver app":" to this console"}; their customer account stays.`;
+    else if(pick==="driver")tx+=` ${nm} loses console access and uses the driver app${a.length?"":""}.`;
+    else{if(gain.length)tx+=` Gains: ${esc(PL(gain))}.`;if(lose.length)tx+=` Loses: ${esc(PL(lose))}.`;if(x.role==="driver")tx+=" Their vehicle is unassigned."}
+    $("#crDiffTx").innerHTML=tx;$("#crGo").textContent=`Change to ${roleName(pick)}`;$("#crDiff").className="ann "+(pick==="customer"||lose.length>gain.length?"warn":"info")};
+  $$("#crPick input").forEach(i=>i.onchange=()=>{pick=i.value;upd()});
+  $("#crGo").onclick=async()=>{const b=$("#crGo");b.disabled=true;
+    try{if(!x.email)throw new Error("This person has no email on file, so their role can't be changed here.");await A.role(x.email,pick);toast(`${x.full_name||x.email} · ${roleName(pick)}`);closeDrawer();render()}catch(e){$("#crErr").textContent=e.message||String(e);b.disabled=false}};
 }
 
 /* ═════════════ Content & pricing ═════════════ */
