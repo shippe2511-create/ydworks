@@ -1424,6 +1424,7 @@ function go(s,opts){opts=opts||{};
   const tab=TAB_FOR[s]||s;
   $$(".tabbar button").forEach(b=>{if(b.dataset.go===tab)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current")});
   if(opts.filter)setEquipFilter(opts.filter);
+  if(s==="equip"&&!opts.back)equipViaHaul=opts.filter==="haul";
   $("#s-"+s).scrollTop=0;render();
   if(s!==lastView){lastView=s;trk("screen_view",{screen:s})}
   if(s==="search")setTimeout(()=>$("#gQ").focus(),60);
@@ -1614,7 +1615,7 @@ function renderHome(){
       <span style="flex:1;min-width:0"><b>${esc(jobTitle(act))}</b><span class="meta">${stageLbl(act.status)} · ${ltr(act.id)}</span>
       <div class="prog"><i style="width:${Math.round(stagePct(act)*100)}%"></i></div></span>
       <span class="eta">${act.status==="enroute"?ltr(etaMin(act)+"'"):act.status==="arrived"?T("eta.here"):"…"}<small>${T(act.status==="enroute"?"eta.min":"eta.status")}</small></span></button>`:"";
-  $("#popular").innerHTML=FLEET.slice(0,6).map(m=>`<button class="mcard" data-machine="${m.id}"><div class="art">${thumb(m.id,m.name)}${m.busy?`<span class="pill busy glass">${T("m.busy")}</span>`:`<span class="pill ok glass">${T("m.ready")}</span>`}</div><b>${nm(m.name)}</b><span class="r">${mvrH(m.rate.hr)} <small>${T("m.perHr")}</small></span></button>`).join("");
+  $("#popular").innerHTML=FLEET.filter(machineOn).slice(0,6).map(m=>`<button class="mcard" data-machine="${m.id}"><div class="art">${thumb(m.id,m.name)}${m.busy?`<span class="pill busy glass">${T("m.busy")}</span>`:`<span class="pill ok glass">${T("m.ready")}</span>`}</div><b>${nm(m.name)}</b><span class="r">${mvrH(m.rate.hr)} <small>${T("m.perHr")}</small></span></button>`).join("");
   $("#homeMats").innerHTML=MATS.slice(0,3).map(matRow).join("");
   const p=PRJ,pct=prjPct(p);
   $("#buildTileK").textContent=p?T("home.t3kp",{pct}):T("home.t3k");$("#buildTileB").textContent=p?T("home.t3p"):T("home.t3");
@@ -1622,15 +1623,25 @@ function renderHome(){
   const nowMs=p&&(p.milestones.find(m=>m.status==="doing")||p.milestones.find(m=>m.status==="todo"));
   $("#promoK").textContent=T(p?"promo.bk":"promo.k");$("#promoB").textContent=p?T("promo.bb",{pct}):T("promo.b");
   $("#promoS").textContent=p?(nowMs?T("promo.bs",{m:msTitle(nowMs)}):p.title):T("promo.s");
+  renderYDHome();
 }
 
 let equipFilter="all";
 function setEquipFilter(f){equipFilter=f;$$("#equipChips .chip").forEach(c=>c.setAttribute("aria-pressed",c.dataset.f===f))}
 $("#equipChips").addEventListener("click",e=>{const c=e.target.closest(".chip");if(c){setEquipFilter(c.dataset.f);renderEquip()}});
 const availLbl=m=>m.nextFree?T("m.nextFree",{t:m.nextFree}):T("m.busy");
+let equipViaHaul=false;   // opened from the Logistics tile
 function renderEquip(){
-  $("#availCount").textContent=T("equip.avail",{n:FLEET.filter(m=>!m.busy).length});
-  $("#equipList").innerHTML=FLEET.filter(m=>equipFilter==="all"||m.cat===equipFilter).map(m=>`
+  const hire=svcOn("hire"),logi=svcOn("logistics");
+  // console switched services off: hire off → haulage only; logistics off → no haulage shortcut
+  if(!hire&&logi&&equipFilter!=="haul")setEquipFilter("haul");
+  if(!logi&&equipFilter==="haul"&&!equipViaHaul&&hire)setEquipFilter("all");
+  const off=(!hire&&!logi)||(equipViaHaul&&!logi);
+  $("#s-equip").classList.toggle("svc-off",off);
+  $("#equipChips").hidden=!hire;const hc=$('#equipChips [data-f="haul"]');if(hc)hc.hidden=!logi;
+  if(off){setHTML($("#equipNA"),naHtml());return}
+  $("#availCount").textContent=T("equip.avail",{n:FLEET.filter(m=>!m.busy&&machineOn(m)).length});
+  $("#equipList").innerHTML=FLEET.filter(m=>machineOn(m)&&(equipFilter==="all"||m.cat===equipFilter)).map(m=>`
     <button class="pcard" data-machine="${m.id}"><span class="ph">${thumb(m.id,m.name)}${m.busy?`<span class="pill busy glass">${availLbl(m)}</span>`:`<span class="pill ok glass">${T("m.available")}</span>`}</span>
     <b>${nm(m.name)}</b><span class="spec">${Object.values(m.specs||{}).slice(0,2).map(v=>Tf("specv."+v,v)).join(" · ")}</span>
     <span class="r">${mvrH(m.rate.hr)} <small>${T("m.perHour")}</small></span></button>`).join("");
@@ -1644,6 +1655,7 @@ function matRow(m){
   ${q?`<span class="stepper"><button data-dec="${m.id}" aria-label="${esc(T("stk.less",{name:m.name}))}">−</button><output>${q}</output><button data-inc="${m.id}" aria-label="${esc(T("stk.more",{name:m.name}))}"${full?" disabled":""}>+</button></span>`
      :`<button class="add" data-inc="${m.id}" aria-label="${esc(out?T("stk.out"):T("stk.add",{name:m.name}))}"${out?" disabled":""}>+</button>`}</div>`}
 function renderShop(){
+  const off=!svcOn("materials");$("#s-shop").classList.toggle("svc-off",off);if(off)setHTML($("#shopNA"),naHtml());
   const cats=["All",...new Set(MATS.map(m=>m.cat))];
   $("#shopChips").innerHTML=cats.map(c=>`<button class="chip" data-c="${esc(c)}" aria-pressed="${c===shopCat}">${Tf("cat."+c,c)}</button>`).join("");
   const list=MATS.filter(m=>(shopCat==="All"||m.cat===shopCat)&&matches(m,"m",shopQ));
@@ -1661,7 +1673,7 @@ $("#shopQx").addEventListener("click",()=>{setShopQ("");$("#shopQ").focus()});
 $("#shopChips").addEventListener("click",e=>{const c=e.target.closest(".chip");if(c){shopCat=c.dataset.c;renderShop()}});
 document.addEventListener("click",e=>{
   const inc=e.target.closest("[data-inc]"),dec=e.target.closest("[data-dec]");
-  if(inc&&!inc.disabled){const m=MATS.find(x=>x.id===inc.dataset.inc);const s=stockOf(m),q=cart[m.id]||0;
+  if(inc&&!inc.disabled&&svcOn("materials")){const m=MATS.find(x=>x.id===inc.dataset.inc);const s=stockOf(m),q=cart[m.id]||0;
     if(s!=null&&s<=0){toast(T("stk.out"));return}
     let n=q+m.step;if(s!=null&&n>s){n=s;toast(T("stk.max",{n:s}))}
     if(n===q)return;cart[m.id]=n;render();if(!q)toast(T("toast.added",{n,name:m.name}))}
@@ -1674,13 +1686,13 @@ function cartTotals(){let sub=0,count=0;for(const id in cart){const m=MATS.find(
 /* ---------- home search: machines + materials ---------- */
 let gQ="";
 function setGQ(v){gQ=v;const i=$("#gQ");if(i.value!==v)i.value=v;$("#gQx").hidden=!v;renderSearch()}
-const gCount=()=>FLEET.filter(m=>matches(m,"e",gQ)).length+MATS.filter(m=>matches(m,"m",gQ)).length;
+const gCount=()=>FLEET.filter(m=>machineOn(m)&&matches(m,"e",gQ)).length+(svcOn("materials")?MATS.filter(m=>matches(m,"m",gQ)).length:0);
 $("#gQ").addEventListener("input",e=>{setGQ(e.target.value);trackSearch("home",gQ,gCount)});
 $("#gQx").addEventListener("click",()=>{setGQ("");$("#gQ").focus()});
 function renderSearch(){
   const box=$("#gRes");
   if(!gQ.trim()){box.innerHTML=`<p class="sub" style="margin:6px 2px 12px">${T("search.try")}</p><div class="chips" style="flex-wrap:wrap;margin:0;padding:0">${["Excavator","Sand","Rebar","Cement","Crane","Blocks"].map(s=>`<button class="chip" data-sugg="${s}">${s}</button>`).join("")}</div>`;return}
-  const eq=FLEET.filter(m=>matches(m,"e",gQ)),ma=MATS.filter(m=>matches(m,"m",gQ));
+  const eq=FLEET.filter(m=>machineOn(m)&&matches(m,"e",gQ)),ma=svcOn("materials")?MATS.filter(m=>matches(m,"m",gQ)):[];
   if(!eq.length&&!ma.length){box.innerHTML=`<div class="empty"><span class="e-ic">${icon("search")}</span><b>${esc(T("search.none",{q:gQ}))}</b><p>${T("search.noneP")}</p><button class="cta" id="gClear" style="margin-top:16px">${T("search.clear")}</button></div>`;$("#gClear").addEventListener("click",()=>{setGQ("");$("#gQ").focus()});return}
   box.innerHTML=(eq.length?`<div class="sec" style="margin-top:8px"><h2>${T("search.equip")}</h2><span class="sub">${ltr(eq.length)}</span></div><div class="list">${eq.map(m=>`<button class="row" data-machine="${m.id}"><span class="ic">${thumb(m.id,m.name)}</span><span class="mid"><b>${nm(m.name)}</b><span>${Tf("f."+m.cat,m.cat)} · ${m.busy?availLbl(m):T("m.available")}</span></span><span class="end">${mvrH(m.rate.hr)}<small>${T("m.perHour")}</small></span></button>`).join("")}</div>`:"")+
     (ma.length?`<div class="sec"><h2>${T("search.mats")}</h2><span class="sub">${ltr(ma.length)}</span></div><div class="list">${ma.map(matRow).join("")}</div>`:"");
@@ -1934,6 +1946,7 @@ function mountCal(p,o){
 }
 function openMachine(id){
   const m=FLEET.find(x=>x.id===id);if(!m)return;
+  if(!machineOn(m)){openNA();return}
   const st={mode:"hr",qty:4};
   openSheet(`<h2 id="sheetTitle">${nm(m.name)}</h2><p class="sub">${m.busy?T("bk.onJob",{t:availLbl(m)}):T("bk.avail")}</p>
     <div class="machine-hero">${thumb(m.id,m.name)}</div>
@@ -1950,7 +1963,7 @@ function openMachine(id){
     <button class="cta ghost" data-wa="book" data-machine-name="${esc(m.name)}"><svg class="wa-svg" aria-hidden="true"><use href="#x-wa"/></svg>${T("wa.book")}</button>`);
   wireSite("bSite");const pay=wirePay("b");
   const dur=()=>st.qty*(st.mode==="hr"?36e5:st.mode==="day"?DAY:30*DAY);
-  const cal=mountCal("b",{dur,onDraw(){$("#bGo").disabled=!cal.valid();calc()}});
+  const cal=mountCal("b",{dur,onDraw(){$("#bGo").dataset.ok=cal.valid()?"1":"0";orderGate();calc()}});
   function calc(){
     const sub=m.rate[st.mode]*st.qty,mob=st.mode==="hr"?(PRICING.mobilisation_fee!=null?+PRICING.mobilisation_fee:300):0;const u={hr:"unit.hr",day:"unit.day",mo:"unit.month"}[st.mode];
     $("#bSum").innerHTML=(cal.st.hour!=null?`<div><span>${T("bk.window")}</span><span>${esc(fmtWhen(cal.startTs()))}</span></div>`:"")+`<div><span>${ltr(st.qty)} ${T(u)} × ${mvrH(m.rate[st.mode])}</span><span>${mvrH(sub)}</span></div><div><span>${T("bk.mob")}</span><span>${mob?mvrH(mob):T("bk.incl")}</span></div><div class="tot"><span>${T("bk.est")}</span><b>${mvrH(sub+mob)}</b></div>`;
@@ -1962,6 +1975,7 @@ function openMachine(id){
   cal.draw();calc();
   getBusy(m.id).then(b=>b||[],()=>{toast(T("bk.busyErr"));return[]}).then(b=>{if(!$("#bSlots"))return;cal.setBusy(b,true)});
   $("#bGo").addEventListener("click",()=>{
+    if(blockReason()){toast(blockMsg(blockReason()));orderGate();return}
     if(!cal.valid()){toast(T("bk.clash"));cal.draw();return}
     const {total,mob}=calc(),q=st.qty,start=cal.startTs(),end=start+dur(),site=readSite("bSite");
     const unitEn=st.mode==="hr"?"hrs":st.mode==="day"?"days":"months";
@@ -2032,9 +2046,10 @@ $("#cartBar").addEventListener("click",()=>{
     <div class="field"><label for="cWhen">${T("co.when")}</label><select id="cWhen"><option value="asap">${T("when.asap")}</option><option value="pm">${T("when.pm")}</option><option value="tmrw">${T("when.tmrw")}</option></select></div>
     ${payField("c")}
     <button class="cta" id="cGo">${T("co.place")}</button><button type="button" class="legal-link" data-legal="refunds">${T("legal.refunds")}</button><button class="cta ghost" id="cClose">${T("co.keep")}</button>`);
-  wireSite("cSite");const pay=wirePay("c");
+  wireSite("cSite");const pay=wirePay("c");orderGate();
   $("#cClose").addEventListener("click",closeSheet);
   $("#cGo").addEventListener("click",()=>{
+    if(blockReason()){toast(blockMsg(blockReason()));orderGate();return}
     const ids=Object.keys(cart);if(!ids.length){closeSheet();return}
     const lines=ids.map(id=>{const m=MATS.find(x=>x.id===id);return[`${m.name} (${m.unit})`,cart[id],m.price]});
     if(del)lines.push(["Delivery",1,del]);
@@ -2056,7 +2071,7 @@ function openVisit(){
   wireSite("vSite");
   $("#vGo").addEventListener("click",()=>{closeSheet();toast(T("visit.done"))});
 }
-const openBuild=()=>PRJ?go("build"):openVisit();
+const openBuild=()=>PRJ?go("build"):svcOn("house")?openVisit():openNA();
 $("#buildTile").addEventListener("click",openBuild);
 $("#buildBtn").addEventListener("click",openBuild);
 $("#bldVisit").addEventListener("click",openVisit);
@@ -2185,6 +2200,7 @@ function render(){
 
 /* ---------- create order ---------- */
 function createJob(j){
+  if(blockReason()){toast(blockMsg(blockReason()));orderGate();return}
   if(LIVE){liveCreate(j);return}
   jobs=load()||jobs;
   const pay=j.pay||{method:"cod"},booking=j.booking;delete j.pay;delete j.booking;
@@ -2231,12 +2247,12 @@ window.addEventListener("yd-lang",e=>{
   $("#payBox")._h=null;
   if(sheetOpen())closeSheet();
   if(LIVE&&YDB.user&&YDB.profile&&YDB.profile.lang!==I.get())YDB.updateProfile({lang:I.get()}).catch(()=>{});
-  render();
+  applyYD();
 });
 
 $("#themeSeg").innerHTML=YDUI.theme.segment("seg tseg");
 I.apply();localizeTheme();
-loadN();render();go("home");
+loadN();applyYD();go("home");
 const FLASH="yd-cust-flash";
 try{const f=sessionStorage.getItem(FLASH);if(f){sessionStorage.removeItem(FLASH);if(f==="del.done")setTimeout(()=>toast(T(f)),400)}}catch(e){}
 
@@ -2451,9 +2467,9 @@ $("#signInBtn").addEventListener("click",()=>{setAuthMode("in");pStep="phone";sh
 function applySettings(s){
   SETTINGS=Object.assign({},DEMO_SETTINGS,s||{});
   if(s.pricing)PRICING=Object.assign(PRICING,s.pricing);
-  const a=s.announcement||{};$("#annWrap").innerHTML=a.active&&a.text?`<div class="ann ${esc(a.tone||"info")}"><i></i><span>${esc(a.text)}</span></div>`:"";
-  if(s.ordering&&s.ordering.accepting_orders===false)$("#annWrap").insertAdjacentHTML("beforeend",`<div class="ann crit"><i></i><span>${esc(T("ann.closed",{hotline:(s.contact||{}).hotline||"992 0202"}))}</span></div>`);
-  render();
+  // announcement, ordering, contact and customer_app also come through yd-settings.js; this copy is the newest until it next fires
+  SRV={};if(YS&&s)YS.KEYS.forEach(k=>{if(s[k]!=null)SRV[k]=s[k]});
+  applyYD();
 }
 (async function boot(){
   if(!window.YDB)return;

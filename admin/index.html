@@ -433,6 +433,79 @@ textarea.inp{min-height:80px;resize:vertical}
 .hb-grid i{position:absolute;top:0;bottom:0;width:1px;background:var(--line)}
 @media (max-width:560px){.hb,.hb-axis{grid-template-columns:110px minmax(0,1fr);gap:10px}.hb .item .th{display:none}}
 
+/* ── Website & apps ── */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ap-top{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;justify-content:space-between}
+.ap-tabs button{position:relative;display:inline-flex;align-items:center;gap:7px;padding:8px 16px}
+.ap-tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.tdot,.btn.has-dirty::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--warn);display:inline-block;flex:none}
+.btn.has-dirty{position:relative}
+.btn.has-dirty::after{position:absolute;top:-4px;right:-4px;width:12px;height:12px;border:2px solid var(--surface)}
+.ap-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.ap-meta .hint b{font-weight:600;color:var(--ink)}
+.ap-intro{margin:-6px 0 0}
+.ap-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+.ap-col{display:flex;flex-direction:column;gap:20px;min-width:0}
+.ap-b{display:flex;flex-direction:column;gap:14px}
+.ap-foot{border-top:1px solid var(--line);padding-top:14px;margin-top:2px}
+.ap-st{min-height:1em}
+.pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.lrow{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.cnt-l{font:500 11px var(--mono);color:var(--faint);white-space:nowrap}
+.cnt-l.over{color:var(--warn)}
+.ferr{color:var(--crit);font-size:12.5px;min-height:0}
+.ferr:empty{display:none}
+.inp[aria-invalid="true"],.inp.dirty[aria-invalid="true"]{border-color:var(--crit)}
+[lang="dv"]{font-family:"Faruma","MV Faseyha","Noto Sans Thaana",var(--body)}
+.inp[dir="rtl"]{text-align:right}
+.sw-row{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:44px;cursor:pointer}
+.sw-row .tx{display:flex;flex-direction:column;gap:2px;min-width:0}
+.sw-row .tx b{font-weight:600;font-size:14px}
+.sw-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2px 22px;border:1px solid var(--line);border-radius:12px;padding:6px 14px}
+.sw-grid .sw-row .tx b{font-weight:500}
+.ap-fs{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.ck-opts{display:flex;flex-wrap:wrap;gap:8px}
+.ckbox{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 14px;border:1px solid var(--line-2);border-radius:10px;cursor:pointer;font-size:14px;font-weight:500}
+.ckbox input{width:18px;height:18px;margin:0;accent-color:var(--brand)}
+.ckbox:has(input:checked){border-color:var(--brand);background:var(--brand-soft)}
+.ckbox:has(input:focus-visible){outline:2px solid var(--brand);outline-offset:2px}
+.ap-note{display:flex;gap:10px;align-items:flex-start;border-radius:12px;padding:11px 14px;font-size:13px;line-height:1.45}
+.ap-note svg{flex:none;margin-top:1px}
+.ap-note.warn{background:color-mix(in srgb,var(--warn) 14%,transparent)}.ap-note.warn svg{color:var(--warn)}
+.ap-note.crit{background:color-mix(in srgb,var(--crit) 11%,transparent)}.ap-note.crit svg{color:var(--crit)}
+.ap-note b{font-weight:600}
+.ap-build{display:flex;gap:10px;align-items:flex-start;padding:11px 14px}
+.ap-build svg{color:var(--brand);flex:none;margin-top:2px}.ap-build b{display:block;font-weight:600;font-size:13.5px}
+.ann.ok{background:color-mix(in srgb,var(--ok) 13%,transparent)}.ann.ok i{background:var(--ok)}
+.is-off .ann,.pv-phone.is-off .pv-promo{opacity:.45}
+.pv-phone{position:relative;max-width:300px;border:1px solid var(--line-2);border-radius:24px;padding:14px 12px 16px;background:var(--bg);display:flex;flex-direction:column;gap:8px}
+.pv-bar{width:70px;height:5px;border-radius:3px;background:var(--line-2);margin:0 auto 4px}
+.pv-promo{border-radius:14px;padding:11px 13px;display:flex;flex-direction:column;gap:3px;font-size:13px;background:var(--brand-soft);border:1px solid color-mix(in srgb,var(--brand) 25%,transparent)}
+.pv-promo b{font-weight:600;font-size:14px}.pv-promo b:empty,.pv-promo span:empty{display:none}
+.pv-promo.success{background:color-mix(in srgb,var(--ok) 13%,transparent);border-color:color-mix(in srgb,var(--ok) 30%,transparent)}
+.pv-promo.warning{background:color-mix(in srgb,var(--warn) 15%,transparent);border-color:color-mix(in srgb,var(--warn) 32%,transparent)}
+.pv-tiles{display:grid;grid-template-columns:1fr 1fr;gap:6px}.pv-tiles i{height:34px;border-radius:10px;background:var(--surface-2)}
+.pv-off{display:none;font:500 10.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--mute);text-align:center}
+.pv-phone.is-off .pv-off{display:block}
+.serp{border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:3px;background:var(--surface)}
+.serp .u{font-size:12px;color:var(--mute)}.serp b{font-weight:500;font-size:16px;color:var(--brand);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.serp .d{font-size:13px;color:var(--mute);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ck-ol{margin:0;padding-left:20px;columns:2;column-gap:24px;font-size:13.5px;color:var(--mute)}.ck-ol li{padding:2px 0}
+.ck-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.ck-row{display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:10px;align-items:start;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.ck-n{font:600 12px var(--mono);color:var(--faint);padding-top:24px;text-align:center}
+.ck-f{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.ck-b{display:flex;gap:6px;padding-top:21px}
+@media (max-width:1100px){.ap-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:760px){
+  .ap-top{flex-direction:column;align-items:stretch}
+  .ap-tabs{display:flex}.ap-tabs button{flex:1;justify-content:center;padding:6px 8px}
+  .ap-meta{justify-content:space-between}
+  .pair,.sw-grid,.ck-f{grid-template-columns:minmax(0,1fr)}
+  .ck-row{grid-template-columns:minmax(0,1fr)}.ck-n{display:none}.ck-b{padding-top:0;justify-content:flex-end}
+  .ap-foot .btn{flex:1 1 auto}
+  .ck-ol{columns:1}
+}
 /* ── phone / installed app (PWA) ── */
 .bnav{display:none}
 .side-scrim{display:none}
@@ -1963,6 +2036,225 @@ function wContent(){
     save("maps",Object.assign({},S.settings.maps||{},{yard_lat:lat,yard_lng:lng,style_url:$("#mStyle").value.trim()}),"Map settings saved")};
   $("#cSave").onclick=()=>save("contact",{hotline:$("#cHot").value.trim(),email:$("#cEm").value.trim(),hours_am:$("#cAm").value.trim(),hours_pm:$("#cPm").value.trim(),friday:$("#cFri").value.trim(),whatsapp:$("#cWa").value.replace(/[^\d+]/g,"")},"Contact details saved");
 }
+
+/* ═════════════ Website & apps: what the website, customer app and driver app show ═════════════ */
+// Every card edits part of one setting (website, customer_app, driver_app, announcement) and saves the complete object.
+// Unsaved edits live in AD (per card) so a refresh of the console never wipes them; AT marks a card that had a save attempt.
+let appsTab="website";
+const AD={},AT={};
+const AP_BUILTIN="Leave empty to keep the built-in text";
+const AC={
+  ann:{key:"announcement",f:["active","text","text_dv","tone","where"],msg:v=>v.active?"Announcement saved and showing":"Announcement saved (hidden)"},
+  wHero:{key:"website",f:["hero_title_en","hero_title_dv","hero_sub_en","hero_sub_dv"],msg:"Website headline saved"},
+  wSec:{key:"website",f:["sections","whatsapp_button"],msg:"Website sections saved"},
+  wSeo:{key:"website",f:["seo_title","seo_description"],msg:"Search listing saved"},
+  wMaint:{key:"website",f:["maintenance"],msg:v=>v.maintenance.active?"Saved. Online quote requests are paused":"Saved. Online quote requests are open"},
+  cHome:{key:"customer_app",f:["home_title_en","home_title_dv","home_sub_en","home_sub_dv"],msg:"Home screen text saved"},
+  cTiles:{key:"customer_app",f:["tiles","whatsapp"],msg:"Home tiles saved"},
+  cPromo:{key:"customer_app",f:["promo"],msg:v=>v.promo.active?"Promo card saved and showing":"Promo card saved (hidden)"},
+  cMaint:{key:"customer_app",f:["maintenance"],msg:v=>v.maintenance.active?"Saved. The customer app is closed and new orders are blocked":"Saved. The customer app is open"},
+  cUpd:{key:"customer_app",f:["min_version","update_url_ios","update_url_android","update_text_en","update_text_dv"],msg:"Customer app update rule saved"},
+  dMsg:{key:"driver_app",f:["message"],msg:v=>v.message.active?"Saved. Drivers see the message":"Driver message saved (hidden)"},
+  dChk:{key:"driver_app",f:["checklist"],msg:v=>v.checklist.length?"Checklist saved":"Saved. Drivers use the built-in checklist"},
+  dRules:{key:"driver_app",f:["require_pod_photo","require_daily_check","fuel_logging","location_every_sec"],msg:"Driver app rules saved"},
+  dUpd:{key:"driver_app",f:["min_version","update_text_en","update_text_dv"],msg:"Driver app update rule saved"}
+};
+const APT={
+  website:{l:"Website",key:"website",url:"../",cols:[["wHero","wSeo"],["ann","wSec","wMaint"]],
+    intro:"What visitors see on yd-mv.com. Changes show the next time a page loads."},
+  customer:{l:"Customer app",key:"customer_app",url:"../app/",cols:[["cHome","cPromo","cUpd"],["cMaint","ann","cTiles"]],
+    intro:"What customers see in the YD Works app. Phones pick up changes when the app opens or comes back to the screen."},
+  driver:{l:"Driver app",key:"driver_app",url:"../driver/",cols:[["dMsg","dChk"],["dRules","dUpd"]],
+    intro:"Messages and rules for every driver. Phones pick up changes when the app opens or comes back to the screen."}
+};
+// the driver app's built-in daily vehicle checklist (a starting point when customising)
+const AP_CHK=[["Tyres & wheel nuts","ޓަޔަރާއި ފުރޮޅުގެ ނަޓު"],["Brakes & air pressure","ބްރޭކާއި އެއާ ޕްރެޝަރު"],["Lights & indicators","ލައިޓާއި އިންޑިކޭޓަރު"],["Hydraulics & tipper ram","ހައިޑްރޯލިކްސް އަދި ޓިޕަރ ރޭމް"],
+  ["Oil, coolant, water","އޮއިލް، ކޫލަންޓް، ފެން"],["Mirrors & windscreen","މިރަރާއި ވިންޑްސްކްރީން"],["Load straps & tarp","ލޯޑް ސްޓްރެޕާއި ޓާޕޯލިން"],["PPE on board","ޕީޕީއީ ގާޑީގައި"]].map(([label_en,label_dv])=>({label_en,label_dv}));
+const AP_VER=/^\d+(\.\d+){0,3}$/,AP_URL=/^https:\/\/[^\s/]+\.[^\s]+$/;
+const apPath=(o,p)=>p.split(".").reduce((a,k)=>a==null?a:a[k],o);
+function apSet(o,p,v){const ks=p.split("."),l=ks.pop();let a=o;ks.forEach(k=>{if(a[k]==null||typeof a[k]!=="object")a[k]={};a=a[k]});a[l]=v}
+const apDraft=c=>AD[c]||(AD[c]=curSet(AC[c].key));
+const apVal=(c,p)=>apPath(AD[c]||curSet(AC[c].key),p);
+const aid=(c,p)=>"ap-"+c+"-"+p.replace(/\./g,"-");
+const apId=()=>"c"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const apClean=v=>typeof v==="string"?v.trim():Array.isArray(v)?v.map(apClean):v&&typeof v==="object"?Object.fromEntries(Object.entries(v).map(([k,x])=>[k,apClean(x)])):v;
+const apStr=v=>String(v==null?"":v).trim();
+function apDirty(c){const d=AD[c];if(!d)return false;const s=curSet(AC[c].key);return AC[c].f.some(k=>JSON.stringify(apClean(d[k]))!==JSON.stringify(s[k]))}
+function apAnyDirty(){return Object.keys(AD).some(apDirty)}
+function apDiscard(){for(const k in AD)delete AD[k];for(const k in AT)delete AT[k]}
+addEventListener("beforeunload",e=>{if(page==="apps"&&apAnyDirty()){e.preventDefault();e.returnValue=""}});
+function apLast(key){const e=S.audit.find(x=>x.entity==="app_settings"&&String(x.entity_id)===key);
+  if(!e)return LIVE&&S.auditErr?"":"No changes recorded yet";
+  return `Last changed by <b>${esc(e.actor_name||"a staff member")}</b>, <time datetime="${new Date(e.at).toISOString()}" title="${esc(dlong(e.at)+" "+hhmm(e.at))}">${ago(e.at)}</time>`}
+
+/* building blocks: every control has a visible label; Dhivehi inputs are right-to-left */
+function apIn(c,p,label,o){o=o||{};const id=aid(c,p),v=apVal(c,p),dv=/_dv$/.test(p)||o.dv;
+  const desc=[id+"-e",o.count?id+"-n":"",o.hint?id+"-h":""].filter(Boolean).join(" ");
+  const at=`id="${id}" data-ac="${c}" data-ap="${p}"${o.max?` maxlength="${o.max}"`:""}${o.count?` data-count="${o.count}"`:""} placeholder="${esc(o.ph||"")}"${dv?' dir="rtl" lang="dv"':""}${o.mode?` inputmode="${o.mode}"`:""}${o.type?` type="${o.type}"`:""} aria-describedby="${desc}"${o.mono?' style="font-family:var(--mono)"':""} autocomplete="off"${dv?' spellcheck="false"':""}`;
+  return `<div class="field${o.full?" full":""}"><div class="lrow"><label for="${id}">${esc(label)}</label>${o.count?`<span class="cnt-l" id="${id}-n"></span>`:""}</div>
+    ${o.area?`<textarea class="inp" rows="${o.rows||2}" ${at}>${esc(v??"")}</textarea>`:`<input class="inp" ${at} value="${esc(v??"")}">`}
+    ${o.hint?`<span class="hint" id="${id}-h">${o.hint}</span>`:""}<span class="ferr" id="${id}-e" aria-live="polite"></span></div>`}
+const apPair=(c,base,label,o)=>`<div class="pair">${apIn(c,base+"_en",label+" · English",o)}${apIn(c,base+"_dv",label+" · Dhivehi",Object.assign({},o,{ph:(o&&o.phdv)||(o&&o.ph)||""}))}</div>`;
+function apSw(c,p,label,hint){const id=aid(c,p);
+  return `<label class="sw-row" for="${id}"><span class="tx"><b>${label}</b>${hint?`<span class="hint">${hint}</span>`:""}</span><input type="checkbox" class="switch" id="${id}" data-ac="${c}" data-ap="${p}" ${apVal(c,p)?"checked":""}></label>`}
+function apSel(c,p,label,opts,num){const id=aid(c,p),v=String(apVal(c,p));
+  return `<div class="field"><label for="${id}">${label}</label><select class="inp" id="${id}" data-ac="${c}" data-ap="${p}"${num?" data-num":""}>${opts.map(([k,l])=>`<option value="${k}" ${String(k)===v?"selected":""}>${esc(l)}</option>`).join("")}</select><span class="ferr" id="${id}-e" aria-live="polite"></span></div>`}
+function apCard(c,title,sub,body,btn){
+  return `<section class="card ap-card" id="apc-${c}" aria-labelledby="apc-${c}-t"><div class="card-h"><div><h2 id="apc-${c}-t">${title}</h2>${sub?`<div class="sub">${sub}</div>`:""}</div></div>
+    <div class="card-b ap-b">${body}<div class="row-flex ap-foot"><span class="hint ap-st" id="ap-${c}-st" aria-live="polite"></span><button type="button" class="btn pri" id="ap-${c}-save" data-asave="${c}">${btn}</button></div></div></section>`}
+const apBuild=()=>`<div class="box ap-build"><svg width="18" height="18"><use href="#i-phone"/></svg><div><b>Current build: <span style="font-family:var(--mono)">${esc(APP_BUILD)}</span></b><span class="hint">Phones on a version older than the minimum see an update screen.</span></div></div>`;
+const apWarnBox=()=>`<div class="ap-note warn" data-warn hidden><svg width="18" height="18"><use href="#i-alert"/></svg><span></span></div>`;
+
+const AP_CARDS={
+  ann:()=>apCard("ann","Announcement banner",`A strip across the top of the website and the customer app. ${apLast("announcement")}`,
+    apSw("ann","active","Show the banner")+
+    `<div class="pair">${apIn("ann","text","Message · English",{max:140,ph:"e.g. Closed Friday 6 Dec for Independence Day. Hotline stays open."})}${apIn("ann","text_dv","Message · Dhivehi",{max:140,dv:1,ph:"Leave empty to use the English text"})}</div>`+
+    apSel("ann","tone","Style",[["info","Information"],["warn","Notice"],["crit","Urgent"]])+
+    `<fieldset class="ap-fs"><legend class="lbl">Show on</legend><div class="ck-opts">${[["website","Website"],["customer_app","Customer app"]].map(([k,l])=>`<label class="ckbox" for="${aid("ann","where."+k)}"><input type="checkbox" id="${aid("ann","where."+k)}" data-ac="ann" data-ap="where.${k}" ${apVal("ann","where."+k)?"checked":""}>${l}</label>`).join("")}</div><span class="ferr" id="${aid("ann","where.website")}-e" aria-live="polite"></span></fieldset>`+
+    `<div><div class="lbl" style="margin-bottom:6px">Preview</div><div class="stack" style="gap:6px"><div class="ann" id="ap-ann-pv"><i></i><span></span></div><div class="ann" id="ap-ann-pvdv" dir="rtl" lang="dv" hidden><i></i><span></span></div></div></div>`,"Save banner"),
+  wHero:()=>apCard("wHero","Hero headline","The big line at the top of the home page.",
+    apPair("wHero","hero_title","Headline",{max:80,ph:AP_BUILTIN})+apPair("wHero","hero_sub","Sub-line",{max:200,area:1,ph:AP_BUILTIN}),"Save headline"),
+  wSec:()=>apCard("wSec","Sections","Hide a section to take it off the home page and out of the menu.",
+    `<div class="sw-grid">${[["services","Services"],["fleet","Equipment fleet"],["materials","Building materials"],["projects","House building"],["estimate","Materials price estimate"],["reviews","Google rating (top strip)"],["quote","Quote request form"],["contact","Contact cards"]].map(([k,l])=>apSw("wSec","sections."+k,l)).join("")}</div>
+    <span class="hint">Turning off both “Quote request form” and “Contact cards” hides the whole contact section.</span>
+    <span class="ferr" id="${aid("wSec","sections.services")}-e" aria-live="polite"></span>`+
+    apSw("wSec","whatsapp_button","Floating WhatsApp button","Hides only the round button in the corner. The WhatsApp contact card and the footer button always stay."),"Save sections"),
+  wSeo:()=>apCard("wSeo","Search listing","How the website shows up on Google and when a link is shared.",
+    apIn("wSeo","seo_title","Page title",{count:60,max:120,ph:"Leave empty to keep the built-in title"})+
+    apIn("wSeo","seo_description","Description",{count:160,max:320,area:1,rows:3,ph:"Leave empty to keep the built-in description"})+
+    `<div><div class="lbl" style="margin-bottom:6px">Preview</div><div class="serp" id="ap-seo-pv"><span class="u">yd-mv.com</span><b></b><span class="d"></span></div></div>`,"Save search listing"),
+  wMaint:()=>apCard("wMaint","Quote requests","For holidays or when the team is fully booked. Calls still work.",
+    apSw("wMaint","maintenance.active","Pause online quote requests","The quote form is replaced by your message.")+
+    apPair("wMaint","maintenance.text","Message",{area:1,max:240,ph:"e.g. We're fully booked until 10 Dec. Call 992 0202 for urgent jobs.",phdv:"Leave empty to use the English text"})+
+    `<div class="ap-note warn" data-on="maintenance.active" hidden><svg width="18" height="18"><use href="#i-alert"/></svg><span>Visitors can't send a quote request until you turn this off.</span></div>`,"Save quote requests"),
+  cHome:()=>apCard("cHome","Home screen","The greeting at the top of the app's home screen.",
+    apPair("cHome","home_title","Headline",{max:60,ph:AP_BUILTIN})+apPair("cHome","home_sub","Sub-line",{max:140,area:1,ph:AP_BUILTIN}),"Save home screen"),
+  cTiles:()=>apCard("cTiles","Home tiles","Turn a service off to hide its tile while it's unavailable.",
+    `<div class="sw-grid">${[["hire","Equipment hire"],["materials","Building materials"],["logistics","Logistics"],["house","House building"]].map(([k,l])=>apSw("cTiles","tiles."+k,l)).join("")}</div>
+    <span class="ferr" id="${aid("cTiles","tiles.hire")}-e" aria-live="polite"></span>`+
+    apSw("cTiles","whatsapp","WhatsApp buttons","Chat shortcuts in the app (help, orders and the home screen)."),"Save tiles"),
+  cPromo:()=>apCard("cPromo","Promo card","A card on the home screen for an offer or news.",
+    apSw("cPromo","promo.active","Show the promo card")+
+    apPair("cPromo","promo.title","Title",{max:60,ph:"e.g. Free delivery this week",phdv:"Leave empty to use the English text"})+
+    apPair("cPromo","promo.text","Text",{max:160,area:1,ph:"e.g. On every materials order over MVR 5,000.",phdv:"Leave empty to use the English text"})+
+    apSel("cPromo","promo.tone","Colour",[["info","Blue · information"],["success","Green · good news"],["warning","Amber · heads-up"]])+
+    `<div><div class="lbl" style="margin-bottom:6px">Preview</div><div class="pv-phone" id="ap-promo-ph"><div class="pv-bar"></div><div class="pv-promo" id="ap-promo-pv"><b></b><span></span></div><div class="pv-promo" id="ap-promo-pvdv" dir="rtl" lang="dv" hidden><b></b><span></span></div><div class="pv-tiles"><i></i><i></i><i></i><i></i></div><span class="pv-off">Hidden · switch on to show</span></div></div>`,"Save promo card"),
+  cMaint:()=>apCard("cMaint","Maintenance mode","Close the app for an update or an emergency.",
+    `<div class="ap-note crit"><svg width="18" height="18"><use href="#i-alert"/></svg><span><b>This also stops new orders.</b> While it's on, the app shows a full-screen “back soon” message and the server refuses new orders from customers. Counter orders in this console still work.</span></div>`+
+    apSw("cMaint","maintenance.active","Close the customer app")+
+    apPair("cMaint","maintenance.text","Message",{area:1,max:240,ph:"e.g. We're updating the app. Back by 4 pm. Call 992 0202 to order.",phdv:"Leave empty to use the English text"}),"Save maintenance mode"),
+  cUpd:()=>apCard("cUpd","Force update","Ask everyone on an older version to update before ordering.",
+    apBuild()+apIn("cUpd","min_version","Minimum version",{max:20,mode:"decimal",mono:1,ph:"Empty = no forced update",hint:"Like 1.0.1. Phones older than this must update."})+
+    `<div class="pair">${apIn("cUpd","update_url_ios","App Store link",{type:"url",mode:"url",max:300,ph:"https://apps.apple.com/…"})}${apIn("cUpd","update_url_android","Play Store link",{type:"url",mode:"url",max:300,ph:"https://play.google.com/store/apps/…"})}</div>`+
+    apPair("cUpd","update_text","Update message",{area:1,max:200,ph:"Leave empty for the built-in message"})+apWarnBox(),"Save update rule"),
+  dMsg:()=>apCard("dMsg","Message to all drivers","A banner on every driver's Jobs screen.",
+    apSw("dMsg","message.active","Show the message")+
+    apPair("dMsg","message.text","Message",{area:1,max:200,ph:"e.g. Thilafushi ferry is delayed today. Call dispatch before leaving.",phdv:"Leave empty to use the English text"})+
+    apSel("dMsg","message.tone","Colour",[["info","Blue · information"],["success","Green · good news"],["warning","Amber · warning"]])+
+    `<div><div class="lbl" style="margin-bottom:6px">Preview</div><div class="stack" style="gap:6px" id="ap-dmsg-wrap"><div class="ann" id="ap-dmsg-pv"><i></i><span></span></div><div class="ann" id="ap-dmsg-pvdv" dir="rtl" lang="dv" hidden><i></i><span></span></div><span class="hint" id="ap-dmsg-off">Hidden · switch on to show</span></div></div>`,"Save message"),
+  dRules:()=>apCard("dRules","Rules","What drivers must do in the app.",
+    apSw("dRules","require_pod_photo","Delivery photo required","A photo at drop-off is needed to complete a job.")+
+    apSw("dRules","require_daily_check","Daily check required before jobs","The vehicle checklist must be done each day before accepting jobs.")+
+    apSw("dRules","fuel_logging","Fuel log","Drivers can record fuel fills in the app.")+
+    apSel("dRules","location_every_sec","Location updates while online",[[15,"Every 15 seconds (most precise, more battery)"],[30,"Every 30 seconds (recommended)"],[60,"Every minute"],[120,"Every 2 minutes (saves battery)"]],1),"Save rules"),
+  dChk:()=>apCard("dChk","Daily vehicle checklist","The items a driver ticks before the first job of the day.",apChkBody(),"Save checklist"),
+  dUpd:()=>apCard("dUpd","Force update","Ask drivers on an older version to update before taking jobs.",
+    apBuild()+apIn("dUpd","min_version","Minimum version",{max:20,mode:"decimal",mono:1,ph:"Empty = no forced update",hint:"Like 1.0.1. Phones older than this must update."})+
+    apPair("dUpd","update_text","Update message",{area:1,max:200,ph:"Leave empty for the built-in message"})+apWarnBox(),"Save update rule")
+};
+function apChkBody(){const c="dChk",list=apVal(c,"checklist")||[],eid=aid(c,"checklist")+"-e";
+  if(!list.length)return `<div class="box stack"><div><b style="font-weight:600">Drivers see the built-in checklist</b><div class="hint">${AP_CHK.length} items, in English and Dhivehi.</div></div>
+    <ol class="ck-ol">${AP_CHK.map(x=>`<li>${esc(x.label_en)}</li>`).join("")}</ol>
+    <button type="button" class="btn" data-ck="custom" style="align-self:flex-start"><svg><use href="#i-edit"/></svg>Customise this list</button></div><span class="ferr" id="${eid}" aria-live="polite"></span>`;
+  return `<ol class="ck-list" aria-label="Checklist items">${list.map((x,i)=>{const nm=esc(apStr(x.label_en)||"item "+(i+1));return `<li class="ck-row"><span class="ck-n" aria-hidden="true">${i+1}</span>
+    <div class="ck-f">${apIn(c,`checklist.${i}.label_en`,`Item ${i+1} · English`,{max:60})}${apIn(c,`checklist.${i}.label_dv`,`Item ${i+1} · Dhivehi`,{max:60,dv:1,ph:"Leave empty to use English"})}</div>
+    <div class="ck-b"><button type="button" class="icon-btn" data-ck="up" data-i="${i}" aria-label="Move ${nm} up" ${i?"":"disabled"}><svg><use href="#i-up"/></svg></button><button type="button" class="icon-btn" data-ck="down" data-i="${i}" aria-label="Move ${nm} down" ${i<list.length-1?"":"disabled"}><svg><use href="#i-down"/></svg></button><button type="button" class="icon-btn" data-ck="del" data-i="${i}" aria-label="Remove ${nm}"><svg><use href="#i-trash"/></svg></button></div></li>`}).join("")}</ol>
+    <span class="ferr" id="${eid}" aria-live="polite"></span>
+    <div class="row-flex" style="flex-wrap:wrap;justify-content:flex-start"><button type="button" class="btn" data-ck="add" ${list.length>=20?"disabled":""}><svg><use href="#i-plus"/></svg>Add item</button><button type="button" class="btn" data-ck="reset">Use built-in checklist</button></div>`}
+function apCk(op,i){const d=apDraft("dChk"),L=d.checklist=(d.checklist||[]).slice();
+  if(op==="custom")d.checklist=AP_CHK.map(x=>Object.assign({id:apId()},x));
+  else if(op==="add")L.push({id:apId(),label_en:"",label_dv:""});
+  else if(op==="reset")d.checklist=[];
+  else if(op==="del")L.splice(i,1);
+  else if(op==="up"&&i>0)[L[i-1],L[i]]=[L[i],L[i-1]];
+  else if(op==="down"&&i<L.length-1)[L[i+1],L[i]]=[L[i],L[i+1]];
+  render();
+  const n=d.checklist.length,f=s=>{const e=$(s);if(e){e.focus({preventScroll:op!=="add"});return true}return false};
+  if(op==="add")f(`#${aid("dChk","checklist."+(n-1)+".label_en")}`);
+  else if(op==="custom")f(`#${aid("dChk","checklist.0.label_en")}`);
+  else if(op==="reset")f(`#apc-dChk [data-ck="custom"]`);
+  else if(op==="up")f(`#apc-dChk [data-ck="up"][data-i="${i-1}"]:not(:disabled)`)||f(`#apc-dChk [data-ck="down"][data-i="${i-1}"]`);
+  else if(op==="down")f(`#apc-dChk [data-ck="down"][data-i="${i+1}"]:not(:disabled)`)||f(`#apc-dChk [data-ck="up"][data-i="${i+1}"]`);
+  else if(op==="del")f(`#apc-dChk [data-ck="del"][data-i="${Math.min(i,n-1)}"]`)||f(`#apc-dChk [data-ck="custom"],#apc-dChk [data-ck="add"]`)}
+
+/* validation: [path, message, required?] — "required" ones show after the first save attempt, format ones while typing */
+function apCheck(c,d){const e=[],req=(p,m)=>{if(!apStr(apPath(d,p)))e.push([p,m,1])};
+  switch(c){
+    case "ann":if(d.active){req("text","Write the message in English before turning the banner on");if(!d.where.website&&!d.where.customer_app)e.push(["where.website","Pick at least one place to show it",1])}break;
+    case "wSec":if(!Object.values(d.sections).some(Boolean))e.push(["sections.services","Keep at least one section on"]);break;
+    case "wMaint":if(d.maintenance.active)req("maintenance.text_en","Tell visitors what to do instead, e.g. call 992 0202");break;
+    case "cTiles":if(!Object.values(d.tiles).some(Boolean))e.push(["tiles.hire","Keep at least one tile on"]);break;
+    case "cPromo":if(d.promo.active&&!apStr(d.promo.title_en)&&!apStr(d.promo.text_en))e.push(["promo.title_en","Add a title or text in English before showing the card",1]);break;
+    case "cMaint":if(d.maintenance.active)req("maintenance.text_en","Write the message customers see while the app is closed");break;
+    case "dMsg":if(d.message.active)req("message.text_en","Write the message in English before showing it to drivers");break;
+    case "dChk":(d.checklist||[]).forEach((x,i)=>{if(!apStr(x.label_en))e.push(["checklist."+i+".label_en","Name this item in English",1])});if((d.checklist||[]).length>20)e.push(["checklist","Keep the checklist to 20 items or fewer"]);break;
+    case "dRules":if(![15,30,60,120].includes(+d.location_every_sec))e.push(["location_every_sec","Pick one of the listed intervals"]);break;
+    case "cUpd":case "dUpd":{const v=apStr(d.min_version);if(v&&!AP_VER.test(v))e.push(["min_version","Use numbers and dots, like 1.0.1"]);
+      if(c==="cUpd"){["update_url_ios","update_url_android"].forEach(k=>{const u=apStr(d[k]);if(u&&!AP_URL.test(u))e.push([k,"Paste the full store link, starting with https://"])});
+        if(v&&AP_VER.test(v)&&!apStr(d.update_url_ios)&&!apStr(d.update_url_android))e.push(["update_url_ios","Add at least one store link so customers can update",1])}
+      break}
+  }
+  return e}
+function apWarn(c,d){if(c!=="cUpd"&&c!=="dUpd")return "";const v=apStr(d.min_version);
+  if(v&&AP_VER.test(v)&&YS&&YS.older(APP_BUILD,v))return `Version ${esc(v)} is newer than the current build (${esc(APP_BUILD)}). Every phone will be told to update, even those on the latest build, until version ${esc(v)} is in the ${c==="cUpd"?"stores":"drivers' hands"}.`;
+  return ""}
+const AP_TONE={info:"info",success:"ok",warning:"warn"};
+function apPrev(c,d){
+  const two=(a,b,cls,en,dv,ph)=>{if(!a)return;a.className=cls;a.querySelector("span").textContent=apStr(en)||ph;if(b){b.className=cls;b.hidden=!apStr(dv);b.querySelector("span").textContent=apStr(dv)}};
+  if(c==="ann")two($("#ap-ann-pv"),$("#ap-ann-pvdv"),"ann "+(d.tone||"info"),d.text,d.text_dv,"Your message appears here");
+  if(c==="dMsg"){two($("#ap-dmsg-pv"),$("#ap-dmsg-pvdv"),"ann "+(AP_TONE[d.message.tone]||"info"),d.message.text_en,d.message.text_dv,"Your message appears here");
+    const w=$("#ap-dmsg-wrap");if(w){w.classList.toggle("is-off",!d.message.active);$("#ap-dmsg-off").hidden=!!d.message.active}}
+  if(c==="cPromo"){const pr=d.promo,set=(el,t,x)=>{if(!el)return;el.className="pv-promo "+(pr.tone||"info");el.querySelector("b").textContent=t;el.querySelector("span").textContent=x};
+    set($("#ap-promo-pv"),apStr(pr.title_en)||(apStr(pr.text_en)?"":"Promo title"),apStr(pr.text_en)||(apStr(pr.title_en)?"":"Promo text appears here"));
+    const dv=$("#ap-promo-pvdv");if(dv){set(dv,apStr(pr.title_dv),apStr(pr.text_dv));dv.hidden=!apStr(pr.title_dv)&&!apStr(pr.text_dv)}
+    const ph=$("#ap-promo-ph");if(ph)ph.classList.toggle("is-off",!pr.active)}
+  if(c==="wSeo"){const p=$("#ap-seo-pv");if(p){p.querySelector("b").textContent=apStr(d.seo_title)||"YD Works · Equipment hire, building materials & logistics";p.querySelector(".d").textContent=apStr(d.seo_description)||"Built-in description of YD Works, Hulhumalé."}}
+  $$(`#apc-${c} [data-on]`).forEach(n=>n.hidden=!apPath(d,n.dataset.on))}
+function apTabDots(){Object.keys(APT).forEach(t=>{const b=$("#apt-"+t);if(!b)return;const dirty=APT[t].cols.flat().some(apDirty);b.querySelector(".tdot").hidden=!dirty;b.setAttribute("aria-label",APT[t].l+(dirty?", unsaved changes":""))})}
+function apUpd(c){const card=$("#apc-"+c);if(!card)return;
+  if(AD[c]&&!AT[c]&&!apDirty(c))delete AD[c];
+  const saved=curSet(AC[c].key),d=AD[c]||saved,dirty=apDirty(c),b=$("#ap-"+c+"-save");
+  b.classList.toggle("has-dirty",dirty);if(dirty)b.setAttribute("aria-label",b.textContent.trim()+", unsaved changes");else b.removeAttribute("aria-label");
+  $("#ap-"+c+"-st").textContent=dirty?"Unsaved changes":"";
+  card.querySelectorAll("[data-ap]").forEach(i=>{const p=i.dataset.ap;i.classList.toggle("dirty",JSON.stringify(apClean(apPath(d,p))??"")!==JSON.stringify(apPath(saved,p)??""))});
+  card.querySelectorAll(".ferr").forEach(el=>el.textContent="");card.querySelectorAll("[aria-invalid]").forEach(el=>el.removeAttribute("aria-invalid"));
+  apCheck(c,d).filter(x=>!x[2]||AT[c]).forEach(([p,m])=>{const el=$("#"+aid(c,p)+"-e");if(el&&!el.textContent)el.textContent=m;const i=$("#"+aid(c,p));if(i)i.setAttribute("aria-invalid","true")});
+  card.querySelectorAll("[data-count]").forEach(i=>{const n=$("#"+i.id+"-n"),max=+i.dataset.count,l=i.value.trim().length;n.textContent=l+" / "+max+(l>max?" · may be cut off":"");n.classList.toggle("over",l>max)});
+  const w=card.querySelector("[data-warn]");if(w){const t=apWarn(c,d);w.hidden=!t;w.querySelector("span").innerHTML=t}
+  apPrev(c,d);apTabDots()}
+async function apSave(c){const def=AC[c];AT[c]=true;const d=AD[c]||curSet(def.key),errs=apCheck(c,d);apUpd(c);
+  if(errs.length){toast(errs.length>1?`Check the ${errs.length} highlighted fields`:errs[0][1]);const el=$("#"+aid(c,errs[0][0]));if(el)el.focus();return}
+  if(!apDirty(c)){delete AT[c];apUpd(c);toast("No changes to save");return}
+  const val=curSet(def.key);def.f.forEach(k=>val[k]=apClean(jclone(d[k])));
+  const b=$("#ap-"+c+"-save");b.disabled=true;$("#ap-"+c+"-st").textContent="Saving…";
+  try{await A.setting(def.key,val);delete AD[c];delete AT[c];trk("console_setting_saved",{key:def.key,card:c});
+    toast(typeof def.msg==="function"?def.msg(val):def.msg);if(page==="apps"){render();const nb=$("#ap-"+c+"-save");if(nb)nb.focus({preventScroll:true})}}
+  catch(e){const nb=$("#ap-"+c+"-save");if(nb){nb.disabled=false;$("#ap-"+c+"-st").textContent="Not saved"}toast("Couldn't save: "+(e.message||e))}}
+
+function vApps(){const t=APT[appsTab]?appsTab:"website",T=APT[t];appsTab=t;
+  return `<div class="ap-top"><div class="seg ap-tabs" role="tablist" aria-label="Choose what to manage">${Object.entries(APT).map(([k,x])=>`<button type="button" role="tab" id="apt-${k}" data-apt="${k}" aria-selected="${k===t}" aria-controls="ap-panel" tabindex="${k===t?0:-1}">${x.l}<i class="tdot" hidden></i></button>`).join("")}</div>
+    <div class="ap-meta"><span class="hint" id="apLast">${apLast(T.key)}</span><a class="btn sm" id="apOpen" href="${T.url}" target="_blank" rel="noopener" aria-label="Open the ${T.l.toLowerCase()} preview in a new tab"><svg><use href="#i-ne"/></svg>Open preview</a></div></div>
+  <p class="hint ap-intro">${T.intro}${LIVE?"":" In this demo, the website and apps opened from this address show your saved changes."}</p>
+  <div class="ap-grid" role="tabpanel" id="ap-panel" aria-labelledby="apt-${t}">${T.cols.map(col=>`<div class="ap-col">${col.map(c=>AP_CARDS[c]()).join("")}</div>`).join("")}</div>`}
+function wApps(){
+  const go=n=>{appsTab=n;render();const b=$("#apt-"+n);if(b)b.focus()};
+  $$("#view [role=tab]").forEach(b=>b.onclick=()=>{if(b.dataset.apt!==appsTab)go(b.dataset.apt)});
+  $(".ap-tabs").onkeydown=e=>{const ks=Object.keys(APT),i=ks.indexOf(appsTab),m={ArrowRight:ks[(i+1)%ks.length],ArrowLeft:ks[(i+ks.length-1)%ks.length],Home:ks[0],End:ks[ks.length-1]}[e.key];if(m){e.preventDefault();go(m)}};
+  const pn=$("#ap-panel");
+  const edit=e=>{const el=e.target.closest("[data-ac]");if(!el)return;const c=el.dataset.ac,v=el.type==="checkbox"?el.checked:el.hasAttribute("data-num")?+el.value:el.value;apSet(apDraft(c),el.dataset.ap,v);apUpd(c)};
+  pn.addEventListener("input",edit);pn.addEventListener("change",edit);
+  pn.addEventListener("click",e=>{const s=e.target.closest("[data-asave]");if(s){if(!s.disabled)apSave(s.dataset.asave);return}const k=e.target.closest("[data-ck]");if(k&&!k.disabled)apCk(k.dataset.ck,+k.dataset.i)});
+  Object.keys(AC).forEach(apUpd);apTabDots()}
 
 /* ═════════════ Payments ═════════════ */
 let payFilter="all",payMethodF="all",payShown=40;const slipCache={};
