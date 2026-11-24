@@ -1386,6 +1386,10 @@ function fleetFilter(){const q=$("#q").value.trim().toLowerCase(),list=catTab===
 
 const lowStock=()=>S.materials.filter(m=>m.stock_qty!=null&&(m.stock_qty<=0||m.low_stock_at!=null&&m.stock_qty<=m.low_stock_at));
 const pendingSlips=()=>S.payments.filter(p=>p.status==="pending");
+/* inspection results: a console-made checklist arrives as items.checklist=[{id,label_en,ok}]; the built-in one as items[label]=true/false */
+function inspRows(i){const it=(i&&i.items)||{};if(Array.isArray(it.checklist))return it.checklist.map(x=>[String(x.label_en||x.label||x.id||"Item"),x.ok!==false]);
+  return Object.entries(it).filter(([k,v])=>typeof v==="boolean").map(([k,v])=>[k,v])}
+const inspFailed=i=>inspRows(i).filter(x=>!x[1]).map(x=>x[0]);
 function openDefects(){ // latest inspection per machine that failed or noted a defect
   const out=[];S.machines.forEach(m=>{const i=S.inspections.filter(x=>x.machine_id===m.id).sort((a,b)=>b.created_at-a.created_at)[0];if(i&&(!i.passed||String(i.defects||"").trim()))out.push({m,i})});
   return out.sort((a,b)=>(a.i.passed-b.i.passed)||(b.i.created_at-a.i.created_at))}
@@ -1488,7 +1492,7 @@ function attention(){
   if(disp)S.orders.filter(o=>o.status==="requested"&&later(o)).forEach(o=>items.push(["warn","i-cal",`${o.ref} booked for ${dmy(o.startsAt)} · no driver yet`,`${esc(o.customer)} · ${esc(o.title)}`,`data-order="${o.ref}"`]));
   if(can("sales"))S.leads.filter(l=>l.status==="new").forEach(l=>items.push(["info","i-inbox",`New quote request from ${esc(l.name)}`,`${esc(l.needs.join(", "))} · ${ago(l.created_at)}`,`data-href="#leads"`]));
   if(can("payments"))pendingSlips().forEach(p=>{const o=orderBy(p.order_uuid);items.push(["warn","i-wallet",`Transfer slip to check${o?" · "+o.ref:""}`,`${esc(o?o.customer:"")} · ${mvr(p.amount)} · ${ago(p.created_at)}`,`data-href="#payments"`])});
-  if(can("fleet"))openDefects().forEach(({m,i})=>items.push([i.passed?"warn":"crit","i-wrench",`${i.passed?"Defect noted":"Failed check"} on ${esc(m.code)} ${esc(m.name)}`,esc(String(i.defects||"Checklist item failed").slice(0,90)),`data-href="#health"`]));
+  if(can("fleet"))openDefects().forEach(({m,i})=>items.push([i.passed?"warn":"crit","i-wrench",`${i.passed?"Defect noted":"Failed check"} on ${esc(m.code)} ${esc(m.name)}`,esc(String(i.defects||(inspFailed(i).length?"Failed: "+inspFailed(i).join(", "):"Checklist item failed")).slice(0,90)),`data-href="#health"`]));
   if(can("catalog"))lowStock().forEach(m=>items.push([m.stock_qty<=0?"crit":"warn","i-box",m.stock_qty<=0?`${esc(m.name)} is out of stock`:`Low stock: ${esc(m.name)}`,`${m.stock_qty} × ${esc(m.unit)} left · reorder at ${m.low_stock_at??0}`,`data-href="#fleet" data-tab="materials"`]));
   if(can("catalog"))S.materials.filter(m=>!m.active).forEach(m=>items.push(["warn","i-box",`${esc(m.name)} is hidden from the app`,"Marked out of stock · customers can't order it",`data-href="#fleet" data-tab="materials"`]));
   if(S.settings.ordering&&S.settings.ordering.accepting_orders===false)items.unshift(["crit","i-alert","The apps are not accepting orders","Turned off in Content & pricing",canPage("content")?`data-href="#content"`:""]);
@@ -1721,7 +1725,7 @@ function vDrivers(){
         ${modeSeg("adMode",addMode)}
         ${pinFields("a",addMode!=="pin")}
         <div class="field" id="aEmW" style="max-width:420px" ${addMode==="pin"?"hidden":""}><label for="aEm">Their account email</label><input class="inp" id="aEm" type="email" placeholder="driver@example.com" autocomplete="off" aria-describedby="aEmH"><span class="hint" id="aEmH">They sign up in the YD Works app first; this turns that account into a driver account.</span></div>
-        <div><div class="sec-t">Vehicle <span class="muted" style="text-transform:none;letter-spacing:0">· optional</span></div><div id="aPick">${vehPicker(ADDV,null)}</div></div>
+        <div><div class="sec-t">Vehicle (optional)</div><div id="aPick">${vehPicker(ADDV,null)}</div></div>
         <div class="row-flex" style="flex-wrap:wrap"><span class="hint" id="aErr" role="alert" style="color:var(--crit)"></span><button class="btn pri" type="submit" id="aGo"><svg><use href="#i-plus"/></svg>${addMode==="pin"?"Create driver":"Make driver"}</button></div>
       </form></div>
     <div class="card"><div class="card-h"><div><h2>Staff &amp; roles</h2><div class="sub">${S.staff.length} staff · ${S.staff.filter(x=>x.role==="admin").length} managers · ${S.drivers.length} drivers</div></div><a class="btn sm" href="#staff">Manage</a></div>
@@ -1948,7 +1952,7 @@ let addMode="pin",asMode="pin";
 const modeSeg=(id,mode)=>`<div class="seg mode-seg" id="${id}" role="group" aria-label="How the driver signs in"><button type="button" data-mode="pin" aria-pressed="${mode==="pin"}">Phone + PIN (no email)</button><button type="button" data-mode="email" aria-pressed="${mode==="email"}">Existing app account (email)</button></div>`;
 const pinFields=(px,hidden)=>`<div class="pin-f" id="${px}PinW" ${hidden?"hidden":""}>
   <div class="field"><label for="${px}Nm">Full name</label><input class="inp" id="${px}Nm" autocomplete="off" maxlength="80" placeholder="e.g. Ibrahim Shareef"></div>
-  <div class="field"><label for="${px}Ph">Phone</label><div class="ph-in"><span aria-hidden="true">+960</span><input class="inp" id="${px}Ph" inputmode="tel" autocomplete="off" maxlength="12" placeholder="777 1234" aria-describedby="${px}PhH"></div><span class="hint" id="${px}PhH">7-digit mobile number. The driver signs in with it and a 6-digit PIN.</span></div></div>`;
+  <div class="field"><label for="${px}Ph">Phone</label><div class="ph-in"><span aria-hidden="true">+960</span><input class="inp" id="${px}Ph" inputmode="tel" autocomplete="off" maxlength="16" placeholder="777 1234" aria-describedby="${px}PhH"></div><span class="hint" id="${px}PhH">7-digit mobile number. The driver signs in with it and a 6-digit PIN.</span></div></div>`;
 function pinText(r){return `YD Driver sign-in\nPhone: ${mvPhone(r.phone)}\nPIN: ${r.pin}\nOpen the YD Driver app → Phone & PIN.`}
 async function copyText(t){try{await navigator.clipboard.writeText(t);return true}catch(e){const ta=document.createElement("textarea");ta.value=t;ta.setAttribute("readonly","");ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();let ok=false;try{ok=document.execCommand("copy")}catch(_){}ta.remove();return ok}}
 function openPin(r,title){const m=r.unit_code?S.machines.find(x=>x.code===r.unit_code):null,txt=pinText(r);
@@ -2018,7 +2022,7 @@ function vStaff(){
         <div id="asModeW" ${addPick==="driver"?"":"hidden"}>${modeSeg("asMode",asMode)}</div>
         ${pinFields("as",!(addPick==="driver"&&asMode==="pin"))}
         <div class="field" id="asEmW" style="max-width:420px" ${addPick==="driver"&&asMode==="pin"?"hidden":""}><label for="asEm">Their account email</label><input class="inp" id="asEm" type="email" placeholder="name@example.com" autocomplete="off"></div>
-        <div id="asVehW" ${addPick==="driver"?"":"hidden"}><div class="sec-t">Vehicle <span class="muted" style="text-transform:none;letter-spacing:0">· optional</span></div><div id="asVeh">${vehPicker(addVeh,null)}</div></div>
+        <div id="asVehW" ${addPick==="driver"?"":"hidden"}><div class="sec-t">Vehicle (optional)</div><div id="asVeh">${vehPicker(addVeh,null)}</div></div>
         <div class="row-flex" style="flex-wrap:wrap"><span class="hint" id="asErr" role="alert" style="color:var(--crit)"></span><button class="btn pri" type="submit" id="asGo"><svg><use href="#i-plus"/></svg>${addPick==="driver"&&asMode==="pin"?"Create driver":"Give access"}</button></div>
       </form></div>
     <div class="card"><div class="card-h"><div><h2>Recent role changes</h2><div class="sub">From the activity log</div></div>${canPage("activity")?`<a class="btn sm" href="#activity" id="toAct">Activity log</a>`:""}</div>
@@ -2266,7 +2270,7 @@ const AP_CARDS={
     apSw("dRules","require_pod_photo","Delivery photo required","A photo at drop-off is needed to complete a job.")+
     apSw("dRules","require_daily_check","Daily check required before jobs","The vehicle checklist must be done each day before accepting jobs.")+
     apSw("dRules","fuel_logging","Fuel log","Drivers can record fuel fills in the app.")+
-    apSel("dRules","location_every_sec","Location updates while online",[[15,"Every 15 seconds (most precise, more battery)"],[30,"Every 30 seconds (recommended)"],[60,"Every minute"],[120,"Every 2 minutes (saves battery)"]],1),"Save rules"),
+    apSel("dRules","location_every_sec","Location updates while online",[[15,"Every 15 seconds (default, most precise)"],[30,"Every 30 seconds"],[60,"Every minute"],[120,"Every 2 minutes (saves battery)"]],1),"Save rules"),
   dChk:()=>apCard("dChk","Daily vehicle checklist","The items a driver ticks before the first job of the day.",apChkBody(),"Save checklist"),
   dUpd:()=>apCard("dUpd","Force update","Ask drivers on an older version to update before taking jobs.",
     apBuild()+apIn("dUpd","min_version","Minimum version",{max:20,mode:"decimal",mono:1,ph:"Empty = no forced update",hint:"Like 1.0.1. Phones older than this must update."})+
@@ -2711,7 +2715,7 @@ function openMachine(id,prefill){
       <input class="inp" id="mtT" placeholder="e.g. 500 h service, replace tyres" value="${esc(prefill||"")}" aria-label="Maintenance title">
       <div class="form-grid"><div class="field"><label for="mtD">Due date</label><input class="inp" type="date" id="mtD"></div><div class="field"><label for="mtH">Or due at hours</label><input class="inp" id="mtH" inputmode="decimal" placeholder="${Math.ceil(((+m.hours_meter||0)+50)/50)*50}"></div></div>
       <div class="row-flex"><span class="hint" id="mtErr"></span><button class="btn pri sm" type="submit">Add item</button></div></form>
-    <div><div class="sec-t">Recent checks</div><ul class="tl">${ins.length?ins.map(i=>`<li><span style="font-family:inherit;color:inherit;font-size:13.5px">${i.passed?(String(i.defects||"").trim()?"Pass with note":"Pass"):"<b style='color:var(--crit)'>Fail</b>"} · ${esc(drvName(i.driver_id))}${i.defects?`<br><span class="hint" style="font-family:var(--body)">${esc(i.defects)}</span>`:""}</span><span>${dmy(i.created_at)} · ${hhmm(i.created_at)}</span></li>`).join(""):`<li><span class="hint" style="font-family:var(--body)">No checks submitted</span></li>`}</ul></div>
+    <div><div class="sec-t">Recent checks</div><ul class="tl">${ins.length?ins.map(i=>`<li><span style="font-family:inherit;color:inherit;font-size:13.5px">${i.passed?(String(i.defects||"").trim()?"Pass with note":"Pass"):"<b style='color:var(--crit)'>Fail</b>"} · ${esc(drvName(i.driver_id))}${(()=>{const R=inspRows(i),F=R.filter(x=>!x[1]).map(x=>x[0]);return R.length?`<br><span class="hint" style="font-family:var(--body)">${R.length-F.length}/${R.length} items passed${F.length?` · <span style="color:var(--crit)">Failed: ${esc(F.join(", "))}</span>`:""}</span>`:""})()}${i.defects?`<br><span class="hint" style="font-family:var(--body)">${esc(i.defects)}</span>`:""}</span><span>${dmy(i.created_at)} · ${hhmm(i.created_at)}</span></li>`).join(""):`<li><span class="hint" style="font-family:var(--body)">No checks submitted</span></li>`}</ul></div>
     <div><div class="sec-t">Fuel log</div>${fuel.length?`<div class="lines">${fuel.map(f=>`<div><span>${dmy(f.created_at)} · ${Math.round(f.litres)} L · <span class="muted">${esc(drvName(f.driver_id))}</span></span><span>${mvr(f.cost)}</span></div>`).join("")}<div><span>Shown</span><span>${mvr(fuel.reduce((s,f)=>s+f.cost,0))}</span></div></div>`:`<div class="hint">No fuel logged.</div>`}</div>
   </div>
   <div class="df"><span style="flex:1"></span><button class="btn" id="mClose">Close</button></div>`);

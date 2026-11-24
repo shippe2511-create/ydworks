@@ -1486,7 +1486,7 @@ const waOn=()=>CA().whatsapp!==false;
 const machineOn=m=>svcOn("hire")||(svcOn("logistics")&&m.cat==="haul");
 const maintOn=()=>!!(CA().maintenance||{}).active;
 const hotline=()=>String((S().contact||{}).hotline||"992 0202");
-const hlIso=()=>"⁦"+hotline()+"⁩";
+const hlIso=()=>"\u2066"+hotline().replace(/ /g,"\u00a0")+"\u2069";   // isolated, never split across lines
 function telHref(){const d=hotline().replace(/\D/g,"");return "tel:"+(d.length<=7?"+960"+d:"+"+d)}
 function blockReason(){if(maintOn())return "maint";if((S().ordering||{}).accepting_orders===false)return "closed";return null}
 const blockMsg=r=>T(r==="maint"?"mt.paused":"ann.closed",{hotline:hlIso()});
@@ -1496,7 +1496,7 @@ function platform(){try{const C=window.Capacitor;return C&&typeof C.getPlatform=
 function setHTML(el,h){if(el&&el._yh!==h){el._yh=h;el.innerHTML=h}}
 function hashStr(s){let h=5381;for(let i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return (h>>>0).toString(36)}
 const PKEY="ydworks.cust.promoDismissed.v1";
-const promoKey=p=>"p"+hashStr([p.title_en,p.title_dv,p.text_en,p.text_dv].map(x=>String(x||"")).join("␞"));
+const promoKey=p=>"p"+hashStr([p.title_en,p.title_dv,p.text_en,p.text_dv].map(x=>String(x||"")).join("\u241e"));
 let maintPeek=false;   // "View my orders" from the maintenance screen
 
 // the polite "not available right now" block (screens and sheet)
