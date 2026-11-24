@@ -186,6 +186,7 @@ def build(app, cfg):
     shutil.copy(ROOT / "shared" / "yd-catalog.js", out / "yd-catalog.js")
     shutil.copy(ROOT / "shared" / "yd-config.js", out / "yd-config.js")
     shutil.copy(ROOT / "shared" / "yd-docs.js", out / "yd-docs.js")
+    shutil.copy(ROOT / "shared" / "yd-settings.js", out / "yd-settings.js")
     for f in ("jspdf.umd.min.js", "maplibre-gl.js", "maplibre-gl.css"):
         shutil.copy(ROOT / "shared" / "vendor" / f, out / "vendor" / f)
     shutil.copytree(ROOT / "shared" / "catalog", out / "catalog")

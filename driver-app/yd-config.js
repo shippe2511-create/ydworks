@@ -6,6 +6,7 @@ window.YD_CONFIG = Object.assign({
   supabaseUrl: "__SUPABASE_URL__",
   supabaseKey: "__SUPABASE_PUBLISHABLE_KEY__",
   // WhatsApp chat: the hotline 992 0202 (international format, digits only)
+  appVersion: "1.0.0",     // this build; the console can ask older app versions to update
   hotline: "9609920202",   // counter phone number (992 0202)
   whatsapp: "9609920202",  // WhatsApp chat number (customer app and website only)
   // Legal pages (hosted with the website)
