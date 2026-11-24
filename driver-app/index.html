@@ -129,28 +129,18 @@ p{margin:0}
 .quick button{border:1px solid var(--line-2);background:transparent;border-radius:16px;padding:13px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:8px;font-size:14px;min-height:52px}
 .quick svg{width:17px;height:17px;flex:none}
 .quick .full{grid-column:1/-1}
-.quick svg.wa,.big-btn svg.wa{width:21px;height:21px}
-/* counter contact block (the only place the counter number is shown) */
+/* counter contact block (the only place the counter number is shown; calls only) */
 .contact{display:flex;flex-direction:column;gap:14px;margin-top:12px}
 .ct-top{display:flex;gap:14px;align-items:center}
-.ct-ic{width:54px;height:54px;border-radius:17px;background:color-mix(in srgb,#25D366 13%,transparent);display:grid;place-items:center;flex:none}
-.ct-ic svg{width:30px;height:30px}
+.ct-ic{width:54px;height:54px;border-radius:17px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;flex:none}
+.ct-ic svg{width:26px;height:26px}
 .ct-top .ct-tx{flex:1;min-width:0}
 .ct-top b{display:block;font:600 16px var(--display);letter-spacing:-.02em}
 .ct-num{display:block;font:600 23px var(--mono);letter-spacing:.02em;margin-top:2px;font-variant-numeric:tabular-nums;color:var(--ink)}
-.ct-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ct-btns{display:grid;grid-template-columns:1fr;gap:10px}
 .ct-btns > *{min-height:54px;border-radius:16px;border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;gap:8px;font:600 15px var(--body);color:var(--ink);background:transparent;text-decoration:none}
 .ct-btns svg{width:19px;height:19px;flex:none}
-.ct-btns svg.wa{width:22px;height:22px}
-.ct-btns .ct-wa{background:color-mix(in srgb,#25D366 12%,var(--surface));border-color:color-mix(in srgb,#25D366 55%,transparent)}
 html[lang="dv"] .ct-btns > *{letter-spacing:0}
-/* WhatsApp quick-message sheet */
-.wa-opts{display:flex;flex-direction:column;gap:10px;margin-top:4px;overflow-y:auto}
-.wa-opt{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:start;background:var(--surface);border:1px solid var(--line-2);border-radius:18px;padding:14px;min-height:64px;color:var(--ink)}
-.wa-opt b{display:block;font-size:14.5px;font-weight:600;line-height:1.3}
-.wa-opt .wa-tx{flex:1;min-width:0}
-.wa-opt .wa-tx span{display:block;font-size:13px;color:var(--mute);margin-top:3px;line-height:1.4}
-.wa-opt svg{width:24px;height:24px;flex:none;margin-top:1px}
 
 .pod{display:flex;flex-direction:column;gap:14px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
 .cash{display:flex;gap:12px;align-items:center;border-radius:18px;padding:14px 16px;font:600 16px/1.35 var(--display);letter-spacing:-.01em}
@@ -455,8 +445,8 @@ html[lang="dv"] .rv .ref,html[lang="dv"] .rv-top small{letter-spacing:0}
 
     <div class="card contact" id="counterCard">
       <span class="lbl" data-i18n="ct.lbl">Counter</span>
-      <div class="ct-top"><span class="ct-ic" id="ctIc"></span><div class="ct-tx"><b data-i18n="ct.title">YD Works counter</b><span class="ct-num" id="ctNum" data-ltr>992 0202</span></div></div>
-      <div class="ct-btns"><a id="ctCall" href="tel:+9609920202"><svg aria-hidden="true"><use href="#i-phone"/></svg><span data-i18n="ct.call">Call</span></a><button class="ct-wa" id="waDefBtn" type="button"><span>WhatsApp</span></button></div>
+      <div class="ct-top"><span class="ct-ic" id="ctIc"><svg aria-hidden="true"><use href="#i-phone"/></svg></span><div class="ct-tx"><b data-i18n="ct.title">YD Works counter</b><span class="ct-num" id="ctNum" data-ltr>992 0202</span></div></div>
+      <div class="ct-btns"><a id="ctCall" href="tel:+9609920202"><svg aria-hidden="true"><use href="#i-phone"/></svg><span data-i18n="ct.call">Call</span></a></div>
     </div>
 
     <div class="sec"><h2 data-i18n="fuel.h">Fuel log</h2><span class="lbl" data-i18n="fuel.week">This week</span></div>
@@ -520,13 +510,6 @@ html[lang="dv"] .rv .ref,html[lang="dv"] .rv-top small{letter-spacing:0}
       <div class="sheet-list" id="alList"></div>
     </div>
   </div>
-  <div class="req" id="waSheet" role="dialog" aria-modal="true" aria-labelledby="waTitle">
-    <div class="panel sheet">
-      <div class="sheet-top"><h2 id="waTitle">WhatsApp</h2><button class="close-btn" id="waClose" type="button" data-i18n-aria="al.close" aria-label="Close"><svg aria-hidden="true"><use href="#i-x"/></svg></button></div>
-      <p class="sub" data-i18n="wa.sheetSub" style="margin:-4px 0 12px">Opens WhatsApp with the message ready to send.</p>
-      <div class="wa-opts" id="waOpts"></div>
-    </div>
-  </div>
   <div class="req" id="delSheet" role="dialog" aria-modal="true" aria-labelledby="delTitle">
     <div class="panel sheet" id="delPanel"></div>
   </div>
@@ -559,6 +542,7 @@ html[lang="dv"] .rv .ref,html[lang="dv"] .rv-top small{letter-spacing:0}
       <form id="forgotForm" novalidate hidden>
         <div class="field"><label class="lbl" for="fEmail" data-i18n="auth.email">Email</label><input class="inp" id="fEmail" type="email" autocomplete="username" placeholder="you@yd-mv.com" data-ltr></div>
         <button class="big-btn amber" id="fSend" type="submit" data-i18n="auth.sendLink">Send reset link</button>
+        <p class="auth-ok" id="fDone" role="status"></p>
         <button class="linkbtn" id="fBack" type="button" style="margin-bottom:-8px" data-i18n="auth.back">Back to sign in</button>
       </form>
       <form id="newPassForm" novalidate hidden>
@@ -633,11 +617,7 @@ const STR={en:{
   "auth.email":"Email","auth.pass":"Password","auth.go":"Sign in","auth.demo":"Explore the demo instead","auth.mobile":"Mobile number","auth.send":"Send code","auth.code":"6-digit code","auth.sentTo":"We sent a 6-digit code to {phone}.","auth.verify":"Verify","auth.resendIn":"Resend code in {s}s","auth.resend":"Resend code","auth.change":"Change number",
   "err.phone":"Enter your 7-digit mobile number","err.code":"Enter the 6-digit code","err.badCode":"That code is wrong or has expired.","err.login":"Email or password is wrong.","err.notDriver":"This account isn't a driver account. Ask the YD Works counter to set one up.","toast.codeSent":"Code sent",
   "toast.online":"You're online. Requests will appear here.","toast.offline":"You're offline","toast.checkFirst":"Finish the pre-trip checklist first","toast.chkFail":"Checklist item failed · you're offline until it's fixed",
-  "wa.cust":"WhatsApp customer","wa.base":"WhatsApp counter","wa.vehicle":"WhatsApp the counter","wa.sheet":"Message {name} on WhatsApp","wa.sheetSub":"Opens WhatsApp with the message ready to send.",
-  "wa.onwayL":"On the way","wa.arrivedL":"I've arrived","wa.lostL":"Can't find the site","wa.custom":"Write my own","wa.customSub":"Opens an empty chat",
-  "wa.onway":"Hi, this is {name} from YD Works. I'm on the way with your order {ref}, about {eta} min away.","wa.arrived":"I've arrived at {site}. Please come to receive the delivery.","wa.lost":"I can't find the site. Could you share your location pin?",
-  "wa.counterJob":"YD Works counter, {driver} ({unit}) here about {ref}: ","wa.counter":"YD Works counter, {driver} ({unit}) here: ","wa.defect":"Defect on {unit}: ",
-  "ct.lbl":"Counter","ct.title":"YD Works counter","ct.call":"Call","ct.waAria":"WhatsApp the counter","ct.callAria":"Call the counter","wa.custSub":"Quick messages about this delivery","toast.baseCall":"Calling the counter…",
+  "ct.lbl":"Counter","ct.title":"YD Works counter","ct.call":"Call","ct.callAria":"Call the counter","toast.baseCall":"Calling the counter…",
   "day.0":"Sat","day.1":"Sun","day.2":"Mon","day.3":"Tue","day.4":"Wed","day.5":"Thu","day.6":"Fri",
   "mon.0":"Jan","mon.1":"Feb","mon.2":"Mar","mon.3":"Apr","mon.4":"May","mon.5":"Jun","mon.6":"Jul","mon.7":"Aug","mon.8":"Sep","mon.9":"Oct","mon.10":"Nov","mon.11":"Dec",
   "auth.forgot":"Forgot password?","auth.forgotH":"Reset your password","auth.forgotSub":"Enter your account email. We'll send you a link to set a new password.","auth.sendLink":"Send reset link","auth.linkSent":"Check your email for a reset link.","auth.back":"Back to sign in",
@@ -687,11 +667,7 @@ const STR={en:{
   "auth.email":"އީމެއިލް","auth.pass":"ޕާސްވޯޑް","auth.go":"ސައިން އިން","auth.demo":"އޭގެ ބަދަލުގައި ޑެމޯ ބައްލަވާ","auth.mobile":"މޯބައިލް ނަންބަރު","auth.send":"ކޯޑު ފޮނުވާ","auth.code":"6 ނަންބަރުގެ ކޯޑު","auth.sentTo":"{phone} އަށް 6 ނަންބަރުގެ ކޯޑެއް ފޮނުވިއްޖެ.","auth.verify":"ޔަގީންކުރޭ","auth.resendIn":"{s} ސިކުންތުން ކޯޑު އަލުން ފޮނުވޭނެ","auth.resend":"ކޯޑު އަލުން ފޮނުވާ","auth.change":"ނަންބަރު ބަދަލުކުރޭ",
   "err.phone":"7 ނަންބަރުގެ މޯބައިލް ނަންބަރު ޖައްސަވާ","err.code":"6 ނަންބަރުގެ ކޯޑު ޖައްސަވާ","err.badCode":"ކޯޑު ރަނގަޅެއް ނޫން، ނުވަތަ ވަގުތު ހަމަވެއްޖެ.","err.login":"އީމެއިލް ނުވަތަ ޕާސްވޯޑް ރަނގަޅެއް ނޫން.","err.notDriver":"މިއީ ޑްރައިވަރ އެކައުންޓެއް ނޫން. YD Works ކައުންޓަރާ ގުޅުއްވާ.","toast.codeSent":"ކޯޑު ފޮނުވިއްޖެ",
   "toast.online":"ތިބާ އޮންލައިން. އަމުރުތައް މިތާ ފެންނާނެ.","toast.offline":"ތިބާ އޮފްލައިން","toast.checkFirst":"ފުރަތަމަ ދަތުރުގެ ކުރީގެ ޗެކްލިސްޓް ނިންމާ","toast.chkFail":"ޗެކެއް ފެއިލްވެއްޖެ · ރަނގަޅުކުރެވެންދެން ތިބާ އޮފްލައިން",
-  "wa.cust":"ކަސްޓަމަރަށް WhatsApp","wa.base":"ކައުންޓަރަށް WhatsApp","wa.vehicle":"ކައުންޓަރަށް WhatsApp ކުރޭ","wa.sheet":"{name} އަށް WhatsApp މެސެޖެއް","wa.sheetSub":"މެސެޖު ތައްޔާރުކޮށް WhatsApp ހުޅުވޭނެ.",
-  "wa.onwayL":"އަންނަމުން","wa.arrivedL":"އައިސްފިން","wa.lostL":"ސައިޓު ނުފެނޭ","wa.custom":"އަމިއްލައަށް ލިޔުން","wa.customSub":"ހުސް ޗެޓެއް ހުޅުވޭނެ",
-  "wa.onway":"އައްސަލާމު ޢަލައިކުމް، މިއީ YD Works ގެ {name}. ތިޔަ އޯޑަރު {ref} ގެންގޮސް މިހާރު އަންނަނީ، ގާތްގަނޑަކަށް {eta} މިނިޓުން ވާޞިލުވާނަން.","wa.arrived":"{site} އަށް އައިސްފިން. ޑެލިވަރީ ބަލައިގަތުމަށް ވަޑައިގަންނަވާ.","wa.lost":"ސައިޓު ހޯދިފައެއް ނުވޭ. ލޮކޭޝަން ޕިން ފޮނުއްވައިދެއްވާނަންތޯ؟",
-  "wa.counterJob":"YD Works ކައުންޓަރަށް، މިއީ {driver} ({unit})، {ref} ގެ ބާވަތުން: ","wa.counter":"YD Works ކައުންޓަރަށް، މިއީ {driver} ({unit}): ","wa.defect":"{unit} ގައި މައްސަލައެއް: ",
-  "ct.lbl":"ކައުންޓަރު","ct.title":"YD Works ކައުންޓަރު","ct.call":"ގުޅާ","ct.waAria":"ކައުންޓަރަށް WhatsApp ކުރޭ","ct.callAria":"ކައުންޓަރަށް ގުޅާ","wa.custSub":"މި ޑެލިވަރީއާ ބެހޭ ކުރު މެސެޖުތައް","toast.baseCall":"ކައުންޓަރަށް ގުޅަނީ…",
+  "ct.lbl":"ކައުންޓަރު","ct.title":"YD Works ކައުންޓަރު","ct.call":"ގުޅާ","ct.callAria":"ކައުންޓަރަށް ގުޅާ","toast.baseCall":"ކައުންޓަރަށް ގުޅަނީ…",
   "day.0":"ހޮނި","day.1":"އާދި","day.2":"ހޯމަ","day.3":"އަން","day.4":"ބުދަ","day.5":"ބުރާ","day.6":"ހުކު",
   "mon.0":"ޖަނަވަރީ","mon.1":"ފެބުރުއަރީ","mon.2":"މާޗް","mon.3":"އޭޕްރީލް","mon.4":"މެއި","mon.5":"ޖޫން","mon.6":"ޖުލައި","mon.7":"އޮގަސްޓް","mon.8":"ސެޕްޓެމްބަރ","mon.9":"އޮކްޓޫބަރ","mon.10":"ނޮވެމްބަރ","mon.11":"ޑިސެމްބަރ",
   "auth.forgot":"ޕާސްވޯޑް ހަނދާން ނެތީތަ؟","auth.forgotH":"ޕާސްވޯޑް ރީސެޓްކުރޭ","auth.forgotSub":"އެކައުންޓުގެ އީމެއިލް ޖައްސަވާ. އައު ޕާސްވޯޑެއް ހެދުމަށް ލިންކެއް ފޮނުވާނަން.","auth.sendLink":"ރީސެޓް ލިންކް ފޮނުވާ","auth.linkSent":"ރީސެޓް ލިންކަށް ތިބާގެ އީމެއިލް ބައްލަވާ.","auth.back":"ސައިން އިން އަށް އެނބުރި",
@@ -914,14 +890,12 @@ function renderToday(){
     ${collect}
     ${a.status==="arrived"?podHtml(a):""}
     <button class="big-btn ${a.status==="arrived"?"ok":"amber"}" id="nextBtn" ${a.status==="arrived"?"disabled":""}>${t("next."+a.status)}</button>
-    <div class="quick"><button id="callCust">${icon("phone")}${t("callCust")}</button><button id="callBase">${icon("phone")}${t("callBase")}</button>${custPhone(a)?`<button id="waCust">${WA_SVG}${t("wa.cust")}</button>`:""}${CFG.whatsapp?`<button id="waBase"${custPhone(a)?"":` class="full"`}>${WA_SVG}${t("wa.base")}</button>`:""}</div>
+    <div class="quick"><button id="callCust">${icon("phone")}${t("callCust")}</button><button id="callBase">${icon("phone")}${t("callBase")}</button></div>
   </div>`;
   $("#nextBtn").onclick=()=>advance(a);
   $("#navBtn").onclick=()=>openNav(a);
   $("#callCust").onclick=()=>{const ph=a.customer&&a.customer.phone;if(ph)location.href="tel:"+ph.replace(/\s/g,"");toast(ph?t("toast.cust",{phone:ph}):t("toast.custDemo"))};
   $("#callBase").onclick=()=>{toast(t("toast.baseCall"));dial(HOTLINE)};
-  $("#waCust")&&($("#waCust").onclick=()=>openWaSheet(a));
-  $("#waBase")&&($("#waBase").onclick=()=>waCounter(a));
   if(a.status==="arrived")wirePod(a);
   wirePend();
   mountLiveMap(a);
@@ -1022,7 +996,7 @@ function showRequest(j){
 }
 function closeReq(){clearInterval(reqTimer);$("#req").classList.remove("on");pending=null}
 function watchRequests(){
-  if(!online||active()||pending||$("#alerts").classList.contains("on")||$("#waSheet").classList.contains("on"))return;
+  if(!online||active()||pending||$("#alerts").classList.contains("on")||$("#delSheet").classList.contains("on"))return;
   const j=jobs.find(x=>x.status==="requested"&&!seen.has(x.id));
   if(j){seen.add(j.id);showRequest(j)}
 }
@@ -1080,7 +1054,7 @@ function renderFuel(){
   $("#fTotKm").textContent=odos.length>1?(Math.max(...odos)-Math.min(...odos)).toLocaleString("en-US")+" km":"—";
   $("#fuelList").innerHTML=wk.length?wk.map(r=>`<div class="row"><span class="ic" style="color:var(--brand);background:var(--brand-soft)!important">${icon("truck").replace("<svg","<svg style='width:22px;height:22px'")}</span><span class="mid"><b data-ltr>${t("fuel.title",{l:(+r.litres).toLocaleString("en-US")})}</b><span>${dayTime(r.at)}${r.odometer?" · "+ltr((+r.odometer).toLocaleString("en-US")+" km"):""}</span></span><span class="end" data-ltr>${r.cost?mvr(r.cost):"—"}</span></div>`).join(""):`<div class="empty"><span class="e-ic">${icon("truck")}</span><b>${t("fuel.none")}</b><p>${t("fuel.noneP")}</p></div>`;
 }
-function renderContact(){$("#waDefBtn").setAttribute("aria-label",t("ct.waAria"));$("#ctCall").setAttribute("aria-label",t("ct.callAria")+" "+fmtLocal(HOTLINE))}
+function renderContact(){$("#ctCall").setAttribute("aria-label",t("ct.callAria")+" "+fmtLocal(HOTLINE))}
 function renderSettings(){
   renderContact();
   if(!window.YDUI)return;
@@ -1304,43 +1278,12 @@ function renderHeader(){
 let lastKey="";
 function render(){jobs=load()||jobs;if(LIVE)applyQueued();renderHeader();if(cur==="today"){const a=active(),k=a?a.id+a.status:"none"+online+myQueued().length;if(!(a&&a.status==="arrived"&&k===lastKey&&document.getElementById("sigPad"))){renderToday();placeTruck()}lastKey=k}if(cur==="jobs")renderJobs();if(cur==="vehicle")renderVehicle();if(cur==="earn")renderEarn();watchRequests()}
 
-/* ═════════════ WhatsApp (customer quick messages + counter) ═════════════ */
-const WA_SVG='<svg class="wa" viewBox="0 0 24 24" aria-hidden="true"><path fill="#25D366" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/><path fill="#fff" d="M8.7 7.1c.2-.4.4-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .6l-.5.7c-.1.2-.2.3 0 .6.4.7 1 1.4 1.6 1.9.7.6 1.3.8 1.6.9.2.1.4.1.5-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.4.4 0 .3 0 1-.4 1.5-.4.5-1.3 1-2 1-.7.1-1.5.2-4.2-1C9 14.3 7.7 12.4 7.5 12.1c-.2-.3-1-1.4-1-2.7s.7-1.9 1.2-2.3z"/></svg>';
+/* ═════════════ counter hotline (calls only) ═════════════ */
 const fmtLocal=ph=>{const d=String(ph||"").replace(/\D/g,"").slice(-7);return d.slice(0,3)+" "+d.slice(3)};
-const custPhone=a=>a&&a.customer&&String(a.customer.phone||"").replace(/\D/g,"").length>=7?a.customer.phone:"";
-// wa.me link: digits only; a 7-digit Maldives number gets the 960 country code
-function waUrl(phone,text){let d=String(phone||"").replace(/\D/g,"");if(d.length===7)d="960"+d;return "https://wa.me/"+d+(text?"?text="+encodeURIComponent(text):"")}
-function openWa(phone,text,context){
-  try{window.YDUI&&YDUI.track&&YDUI.track("whatsapp_click",{context})}catch(_){}
-  openExternal(waUrl(phone,text));   // native: _system hands off to the WhatsApp app
-}
-function waCounter(a,context){
-  const v={driver:ME.name,unit:ME.code||"TP-04"};
-  openWa(CFG.whatsapp,a?t("wa.counterJob",Object.assign(v,{ref:a.id})):t("wa.counter",v),context||(a?"counter_job":"counter"));
-}
-let waOpts=[];
-function openWaSheet(a){
-  const first=(ME.name||"").split(/\s+/)[0],ph=custPhone(a);if(!ph)return;
-  waOpts=[];
-  if(a.status==="enroute")waOpts.push(["onway",t("wa.onwayL"),t("wa.onway",{name:first,ref:a.id,eta:Math.max(1,Math.round((1-(a.progress||0))*18))})]);
-  waOpts.push(["arrived",t("wa.arrivedL"),t("wa.arrived",{site:a.site})],["lost",t("wa.lostL"),t("wa.lost")],["custom",t("wa.custom"),""]);
-  $("#waTitle").textContent=t("wa.sheet",{name:(a.customer&&a.customer.name)||t("kv.cust")});
-  $("#waOpts").innerHTML=waOpts.map(([k,l,m])=>`<button class="wa-opt" type="button" data-wa="${k}">${WA_SVG}<span class="wa-tx"><b>${esc(l)}</b><span dir="auto">${esc(m||t("wa.customSub"))}</span></span></button>`).join("");
-  $$("[data-wa]").forEach(b=>b.onclick=()=>{const o=waOpts.find(x=>x[0]===b.dataset.wa);closeWaSheet();openWa(ph,o[2],"customer_"+o[0])});
-  closeReq();$("#waSheet").classList.add("on");setTimeout(()=>$("#waClose").focus(),50);
-}
-function closeWaSheet(){$("#waSheet").classList.remove("on")}
-$("#waClose").addEventListener("click",closeWaSheet);
-$("#waSheet").addEventListener("click",e=>{if(e.target.id==="waSheet")closeWaSheet()});
-document.addEventListener("keydown",e=>{if(e.key==="Escape")closeWaSheet()});
-const HOTLINE=CFG.whatsapp||"9609920202";
+const HOTLINE=CFG.hotline||CFG.whatsapp||"9609920202";   // the counter number (992 0202); config still names it "whatsapp"
 function dial(num){const d=String(num).replace(/\D/g,""),a=document.createElement("a");a.href="tel:+"+(d.length===7?"960"+d:d);a.click()}
-$("#waDefBtn").insertAdjacentHTML("afterbegin",WA_SVG);
-$("#ctIc").innerHTML=WA_SVG;
 $("#ctNum").textContent=fmtLocal(HOTLINE);
 $("#ctCall").href="tel:+"+(String(HOTLINE).replace(/\D/g,"").length===7?"960":"")+String(HOTLINE).replace(/\D/g,"");
-$("#waDefBtn").hidden=!CFG.whatsapp;
-$("#waDefBtn").addEventListener("click",()=>{const d=$("#defTxt").value.trim();openWa(CFG.whatsapp,t("wa.defect",{unit:ME.code||"TP-04"})+d,"counter_defect")});
 
 /* ═════════════ alerts ═════════════ */
 const AKEY="ydworks.driver.alerts.v2";
@@ -1487,7 +1430,7 @@ function renderAuthMode(keepErr){
   $("#aSub").textContent=t(sub==="forgot"?"auth.forgotSub":sub==="recovery"?"auth.newSub":authMode==="phone"?"auth.phoneSub":"auth.sub");
   $("#aSentTo").innerHTML=t("auth.sentTo",{phone:ltr("+960 "+phoneNum.slice(0,3)+" "+phoneNum.slice(3))});
   renderResend();
-  if(!keepErr){$("#aErr").textContent="";$("#aOk").textContent=""}
+  if(!keepErr){$("#aErr").textContent="";$("#aOk").textContent="";$("#fDone").textContent=""}
 }
 function renderResend(){const b=$("#aResend");b.disabled=resendLeft>0;b.textContent=resendLeft>0?t("auth.resendIn",{s:resendLeft}):t("auth.resend")}
 function startResend(){resendLeft=30;renderResend();clearInterval(resendT);resendT=setInterval(()=>{resendLeft--;renderResend();if(resendLeft<=0)clearInterval(resendT)},1000)}
@@ -1522,7 +1465,7 @@ $("#aDemo").addEventListener("click",()=>showAuth(false));
 $("#aForgot").addEventListener("click",()=>{authSub="forgot";$("#fEmail").value=$("#aEmail").value.trim();renderAuthMode();$("#fEmail").focus()});
 $("#fBack").addEventListener("click",()=>{authSub=null;renderAuthMode();$("#aEmail").focus()});
 $("#forgotForm").addEventListener("submit",async e=>{
-  e.preventDefault();const err=$("#aErr"),ok=$("#aOk"),b=$("#fSend");err.textContent="";ok.textContent="";
+  e.preventDefault();const err=$("#aErr"),ok=$("#fDone"),b=$("#fSend");err.textContent="";ok.textContent="";
   const email=$("#fEmail").value.trim();
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){err.textContent=t("err.email");$("#fEmail").focus();return}
   if(b.disabled)return;b.disabled=true;
