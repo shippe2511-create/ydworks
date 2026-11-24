@@ -1,0 +1,29 @@
+{
+  "name": "ydworks-driver",
+  "version": "1.0.0",
+  "private": true,
+  "description": "YD Driver mobile app (Capacitor wrapper around the YD Works web app)",
+  "scripts": {
+    "build": "python3 ../build.py",
+    "sync": "python3 ../build.py && npx cap sync",
+    "assets": "npx capacitor-assets generate --iconBackgroundColor '#070b16' --iconBackgroundColorDark '#070b16' --splashBackgroundColor '#070b16' --splashBackgroundColorDark '#070b16'",
+    "android": "npx cap open android",
+    "ios": "npx cap open ios",
+    "apk": "cd android && ./gradlew assembleDebug",
+    "release:android": "cd android && ./gradlew bundleRelease"
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.0.0",
+    "@capacitor/core": "^7.0.0",
+    "@capacitor/filesystem": "^7.1.9",
+    "@capacitor/ios": "^7.0.0",
+    "@capacitor/push-notifications": "^7.0.7",
+    "@capacitor/share": "^7.0.4",
+    "@capacitor/splash-screen": "^7.0.0",
+    "@capacitor/status-bar": "^7.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
+    "@capacitor/cli": "^7.0.0"
+  }
+}

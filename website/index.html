@@ -1,0 +1,1183 @@
+<meta charset="utf-8">
+<title>YD Works Hulhumalé</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="YD Works – heavy equipment hire, building materials, house construction and logistics in Hulhumalé, Maldives. Hotline 9920202.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400;500;600&family=Noto+Sans+Thaana:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: cinematic photo bands (always night) alternating with quiet editorial sections; hairline rules, one blue accent, sand for small marks on dark */
+:root{
+  --bg:#f6f7f9; --surface:#ffffff; --surface-2:#eef1f5; --line:rgba(10,16,34,.10); --line-2:rgba(10,16,34,.18);
+  --fg:#0a1022; --mute:#5b6478; --accent:#1f4bff; --accent-ink:#ffffff; --accent-soft:rgba(31,75,255,.08);
+  --night:#070b16; --night-2:#0d1322; --night-fg:#eef1f8; --night-mute:#9aa3b8; --night-line:rgba(255,255,255,.10);
+  --sand:#d9c7a3; --ok:#12a26a; --busy:#e0622b;
+  --display:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --body:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --r:18px; --ease:cubic-bezier(.2,.7,.2,1);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#070b16;--surface:#0d1322;--surface-2:#121a2e;--line:rgba(255,255,255,.09);--line-2:rgba(255,255,255,.16);
+  --fg:#eef1f8;--mute:#8e97ad;--accent:#4c6fff;--accent-soft:rgba(76,111,255,.12);--ok:#2fc78a;--busy:#ff7a45;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#070b16;--surface:#0d1322;--surface-2:#121a2e;--line:rgba(255,255,255,.09);--line-2:rgba(255,255,255,.16);
+  --fg:#eef1f8;--mute:#8e97ad;--accent:#4c6fff;--accent-soft:rgba(76,111,255,.12);--ok:#2fc78a;--busy:#ff7a45;color-scheme:dark}
+/* Dhivehi: Latin, digits and codes stay in Geist; Thaana falls through to Noto Sans Thaana */
+html[lang="dv"]{
+  --display:"Geist","Noto Sans Thaana","MV Faseyha",ui-sans-serif,system-ui,sans-serif;
+  --body:"Geist","Noto Sans Thaana","MV Faseyha",ui-sans-serif,system-ui,sans-serif;
+  --mono:"Geist Mono","Noto Sans Thaana",ui-monospace,Menlo,monospace;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 16px/1.65 var(--body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--night)}
+a{color:inherit}
+img{display:block;max-width:100%}
+h1,h2,h3,h4{font-family:var(--display);margin:0;text-wrap:balance;font-weight:600;letter-spacing:-.035em;line-height:1.02}
+p{margin:0}
+[data-ltr]{direction:ltr;unicode-bidi:isolate}
+[dir="rtl"] [data-ltr]{text-align:right}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+@media (max-width:520px){.wrap{padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.eyebrow::before{content:"";width:22px;height:1px;background:currentColor;opacity:.6}
+.on-night .eyebrow{color:var(--sand)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font:500 15px/1 var(--body);letter-spacing:-.005em;padding:15px 22px;border-radius:999px;border:1px solid transparent;text-decoration:none;cursor:pointer;transition:background .25s var(--ease),color .25s,border-color .25s,transform .25s var(--ease)}
+.btn svg{width:16px;height:16px;flex:none;transition:transform .25s var(--ease)}
+.btn:hover svg{transform:translateX(3px)}
+[dir="rtl"] .btn svg{transform:scaleX(-1)}
+[dir="rtl"] .btn:hover svg{transform:translateX(-3px) scaleX(-1)}
+.btn-accent{background:var(--accent);color:var(--accent-ink)}
+.btn-accent:hover{background:color-mix(in srgb,var(--accent) 88%,#fff)}
+.btn-light{background:#fff;color:#0a1022}
+.btn-light:hover{background:#e9ecf3}
+.btn-glass{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.22);backdrop-filter:blur(10px)}
+.btn-glass:hover{background:rgba(255,255,255,.16)}
+.btn-line{border-color:var(--line-2);color:var(--fg);background:transparent}
+.btn-line:hover{border-color:var(--fg)}
+
+/* header */
+.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:50;color:#fff;transition:background .35s var(--ease),border-color .35s,backdrop-filter .35s;border-bottom:1px solid transparent}
+.top.solid{background:rgba(7,11,22,.78);backdrop-filter:saturate(1.6) blur(18px);border-bottom-color:rgba(255,255,255,.08)}
+.nav{display:flex;align-items:center;gap:28px;height:76px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0}
+.brand svg{width:36px;height:36px;flex:none}
+.brand b{font:600 17px/1 var(--display);letter-spacing:.02em}
+.brand small{display:block;font:500 10.5px/1 var(--mono);letter-spacing:.16em;opacity:.6;margin-top:5px;white-space:nowrap}
+.nav ul{display:flex;gap:30px;list-style:none;margin:0;margin-inline-start:auto;padding:0}
+.nav ul a{text-decoration:none;font-size:14.5px;color:rgba(255,255,255,.72);transition:color .2s;white-space:nowrap}
+.nav ul a:hover{color:#fff}
+.nav .hot{font:500 14px var(--mono);text-decoration:none;color:rgba(255,255,255,.85);white-space:nowrap}
+.nav .btn{padding:11px 18px;font-size:14px;white-space:nowrap}
+.menu-btn{display:none;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:12px;width:44px;height:44px;color:#fff;cursor:pointer;place-items:center;flex:none}
+/* language switch: compact EN | ދިވެހި pill */
+.lang{display:inline-flex;align-items:center;height:40px;padding:0 4px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);flex:none}
+.lang button{border:0;background:none;color:rgba(255,255,255,.6);cursor:pointer;font:500 13px/1 var(--body);padding:8px 9px;border-radius:999px;transition:color .2s,background .2s}
+.lang button[lang="dv"]{font-family:"Noto Sans Thaana",var(--body);font-size:14px;padding-block:6px}
+.lang button:hover{color:#fff}
+.lang button[aria-pressed="true"]{color:#fff;background:rgba(255,255,255,.14)}
+.lang .sep{width:1px;height:14px;background:rgba(255,255,255,.22)}
+.menu-lang{display:none}
+@media (max-width:1500px){.nav{gap:22px}.nav ul{gap:24px}.nav .hot{display:none}}
+@media (max-width:1180px){.nav ul{gap:18px}}
+@media (max-width:1040px){
+  .nav ul{display:none;position:absolute;top:76px;left:0;right:0;flex-direction:column;gap:0;background:rgba(7,11,22,.96);backdrop-filter:blur(18px);padding:8px max(24px,env(safe-area-inset-left,0px)) 20px;border-bottom:1px solid rgba(255,255,255,.08)}
+  .nav ul.open{display:flex}
+  .nav ul a{display:block;padding:14px 0;font-size:18px;border-bottom:1px solid rgba(255,255,255,.06)}
+  .menu-lang{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0 4px;color:rgba(255,255,255,.6);font-size:14px}
+  .menu-btn{display:grid}
+  .nav .hot{display:none}
+  .nav > .lang{margin-inline-start:auto}
+}
+@media (max-width:560px){.nav .btn{display:none}.nav{gap:10px}.nav > .lang{display:none}.theme-btn{margin-inline-start:auto}}
+
+/* hero */
+.hero{position:relative;color:#fff;background:var(--night);overflow:hidden;isolation:isolate}
+.hero .photo{position:absolute;inset:0;z-index:-2}
+.hero .photo img{width:100%;height:100%;object-fit:cover;object-position:62% 50%;transform:scale(1.04);animation:settle 2.4s var(--ease) forwards}
+@keyframes settle{to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:
+  linear-gradient(180deg,rgba(7,11,22,.70) 0%,rgba(7,11,22,.10) 28%,rgba(7,11,22,.15) 55%,rgba(7,11,22,.92) 100%),
+  linear-gradient(90deg,rgba(7,11,22,.75) 0%,rgba(7,11,22,.15) 60%)}
+[dir="rtl"] .hero::after{background:
+  linear-gradient(180deg,rgba(7,11,22,.70) 0%,rgba(7,11,22,.10) 28%,rgba(7,11,22,.15) 55%,rgba(7,11,22,.92) 100%),
+  linear-gradient(270deg,rgba(7,11,22,.78) 0%,rgba(7,11,22,.15) 60%)}
+.hero .wrap{padding-block:clamp(150px,18vw,210px) 0}
+.hero h1{font-size:clamp(46px,7.4vw,104px);font-weight:600;letter-spacing:-.05em;line-height:.96;max-width:11.5ch}
+.hero h1 span{color:var(--sand);font-weight:300;font-style:italic;letter-spacing:-.04em}
+.hero .lede{font-size:clamp(17px,1.5vw,19px);color:rgba(255,255,255,.78);max-width:520px;margin-top:26px;line-height:1.6}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
+.hero .ticker{display:grid;grid-template-columns:repeat(4,1fr);margin-top:clamp(64px,9vw,110px);border-top:1px solid rgba(255,255,255,.16)}
+.hero .ticker > div{padding-block:22px 30px;padding-inline:0 24px;border-inline-end:1px solid rgba(255,255,255,.12);min-width:0}
+.hero .ticker > div + div{padding-inline-start:24px}
+.hero .ticker > div:last-child{border-inline-end:0}
+.hero .ticker b{display:block;font:500 clamp(24px,2.6vw,34px)/1.1 var(--display);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.hero .ticker span{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.hero .ticker b span{font:inherit;letter-spacing:inherit;text-transform:none;color:inherit}
+.hero .ticker .stars{color:var(--sand);font-size:.6em;letter-spacing:2px;vertical-align:middle;margin-inline-start:6px}
+@media (max-width:760px){.hero .ticker{grid-template-columns:1fr 1fr}.hero .ticker > div:nth-child(2){border-inline-end:0}.hero .ticker > div:nth-child(3){padding-inline-start:0}.hero .ticker > div:nth-child(-n+2){border-bottom:1px solid rgba(255,255,255,.12)}}
+.status{position:absolute;inset-inline-end:max(24px,env(safe-area-inset-right,0px));top:clamp(150px,18vw,210px);width:360px;border-radius:20px;background:rgba(10,16,34,.55);backdrop-filter:blur(20px) saturate(1.4);border:1px solid rgba(255,255,255,.14);padding:6px;box-shadow:0 40px 80px -30px rgba(0,0,0,.6)}
+.status header{display:flex;justify-content:space-between;align-items:center;padding:12px 14px 10px;font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.65)}
+.live{display:inline-flex;align-items:center;gap:7px;color:#7ee2b0}
+.live i{width:7px;height:7px;border-radius:50%;background:currentColor;animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(126,226,176,.6)}100%{box-shadow:0 0 0 9px rgba(126,226,176,0)}}
+.status ul{list-style:none;margin:0;padding:0;background:rgba(255,255,255,.04);border-radius:14px}
+.status li{display:flex;align-items:center;gap:12px;padding:11px 14px;border-top:1px solid rgba(255,255,255,.07);font-size:14px}
+.status li:first-child{border-top:0}
+.status li .th{width:40px;height:40px;border-radius:10px;overflow:hidden;background:#e8ecf2;flex:none}
+.status li div{flex:1;min-width:0;line-height:1.35}
+.status li small{display:block;font:400 11.5px var(--mono);color:rgba(255,255,255,.5);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.status li .nm{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.status .src{display:block;padding:10px 14px 8px;font:400 11px var(--mono);color:rgba(255,255,255,.45)}
+.tag{font:500 10.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:6px 9px;border-radius:999px;white-space:nowrap}
+.tag.ok{color:#7ee2b0;background:rgba(46,200,138,.14)}
+.tag.busy{color:#ffb08a;background:rgba(255,122,69,.14)}
+@media (max-width:1100px){.status{display:none}}
+
+/* section scaffolding */
+section{padding-block:clamp(88px,11vw,150px)}
+.intro{display:grid;grid-template-columns:5fr 7fr;gap:clamp(32px,6vw,96px);align-items:end;margin-bottom:clamp(48px,6vw,80px)}
+.intro h2{font-size:clamp(36px,5vw,68px);margin-top:20px}
+.intro p{font-size:18px;color:var(--mute);max-width:560px;justify-self:end}
+.on-night .intro p{color:var(--night-mute)}
+@media (max-width:860px){.intro{grid-template-columns:1fr}.intro p{justify-self:start}}
+
+/* statement */
+.statement{padding-block:clamp(80px,10vw,140px) 0}
+.statement p{font:400 clamp(26px,3.4vw,46px)/1.22 var(--display);letter-spacing:-.03em;max-width:24ch;text-wrap:balance}
+.statement p em{font-style:normal;color:var(--mute)}
+
+/* capabilities */
+.caps{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.cap{position:relative;border-radius:var(--r);overflow:hidden;color:#fff;text-decoration:none;min-height:440px;display:flex;flex-direction:column;justify-content:flex-end;padding:30px;isolation:isolate;background:var(--night)}
+.cap img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1.2s var(--ease)}
+.cap::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(7,11,22,0) 30%,rgba(7,11,22,.88) 100%)}
+.cap:hover img{transform:scale(1.05)}
+.cap .n{position:absolute;top:26px;inset-inline-start:30px;font:500 12px var(--mono);letter-spacing:.14em;color:rgba(255,255,255,.75)}
+.cap .go{position:absolute;top:22px;inset-inline-end:22px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.12);backdrop-filter:blur(10px);display:grid;place-items:center;border:1px solid rgba(255,255,255,.2);transition:background .25s,transform .35s var(--ease)}
+.cap:hover .go{background:#fff;color:#0a1022;transform:rotate(-45deg)}
+[dir="rtl"] .cap .go svg{transform:scaleX(-1)}
+[dir="rtl"] .cap:hover .go{transform:rotate(45deg)}
+.cap .go svg{width:18px;height:18px}
+.cap h3{font-size:clamp(26px,2.6vw,34px)}
+.cap p{color:rgba(255,255,255,.75);margin-top:10px;max-width:42ch}
+.cap ul{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:18px 0 0;padding:0}
+.cap li{font:500 11.5px var(--mono);letter-spacing:.04em;padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(8px)}
+.cap.c1{grid-column:span 7;min-height:560px}.cap.c2{grid-column:span 5;min-height:560px}.cap.c3{grid-column:span 5}.cap.c4{grid-column:span 7}
+@media (max-width:900px){.cap.c1,.cap.c2,.cap.c3,.cap.c4{grid-column:span 12;min-height:400px}}
+
+/* fleet */
+.fleet-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px;border-bottom:1px solid var(--line);padding-bottom:18px}
+.tabs{display:flex;flex-wrap:wrap;gap:4px}
+.tab{font:500 14px var(--body);padding:10px 16px;border-radius:999px;border:0;background:transparent;color:var(--mute);cursor:pointer;transition:.2s}
+.tab:hover{color:var(--fg)}
+.tab[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.fleet-bar .count{font:500 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mute);display:inline-flex;align-items:center;gap:8px}
+.fleet-bar .count i{width:7px;height:7px;border-radius:50%;background:var(--ok);display:none}
+.fleet-bar .count.is-live i{display:inline-block;animation:pulse 2s infinite}
+.fleet{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.machine{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);display:flex;flex-direction:column;overflow:hidden;transition:border-color .3s,transform .4s var(--ease),box-shadow .4s;min-width:0}
+.machine:hover{border-color:var(--line-2);transform:translateY(-4px);box-shadow:0 30px 60px -40px rgba(10,16,34,.45)}
+.machine .art{aspect-ratio:16/11;position:relative;overflow:hidden;background:#e8ecf2;max-width:100%}
+.machine .art img.pimg{transition:transform .8s var(--ease)}
+.machine:hover .art img.pimg{transform:scale(1.04)}
+.machine .art .tag{position:absolute;top:16px;inset-inline-start:16px;backdrop-filter:blur(8px);background:rgba(255,255,255,.88)!important}
+.machine .art .tag.ok{color:#0b7d51}
+.machine .art .tag.busy{color:#b94512}
+.machine .art .code{position:absolute;top:16px;inset-inline-end:16px;font:500 11px var(--mono);color:#0a1022;letter-spacing:.08em;background:rgba(255,255,255,.85);padding:5px 8px;border-radius:999px}
+.machine .body{padding:24px;display:flex;flex-direction:column;gap:18px;flex:1}
+.machine h3{font-size:22px;letter-spacing:-.025em}
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:12px 20px;margin:0}
+.specs dt{font:500 10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.specs dd{margin:3px 0 0;font-weight:500;font-variant-numeric:tabular-nums}
+.machine .row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:18px;border-top:1px solid var(--line)}
+.rate{font:500 24px var(--display);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.rate small{font:400 12px var(--mono);color:var(--mute);letter-spacing:0}
+.machine .btn{padding:11px 16px;font-size:14px}
+.note{font:400 12.5px/1.6 var(--mono);color:var(--mute);margin-top:24px}
+@media (max-width:1040px){.fleet{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.fleet{grid-template-columns:1fr}}
+
+/* materials */
+.mat{background:var(--surface);border-block:1px solid var(--line)}
+.mat-layout{display:grid;grid-template-columns:1.5fr 1fr;gap:20px;align-items:start}
+.mat-card{border:1px solid var(--line);border-radius:var(--r);background:var(--bg);overflow:hidden;min-width:0}
+.mat-table{overflow-x:auto}
+.mat-table[hidden]{display:none}
+.mat-table tr[hidden]{display:none}
+.mat-tools{display:flex;flex-direction:column;gap:12px;padding:16px 16px 14px;border-bottom:1px solid var(--line);background:var(--surface)}
+.msearch{position:relative;display:flex;align-items:center}
+.msearch > svg{position:absolute;inset-inline-start:16px;width:18px;height:18px;color:var(--mute);pointer-events:none}
+.msearch input{width:100%;font:400 16px var(--body);color:var(--fg);background:var(--bg);border:1px solid var(--line-2);border-radius:999px;padding:13px 48px;outline:none;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none}
+.msearch input::placeholder{color:var(--mute);opacity:1}
+.msearch input::-webkit-search-cancel-button{display:none}
+.msearch input:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.mclear{position:absolute;inset-inline-end:8px;width:34px;height:34px;border-radius:50%;border:0;background:var(--surface-2);color:var(--fg);display:grid;place-items:center;cursor:pointer}
+.mclear[hidden]{display:none}
+.mclear svg{width:16px;height:16px}
+.mchips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-inline:-16px;padding-inline:16px;scroll-padding-inline:16px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 16px,#000 calc(100% - 16px),transparent);mask-image:linear-gradient(90deg,transparent,#000 16px,#000 calc(100% - 16px),transparent)}
+.mchips::-webkit-scrollbar{display:none}
+@media (min-width:641px){.mchips{flex-wrap:wrap;overflow:visible;margin-inline:0;padding-inline:0;-webkit-mask-image:none;mask-image:none}}
+.mchips button{flex:none;font:500 13.5px/1 var(--body);padding:9px 14px;border-radius:999px;border:1px solid var(--line-2);background:transparent;color:var(--mute);cursor:pointer;white-space:nowrap;transition:background .2s,color .2s,border-color .2s}
+.mchips button:hover{color:var(--fg);border-color:var(--fg)}
+.mchips button[aria-pressed="true"]{background:var(--fg);border-color:var(--fg);color:var(--bg)}
+.mat-none{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;padding:44px 20px;color:var(--mute)}
+.mat-none[hidden]{display:none}
+.mat-none b{color:var(--fg);font-weight:500;font-size:17px;overflow-wrap:anywhere}
+.mat-none .btn{padding:11px 18px;font-size:14px;margin-top:4px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;margin:0}
+.mat-table table{width:100%;border-collapse:collapse;min-width:540px}
+.mat-table th{text-align:start;font:500 10.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mute);padding:18px 20px;border-bottom:1px solid var(--line)}
+.mat-table td{padding:16px 20px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums;vertical-align:middle}
+.mat-table tr:last-child td{border-bottom:0}
+.mat-table tbody tr{transition:background .2s}
+.mat-table tbody tr:hover{background:var(--accent-soft)}
+.mat-table .num{text-align:end}
+.mat-table td.num{font:500 14px var(--mono)}
+.mat-table b{font-weight:500}
+.mat-table .cat{font:400 12px var(--mono);color:var(--mute);margin-top:2px}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--line-2);border-radius:999px;padding:2px}
+.qty button{width:30px;height:30px;border:0;background:none;color:var(--fg);font-size:16px;cursor:pointer;border-radius:50%;transition:background .2s}
+.qty button:hover{background:var(--accent-soft)}
+.qty output{min-width:30px;text-align:center;font:500 13px var(--mono)}
+.estimate{position:sticky;top:calc(env(safe-area-inset-top,0px) + 100px);border-radius:var(--r);overflow:hidden;background:var(--night);color:var(--night-fg);isolation:isolate}
+.estimate .ph{height:150px;position:relative}
+.estimate .ph img{width:100%;height:100%;object-fit:cover}
+.estimate .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,11,22,.1),var(--night))}
+.estimate .in{padding:0 26px 26px;margin-top:-34px;position:relative;display:flex;flex-direction:column;gap:16px}
+.estimate .eyebrow{color:var(--sand)}
+.estimate h3{font-size:26px}
+.estimate ul{list-style:none;margin:0;padding:0;font-size:14px;display:flex;flex-direction:column;gap:8px;max-height:200px;overflow:auto}
+.estimate li{display:flex;justify-content:space-between;gap:12px;font-variant-numeric:tabular-nums;color:var(--night-mute)}
+.estimate li span:last-child{color:var(--night-fg);font-family:var(--mono);font-size:13px;white-space:nowrap}
+.estimate .empty{opacity:.7}
+.estimate .line{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--night-line);padding-top:14px;font-size:14px;color:var(--night-mute)}
+.estimate .line b{font:500 36px var(--display);letter-spacing:-.04em;color:#fff;font-variant-numeric:tabular-nums}
+@media (max-width:940px){.mat-layout{grid-template-columns:1fr}.estimate{position:static}}
+
+/* build */
+.build{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,90px);align-items:start}
+.build-photo{position:sticky;top:calc(env(safe-area-inset-top,0px) + 100px);border-radius:var(--r);overflow:hidden;aspect-ratio:4/5;max-width:100%;background:var(--night)}
+.build-photo img{width:100%;height:100%;object-fit:cover}
+.build-photo figcaption{position:absolute;left:16px;right:16px;bottom:16px;display:flex;justify-content:space-between;gap:12px;padding:14px 16px;border-radius:14px;background:rgba(7,11,22,.55);backdrop-filter:blur(14px);color:#fff;font-size:14px;border:1px solid rgba(255,255,255,.14)}
+.build-photo figcaption b{font:500 13px var(--mono);color:var(--sand)}
+.build h2{font-size:clamp(36px,4.6vw,62px);margin-top:20px}
+.build .lead{color:var(--mute);font-size:18px;margin-top:20px;max-width:520px}
+.steps{list-style:none;margin:44px 0 0;padding:0;border-top:1px solid var(--line)}
+.steps li{display:grid;grid-template-columns:64px 1fr;gap:16px;padding:24px 0;border-bottom:1px solid var(--line)}
+.steps .n{font:500 13px var(--mono);color:var(--accent);padding-top:4px}
+.steps h3{font-size:20px;letter-spacing:-.02em}
+.steps p{color:var(--mute);margin-top:4px;font-size:15px}
+.in-app{display:flex;align-items:center;gap:14px;margin-top:28px;padding:16px 18px;border-radius:16px;background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 22%,transparent);text-decoration:none;color:var(--fg);font-size:15px;line-height:1.5;transition:border-color .25s}
+.in-app:hover{border-color:var(--accent)}
+.in-app .ic{width:40px;height:40px;border-radius:12px;background:var(--accent);color:#fff;display:grid;place-items:center;flex:none}
+.in-app .ic svg{width:20px;height:20px}
+.in-app b{font-weight:600}
+.build .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+@media (max-width:900px){.build{grid-template-columns:1fr}.build-photo{position:relative;top:0;aspect-ratio:4/3}}
+
+/* logistics */
+.logi{position:relative;color:#fff;background:var(--night);overflow:hidden;isolation:isolate;padding-block:0}
+.logi > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.logi::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(7,11,22,.92) 0%,rgba(7,11,22,.6) 45%,rgba(7,11,22,.15) 100%)}
+[dir="rtl"] .logi::after{background:linear-gradient(270deg,rgba(7,11,22,.92) 0%,rgba(7,11,22,.6) 45%,rgba(7,11,22,.15) 100%)}
+.logi .wrap{padding-block:clamp(96px,12vw,160px)}
+.logi h2{font-size:clamp(36px,5vw,68px);max-width:13ch;margin-top:20px}
+.logi .lead{color:rgba(255,255,255,.75);font-size:18px;max-width:460px;margin-top:20px}
+.zones{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:64px;border-top:1px solid rgba(255,255,255,.18)}
+.zone{padding-block-start:24px;padding-inline:0 24px;border-inline-end:1px solid rgba(255,255,255,.12)}
+.zone + .zone{padding-inline-start:24px}
+.zone:last-child{border-inline-end:0}
+.zone .t{font:500 11px var(--mono);letter-spacing:.14em;color:var(--sand);text-transform:uppercase}
+.zone h3{font-size:21px;margin-top:10px;letter-spacing:-.02em}
+.zone p{font-size:14px;color:rgba(255,255,255,.68);margin-top:6px}
+@media (max-width:900px){.zones{grid-template-columns:1fr 1fr;row-gap:28px}.zone:nth-child(2){border-inline-end:0}.zone:nth-child(3){padding-inline-start:0}}
+@media (max-width:520px){.zones{grid-template-columns:1fr}.zone,.zone + .zone{padding-inline:0;border-inline-end:0}}
+
+/* apps */
+.apps{background:var(--night);color:var(--night-fg);overflow:hidden}
+.apps .intro h2{color:#fff}
+.app-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.app-card{position:relative;border-radius:24px;border:1px solid var(--night-line);background:linear-gradient(180deg,var(--night-2),var(--night));padding:clamp(26px,3vw,40px);display:grid;grid-template-columns:1fr auto;gap:28px;overflow:hidden;isolation:isolate;min-width:0}
+.app-card::before{content:"";position:absolute;width:420px;height:420px;inset-inline-end:-120px;bottom:-200px;background:radial-gradient(circle,rgba(76,111,255,.35),transparent 65%);z-index:-1}
+.app-card h3{font-size:32px;color:#fff}
+.app-card .k,.feat .k{font:500 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--sand)}
+.app-card p{color:var(--night-mute);margin-top:10px}
+.app-card ul{list-style:none;margin:22px 0 28px;padding:0;display:flex;flex-direction:column;gap:10px;font-size:15px}
+.app-card li{display:flex;gap:10px;align-items:flex-start;color:var(--night-fg)}
+.app-card li::before{content:"";flex:none;width:16px;height:16px;margin-top:4px;border-radius:50%;border:1px solid var(--sand);background:radial-gradient(circle,var(--sand) 30%,transparent 34%)}
+.phone{width:220px;max-width:100%;aspect-ratio:390/844;border-radius:38px;padding:8px;background:linear-gradient(145deg,#2a3147,#0b0f1c);box-shadow:0 50px 80px -30px rgba(0,0,0,.8),inset 0 0 0 1px rgba(255,255,255,.12);align-self:center;transform:rotate(2deg)}
+.phone img{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:31px}
+.app-card:nth-child(2) .phone{transform:rotate(-2deg)}
+@media (max-width:1040px){.app-grid{grid-template-columns:1fr}}
+@media (max-width:560px){.app-card{grid-template-columns:1fr}.phone{margin:0 auto;width:200px}}
+/* new in the apps: four capability tiles + house-build tracker */
+.feat-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px;margin:clamp(56px,7vw,88px) 0 24px;padding-top:24px;border-top:1px solid var(--night-line)}
+.feat-head .k{text-transform:none;letter-spacing:.06em}
+.feat-head h3{font-size:clamp(24px,2.4vw,32px);color:#fff;letter-spacing:-.03em}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.tile{border-radius:20px;border:1px solid var(--night-line);background:rgba(255,255,255,.025);padding:24px;display:flex;flex-direction:column;gap:10px;min-width:0;transition:border-color .3s,background .3s}
+.tile:hover{border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.04)}
+.tile .ic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:rgba(76,111,255,.16);color:#9fb3ff;margin-bottom:8px}
+.tile .ic svg{width:22px;height:22px}
+.tile h4{font-size:19px;letter-spacing:-.02em;color:#fff;line-height:1.2}
+.tile p{color:var(--night-mute);font-size:14.5px;line-height:1.55}
+.pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:6px}
+.pills span{font:500 11px/1 var(--mono);padding:6px 9px;border-radius:999px;border:1px solid var(--night-line);color:var(--night-fg)}
+.pills .wa{color:#7ee2b0;border-color:rgba(46,200,138,.35)}.pills .vb{color:#c7b4ff;border-color:rgba(150,120,255,.4)}
+.tracker{margin-top:16px;border-radius:24px;border:1px solid var(--night-line);background:linear-gradient(120deg,var(--night-2),var(--night) 70%);padding:clamp(26px,3vw,40px);display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(28px,4vw,56px);align-items:center;position:relative;overflow:hidden;isolation:isolate}
+.tracker::before{content:"";position:absolute;width:520px;height:520px;inset-inline-start:-180px;top:-260px;background:radial-gradient(circle,rgba(217,199,163,.16),transparent 65%);z-index:-1}
+.tracker h3{font-size:clamp(28px,3vw,40px);color:#fff;margin-top:12px}
+.tracker .copy-p{color:var(--night-mute);margin-top:12px;max-width:44ch}
+.tracker ul.feats{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.tracker ul.feats li{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid var(--night-line);color:var(--night-fg)}
+.tracker ul.feats svg{width:15px;height:15px;color:var(--sand)}
+.tm{border-radius:20px;background:rgba(7,11,22,.7);border:1px solid rgba(255,255,255,.12);padding:20px;display:flex;flex-direction:column;gap:16px;box-shadow:0 40px 80px -40px rgba(0,0,0,.8);min-width:0}
+.tm-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.tm-head b{font:600 16px var(--display);color:#fff}
+.tm-head small{display:block;font:400 12px var(--mono);color:var(--night-mute);margin-top:2px}
+.tm-pill{font:500 10.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--sand);border:1px solid rgba(217,199,163,.35);padding:6px 9px;border-radius:999px;white-space:nowrap}
+.tm-bar{height:8px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
+.tm-bar i{display:block;height:100%;width:62%;border-radius:inherit;background:linear-gradient(90deg,var(--accent),#8ea4ff)}
+[dir="rtl"] .tm-bar i{background:linear-gradient(270deg,var(--accent),#8ea4ff)}
+.tm-pct{display:flex;justify-content:space-between;font-size:13px;color:var(--night-mute);margin-top:-8px}
+.tm-pct b{color:#fff;font:500 13px var(--mono)}
+.tm-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tm-steps li{border-radius:12px;padding:10px 12px;background:rgba(255,255,255,.04);border:1px solid var(--night-line);font-size:13.5px;color:#fff;min-width:0}
+.tm-steps li small{display:flex;align-items:center;gap:6px;font:500 11px var(--mono);color:var(--night-mute);margin-top:2px}
+.tm-steps li small::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+.tm-steps li.done small{color:#7ee2b0}
+.tm-steps li.now{border-color:rgba(76,111,255,.55);background:rgba(76,111,255,.12)}
+.tm-steps li.now small{color:#9fb3ff}
+.tm-pay{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;background:rgba(217,199,163,.08);border:1px solid rgba(217,199,163,.22);font-size:13.5px;color:var(--night-mute)}
+.tm-pay b{color:#fff;font:500 15px var(--mono);white-space:nowrap}
+.tm-photos{display:grid;grid-template-columns:repeat(3,1fr) auto;gap:8px;align-items:center}
+.tm-photos img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px}
+.tm-photos span{font-size:12.5px;color:var(--night-mute);padding-inline-start:4px;max-width:9em;line-height:1.35}
+@media (max-width:1040px){.tiles{grid-template-columns:1fr 1fr}.tracker{grid-template-columns:1fr}}
+@media (max-width:560px){.tiles{grid-template-columns:1fr}.tm-steps{grid-template-columns:1fr}.tm-photos{grid-template-columns:repeat(3,1fr)}.tm-photos span{grid-column:1/-1;max-width:none;padding:0}}
+
+/* contact */
+.contact-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:20px;align-items:start}
+form.quote{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:clamp(24px,3vw,40px);display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.f{display:flex;flex-direction:column;gap:8px;min-width:0}
+.f.full{grid-column:1/-1}
+.f > label,.f > .lbl{font:500 10.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.f input,.f select,.f textarea{font:400 16px var(--body);color:var(--fg);background:transparent;border:0;border-bottom:1px solid var(--line-2);border-radius:0;padding:10px 0;width:100%;transition:border-color .2s}
+.f select{appearance:none;padding-inline-end:24px;background:linear-gradient(45deg,transparent 50%,var(--mute) 50%) calc(100% - 10px) 55%/5px 5px no-repeat,linear-gradient(-45deg,transparent 50%,var(--mute) 50%) calc(100% - 5px) 55%/5px 5px no-repeat}
+[dir="rtl"] .f select{background-position:5px 55%,10px 55%}
+[dir="rtl"] #qPhone{direction:ltr;text-align:right}
+.f select option{color:#0a1022}
+.f textarea{min-height:90px;resize:vertical}
+.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--accent);outline:none}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{position:relative;font:400 14px var(--body);color:var(--fg);border:1px solid var(--line-2);border-radius:999px;padding:9px 15px;cursor:pointer;display:flex;gap:8px;align-items:center;transition:.2s}
+.chips input{position:absolute;opacity:0;width:1px;height:1px}
+.chips label:has(input:checked){border-color:var(--accent);background:var(--accent);color:var(--accent-ink)}
+.chips label:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:2px}
+.err{color:var(--busy);font-size:14px;min-height:1em}
+.sent{grid-column:1/-1;border-radius:16px;background:color-mix(in srgb,var(--ok) 10%,transparent);border:1px solid color-mix(in srgb,var(--ok) 30%,transparent);padding:18px;font-size:15px}
+.sent b{color:var(--ok);font-weight:600}
+.info{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.info .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:24px;min-width:0}
+.info .card.wide{grid-column:1/-1}
+.info .k{font:500 10.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mute);display:block;margin-bottom:12px}
+.big{font:500 clamp(34px,4vw,48px)/1 var(--display);letter-spacing:-.04em;font-variant-numeric:tabular-nums;user-select:all}
+[dir="rtl"] .big{text-align:right}
+.hours{width:100%;border-collapse:collapse;font-size:15px}
+.hours td{padding:8px 0;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.hours td:last-child{text-align:end;font:500 14px var(--mono)}
+[dir="rtl"] .hours td:last-child{text-align:left}
+.hours tr:last-child td{border-bottom:0}
+.copy{font:500 13px var(--body);border:1px solid var(--line-2);background:transparent;color:var(--fg);border-radius:999px;padding:8px 14px;cursor:pointer;margin-top:14px}
+.copy:hover{border-color:var(--fg)}
+@media (max-width:940px){.contact-grid{grid-template-columns:1fr}}
+@media (max-width:560px){form.quote{grid-template-columns:1fr}.info{grid-template-columns:1fr}}
+
+footer{background:var(--night);color:var(--night-mute);padding-block:72px 40px;overflow:hidden}
+.foot-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:32px;padding-bottom:48px;border-bottom:1px solid var(--night-line)}
+.foot-top nav{display:grid;grid-template-columns:repeat(2,auto);gap:10px 48px;font-size:15px}
+.foot-top a{text-decoration:none}
+.foot-top a:hover{color:#fff}
+.foot-top .brand{color:#fff}
+.wordmark{font:700 clamp(64px,18vw,280px)/.8 var(--display);letter-spacing:-.07em;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.14);margin-top:40px;white-space:nowrap;user-select:none;direction:ltr;font-family:"Geist",ui-sans-serif,system-ui,sans-serif}
+[dir="rtl"] .wordmark{text-align:right}
+.foot-bot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;font:400 12.5px var(--mono);margin-top:24px}
+.foot-ctl{display:flex;flex-wrap:wrap;gap:8px}
+.announce{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:55;background:var(--accent);color:#fff;text-align:center;font-size:14px;padding:9px max(16px,env(safe-area-inset-right,0px)) 9px max(16px,env(safe-area-inset-left,0px))}
+.announce.warn{background:#b07a14}.announce.crit{background:#c62f3a}
+.theme-btn{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#fff;display:grid;place-items:center;cursor:pointer;flex:none;transition:background .2s}
+.theme-btn:hover{background:rgba(255,255,255,.16)}
+.tseg{display:inline-flex;gap:2px;background:rgba(255,255,255,.06);border:1px solid var(--night-line);border-radius:999px;padding:3px}
+.tseg button{display:inline-flex;align-items:center;gap:6px;border:0;background:none;color:var(--night-mute);font:500 12px var(--body);padding:6px 11px;border-radius:999px;cursor:pointer}
+.tseg button[lang="dv"]{font-family:"Noto Sans Thaana",var(--body);font-size:13px;padding-block:4px}
+.tseg button[aria-pressed="true"]{background:rgba(255,255,255,.12);color:#fff}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(20px);opacity:0;background:var(--fg);color:var(--bg);padding:12px 18px;border-radius:999px;font-weight:500;font-size:14px;transition:.3s var(--ease);z-index:80;pointer-events:none;max-width:calc(100vw - 32px)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+img.pimg{width:100%;height:100%;object-fit:cover;display:block}
+.mrow{display:flex;align-items:center;gap:12px}
+.mrow .th{width:44px;height:44px;border-radius:10px;overflow:hidden;background:#e8ecf2;flex:none}
+
+/* ── Dhivehi (Thaana, RTL) typography: taller lines for fili marks, no tracking, slightly larger small labels ── */
+html[lang="dv"] *{letter-spacing:0!important}
+html[lang="dv"] body{font-size:17px;line-height:1.8}
+html[lang="dv"] h1,html[lang="dv"] h2,html[lang="dv"] h3,html[lang="dv"] h4{line-height:1.38}
+html[lang="dv"] .hero h1{line-height:1.3;font-size:clamp(42px,6.4vw,92px);max-width:12ch}
+html[lang="dv"] .hero h1 span{font-style:normal;font-weight:500}
+html[lang="dv"] .statement p{line-height:1.5}
+html[lang="dv"] .hero .lede,html[lang="dv"] .intro p,html[lang="dv"] .build .lead,html[lang="dv"] .logi .lead{line-height:1.85}
+html[lang="dv"] :is(.eyebrow,.specs dt,.mat-table th,.f > label,.f > .lbl,.info .k,.app-card .k,.feat .k,.zone .t,.cap .n,.hero .ticker > div > span,.status header,.fleet-bar .count,.tag,.status li small,.mat-table .cat,.tm-pill,.status .src){font-size:13px;line-height:1.5}
+html[lang="dv"] :is(.note,.foot-bot){font-size:13.5px;line-height:1.8}
+html[lang="dv"] .cap li{font-size:13px}
+html[lang="dv"] .mchips button{font-size:14.5px;padding-block:7px}
+html[lang="dv"] .eyebrow{line-height:1.4}
+html[lang="dv"] .rate small{font-size:13px}
+html[lang="dv"] .brand small{font-size:11.5px}
+
+/* legal links + spam trap */
+.legal-note{font-size:13px;line-height:1.6;color:var(--mute);margin:12px 0 0}
+.legal-note a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.legal-note a:hover{color:var(--accent)}
+html[lang="dv"] .legal-note{font-size:13.5px;line-height:1.8}
+.hp{position:absolute!important;inset-inline-start:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
+.foot-legal{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font:400 13px var(--body);margin-top:18px;color:var(--night-mute)}
+.foot-legal a{color:var(--night-mute);text-decoration:none}
+.foot-legal a:hover,.foot-legal a:focus-visible{color:#fff;text-decoration:underline;text-underline-offset:3px}
+html[lang="dv"] .foot-legal{font-size:13.5px}
+
+/* WhatsApp: floating button + first-visit bubble (bottom-right; bottom-left in RTL) */
+.wa-fab{--wa-x:max(20px,env(safe-area-inset-right,0px));position:fixed;bottom:max(20px,calc(env(safe-area-inset-bottom,0px) + 12px));inset-inline-end:var(--wa-x);z-index:45;width:56px;height:56px;border-radius:50%;background:#25D366;color:#fff;display:grid;place-items:center;box-shadow:0 6px 18px rgba(7,11,22,.22),0 2px 4px rgba(7,11,22,.12);text-decoration:none;transition:opacity .25s,transform .25s var(--ease),visibility 0s linear 0s}
+[dir="rtl"] .wa-fab{--wa-x:max(20px,env(safe-area-inset-left,0px))}
+.wa-fab svg{width:30px;height:30px}
+.wa-fab:hover{box-shadow:0 8px 24px rgba(7,11,22,.28),0 2px 4px rgba(7,11,22,.14)}
+.wa-fab:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.wa-fab.off{opacity:0;transform:scale(.85);visibility:hidden;pointer-events:none;transition:opacity .2s,transform .2s,visibility 0s linear .2s}
+.wa-tip{position:fixed;z-index:45;bottom:max(24px,calc(env(safe-area-inset-bottom,0px) + 16px));inset-inline-end:calc(var(--wa-x,20px) + 68px);--wa-x:max(20px,env(safe-area-inset-right,0px));max-width:min(280px,calc(100vw - 112px));background:var(--surface);color:var(--fg);border:1px solid var(--line-2);border-radius:16px;padding:10px 8px 10px 14px;padding-inline:14px 8px;font-size:14px;line-height:1.45;box-shadow:0 8px 24px rgba(7,11,22,.16);display:flex;align-items:flex-start;gap:6px}
+[dir="rtl"] .wa-tip{--wa-x:max(20px,env(safe-area-inset-left,0px))}
+.wa-tip[hidden]{display:none}
+.wa-tip a{color:inherit;text-decoration:none;flex:1;min-width:0}
+.wa-tip button{flex:none;width:28px;height:28px;margin:-4px 0;border:0;border-radius:50%;background:none;color:var(--mute);font-size:18px;line-height:1;cursor:pointer;display:grid;place-items:center}
+.wa-tip button:hover{background:var(--surface-2);color:var(--fg)}
+.wa-tip button:focus-visible,.wa-tip a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.foot-id{display:flex;flex-direction:column;align-items:flex-start;gap:20px;min-width:0}
+.wa-pill{display:inline-flex;align-items:center;gap:9px;max-width:100%;color:#fff;text-decoration:none;border:1px solid var(--night-line);background:rgba(255,255,255,.04);border-radius:999px;padding:9px 16px 9px 12px;padding-inline:12px 16px;font:500 14px var(--body);transition:background .2s,border-color .2s}
+.wa-pill svg{width:20px;height:20px;color:#25D366;flex:none}
+.wa-pill:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.24)}
+.wa-pill:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.foot-top .wa-pill:hover{color:#fff}
+.info .wa-card .k{display:flex;align-items:center;gap:8px}
+.info .wa-card .k svg{width:16px;height:16px;color:#25D366;flex:none}
+.wa-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 20px}
+.wa-num{font:500 clamp(34px,4vw,48px)/1 var(--display);letter-spacing:-.04em;font-variant-numeric:tabular-nums;user-select:all}
+.wa-start{display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#0a2e1a;text-decoration:none;font:600 14px var(--body);border-radius:999px;padding:11px 18px;transition:background .2s}
+.wa-start:hover{background:#1fbd5a}
+.wa-start:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wa-start svg{width:15px;height:15px}
+[dir="rtl"] .wa-start svg{transform:scaleX(-1)}
+.wa-sub{margin:14px 0 0;color:var(--mute);font-size:14px;line-height:1.55}
+@media (prefers-reduced-motion:no-preference){
+  .wa-fab{animation:wa-in .45s var(--ease) both}
+  .wa-tip:not([hidden]){animation:wa-tip-in .35s var(--ease) both}
+}
+@keyframes wa-in{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+@keyframes wa-tip-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.wa-fab,.wa-fab.off{transition:none}}
+@media print{.wa-fab,.wa-tip{display:none}}
+</style>
+<script src="yd-config.js"></script>
+<script src="yd-catalog.js"></script>
+<script>try{var yl=new URLSearchParams(location.search).get("lang");if(yl==="dv"||yl==="en")localStorage.setItem("yd-lang",yl)}catch(e){}</script>
+<script src="yd-ui.js"></script>
+
+
+<header class="top" id="top">
+  <div class="wrap nav">
+    <a class="brand" href="#home" aria-label="YD Works home" data-i18n-aria="a.home"><svg><use href="#logo"/></svg><span><b>YD WORKS</b><small data-i18n="brand.place">HULHUMALÉ · MALDIVES</small></span></a>
+    <ul id="menu">
+      <li><a href="#services" data-i18n="nav.services">Services</a></li>
+      <li><a href="#fleet" data-i18n="nav.fleet">Fleet</a></li>
+      <li><a href="#materials" data-i18n="nav.materials">Materials</a></li>
+      <li><a href="#build" data-i18n="nav.build">House building</a></li>
+      <li><a href="#logistics" data-i18n="nav.logistics">Logistics</a></li>
+      <li><a href="#apps" data-i18n="nav.apps">Apps</a></li>
+      <li class="menu-lang"><span data-i18n="menu.lang">Language</span>
+        <div class="lang" role="group" aria-label="Language" data-i18n-aria="a.lang"><button type="button" data-yd-lang-set="en" lang="en" aria-pressed="true">EN</button><span class="sep" aria-hidden="true"></span><button type="button" data-yd-lang-set="dv" lang="dv" aria-pressed="false">ދިވެހި</button></div></li>
+    </ul>
+    <div class="lang" role="group" aria-label="Language" data-i18n-aria="a.lang"><button type="button" data-yd-lang-set="en" lang="en" aria-pressed="true">EN</button><span class="sep" aria-hidden="true"></span><button type="button" data-yd-lang-set="dv" lang="dv" aria-pressed="false">ދިވެހި</button></div>
+    <button class="theme-btn" type="button" data-yd-theme-cycle aria-label="Change appearance"></button>
+    <a class="hot" href="tel:+9609920202" data-ltr>+960 992 0202</a>
+    <a class="btn btn-light" href="#contact" data-i18n="cta.quote">Request a quote</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" data-i18n-aria="a.menu" aria-expanded="false" aria-controls="menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 8h16M4 16h16"/></svg></button>
+  </div>
+</header>
+
+<main id="home">
+  <div class="hero on-night">
+    <div class="photo"><img src="assets/hero.jpg" alt="YD Works excavator loading a tipper truck on reclaimed land in Hulhumalé at sunset" data-i18n-alt="alt.hero" fetchpriority="high"></div>
+    <div class="wrap">
+      <span class="eyebrow" data-i18n="hero.eyebrow">Construction &amp; logistics · Est. Hulhumalé</span>
+      <h1 style="margin-top:22px" data-i18n-html="hero.h1">Built on <span>solid</span> ground.</h1>
+      <p class="lede" data-i18n="hero.lede">Heavy machines with expert operators, building materials from our own yard, and a team that builds homes across the Malé region. One partner, from first dig to final key.</p>
+      <div class="ctas">
+        <a class="btn btn-accent" href="#fleet"><span data-i18n="hero.cta1">Hire equipment</span> <svg><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-glass" href="#materials" data-i18n="hero.cta2">Order materials</a>
+      </div>
+      <div class="ticker">
+        <div><b>4.5<span class="stars" aria-hidden="true">★★★★★</span></b><span data-i18n="tick.rating">Google rating · 13 reviews</span></div>
+        <div><b>9</b><span data-i18n="tick.classes">Machine classes</span></div>
+        <div><b data-i18n="tick.same">Same day</b><span data-i18n="tick.delivery">Delivery in Hulhumalé</span></div>
+        <div><b><span data-ltr>992 0202</span></b><span data-i18n="tick.hotline">Hotline</span></div>
+      </div>
+    </div>
+    <aside class="status" aria-label="Fleet status" data-i18n-aria="status.title">
+      <header><span data-i18n="status.title">Fleet status</span><span class="live"><i></i><span id="clock" data-ltr>--:--</span></span></header>
+      <ul id="statusList"></ul>
+      <small class="src" id="statusSrc"></small>
+    </aside>
+  </div>
+
+  <div class="statement wrap reveal">
+    <span class="eyebrow" data-i18n="who.eyebrow">Who we are</span>
+    <p style="margin-top:24px" data-i18n-html="who.text">An all-in-one construction yard in Hulhumalé. <em>We supply the machines, move the materials and build the homes, so your project never waits on someone else.</em></p>
+  </div>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="caps">
+        <a class="cap c1 reveal" href="#fleet"><img src="assets/hero.jpg" alt="" loading="lazy" style="object-position:30% 50%"><span class="n" data-i18n="cap1.n">01 / EQUIPMENT</span><span class="go"><svg><use href="#i-ne"/></svg></span>
+          <h3 data-i18n="cap1.h">Heavy equipment hire</h3><p data-i18n="cap1.p">Excavators, wheel loaders, tippers, lorry cranes and rollers, each with a licensed operator and fuel.</p>
+          <ul><li data-i18n="cap1.l1">Hourly</li><li data-i18n="cap1.l2">Daily</li><li data-i18n="cap1.l3">Monthly contracts</li></ul></a>
+        <a class="cap c2 reveal" href="#materials"><img src="assets/yard.jpg" alt="" loading="lazy"><span class="n" data-i18n="cap2.n">02 / MATERIALS</span><span class="go"><svg><use href="#i-ne"/></svg></span>
+          <h3 data-i18n="cap2.h">Building materials</h3><p data-i18n="cap2.p">Cement, aggregate, sand, rebar, blocks and timber, stocked in our yard.</p>
+          <ul><li data-i18n="cap2.l1">Counter &amp; bulk</li><li data-i18n="cap2.l2">Delivered</li></ul></a>
+        <a class="cap c3 reveal" href="#build"><img src="assets/house.jpg" alt="" loading="lazy"><span class="n" data-i18n="cap3.n">03 / CONSTRUCTION</span><span class="go"><svg><use href="#i-ne"/></svg></span>
+          <h3 data-i18n="cap3.h">House building</h3><p data-i18n="cap3.p">Turnkey homes, extensions and renovations, managed end to end.</p></a>
+        <a class="cap c4 reveal" href="#logistics"><img src="assets/barge.jpg" alt="" loading="lazy"><span class="n" data-i18n="cap4.n">04 / LOGISTICS</span><span class="go"><svg><use href="#i-ne"/></svg></span>
+          <h3 data-i18n="cap4.h">Logistics &amp; haulage</h3><p data-i18n="cap4.p">Port-to-site moves, heavy lifts and island transfers by landing craft.</p>
+          <ul><li data-i18n="place.hulhumale">Hulhumalé</li><li data-i18n="place.male">Malé</li><li data-i18n="place.villimale">Villimalé</li><li data-i18n="place.atolls">Atolls</li></ul></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="fleet" style="padding-top:0">
+    <div class="wrap">
+      <div class="intro">
+        <div><span class="eyebrow" data-i18n="fleet.eyebrow">The fleet</span><h2 data-i18n="fleet.h">The right machine, with the right hands on it.</h2></div>
+        <p data-i18n="fleet.p">Every unit is serviced in our Hulhumalé yard and leaves with a trained operator, safety kit and fuel. Book by the hour for small jobs or by the month for full projects.</p>
+      </div>
+      <div class="fleet-bar">
+        <div class="tabs" role="group" aria-label="Filter fleet" data-i18n-aria="fleet.filter">
+          <button class="tab" data-f="all" aria-pressed="true" data-i18n="cat.all">All</button>
+          <button class="tab" data-f="earth" aria-pressed="false" data-i18n="cat.earth">Earthmoving</button>
+          <button class="tab" data-f="haul" aria-pressed="false" data-i18n="cat.haul">Haulage</button>
+          <button class="tab" data-f="lift" aria-pressed="false" data-i18n="cat.lift">Lifting</button>
+          <button class="tab" data-f="site" aria-pressed="false" data-i18n="cat.site">Site &amp; concrete</button>
+        </div>
+        <span class="count" id="fleetCountWrap"><i aria-hidden="true"></i><span id="fleetCount"></span></span>
+      </div>
+      <div class="fleet" id="fleetGrid"></div>
+      <p class="note" data-i18n-html="fleet.note">Rates are sample figures in MVR for planning. The final price depends on site access, duration and distance. Call <bdi>992 0202</bdi> for a firm quote.</p>
+    </div>
+  </section>
+
+  <section id="materials" class="mat">
+    <div class="wrap">
+      <div class="intro">
+        <div><span class="eyebrow" data-i18n="mat.eyebrow">Materials</span><h2 data-i18n="mat.h">Price your load in a minute.</h2></div>
+        <p data-i18n="mat.p">Add what you need and see the total with delivery to your plot. Send it to the counter and we'll call back to confirm stock and timing.</p>
+      </div>
+      <div class="mat-layout">
+        <div class="mat-card">
+          <div class="mat-tools">
+            <div class="msearch"><svg aria-hidden="true"><use href="#i-search"/></svg><input id="matQ" type="search" autocomplete="off" spellcheck="false" enterkeyhint="search" placeholder="Search cement, sand, rebar…" data-i18n-ph="mat.search.ph" aria-label="Search materials" data-i18n-aria="mat.search.aria" aria-controls="matRows"><button type="button" class="mclear" id="matQx" hidden aria-label="Clear search" data-i18n-aria="mat.clear"><svg aria-hidden="true"><use href="#i-x"/></svg></button></div>
+            <div class="mchips" id="matChips" role="group" aria-label="Filter by category" data-i18n-aria="mat.chips"></div>
+          </div>
+          <div class="mat-table">
+          <table>
+            <thead><tr><th data-i18n="mat.th.mat">Material</th><th data-i18n="mat.th.unit">Unit</th><th class="num">MVR</th><th class="num" data-i18n="mat.th.qty">Quantity</th></tr></thead>
+            <tbody id="matRows"></tbody>
+          </table>
+          </div>
+          <div class="mat-none" id="matNone" hidden></div>
+          <p class="sr" id="matLive" aria-live="polite"></p>
+        </div>
+        <aside class="estimate" aria-live="polite">
+          <div class="ph"><img src="assets/yard.jpg" alt="" loading="lazy"></div>
+          <div class="in">
+            <span class="eyebrow" data-i18n="est.eyebrow">Your estimate</span>
+            <h3 data-i18n="est.h">Material load</h3>
+            <ul id="estList"></ul>
+            <div class="line"><span data-i18n="est.delivery">Delivery · Hulhumalé</span><span id="estDel" style="font-family:var(--mono);color:#fff">MVR 0</span></div>
+            <div class="line"><span data-i18n="est.total">Total</span><b id="estTotal">MVR 0</b></div>
+            <a class="btn btn-light" href="#contact" id="estSend"><span data-i18n="est.send">Send to counter</span> <svg><use href="#i-arrow"/></svg></a>
+          </div>
+        </aside>
+      </div>
+      <p class="note" data-i18n="mat.note">Sample prices for illustration. Stock and prices change with each shipment.</p>
+    </div>
+  </section>
+
+  <section id="build">
+    <div class="wrap build">
+      <figure class="build-photo reveal" style="margin:0">
+        <img src="assets/house.jpg" alt="Three-storey house under construction with lorry crane lifting steel" data-i18n-alt="alt.house" loading="lazy">
+        <figcaption><span data-i18n="build.cap">Residential build, Hulhumalé</span><b>G+2</b></figcaption>
+      </figure>
+      <div>
+        <span class="eyebrow" data-i18n="build.eyebrow">House building</span>
+        <h2 data-i18n="build.h">From empty plot to keys in hand.</h2>
+        <p class="lead" data-i18n="build.lead">The machines, materials and trucks are ours, so your build never waits on three suppliers. One project manager runs it from survey to handover.</p>
+        <ol class="steps">
+          <li><span class="n">01</span><div><h3 data-i18n="s1.h">Site visit</h3><p data-i18n="s1.p">Survey the plot, soil and access. Agree scope and budget.</p></div></li>
+          <li><span class="n">02</span><div><h3 data-i18n="s2.h">Design &amp; permits</h3><p data-i18n="s2.p">Drawings, bill of quantities and building permit applications.</p></div></li>
+          <li><span class="n">03</span><div><h3 data-i18n="s3.h">Foundation</h3><p data-i18n="s3.p">Excavation, compaction, footings and ground beams.</p></div></li>
+          <li><span class="n">04</span><div><h3 data-i18n="s4.h">Structure</h3><p data-i18n="s4.p">Columns, slabs, blockwork and roof.</p></div></li>
+          <li><span class="n">05</span><div><h3 data-i18n="s5.h">Services &amp; finishing</h3><p data-i18n="s5.p">Plumbing, electrical, plaster, tiling and paint.</p></div></li>
+          <li><span class="n">06</span><div><h3 data-i18n="s6.h">Handover</h3><p data-i18n="s6.p">Snag list, clean-up and your keys. Progress photos every week along the way.</p></div></li>
+        </ol>
+        <a class="in-app" href="#apps"><span class="ic"><svg aria-hidden="true"><use href="#i-house"/></svg></span><span data-i18n-html="build.app"><b>Follow your build in the YD Works app:</b> milestones, payment schedule and weekly progress photos.</span></a>
+        <div class="ctas"><a class="btn btn-accent" href="#contact"><span data-i18n="build.cta">Book a free site visit</span> <svg><use href="#i-arrow"/></svg></a></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="logistics" class="logi on-night">
+    <img src="assets/barge.jpg" alt="Landing craft carrying a truck and materials across a Maldivian lagoon" data-i18n-alt="alt.barge" loading="lazy">
+    <div class="wrap">
+      <span class="eyebrow" data-i18n="logi.eyebrow">Logistics</span>
+      <h2 data-i18n="logi.h">Across the lagoon, on schedule.</h2>
+      <p class="lead" data-i18n="logi.lead">Containers off the port, steel to the third floor, rubble to the dump site. Every truck runs with GPS so you can watch your load arrive in the app.</p>
+      <div class="zones">
+        <div class="zone"><span class="t" data-i18n="z.a">Zone A</span><h3 data-i18n="place.hulhumale">Hulhumalé</h3><p data-i18n="z.a.p">Same-day delivery for orders placed before 2 PM.</p></div>
+        <div class="zone"><span class="t" data-i18n="z.b">Zone B</span><h3 data-i18n="z.b.h">Malé &amp; Villimalé</h3><p data-i18n="z.b.p">Scheduled runs over the Sinamalé Bridge and by ferry.</p></div>
+        <div class="zone"><span class="t" data-i18n="z.c">Zone C</span><h3 data-i18n="z.c.h">Port &amp; Thilafushi</h3><p data-i18n="z.c.p">Container haulage, devanning and industrial moves.</p></div>
+        <div class="zone"><span class="t" data-i18n="z.d">Zone D</span><h3 data-i18n="z.d.h">Resorts &amp; atolls</h3><p data-i18n="z.d.p">Landing-craft transfers for bulk materials and machines.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="apps" class="apps on-night">
+    <div class="wrap">
+      <div class="intro">
+        <div><span class="eyebrow" data-i18n="apps.eyebrow">YD Works apps</span><h2 data-i18n="apps.h">Your site, in your pocket.</h2></div>
+        <p data-i18n="apps.p">Customers book machines, order materials and follow every delivery live. Drivers get jobs, navigate and capture proof of delivery. Both apps share one live job feed.</p>
+      </div>
+      <div class="app-grid">
+        <div class="app-card">
+          <div>
+            <span class="k" data-i18n="ac.k">For customers</span>
+            <h3 style="margin-top:10px">YD Works</h3>
+            <p data-i18n="ac.p">Book, order and track from the plot.</p>
+            <ul><li data-i18n="ac.l1">Book equipment by hour, day or month</li><li data-i18n="ac.l2">Order materials at live prices</li><li data-i18n="ac.l3">Track your truck live on the map</li><li data-i18n="ac.l4">Pay by card or bank transfer, with a GST invoice</li></ul>
+            <a class="btn btn-light" href="../customer-app/index.html" id="custLink"><span data-i18n="ac.btn">Open the customer app</span> <svg><use href="#i-arrow"/></svg></a>
+          </div>
+          <div class="phone"><img src="assets/app-customer.jpg" alt="YD Works customer app home screen" data-i18n-alt="alt.appc" loading="lazy"></div>
+        </div>
+        <div class="app-card">
+          <div>
+            <span class="k" data-i18n="ad.k">For drivers &amp; operators</span>
+            <h3 style="margin-top:10px">YD Driver</h3>
+            <p data-i18n="ad.p">Every job, step and signature in one place.</p>
+            <ul><li data-i18n="ad.l1">Accept job requests in one tap</li><li data-i18n="ad.l2">Guided trip from yard to site</li><li data-i18n="ad.l3">Photo and signature proof of delivery</li><li data-i18n="ad.l4">Daily checklist and weekly earnings</li></ul>
+            <a class="btn btn-light" href="../driver-app/index.html" id="drvLink"><span data-i18n="ad.btn">Open the driver app</span> <svg><use href="#i-arrow"/></svg></a>
+          </div>
+          <div class="phone"><img src="assets/app-driver.jpg" alt="YD Driver app active job screen" data-i18n-alt="alt.appd" loading="lazy"></div>
+        </div>
+      </div>
+
+      <div class="feat">
+        <div class="feat-head"><h3 data-i18n="feat.h">New in the YD Works app</h3><span class="k" data-i18n="feat.k">Customer app · iOS, Android &amp; web</span></div>
+        <div class="tiles">
+          <div class="tile"><span class="ic"><svg aria-hidden="true"><use href="#i-truck"/></svg></span><h4 data-i18n="ft1.h">Live truck tracking</h4><p data-i18n="ft1.p">Watch your load move on the map, with the driver's arrival time.</p></div>
+          <div class="tile"><span class="ic"><svg aria-hidden="true"><use href="#i-bell"/></svg></span><h4 data-i18n="ft2.h">Updates your way</h4><p data-i18n="ft2.p">From booking to delivery, get every update where you already chat.</p>
+            <div class="pills"><span data-i18n="ft2.push">Push</span><span class="wa">WhatsApp</span><span class="vb">Viber</span></div></div>
+          <div class="tile"><span class="ic"><svg aria-hidden="true"><use href="#i-wallet"/></svg></span><h4 data-i18n="ft3.h">Card or bank transfer</h4><p data-i18n="ft3.p">Pay securely by card, or upload your transfer slip in a tap.</p></div>
+          <div class="tile"><span class="ic"><svg aria-hidden="true"><use href="#i-check"/></svg></span><h4 data-i18n="ft4.h">GST invoices</h4><p data-i18n="ft4.p">A proper tax invoice for every order, ready to download and share.</p></div>
+        </div>
+        <div class="tracker">
+          <div>
+            <span class="k" data-i18n="tr.k">For house builds</span>
+            <h3 data-i18n="tr.h">Your build, step by step.</h3>
+            <p class="copy-p" data-i18n="tr.p">A project tracker for every home we build. See each milestone, know what is due and when, and get progress photos from site every week.</p>
+            <ul class="feats">
+              <li><svg aria-hidden="true"><use href="#i-list"/></svg><span data-i18n="tr.f1">Milestones</span></li>
+              <li><svg aria-hidden="true"><use href="#i-wallet"/></svg><span data-i18n="tr.f2">Payment schedule</span></li>
+              <li><svg aria-hidden="true"><use href="#i-camera"/></svg><span data-i18n="tr.f3">Progress photos</span></li>
+            </ul>
+          </div>
+          <div class="tm" aria-hidden="true">
+            <div class="tm-head"><div><b data-i18n="tm.title">Family home, Phase 2</b><small data-ltr>Plot 10234 · G+2</small></div><span class="tm-pill" data-i18n="tm.example">Example</span></div>
+            <div class="tm-bar"><i></i></div>
+            <div class="tm-pct"><span data-i18n="tm.progress">Overall progress</span><b data-ltr>62%</b></div>
+            <ol class="tm-steps">
+              <li class="done"><span data-i18n="s3.h">Foundation</span><small data-i18n="tm.done">Done</small></li>
+              <li class="now"><span data-i18n="s4.h">Structure</span><small data-i18n="tm.now">In progress</small></li>
+              <li><span data-i18n="tm.finish">Finishing</span><small data-i18n="tm.next">Next</small></li>
+            </ol>
+            <div class="tm-pay"><span data-i18n="tm.pay">Next payment · roof slab</span><b data-ltr>MVR 185,000</b></div>
+            <div class="tm-photos"><img src="assets/house.jpg" alt="" loading="lazy"><img src="assets/truck.jpg" alt="" loading="lazy"><img src="assets/yard.jpg" alt="" loading="lazy"><span data-i18n="tm.photos">Week 14 · 12 new photos</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="intro">
+        <div><span class="eyebrow" data-i18n="cta.quote">Request a quote</span><h2 data-i18n="ct.h">Tell us about the job.</h2></div>
+        <p data-i18n="ct.p">The counter team will call you back with a price. For anything urgent, call the hotline.</p>
+      </div>
+      <div class="contact-grid">
+        <form class="quote" id="quoteForm" novalidate>
+          <div class="f"><label for="qName" data-i18n="f.name">Name</label><input id="qName" name="name" autocomplete="name" placeholder="Ahmed Ibrahim" data-i18n-ph="f.name.ph"></div>
+          <div class="f"><label for="qPhone" data-i18n="f.phone">Phone</label><input id="qPhone" name="phone" inputmode="tel" autocomplete="tel" placeholder="7XX XXXX"></div>
+          <div class="f full"><span class="lbl" data-i18n="f.need">I need</span>
+            <div class="chips">
+              <label><input type="checkbox" name="need" value="Equipment hire" id="nEq"><span data-i18n="need.eq">Equipment hire</span></label>
+              <label><input type="checkbox" name="need" value="Building materials" id="nMat"><span data-i18n="need.mat">Building materials</span></label>
+              <label><input type="checkbox" name="need" value="House building" id="nHouse"><span data-i18n="need.house">House building</span></label>
+              <label><input type="checkbox" name="need" value="Logistics" id="nLog"><span data-i18n="need.log">Logistics</span></label>
+            </div>
+          </div>
+          <div class="f"><label for="qSite" data-i18n="f.site">Site location</label>
+            <select id="qSite" name="site"><option value="Hulhumalé Phase 1" data-i18n="site.p1">Hulhumalé Phase 1</option><option value="Hulhumalé Phase 2" data-i18n="site.p2">Hulhumalé Phase 2</option><option value="Malé" data-i18n="place.male">Malé</option><option value="Villimalé" data-i18n="place.villimale">Villimalé</option><option value="Thilafushi" data-i18n="site.thila">Thilafushi</option><option value="Other island" data-i18n="site.other">Other island</option></select></div>
+          <div class="f"><label for="qDate" data-i18n="f.date">Start date</label><input id="qDate" type="date" name="date"></div>
+          <div class="f full"><label for="qMsg" data-i18n="f.msg">Details</label><textarea id="qMsg" name="msg" placeholder="e.g. 20T excavator for 2 days to dig a foundation, plot 10234, Hulhumalé Phase 2" data-i18n-ph="f.msg.ph"></textarea></div>
+          <div class="hp" aria-hidden="true"><label for="qWebsite">Leave this empty</label><input id="qWebsite" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+          <p class="err full" id="qErr" role="alert"></p>
+          <div class="f full" id="qSubmitRow"><button class="btn btn-accent" type="submit"><span data-i18n="f.submit">Request quote</span> <svg><use href="#i-arrow"/></svg></button>
+            <p class="legal-note" data-i18n-html="f.legal">By sending this you agree to our <a href="terms.html">Terms</a> and <a href="privacy.html">Privacy policy</a>.</p></div>
+        </form>
+        <div class="info">
+          <div class="card wide"><span class="k" data-i18n="tick.hotline">Hotline</span><div class="big" data-ltr>992 0202</div><button class="copy" data-copy="+960 992 0202" type="button" data-i18n="i.copyNum">Copy number</button></div>
+          <div class="card wide wa-card"><span class="k"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>WhatsApp</span><div class="wa-row"><div class="wa-num" data-ltr id="waNum">992 0202</div><a class="wa-start" data-wa="contact" href="https://wa.me/9609920202" target="_blank" rel="noopener"><span data-i18n="wa.start">Start a chat</span> <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div><p class="wa-sub" data-i18n="wa.sub">Send a photo of your site or a list of materials. The counter replies during opening hours.</p></div>
+          <div class="card"><span class="k" data-i18n="i.email">Email</span><div style="font-weight:500;user-select:all;overflow-wrap:anywhere" data-ltr>yd@yd-mv.com</div><div style="color:var(--mute);font-size:14px" data-ltr>www.yd-mv.com</div><button class="copy" data-copy="yd@yd-mv.com" type="button" data-i18n="i.copyEmail">Copy email</button></div>
+          <div class="card"><span class="k" data-i18n="i.yard">Yard</span><div style="font-weight:500" data-i18n="i.place">Hulhumalé, Maldives</div><a class="copy" style="display:inline-block;text-decoration:none" href="https://www.google.com/maps/search/YD+Works+Hulhumale" target="_blank" rel="noopener" data-i18n="i.dir">Get directions ↗</a></div>
+          <div class="card wide"><span class="k" data-i18n="i.hours">Counter hours</span>
+            <table class="hours"><tbody><tr><td data-i18n="h.am">Morning</td><td data-ltr>07:30 – 12:00</td></tr><tr><td data-i18n="h.pm">Afternoon</td><td data-ltr>13:00 – 18:00</td></tr><tr><td data-i18n="h.fri">Friday</td><td data-i18n="h.fri.v">Call to confirm</td></tr></tbody></table></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-id"><a class="brand" href="#home"><svg><use href="#logo"/></svg><span><b>YD WORKS</b><small data-i18n="brand.place">HULHUMALÉ · MALDIVES</small></span></a>
+        <a class="wa-pill" data-wa="footer" href="https://wa.me/9609920202" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg><span data-i18n="wa.btn">Chat on WhatsApp</span></a></div>
+      <nav aria-label="Footer" data-i18n-aria="a.footer"><a href="#fleet" data-i18n="need.eq">Equipment hire</a><a href="#build" data-i18n="nav.build">House building</a><a href="#materials" data-i18n="need.mat">Building materials</a><a href="#logistics" data-i18n="nav.logistics">Logistics</a><a href="#apps" data-i18n="nav.apps">Apps</a><a href="#contact" data-i18n="nav.contact">Contact</a></nav>
+    </div>
+    <div class="wordmark" aria-hidden="true">YD WORKS</div>
+    <div class="foot-bot"><span>© <span id="yr" data-ltr></span> <span data-i18n="foot.copy">YD Works · Hulhumalé, Maldives</span></span><span class="foot-ctl" id="footCtl"></span><span data-i18n-html="foot.contact">Hotline <bdi>992 0202</bdi> · <bdi>yd@yd-mv.com</bdi></span></div>
+    <nav class="foot-legal" aria-label="Legal" data-i18n-aria="a.legal"><a href="privacy.html" hreflang="en" data-legal="privacy" data-i18n="legal.privacy">Privacy</a><span aria-hidden="true">·</span><a href="terms.html" hreflang="en" data-legal="terms" data-i18n="legal.terms">Terms</a><span aria-hidden="true">·</span><a href="refunds.html" hreflang="en" data-legal="refunds" data-i18n="legal.refunds">Cancellations &amp; refunds</a></nav>
+  </div>
+</footer>
+<a class="wa-fab" id="waFab" data-wa="fab" href="https://wa.me/9609920202" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" data-i18n-aria="wa.aria"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg></a>
+<div class="wa-tip" id="waTip" hidden><a href="https://wa.me/9609920202" data-wa="tip" target="_blank" rel="noopener" data-i18n="wa.tip">Chat with the YD Works counter on WhatsApp</a><button type="button" id="waTipX" aria-label="Dismiss" data-i18n-aria="wa.dismiss">×</button></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* ═══ Dhivehi (ދިވެހި) strings ═══
+ * DRAFT TRANSLATION – must be reviewed by a native Dhivehi speaker before launch
+ * (tone, honorifics such as -ވައި / -ވާ forms, and construction-trade terms).
+ * English strings are harvested from the HTML (data-i18n*) so there is one English source.
+ * Keep brand names, model codes, numbers, MVR amounts, phone and email unchanged.
+ * ⁦…⁩ (LRI/PDI) keep inch marks and similar LTR fragments in the right order inside Thaana text.
+ */
+const YD_DV = {
+  "a.home":"YD Works ފުރަތަމަ ސަފްހާ","a.menu":"މެނޫ ހުޅުވާ","a.lang":"ބަސް","a.footer":"ފޫޓަރު",
+  "brand.place":"ހުޅުމާލެ · ދިވެހިރާއްޖެ",
+  "nav.services":"ޚިދުމަތްތައް","nav.fleet":"މެޝިންތައް","nav.materials":"ތަކެތި","nav.build":"ގެ ބިނާކުރުން","nav.logistics":"ލޮޖިސްޓިކްސް","nav.apps":"އެޕްތައް","nav.contact":"ގުޅުއްވާ",
+  "menu.lang":"ބަސް","cta.quote":"އަގެއް ހޯއްދަވާ",
+  "alt.hero":"ހުޅުމާލޭގެ ހިއްކި ބިމެއްގައި، އިރުއޮއްސޭ ވަގުތު، ޓިޕަރ ލޮރިއަކަށް ވެލި އަރުވާ YD Works އެކްސްކަވޭޓަރެއް",
+  "alt.house":"ލޮރި ކްރޭނަކުން ދަގަނޑު އުފުލާ، ބިނާކުރަމުންދާ ތިން ބުރީގެ ގެއެއް",
+  "alt.barge":"ލޮރިއަކާއި ތަކެތި ފަޅުން ހުރަސްކޮށް ގެންދާ ލޭންޑިންގ ކްރާފްޓެއް",
+  "alt.appc":"YD Works ކަސްޓަމަރ އެޕްގެ ފުރަތަމަ ސްކްރީން","alt.appd":"YD Driver އެޕްގައި ދެމިހުރި މަސައްކަތެއްގެ ސްކްރީން",
+  "hero.eyebrow":"އިމާރާތްކުރުމާއި ލޮޖިސްޓިކްސް · ހުޅުމާލެ",
+  "hero.h1":"<span>ހަރުދަނޑު</span> ބިންގަނޑެއްގެ މައްޗަށް.",
+  "hero.lede":"ތަޖުރިބާކާރު އޮޕަރޭޓަރުންނާއެކު ބޮޑެތި މެޝިންތައް، އަހަރެމެންގެ އަމިއްލަ ޔާޑުން އިމާރާތްކުރާ ތަކެތި، އަދި މާލެ ސަރަހައްދުގައި ގެދޮރު ބިނާކޮށްދޭ ޓީމެއް. ފުރަތަމަ ކޮނުމުން ފެށިގެން ތަޅުދަނޑި ހަވާލުކުރާހާ ހިނދަކަށް، އެއް ބައިވެރިއެއް.",
+  "hero.cta1":"މެޝިން ކުއްޔަށް ހިފާ","hero.cta2":"ތަކެތި އޯޑަރުކުރޭ",
+  "tick.rating":"ގޫގުލް ރޭޓިންގ · 13 ރިވިއު","tick.classes":"މެޝިންގެ ބާވަތް","tick.same":"ހަމަ އެދުވަހު","tick.delivery":"ހުޅުމާލޭގައި ޑެލިވަރީ","tick.hotline":"ހޮޓްލައިން",
+  "status.title":"މެޝިންތަކުގެ ހާލަތު",
+  "who.eyebrow":"އަހަރެމެން",
+  "who.text":"ހުރިހާ ޚިދުމަތެއް އެއްތަނަކުން ލިބޭ، ހުޅުމާލޭގެ އިމާރާތްކުރުމުގެ ޔާޑެއް. <em>މެޝިން ފޯރުކޮށްދީ، ތަކެތި އުފުލައި، ގެދޮރު ބިނާކޮށްދެނީ އަހަރެމެން. އެހެންވީމާ ތިޔަ މަޝްރޫޢު އެހެން މީހަކަށް މަޑުކޮށްގެން ނުތިބޭނެ.</em>",
+  "cap1.n":"01 / މެޝިނަރީ","cap1.h":"ބޮޑެތި މެޝިން ކުއްޔަށް","cap1.p":"އެކްސްކަވޭޓަރު، ވީލް ލޯޑަރު، ޓިޕަރު، ލޮރި ކްރޭން އަދި ރޯލަރު. ކޮންމެ މެޝިނަކާއެކު ލައިސަންސް ލިބިފައިވާ އޮޕަރޭޓަރަކާއި ތެޔޮ.",
+  "cap1.l1":"ގަޑިއިރަށް","cap1.l2":"ދުވަހަށް","cap1.l3":"މަހުގެ އެގްރީމެންޓް",
+  "cap2.n":"02 / ތަކެތި","cap2.h":"އިމާރާތްކުރާ ތަކެތި","cap2.p":"ސިމެންތި، ހިލަ، ވެލި، ދަގަނޑު، ބްލޮކް އަދި ލަކުޑި، އަހަރެމެންގެ ޔާޑުގައި ސްޓޮކުގައި.","cap2.l1":"ކައުންޓަރާއި ބަލްކް","cap2.l2":"ޑެލިވަރީއާއެކު",
+  "cap3.n":"03 / ބިނާކުރުން","cap3.h":"ގެ ބިނާކުރުން","cap3.p":"ނިންމާފައި ހަވާލުކުރާ ގެދޮރު، އިތުރުކުރުމާއި މަރާމާތު، ފެށުމުން ނިމުމާ ހަމައަށް ބެލެހެއްޓިގެން.",
+  "cap4.n":"04 / ލޮޖިސްޓިކްސް","cap4.h":"ލޮޖިސްޓިކްސް އަދި އުފުލުން","cap4.p":"ބަނދަރުން ސައިޓަށް އުފުލުން، ބަރު އެއްޗެހި ނެގުން، އަދި ލޭންޑިންގ ކްރާފްޓުގައި ރަށްރަށަށް ގެންދިއުން.",
+  "place.hulhumale":"ހުޅުމާލެ","place.male":"މާލެ","place.villimale":"ވިލިމާލެ","place.atolls":"އަތޮޅުތައް",
+  "fleet.eyebrow":"މެޝިންތައް","fleet.h":"ރަނގަޅު މެޝިން، ރަނގަޅު އަތްތަކެއްގައި.",
+  "fleet.p":"ކޮންމެ މެޝިނެއް ހުޅުމާލޭގެ ޔާޑުގައި ސާވިސްކޮށް، ތަމްރީނު ލިބިފައިވާ އޮޕަރޭޓަރަކާއި، ސަލާމަތީ ސާމާނާއި، ތެޔޮއާއެކު ފޮނުވަނީ. ކުޑަ މަސައްކަތްތަކަށް ގަޑިއިރަށް، ބޮޑު މަޝްރޫޢުތަކަށް މަހަށް ބުކްކުރައްވާ.",
+  "fleet.filter":"މެޝިން ފިލްޓަރުކުރުން","cat.all":"ހުރިހާ","cat.earth":"ބިން ކޮނުން","cat.haul":"އުފުލުން","cat.lift":"ލިފްޓިންގ","cat.site":"ސައިޓް އަދި ކޮންކްރީޓް",
+  "fleet.note":"ރޭޓްތަކަކީ ރާވައިލުމަށް ދީފައިވާ ނަމޫނާ އަގުތަކެއް (MVR). ފައިނަލް އަގު ބިނާވާނީ ސައިޓަށް ވަދެވޭ ގޮތާއި، މުއްދަތާއި، ދުރުމިނަށް. ކަށަވަރު އަގަކަށް <bdi>992 0202</bdi> އަށް ގުޅުއްވާ.",
+  "mat.eyebrow":"ތަކެތި","mat.h":"އެއް މިނެޓުން ތަކެތީގެ އަގު ބައްލަވާ.",
+  "mat.p":"ބޭނުންވާ ތަކެތި އިތުރުކޮށް، ބިމަށް ޑެލިވަރީއާއެކު ޖުމްލަ ބައްލަވާ. ކައުންޓަރަށް ފޮނުއްވައިފިނަމަ ސްޓޮކާއި ވަގުތު ކަށަވަރުކުރުމަށް އަހަރެމެން ގުޅާނަން.",
+  "mat.th.mat":"ތަކެތި","mat.th.unit":"ޔުނިޓް","mat.th.qty":"އަދަދު",
+  "est.eyebrow":"ލަފާކުރެވޭ އަގު","est.h":"ތަކެތީގެ ލޯޑު","est.delivery":"ޑެލިވަރީ · ހުޅުމާލެ","est.total":"ޖުމްލަ","est.send":"ކައުންޓަރަށް ފޮނުވާ",
+  "mat.search.ph":"ސިމެންތި، ވެލި، ދަގަނޑު ހޯއްދަވާ…","mat.search.aria":"ތަކެތި ހޯދުން","mat.chips":"ބާވަތުން ފިލްޓަރުކުރުން","mat.clear":"ހޯދުން ފޮހެލާ",
+  "mat.none":"{q} އާ ގުޅޭ އެއްވެސް ތަކެއްޗެއް ނުފެނުނު","mat.none.hint":"އެހެން ލަފުޒެއް ޖައްސަވާ، ނުވަތަ ސީދާ ކައުންޓަރަށް ގުޅުއްވާ.","mat.shown":"{t} ތަކެތީގެ ތެރެއިން {n} ފެންނަނީ",
+  "mat.note":"މިއީ ނަމޫނާ އަގުތަކެއް. ކޮންމެ ޝިޕްމަންޓަކާއެކު ސްޓޮކާއި އަގު ބަދަލުވެދާނެ.",
+  "build.cap":"ދިރިއުޅޭ ގެއެއް، ހުޅުމާލެ","build.eyebrow":"ގެ ބިނާކުރުން","build.h":"ހުސް ބިމުން ފެށިގެން، ތަޅުދަނޑި އަތަށް ލިބެންދެން.",
+  "build.lead":"މެޝިނާއި، ތަކެއްޗާއި، ލޮރިތައް އަހަރެމެންގެ އަމިއްލަ. އެހެންވީމާ ތިން ސަޕްލަޔަރަކަށް މަޑުކުރަން ނުޖެހޭނެ. ސާވޭއިން ފެށިގެން ހަވާލުކުރާހާ ހިނދަކަށް ބަލަހައްޓާނީ އެއް ޕްރޮޖެކްޓް މެނޭޖަރެއް.",
+  "s1.h":"ސައިޓަށް ޒިޔާރަތް","s1.p":"ބިމާއި، ފަސްގަނޑާއި، ވަދެވޭ ގޮތް ބަލައި، މަސައްކަތުގެ ދާއިރާއާއި ބަޖެޓް ކަނޑައަޅުން.",
+  "s2.h":"ޑިޒައިނާއި ހުއްދަ","s2.p":"ޑްރޯއިންގ، ބިލް އޮފް ކުއަންޓިޓީޒް އަދި ބިނާކުރުމުގެ ހުއްދައަށް ހުށަހެޅުން.",
+  "s3.h":"ބިންގާ","s3.p":"ކޮނުން، ބިން ތަޅާ ހަރުކުރުން، ފުޓިންގ އަދި ގްރައުންޑް ބީމް.",
+  "s4.h":"ސްޓްރަކްޗަރ","s4.p":"ތަނބު، ސްލެބް، ބްލޮކް މަސައްކަތް އަދި ފުރާޅު.",
+  "s5.h":"ސާވިސަސް އަދި ފިނިޝިންގ","s5.p":"ޕްލަމްބިންގ، ކަރަންޓް، ޕްލާސްޓަރ، ޓައިލްސް އަދި ކުލަ.",
+  "s6.h":"ހަވާލުކުރުން","s6.p":"ސްނެގް ލިސްޓް، ސާފުކުރުން އަދި ތަޅުދަނޑި. މަސައްކަތުގެ ތެރޭގައި ކޮންމެ ހަފްތާއަކު ޕްރޮގްރެސް ފޮޓޯ.",
+  "build.app":"<b>ތިޔަ ގޭގެ މަސައްކަތް YD Works އެޕުން ބައްލަވާ:</b> މައިލްސްޓޯންތައް، ފައިސާ ދައްކާ ތާވަލު އަދި ކޮންމެ ހަފްތާއަކު ޕްރޮގްރެސް ފޮޓޯ.",
+  "build.cta":"ހިލޭ ސައިޓް ވިޒިޓަކަށް ބުކްކުރޭ",
+  "logi.eyebrow":"ލޮޖިސްޓިކްސް","logi.h":"ފަޅުން ހުރަސްކޮށް، ވަގުތަށް.",
+  "logi.lead":"ބަނދަރުން ކޮންޓެއިނަރު، ތިންވަނަ ފަންގިފިލާއަށް ދަގަނޑު، ކުނި ޑަމްޕް ސައިޓަށް. ކޮންމެ ލޮރިއެއްގައި GPS ހުރުމުން، ތަކެތި އަންނަ ގޮތް އެޕުން ބައްލަވާލެވޭނެ.",
+  "z.a":"ޒޯން A","z.a.p":"މެންދުރު 2 ގެ ކުރިން ކުރާ އޯޑަރުތައް ހަމަ އެދުވަހު ޑެލިވަރީ.",
+  "z.b":"ޒޯން B","z.b.h":"މާލެ އަދި ވިލިމާލެ","z.b.p":"ސިނަމާލެ ބްރިޖުން އަދި ފެރީގައި، ތާވަލާ އެއްގޮތަށް ދަތުރު.",
+  "z.c":"ޒޯން C","z.c.h":"ބަނދަރާއި ތިލަފުށި","z.c.p":"ކޮންޓެއިނަރު އުފުލުން، ކޮންޓެއިނަރުން ތަކެތި ބޭލުން އަދި އިންޑަސްޓްރިއަލް އުފުލުން.",
+  "z.d":"ޒޯން D","z.d.h":"ރިސޯޓާއި އަތޮޅުތައް","z.d.p":"ގިނަ ތަކެއްޗާއި މެޝިން، ލޭންޑިންގ ކްރާފްޓުގައި ގެންދިއުން.",
+  "apps.eyebrow":"YD Works އެޕްތައް","apps.h":"ތިޔަ ސައިޓް، ތިޔަ ޖީބުގައި.",
+  "apps.p":"ކަސްޓަމަރުންނަށް މެޝިން ބުކްކޮށް، ތަކެތި އޯޑަރުކޮށް، ކޮންމެ ޑެލިވަރީއެއް ލައިވްކޮށް ބަލާލެވޭނެ. ޑްރައިވަރުންނަށް މަސައްކަތް ލިބި، މަގު ދައްކައިދީ، ޑެލިވަރީގެ ހެކި ނެގޭނެ. ދެ އެޕްވެސް ބޭނުންކުރަނީ އެއް ލައިވް ޖޮބް ފީޑެއް.",
+  "ac.k":"ކަސްޓަމަރުންނަށް","ac.p":"ބިމުގައި ހުރެގެން ބުކްކޮށް، އޯޑަރުކޮށް، ޓްރެކްކުރައްވާ.",
+  "ac.l1":"ގަޑިއިރަށް، ދުވަހަށް ނުވަތަ މަހަށް މެޝިން ބުކްކުރުން","ac.l2":"ލައިވް އަގުތަކުގައި ތަކެތި އޯޑަރުކުރުން","ac.l3":"ލޮރި އަންނަ ގޮތް މެޕުގައި ލައިވްކޮށް ބެލުން","ac.l4":"ކާޑުން ނުވަތަ ބޭންކް ޓްރާންސްފަރުން ފައިސާ ދެއްކުން، GST އިންވޮއިސްއާއެކު",
+  "ac.btn":"ކަސްޓަމަރ އެޕް ހުޅުވާ",
+  "ad.k":"ޑްރައިވަރުންނާއި އޮޕަރޭޓަރުންނަށް","ad.p":"ކޮންމެ މަސައްކަތެއް، ކޮންމެ ފިޔަވަޅެއް އަދި ސޮއި، އެއްތަނެއްގައި.",
+  "ad.l1":"އެއް ފިތާލުމުން މަސައްކަތް ގަބޫލުކުރުން","ad.l2":"ޔާޑުން ސައިޓަށް މަގު ދައްކައިދޭ ދަތުރު","ad.l3":"ފޮޓޯއާއި ސޮއިން ޑެލިވަރީގެ ހެކި","ad.l4":"ދުވަހުގެ ޗެކްލިސްޓާއި ހަފްތާގެ އާމްދަނީ",
+  "ad.btn":"ޑްރައިވަރ އެޕް ހުޅުވާ",
+  "feat.h":"YD Works އެޕުގައި އައު","feat.k":"ކަސްޓަމަރ އެޕް · iOS، Android އަދި ވެބް",
+  "ft1.h":"ލޮރި ލައިވްކޮށް ޓްރެކްކުރުން","ft1.p":"ތަކެތި ގެންދާ ގޮތާއި ޑްރައިވަރު ވާޞިލުވާނެ ވަގުތު މެޕުގައި ފެނޭނެ.",
+  "ft2.h":"ތިޔަ ބޭނުންފުޅު ގޮތަކަށް އަޕްޑޭޓް","ft2.p":"ބުކިންގއިން ފެށިގެން ޑެލިވަރީއާ ހަމައަށް، ކޮންމެ އަޕްޑޭޓެއް ތިޔަ ބޭނުންކުރައްވާ ޗެޓަށް.","ft2.push":"ޕުޝް",
+  "ft3.h":"ކާޑު ނުވަތަ ބޭންކް ޓްރާންސްފަރ","ft3.p":"ކާޑުން ރައްކާތެރިކޮށް ދައްކަވާ، ނުވަތަ ޓްރާންސްފަރ ސްލިޕް އަޕްލޯޑްކުރައްވާ.",
+  "ft4.h":"GST އިންވޮއިސް","ft4.p":"ކޮންމެ އޯޑަރަކަށް ޓެކްސް އިންވޮއިސެއް، ޑައުންލޯޑްކޮށް ހިއްސާކުރެވޭނެ ގޮތަށް.",
+  "tr.k":"ގެ ބިނާކުރާ ފަރާތްތަކަށް","tr.h":"ތިޔަ ގެ، ފިޔަވަޅަށް ފިޔަވަޅަށް.",
+  "tr.p":"އަހަރެމެން ބިނާކުރާ ކޮންމެ ގެއަކަށް ޕްރޮޖެކްޓް ޓްރެކަރެއް. ކޮންމެ މައިލްސްޓޯނެއް ބައްލަވާ، ދައްކަންޖެހޭ ފައިސާއާއި ތާރީޚު އެނގޭނެ، އަދި ކޮންމެ ހަފްތާއަކު ސައިޓުން ޕްރޮގްރެސް ފޮޓޯ ލިބޭނެ.",
+  "tr.f1":"މައިލްސްޓޯންތައް","tr.f2":"ފައިސާ ދައްކާ ތާވަލު","tr.f3":"ޕްރޮގްރެސް ފޮޓޯ",
+  "tm.title":"ޢާއިލީ ގެ، ފޭސް 2","tm.example":"މިސާލެއް","tm.progress":"ޖުމްލަ ކުރިއެރުން","tm.done":"ނިމިއްޖެ","tm.now":"ކުރިއަށް ދަނީ","tm.finish":"ފިނިޝިންގ","tm.next":"ދެން",
+  "tm.pay":"ދެން ދައްކަންޖެހޭ · ފުރާޅު ސްލެބް","tm.photos":"14 ވަނަ ހަފްތާ · 12 އައު ފޮޓޯ",
+  "ct.h":"މަސައްކަތާ ބެހޭގޮތުން ކިޔައިދެއްވާ.","ct.p":"ކައުންޓަރު ޓީމުން އަގާއެކު ގުޅާނެ. އަވަސް ކަމަކަށް ހޮޓްލައިނަށް ގުޅުއްވާ.",
+  "f.name":"ނަން","f.name.ph":"އަޙްމަދު އިބްރާހީމް","f.phone":"ފޯނު","f.need":"ބޭނުންވަނީ",
+  "need.eq":"މެޝިން ކުއްޔަށް","need.mat":"އިމާރާތްކުރާ ތަކެތި","need.house":"ގެ ބިނާކުރުން","need.log":"ލޮޖިސްޓިކްސް",
+  "f.site":"ސައިޓް","site.p1":"ހުޅުމާލެ ފޭސް 1","site.p2":"ހުޅުމާލެ ފޭސް 2","site.thila":"ތިލަފުށި","site.other":"އެހެން ރަށެއް",
+  "f.date":"ފަށާ ތާރީޚު","f.msg":"ތަފްޞީލު","f.msg.ph":"މިސާލު: ބިންގާ ކޮނުމަށް 20T އެކްސްކަވޭޓަރެއް 2 ދުވަހަށް، ބިން 10234، ހުޅުމާލެ ފޭސް 2",
+  "f.submit":"އަގު ހޯއްދަވާ",
+  "i.copyNum":"ނަންބަރު ކޮޕީކުރޭ","i.email":"އީމެއިލް","i.copyEmail":"އީމެއިލް ކޮޕީކުރޭ","i.yard":"ޔާޑު","i.place":"ހުޅުމާލެ، ދިވެހިރާއްޖެ","i.dir":"މަގު ބައްލަވާ ↖",
+  "i.hours":"ކައުންޓަރު ހުޅުވާ ގަޑި","h.am":"ހެނދުނު","h.pm":"މެންދުރުފަހު","h.fri":"ހުކުރު","h.fri.v":"ގުޅުއްވާ ކަށަވަރުކުރައްވާ",
+  "foot.copy":"YD Works · ހުޅުމާލެ، ދިވެހިރާއްޖެ","foot.contact":"ހޮޓްލައިން <bdi>992 0202</bdi> · <bdi>yd@yd-mv.com</bdi>",
+  /* strings built in script */
+  "doc.title":"YD Works ހުޅުމާލެ",
+  "theme.system":"އޮޓޯ","theme.light":"އަލި","theme.dark":"އަނދިރި","theme.group":"ފެންނަ ގޮތް","theme.btn":"ފެންނަ ގޮތް: {m}. ބަދަލުކުރޭ",
+  "avail.ok":"ލިބެން އޮތް","avail.next":"ހުސްވާނީ {hm}","avail.tomorrow":"މާދަމާ {hm} ހުސްވާނެ","avail.long":"24 ގަޑިއިރަށް ބުކްވެފައި",
+  "fleet.count":"{n} މެޝިން · {a} ލިބެން އޮތް","fleet.count1":"{n} މެޝިން · {a} ލިބެން އޮތް",
+  "status.demo":"ނަމޫނާ މައުލޫމާތު · ކަށަވަރުކުރުމަށް ގުޅުއްވާ","status.live":"ޔާޑުން ލައިވް · {t}",
+  "rate.hr":"/ ގަޑިއިރު","btn.book":"ބުކްކުރޭ",
+  "est.empty":"އަދި އެއްވެސް އެއްޗެއް އިތުރެއް ނުކުރައްވަ. ތަކެތި އިތުރުކުރައްވަން + ފިއްތަވާ.","est.free":"ހިލޭ",
+  "qty.add":"{x} އިތުރުކުރޭ","qty.rem":"{x} ކުޑަކުރޭ",
+  "msg.book":"ބުކިންގ އެދުން: {m}. ","msg.mats":"ތަކެތި: {list}. ލަފާކުރެވޭ އަގު {total}.",
+  "err.name":"ގުޅާއިރު ސުވާލުކުރާނެ މީހާ އެނގޭނެހެން ނަން ލިޔުއްވާ.","err.phone":"މަދުވެގެން 7 ޑިޖިޓް ހިމެނޭ ފޯނު ނަންބަރެއް ލިޔުއްވާ.","err.need":"މަދުވެގެން އެއް ޚިދުމަތެއް ޚިޔާރުކުރައްވާ.",
+  "sent.ok":"<b>ޝުކުރިއްޔާ، {name}. ތިޔަ އެދުން ލިބިއްޖެ.</b> {site} ގައި {needs} އާ ބެހޭގޮތުން ކައުންޓަރުން <bdi>{phone}</bdi> އަށް ގުޅާނެ. އަވަސް ކަމަކަށް <b><bdi>992 0202</bdi></b> އަށް ގުޅުއްވާ.",
+  "sent.fail":"<b>މިތަނުން އެދުން ފޮނުވޭކަށް ނެތް.</b> <b><bdi>992 0202</bdi></b> އަށް ގުޅުއްވައިފިނަމަ ކައުންޓަރުން ފޯނުން ނަގާނެ.",
+  "toast.copied":"ކޮޕީކުރެވިއްޖެ {v}",
+  "legal.privacy":"ޕްރައިވެސީ","legal.terms":"ޝަރުތުތައް","legal.refunds":"ކެންސަލްކުރުމާއި ފައިސާ އަނބުރާ ދިނުން","a.legal":"ޤާނޫނީ ލިޔުންތައް",
+  "f.legal":"މި ފޮނުއްވުމުން، އަޅުގަނޑުމެންގެ <a href=\"terms.html\" hreflang=\"en\">ޝަރުތުތަކާއި</a> <a href=\"privacy.html\" hreflang=\"en\">ޕްރައިވެސީ ސިޔާސަތަށް</a> ތާއީދުކުރައްވާ ކަމަށް ބެލެވޭނެ.",
+  "err.busy":"މިވަގުތު އެދުންތައް ގިނަވެއްޖެ. އެއް މިނެޓު ފަހުން އަލުން މަސައްކަތްކޮށްލައްވާ، ނުވަތަ ⁦992 0202⁩ އަށް ގުޅުއްވާ.",
+  "wa.aria":"ވަޓްސްއަޕުން ވާހަކަދައްކަވާ","wa.start":"ޗެޓެއް ފަށްޓަވާ","wa.sub":"ބިމުގެ ފޮޓޯއެއް ނުވަތަ ތަކެތީގެ ލިސްޓެއް ފޮނުއްވާ. ކައުންޓަރު ހުޅުވާ ގަޑީގައި ޖަވާބު ދޭނަން.","wa.btn":"ވަޓްސްއަޕުން ވާހަކަދައްކަވާ","wa.tip":"YD Works ކައުންޓަރާ ވަޓްސްއަޕުން ވާހަކަދައްކަވާ","wa.dismiss":"ފޮރުވާ",
+  "wa.msg":"އައްސަލާމު ޢަލައިކުމް YD Works، އަހަރެން ސުވާލުކުރަން ބޭނުމީ "
+};
+/* English for strings that only exist in script (the rest is read from the page) */
+const YD_EN_JS = {
+  "doc.title":"YD Works Hulhumalé",
+  "theme.system":"Auto","theme.light":"Light","theme.dark":"Dark","theme.group":"Appearance","theme.btn":"Appearance: {m}. Change",
+  "avail.ok":"Available","avail.next":"Next free {hm}","avail.tomorrow":"Free tomorrow {hm}","avail.long":"Booked 24h+",
+  "fleet.count":"{n} machines · {a} available","fleet.count1":"{n} machine · {a} available",
+  "status.demo":"Sample availability · call to confirm","status.live":"Live from the yard · {t}",
+  "rate.hr":"/ hour","btn.book":"Book",
+  "est.empty":"Nothing added yet. Use + to add materials.","est.free":"Free",
+  "mat.none":"No materials match {q}","mat.none.hint":"Try another word, or call the counter and we'll check the yard.","mat.shown":"{n} of {t} materials shown",
+  "qty.add":"Add {x}","qty.rem":"Remove {x}",
+  "msg.book":"Booking request: {m}. ","msg.mats":"Materials: {list}. Estimate {total}.",
+  "err.name":"Add your name so we know who to ask for.","err.phone":"Enter a phone number with at least 7 digits.","err.need":"Pick at least one service.",
+  "sent.ok":"<b>Thanks, {name}. Your request is in.</b> The counter will call {phone} about {needs} at {site}. For anything urgent, call <b>992 0202</b>.",
+  "sent.fail":"<b>We couldn't send your request from here.</b> Please call <b>992 0202</b> and the counter will take it over the phone.",
+  "toast.copied":"Copied {v}",
+  "err.busy":"Too many requests right now. Please wait a minute and try again, or call 992 0202.",
+  "wa.msg":"Hi YD Works, I'd like to ask about "
+};
+/* catalog terms (names, categories, units, spec labels/values): English as in yd-catalog.js → Dhivehi */
+const YD_DV_TERMS = {
+  "Excavator 20T":"އެކްސްކަވޭޓަރ 20T","Mini excavator 5T":"ކުޑަ އެކްސްކަވޭޓަރ 5T","Wheel loader":"ވީލް ލޯޑަރ","Tipper truck 10m³":"ޓިޕަރ ލޮރި 10m³",
+  "Flatbed lorry":"ފްލެޓްބެޑް ލޮރި","Lorry crane (HIAB)":"ލޮރި ކްރޭން (HIAB)","Forklift 3T":"ފޯކްލިފްޓް 3T","Concrete mixer 6m³":"ކޮންކްރީޓް މިކްސަރ 6m³","Vibratory roller":"ވައިބްރޭޓަރީ ރޯލަރ",
+  "Portland cement":"ޕޯޓްލޭންޑް ސިމެންތި","Aggregate 3/4\"":"ހިލަ ⁦3/4\"⁩","River sand":"ކޯރު ވެލި","Rebar Y12":"ރީބާ ދަގަނޑު Y12","Rebar Y16":"ރީބާ ދަގަނޑު Y16",
+  "Cement block 6\"":"ސިމެންތި ބްލޮކް ⁦6\"⁩","Marine plywood 18mm":"މެރިން ޕްލައިވުޑް 18mm","Roofing sheet 0.47mm":"ފުރާޅު ޝީޓް 0.47mm","PVC pipe 4\"":"PVC ޕައިޕް ⁦4\"⁩",
+  "Cement":"ސިމެންތި","Aggregate":"ހިލަ","Sand":"ވެލި","Steel":"ދަގަނޑު","Blocks":"ބްލޮކް","Timber":"ލަކުޑި","Roofing":"ފުރާޅު","Plumbing":"ޕްލަމްބިންގ",
+  "50 kg bag":"\u206650 kg\u2069 ކޮތަޅު","12 m bar":"\u206612 m\u2069 ރޮޑު","pc":"ބްލޮކް","sheet":"ޝީޓް","6 m length":"\u20666 m\u2069 ދިގު",
+  "Weight":"ބަރުދަން","Bucket":"ބަކެޓް","Dig depth":"ކޮނޭ ފުންމިން","Crew":"ޓީމު","Payload":"އުފުލޭ ބަރުދަން","Best for":"އެންމެ ފުރިހަމަ","Body":"ބޮޑީ","Deck":"ޑެކް",
+  "Lift":"އުފުލޭ ވަރު","Reach":"ދިގުމިން","Capacity":"ކެޕޭސިޓީ","Mast":"މާސްޓް","Fuel":"ތެޔޮ","Drum":"ޑްރަމް","Grades":"ގްރޭޑް",
+  "Operator":"އޮޕަރޭޓަރ","Driver":"ޑްރައިވަރ","Driver + helper":"ޑްރައިވަރ + އެހީތެރިއެއް","Driver + rigger":"ޑްރައިވަރ + ރިގަރ","Sand, fill":"ވެލި، ފުރުން",
+  "Sand, rubble":"ވެލި، ރަބަލް","Steel, blocks":"ދަގަނޑު، ބްލޮކް","Diesel":"ޑީސަލް","Slabs, footings":"ސްލެބް، ފުޓިންގ","Compaction":"ބިން ތަޅުން"
+};
+
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+  const I=YDUI.i18n, t=(k,v)=>I.t(k,v), dv=()=>I.get()==="dv";
+  const L=s=>dv()?(YD_DV_TERMS[s]||s):s;                 // catalog term in the current language
+  const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const mvr=n=>"MVR "+Math.round(n).toLocaleString("en-US");
+  const toast=m=>{const el=$("#toast");el.textContent=m;el.classList.add("show");clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove("show"),2400)};
+
+  // ── i18n: harvest English from the page, register both languages ──
+  const EN=Object.assign({},YD_EN_JS);
+  $$("[data-i18n]").forEach(el=>{EN[el.dataset.i18n]=el.textContent.trim()});
+  $$("[data-i18n-ph]").forEach(el=>{EN[el.dataset.i18nPh]=el.placeholder});
+  $$("[data-i18n-aria]").forEach(el=>{EN[el.dataset.i18nAria]=el.getAttribute("aria-label")});
+  $$("[data-i18n-alt]").forEach(el=>{EN[el.dataset.i18nAlt]=el.alt});
+  $$("[data-i18n-html]").forEach(el=>{EN[el.dataset.i18nHtml]=el.innerHTML.trim()});
+  I.add({en:EN,dv:YD_DV});
+  function applyExtra(){
+    $$("[data-i18n-html]").forEach(el=>{el.innerHTML=t(el.dataset.i18nHtml)});
+    $$("[data-i18n-alt]").forEach(el=>{el.alt=t(el.dataset.i18nAlt)});
+    document.title=t("doc.title");
+    syncThemeLabels();
+  }
+
+  // header
+  const top=$("#top"),mb=$("#menuBtn"),menu=$("#menu");
+  const onScroll=()=>top.classList.toggle("solid",scrollY>40||menu.classList.contains("open"));
+  addEventListener("scroll",onScroll,{passive:true});
+  mb.addEventListener("click",()=>{const o=menu.classList.toggle("open");mb.setAttribute("aria-expanded",o);onScroll()});
+  menu.addEventListener("click",e=>{if(e.target.tagName==="A"){menu.classList.remove("open");mb.setAttribute("aria-expanded",false);onScroll()}});
+  onScroll();
+
+  // theme + language controls in the footer (translated labels; yd-ui keeps aria-pressed in sync)
+  const TI={system:"i-auto",light:"i-sun",dark:"i-moon"};
+  $("#footCtl").innerHTML=`<span class="tseg" role="group" data-i18n-aria="theme.group" aria-label="Appearance">${["system","light","dark"].map(m=>`<button type="button" data-yd-theme-set="${m}" aria-pressed="${YDUI.theme.get()===m}"><svg aria-hidden="true" width="15" height="15"><use href="#${TI[m]}"/></svg><span data-i18n="theme.${m}">${YD_EN_JS["theme."+m]}</span></button>`).join("")}</span>`+
+    `<span class="tseg" role="group" data-i18n-aria="a.lang" aria-label="Language"><button type="button" data-yd-lang-set="en" lang="en" aria-pressed="${!dv()}">English</button><button type="button" data-yd-lang-set="dv" lang="dv" aria-pressed="${dv()}">ދިވެހި</button></span>`;
+  function syncThemeLabels(){
+    const m=t("theme."+YDUI.theme.get());
+    $$("[data-yd-theme-cycle]").forEach(b=>{b.setAttribute("aria-label",t("theme.btn",{m}));b.title=t("theme.btn",{m})});
+  }
+  addEventListener("yd-theme",syncThemeLabels);
+  document.addEventListener("DOMContentLoaded",syncThemeLabels);
+
+  // ── availability: live from the backend when configured, else the catalog's demo values ──
+  // backend address: yd-config.js first, then the build-time literals; anything still starting with "__" means not configured
+  const CFG=window.YD_CONFIG||{},real=v=>typeof v==="string"&&v&&v.indexOf("__")!==0;
+  const SB_URL=(real(CFG.supabaseUrl)?CFG.supabaseUrl:"__SUPABASE_URL__").replace(/\/+$/,""),
+        SB_KEY=real(CFG.supabaseKey)?CFG.supabaseKey:"__SUPABASE_PUBLISHABLE_KEY__",LIVE=SB_URL.indexOf("__")!==0;
+  const track=(n,d)=>{try{YDUI.track&&YDUI.track(n,d)}catch(_){}};
+  const readyAt=Date.now();   // page is interactive once this script runs (end of body)
+  const hm=ms=>new Date(ms).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit",timeZone:"Indian/Maldives"});
+  const day=ms=>new Date(ms).toLocaleDateString("en-CA",{timeZone:"Indian/Maldives"});
+  let AV={},avLive=false,avAt=0;
+  YDCAT.machines.forEach(m=>{AV[m.id]=m.nextFree?{busy:true,hm:m.nextFree}:{busy:false}});
+  function avLabel(id){const a=AV[id]||{busy:false};if(!a.busy)return t("avail.ok");if(a.long)return t("avail.long");return t(a.tomorrow?"avail.tomorrow":"avail.next",{hm:a.hm})}
+  function loadAvailability(){
+    if(!LIVE)return;
+    const now=Date.now(),to=now+864e5,ctl=new AbortController(),tm=setTimeout(()=>ctl.abort(),8000);
+    fetch(SB_URL+"/rest/v1/rpc/machine_busy",{method:"POST",signal:ctl.signal,headers:{apikey:SB_KEY,"Content-Type":"application/json"},
+      body:JSON.stringify({p_from:new Date(now).toISOString(),p_to:new Date(to).toISOString()})})
+      .then(r=>{clearTimeout(tm);return r.ok?r.json():Promise.reject(r.status)})
+      .then(rows=>{
+        const by={};(rows||[]).forEach(b=>{(by[b.machine_id]=by[b.machine_id]||[]).push([Date.parse(b.starts_at),Date.parse(b.ends_at)])});
+        const next={};
+        YDCAT.machines.forEach(m=>{
+          // walk back-to-back bookings (gaps under 1 min count as busy) to find when the machine is next free
+          let free=now,moved=true;const bs=(by[m.id]||[]).sort((a,b)=>a[0]-b[0]);
+          while(moved){moved=false;for(const[s,e]of bs){if(s<=free+6e4&&e>free){free=e;moved=true}}}
+          next[m.id]=free>now?{busy:true,hm:hm(free),long:free>=to,tomorrow:day(free)!==day(now)}:{busy:false};
+        });
+        AV=next;avLive=true;avAt=now;drawFleet();drawStatus();
+      }).catch(()=>{clearTimeout(tm)});
+  }
+
+  // fleet (sample rates from the shared catalog)
+  const FLEET=YDCAT.machines;
+  const grid=$("#fleetGrid");let filter="all";
+  function drawFleet(){
+    const list=FLEET.filter(m=>filter==="all"||m.category===filter);
+    const free=list.filter(m=>!(AV[m.id]||{}).busy).length;
+    $("#fleetCount").textContent=t(list.length===1?"fleet.count1":"fleet.count",{n:list.length,a:free});
+    $("#fleetCountWrap").classList.toggle("is-live",avLive);
+    grid.innerHTML=list.map(m=>{const busy=(AV[m.id]||{}).busy;return `<article class="machine">
+      <div class="art">${YDUI.thumb(m.id,L(m.name))}<span class="tag ${busy?"busy":"ok"}">${esc(avLabel(m.id))}</span><span class="code">${m.code}</span></div>
+      <div class="body"><h3>${esc(L(m.name))}</h3>
+        <dl class="specs">${Object.entries(m.specs).map(([k,v])=>`<div><dt>${esc(L(k))}</dt><dd><bdi>${esc(L(v))}</bdi></dd></div>`).join("")}</dl>
+        <div class="row"><span class="rate"><bdi>${mvr(m.rate_hr)}</bdi> <small>${t("rate.hr")}</small></span><a class="btn btn-line" href="#contact" data-book="${m.id}">${t("btn.book")}</a></div>
+      </div></article>`}).join("");
+  }
+  $$(".tab").forEach(b=>b.addEventListener("click",()=>{$$(".tab").forEach(x=>x.setAttribute("aria-pressed","false"));b.setAttribute("aria-pressed","true");filter=b.dataset.f;drawFleet()}));
+  let bookedMachine=null;
+  grid.addEventListener("click",e=>{const a=e.target.closest("[data-book]");if(!a)return;const m=FLEET.find(x=>x.id===a.dataset.book);bookedMachine=m;$("#nEq").checked=true;$("#qMsg").value=t("msg.book",{m:`${L(m.name)} (${m.code})`});updWa()});
+
+  // hero fleet status (same availability source)
+  const ST=["exc20","tip","crane","mixer"];
+  function drawStatus(){
+    $("#statusList").innerHTML=ST.map(id=>{const m=YDCAT.machines.find(x=>x.id===id),busy=(AV[id]||{}).busy;
+      return `<li><span class="th">${YDUI.thumb(id,L(m.name))}</span><div><span class="nm">${esc(L(m.name))}</span><small><span data-ltr>${m.code}</span> · ${esc(t("cat."+m.category))}</small></div><span class="tag ${busy?"busy":"ok"}">${esc(avLabel(id))}</span></li>`}).join("");
+    $("#statusSrc").textContent=avLive?t("status.live",{t:hm(avAt)}):t("status.demo");
+  }
+  const clk=()=>{$("#clock").textContent=hm(Date.now())+" MVT"};clk();setInterval(clk,30000);
+
+  // materials (sample prices)
+  const MATS=YDCAT.materials;
+  const qty=MATS.map(()=>0);
+  /* search + category chips: rows are only hidden, never dropped, so quantities and the estimate keep counting hidden items */
+  const MAT_WORDS={cem:"cement cements bag bags sack portland opc",agg:"aggregate gravel stone stones chips chippings concrete",sand:"sand river fill",
+    y12:"rebar rebars steel iron bar bars rod rods reinforcement y12",y16:"rebar rebars steel iron bar bars rod rods reinforcement y16",
+    blk:"block blocks brick bricks masonry cement block",ply:"plywood ply timber wood board boards sheet marine shuttering formwork",
+    roof:"roof roofing sheet sheets zinc metal",pvc:"pvc pipe pipes plumbing drain water"};
+  const norm=s=>String(s).toLowerCase().normalize("NFKC").replace(/[\u2066-\u2069]/g,"").replace(/[“”"'.,،;:()]/g," ").replace(/\s+/g," ").trim();
+  const HAY=MATS.map(m=>norm([m.name,m.category,m.unit,m.id,MAT_WORDS[m.id]||"",YD_DV_TERMS[m.name]||"",YD_DV_TERMS[m.category]||"",YD_DV_TERMS[m.unit]||""].join(" ")));
+  const CATS=["all",...new Set(MATS.map(m=>m.category))];
+  let matCat="all";
+  // a word must start a word in the haystack ("cement" must not hit "reinforcement"); sizes/codes like "16" may match anywhere; plural "s" optional
+  const tokOk=(h,w)=>{const words=h.split(" "),hit=x=>/\d/.test(x)?h.includes(x):words.some(v=>v.startsWith(x));return hit(w)||(w.length>3&&w.endsWith("s")&&hit(w.slice(0,-1)))};
+  function matMatch(i,q){
+    if(matCat!=="all"&&MATS[i].category!==matCat)return false;
+    return !q||q.split(" ").every(w=>tokOk(HAY[i],w));
+  }
+  function drawChips(){
+    $("#matChips").innerHTML=CATS.map(c=>`<button type="button" data-cat="${esc(c)}" aria-pressed="${c===matCat}">${esc(c==="all"?t("cat.all"):L(c))}</button>`).join("");
+  }
+  function filterMats(){
+    const raw=$("#matQ").value,q=norm(raw);let n=0;
+    $$("#matRows tr").forEach(tr=>{const ok=matMatch(+tr.dataset.i,q);tr.hidden=!ok;if(ok)n++});
+    $("#matQx").hidden=!raw;
+    const none=$("#matNone");
+    if(!n){const label=raw.trim().replace(/\s+/g," ")||(matCat!=="all"?L(matCat):"");
+      none.innerHTML=`<b>${t("mat.none",{q:`<bdi>“${esc(label)}”</bdi>`})}</b><span>${esc(t("mat.none.hint"))}</span><button type="button" class="btn btn-line" id="matClear">${esc(t("mat.clear"))}</button>`;}
+    none.hidden=!!n;$(".mat-card .mat-table").hidden=!n;
+    $("#matLive").textContent=(q||matCat!=="all")?t("mat.shown",{n,t:MATS.length}):"";
+  }
+  function clearMatSearch(focus){$("#matQ").value="";matCat="all";drawChips();filterMats();if(focus)$("#matQ").focus()}
+  // anonymous usage: what people search for (debounced, non-empty, once per distinct query)
+  const searched=new Set();let searchT=0;
+  $("#matQ").addEventListener("input",()=>{filterMats();clearTimeout(searchT);searchT=setTimeout(()=>{
+    const q=$("#matQ").value.trim().replace(/\s+/g," ").slice(0,80),k=q.toLowerCase();
+    if(q&&!searched.has(k)){searched.add(k);track("search",{q})}},1200)});
+  $("#matQ").addEventListener("keydown",e=>{if(e.key==="Escape"&&($("#matQ").value||matCat!=="all")){e.preventDefault();clearMatSearch(true)}});
+  $("#matQx").addEventListener("click",()=>{$("#matQ").value="";filterMats();$("#matQ").focus()});
+  $("#matChips").addEventListener("click",e=>{const b=e.target.closest("[data-cat]");if(!b)return;matCat=b.dataset.cat;drawChips();filterMats();
+    const nb=$(`#matChips [data-cat="${CSS.escape(matCat)}"]`);if(nb){nb.focus({preventScroll:true});const c=$("#matChips"),r=nb.getBoundingClientRect(),cr=c.getBoundingClientRect();if(r.left<cr.left||r.right>cr.right)c.scrollBy({left:r.left<cr.left?r.left-cr.left-16:r.right-cr.right+16,behavior:"smooth"})}});
+  $("#matNone").addEventListener("click",e=>{if(e.target.closest("#matClear"))clearMatSearch(true)});
+  function drawMats(){
+    drawChips();
+    $("#matRows").innerHTML=MATS.map((m,i)=>`<tr data-i="${i}"><td><div class="mrow"><span class="th">${YDUI.thumb(m.id,L(m.name))}</span><div><b>${esc(L(m.name))}</b><div class="cat">${esc(L(m.category))}</div></div></div></td><td>${esc(L(m.unit))}</td><td class="num">${m.price.toLocaleString("en-US")}</td>
+      <td class="num"><span class="qty" data-ltr><button type="button" data-i="${i}" data-d="-1" aria-label="${esc(t("qty.rem",{x:L(m.name)}))}">−</button><output id="q${i}">${qty[i]}</output><button type="button" data-i="${i}" data-d="1" aria-label="${esc(t("qty.add",{x:L(m.name)}))}">+</button></span></td></tr>`).join("");
+    filterMats();
+  }
+  $("#matRows").addEventListener("click",e=>{const b=e.target.closest("button[data-d]");if(!b)return;const i=+b.dataset.i;qty[i]=Math.max(0,qty[i]+(+b.dataset.d)*(MATS[i].step||1));$("#q"+i).textContent=qty[i];renderEst()});
+  function renderEst(){
+    const items=MATS.map((m,i)=>[m,qty[i]]).filter(([,q])=>q>0);
+    const P=YDCAT.pricing,sub=items.reduce((s,[m,q])=>s+m.price*q,0),del=items.length?(sub>P.free_delivery_over?0:P.delivery_fee):0;
+    $("#estList").innerHTML=items.length?items.map(([m,q])=>`<li><span>${q} × ${esc(L(m.name))}</span><span data-ltr>${mvr(m.price*q)}</span></li>`).join(""):`<li class="empty">${esc(t("est.empty"))}</li>`;
+    $("#estDel").textContent=del===0&&items.length?t("est.free"):mvr(del);$("#estTotal").textContent=mvr(sub+del);
+    updWa();
+    return{items,total:sub+del};
+  }
+  $("#estSend").addEventListener("click",()=>{const{items,total}=renderEst();if(!items.length)return;$("#nMat").checked=true;track("estimate_sent",{items:items.length});
+    $("#qMsg").value=t("msg.mats",{list:items.map(([m,q])=>`${q} × ${L(m.name)} (${L(m.unit)})`).join(dv()?"، ":", "),total:mvr(total)})});
+
+  // quote form
+  const NEED_KEY={"Equipment hire":"need.eq","Building materials":"need.mat","House building":"need.house","Logistics":"need.log"};
+  let lastErr="",sending=false;
+  $("#quoteForm").addEventListener("submit",e=>{
+    e.preventDefault();if(sending)return;
+    const f=e.target;const name=f.name.value.trim(),phone=f.phone.value.replace(/\s/g,"");
+    const needs=[...f.querySelectorAll('input[name="need"]:checked')].map(x=>x.value);
+    lastErr="";if(!name)lastErr="err.name";else if(!/^\+?\d{7,}$/.test(phone))lastErr="err.phone";else if(!needs.length)lastErr="err.need";
+    $("#qErr").textContent=lastErr?t(lastErr):"";if(lastErr)return;
+    const clearSent=()=>f.querySelectorAll(".sent").forEach(x=>x.remove());
+    const show=html=>{const box=document.createElement("div");box.className="sent";box.setAttribute("role","status");box.innerHTML=html;clearSent();f.appendChild(box)};
+    const btn=f.querySelector('button[type="submit"]');
+    const row={name,phone:f.phone.value.trim(),needs,site:f.site.value,start_date:f.date.value||null,details:f.msg.value.trim().slice(0,2000)};
+    const siteLabel=f.site.options[f.site.selectedIndex].textContent;
+    const needsLabel=needs.map(n=>t(NEED_KEY[n])).join(dv()?"، ":", ");
+    const ok=()=>{show(t("sent.ok",{name:esc(name.split(" ")[0]),phone:esc(row.phone),needs:esc(dv()?needsLabel:needsLabel.toLowerCase()),site:esc(siteLabel)}));f.reset()};
+    // spam traps: a filled hidden field, or a form sent within 3 s of the page becoming interactive, looks like success but sends nothing
+    if(f.website.value||Date.now()-readyAt<3000){ok();return}
+    if(!LIVE){show(t("sent.fail"));return}
+    sending=true;btn.disabled=true;btn.setAttribute("aria-busy","true");
+    // send to the YD Works backend; if it can't be reached, fall back to the hotline
+    const ctl=new AbortController();const tm=setTimeout(()=>ctl.abort(),8000);
+    fetch(SB_URL+"/rest/v1/quote_requests",{method:"POST",signal:ctl.signal,headers:{apikey:SB_KEY,"Content-Type":"application/json",Prefer:"return=minimal"},body:JSON.stringify(row)})
+      .then(r=>{clearTimeout(tm);
+        if(r.ok){ok();track("quote_sent",{needs});return}
+        // the server explains rejections it expects (rate limit, links in the message...): show its words in the error area
+        if(r.status>=400&&r.status<500)return r.json().catch(()=>({})).then(b=>{
+          const m=b&&typeof b.message==="string"?b.message.trim():"";
+          if(m){clearSent();$("#qErr").textContent=m.slice(0,300)}
+          else if(r.status===429){clearSent();$("#qErr").textContent=t("err.busy")}
+          else show(t("sent.fail"))});
+        show(t("sent.fail"))})
+      .catch(()=>{clearTimeout(tm);show(t("sent.fail"))})
+      .finally(()=>{sending=false;btn.disabled=false;btn.removeAttribute("aria-busy")});
+  });
+  $$("[data-copy]").forEach(b=>b.addEventListener("click",()=>{const v=b.dataset.copy;try{navigator.clipboard.writeText(v).then(()=>toast(t("toast.copied",{v})),()=>toast(v))}catch(_){toast(v)}}));
+  $("#yr").textContent=new Date().getFullYear();
+
+  // contact details + announcement managed in the YD Works console
+  (function(){const U=SB_URL,K=SB_KEY;if(!LIVE)return;
+    fetch(U+"/rest/v1/app_settings?select=key,value",{headers:{apikey:K}}).then(r=>r.ok?r.json():[]).then(rows=>{const s={};rows.forEach(x=>s[x.key]=x.value);
+      const c=s.contact||{},a=s.announcement||{};
+      if(c.hotline){$$(".big,.hot").forEach(e=>{e.textContent=e.classList.contains("hot")?"+960 "+c.hotline:c.hotline})}
+      const td=$$(".hours td:last-child");if(td.length===3){if(c.hours_am)td[0].textContent=c.hours_am;if(c.hours_pm)td[1].textContent=c.hours_pm;if(c.friday){td[2].removeAttribute("data-i18n");td[2].textContent=c.friday}}
+      if(a.active&&a.text){const b=document.createElement("div");b.className="announce "+(a.tone||"info");b.dir="auto";
+        const setText=()=>{b.textContent=(dv()&&a.text_dv)||a.text};setText();addEventListener("yd-lang",setText);
+        document.body.prepend(b);$(".top").style.top="calc(env(safe-area-inset-top,0px) + "+b.offsetHeight+"px)"}
+    }).catch(()=>{})})();
+
+  // legal page addresses from config (labels are translated; the pages are English)
+  const LG=CFG.legal||{};$$("[data-legal]").forEach(a=>{if(LG[a.dataset.legal])a.href=LG[a.dataset.legal]});
+
+  // WhatsApp: one link builder for the floating button, its bubble and the contact card
+  const WA_NUM=String(CFG.whatsapp||"").replace(/\D/g,"")||"9609920202";
+  function waContext(){
+    const items=MATS.map((m,i)=>[m,qty[i]]).filter(([,q])=>q>0);
+    if(items.length)return{kind:"materials",text:items.map(([m,q])=>`${q} × ${L(m.name)}`).join(dv()?"، ":", ")};
+    if(bookedMachine)return{kind:"machine",text:`${L(bookedMachine.name)} (${bookedMachine.code})`};
+    return{kind:"general",text:""};
+  }
+  if(/^960\d{7}$/.test(WA_NUM))$("#waNum").textContent=WA_NUM.slice(3,6)+" "+WA_NUM.slice(6);
+  function updWa(){const c=waContext(),href="https://wa.me/"+WA_NUM+"?text="+encodeURIComponent(t("wa.msg")+c.text);$$("[data-wa]").forEach(a=>{a.href=href})}
+  const fab=$("#waFab"),tip=$("#waTip"),TIP_KEY="yd-wa-tip";
+  const tipSeen=()=>{try{return localStorage.getItem(TIP_KEY)==="1"}catch(_){return false}};
+  const hideTip=remember=>{tip.hidden=true;if(remember){try{localStorage.setItem(TIP_KEY,"1")}catch(_){}}};
+  document.addEventListener("click",e=>{const a=e.target.closest("[data-wa]");if(!a)return;updWa();const k=waContext().kind;track("whatsapp_click",{context:a.dataset.wa==="footer"?"footer":k,from:a.dataset.wa,prefill:k});hideTip(true)});
+  $("#waTipX").addEventListener("click",()=>hideTip(true));
+  tip.addEventListener("keydown",e=>{if(e.key==="Escape")hideTip(true)});
+  // keep the button out of the way: hidden while the mobile menu is open or the quote form's send button is on screen
+  let nearSubmit=false;
+  function syncFab(){const off=menu.classList.contains("open")||nearSubmit;fab.classList.toggle("off",off);if(off)tip.hidden=true}
+  if("IntersectionObserver"in window)new IntersectionObserver(es=>{nearSubmit=es.some(x=>x.isIntersecting);syncFab()}).observe($("#qSubmitRow"));
+  mb.addEventListener("click",syncFab);menu.addEventListener("click",syncFab);
+  if(!tipSeen())setTimeout(()=>{if(!tipSeen()&&!fab.classList.contains("off"))tip.hidden=false},6000);
+
+  // published preview: link to hosted app prototypes; local/self-hosted keeps relative links
+  if(!/^(localhost|127\.|0\.0\.0\.0)/.test(location.hostname)&&location.protocol!=="file:"&&!location.hostname.endsWith("yd-mv.com")){
+    $("#custLink").href="https://claude.ai/artifact/XjkFgJZ6puQCaT8tzbgdQb";$("#custLink").target="_blank";
+    $("#drvLink").href="https://claude.ai/artifact/938K9V62dq2dMi1asncdgq";$("#drvLink").target="_blank";
+  }
+
+  $("#custLink").addEventListener("click",()=>track("app_link",{app:"customer"}));
+  $("#drvLink").addEventListener("click",()=>track("app_link",{app:"driver"}));
+
+  // language from the link (?lang=dv / ?lang=en, used by the search-engine alternate link)
+  const qLang=new URLSearchParams(location.search).get("lang");
+  if((qLang==="dv"||qLang==="en")&&I.get()!==qLang)I.set(qLang);
+  // a person switching language (capture phase sees the language before yd-ui changes it)
+  document.addEventListener("click",e=>{const b=e.target.closest("[data-yd-lang-set]");if(b&&b.dataset.ydLangSet!==I.get())track("lang",{lang:b.dataset.ydLangSet})},true);
+
+  // render everything in the current language; re-render on switch
+  function renderAll(){I.apply();applyExtra();drawFleet();drawStatus();drawMats();renderEst();if(lastErr)$("#qErr").textContent=t(lastErr)}
+  renderAll();
+  addEventListener("yd-lang",renderAll);
+  loadAvailability();if(LIVE)setInterval(loadAvailability,5*60e3);
+})();
+</script>

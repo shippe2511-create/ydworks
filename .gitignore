@@ -1,0 +1,24 @@
+# dependencies & build output
+node_modules/
+mobile/*/android/.gradle/
+mobile/*/android/app/build/
+mobile/*/android/build/
+mobile/*/android/capacitor-cordova-android-plugins/build/
+mobile/*/android/local.properties
+mobile/*/ios/App/Pods/
+mobile/*/ios/DerivedData/
+mobile/*/www/
+deploy/
+dist/
+*.apk
+*.aab
+ydworks-mobile.zip
+# secrets that must never be committed
+google-services.json
+GoogleService-Info.plist
+*.keystore
+*.jks
+.env
+.env.*
+# OS
+.DS_Store

@@ -1,0 +1,12 @@
+{
+  "appId": "mv.ydworks.app",
+  "appName": "YD Works",
+  "webDir": "www",
+  "backgroundColor": "#070b16",
+  "ios": { "contentInset": "never", "scheme": "YDWorks" },
+  "android": { "allowMixedContent": false },
+  "plugins": {
+    "SplashScreen": { "launchShowDuration": 900, "launchAutoHide": true, "backgroundColor": "#070b16", "showSpinner": false },
+    "StatusBar": { "overlaysWebView": false, "style": "DARK", "backgroundColor": "#070b16" }
+  }
+}
