@@ -17,6 +17,15 @@ and rebuild the apps with `npm run sync` in `mobile/customer` and `mobile/driver
 7. Auth → SMTP: add a sender (e.g. Resend, Postmark) so sign-up emails arrive reliably.
 8. Run the backend test locally any time: see `supabase/tests/backend_test.sql`.
 
+## 0b. Drivers without email (phone + PIN)
+Free, no SMS provider needed. Deploy the account function once:
+```
+supabase functions deploy staff-accounts
+```
+In the console a Manager opens **Drivers → + Add driver → Phone + PIN**, enters name, phone and vehicle, and gets a
+6-digit PIN to give the driver (shown once). The driver opens **YD Driver → Phone & PIN** and signs in.
+Lost PIN: **Reset PIN** on the driver's card. Leaving: **Remove driver** (they can no longer sign in; past jobs stay).
+
 ## 1. Phone-number login (SMS code)
 - Supabase → Authentication → Providers → Phone: enable and pick Twilio, MessageBird, Vonage or Textlocal; paste its credentials.
   Twilio covers Dhiraagu and Ooredoo numbers.

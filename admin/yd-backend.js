@@ -119,6 +119,26 @@
     return s;
   };
 
+  /* ── drivers without email: phone + PIN (accounts made by a Manager in the console) ── */
+  // Each such driver has a private login address that is never emailed; the PIN is its password.
+  Y.driverLoginEmail = p => { let d = String(p || "").replace(/\D/g, ""); if (d.length === 7) d = "960" + d; return "driver-" + d + "@login.yd-mv.com"; };
+  Y.signInPhonePin = (phone, pin) => Y.signIn(Y.driverLoginEmail(phone), String(pin || "").trim());
+  async function staffCall(action, body) {
+    const { data: s } = await Y.sb.auth.getSession();
+    const r = await fetch(window.YD_CONFIG.supabaseUrl.replace(/\/+$/, "") + "/functions/v1/staff-accounts/" + action, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", apikey: window.YD_CONFIG.supabaseKey, Authorization: "Bearer " + (s && s.session ? s.session.access_token : "") },
+      body: JSON.stringify(body || {})
+    });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok || j.error) throw new Error(j.error || "The account service isn't reachable. Check that the staff-accounts function is deployed.");
+    return j;
+  }
+  // console (Managers): returns { driver_id, phone, pin } — show the PIN once, it can't be read again
+  Y.createDriver = (fullName, phone, unitCode) => staffCall("create_driver", { full_name: fullName, phone, unit_code: unitCode || null });
+  Y.resetDriverPin = driverId => staffCall("reset_pin", { driver_id: driverId });
+  Y.disableDriver = driverId => staffCall("disable", { driver_id: driverId });
+
   /* ── phone sign-in (SMS one-time code) ── */
   Y.normPhone = p => { const d = String(p || "").replace(/\D/g, ""); return d.length === 7 ? "+960" + d : d ? "+" + d : ""; };
   Y.sendCode = async function (phone) {
