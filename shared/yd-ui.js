@@ -268,5 +268,52 @@
   window.addEventListener("pagehide", flush);
   const track = (name, detail) => report("event", name, "", detail);
 
+  /* ── desktop preview: show the phone apps inside a realistic iPhone frame ──
+     Only on wide screens in a normal browser tab; real phones and installed apps are untouched. */
+  function deviceFrame() {
+    const app = document.querySelector(".app");
+    const C = window.Capacitor;
+    if (!app || (C && C.isNativePlatform && C.isNativePlatform()) || matchMedia("(display-mode: standalone)").matches) return;
+    if (document.getElementById("yd-device-css")) return;
+    const css = document.createElement("style"); css.id = "yd-device-css";
+    css.textContent = `@media (min-width:600px){
+      html body .app{width:393px;max-width:393px;height:min(852px,calc(100vh - 56px));margin:28px auto 0;border-radius:56px;border:0;
+        box-shadow:0 0 0 10px #0d0e11,0 0 0 12px #4a4d55,0 0 0 13px #24262b,0 50px 120px -30px rgba(0,0,0,.85)}
+      .yd-sb{position:relative;flex:none;height:54px;display:flex;align-items:center;justify-content:space-between;padding:6px 34px 0 46px;
+        font:600 16px/1 -apple-system,"SF Pro Text","Geist",system-ui,sans-serif;letter-spacing:-.01em;z-index:60;transition:background .3s,color .3s}
+      .yd-sb .isl{position:absolute;left:50%;top:11px;width:124px;height:36px;margin-left:-62px;border-radius:20px;background:#000}
+      .yd-sb .ic{display:flex;gap:6px;align-items:center}
+      .yd-sb svg{display:block}
+      .yd-home{position:absolute;left:50%;bottom:8px;width:136px;height:5px;margin-left:-68px;border-radius:3px;z-index:80;pointer-events:none;transition:background .3s}
+      .yd-btn{position:fixed;width:4px;border-radius:2px;background:#3a3d44;z-index:0}
+    }
+    @media (max-width:599px){.yd-sb,.yd-home,.yd-btn{display:none!important}}`;
+    document.head.appendChild(css);
+    const sb = document.createElement("div"); sb.className = "yd-sb"; sb.setAttribute("aria-hidden", "true");
+    sb.innerHTML = `<span class="t"></span><span class="isl"></span><span class="ic">
+      <svg width="18" height="12" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1" fill="currentColor"/><rect x="5" y="5.5" width="3" height="6.5" rx="1" fill="currentColor"/><rect x="10" y="3" width="3" height="9" rx="1" fill="currentColor"/><rect x="15" y="0" width="3" height="12" rx="1" fill="currentColor"/></svg>
+      <svg width="16" height="12" viewBox="0 0 16 12"><path d="M8 11.5l2.2-2.6a3.3 3.3 0 00-4.4 0z" fill="currentColor"/><path d="M3.3 6.6a6.8 6.8 0 019.4 0l-1.3 1.5a4.8 4.8 0 00-6.8 0z" fill="currentColor"/><path d="M.8 3.8a10.6 10.6 0 0114.4 0l-1.3 1.5a8.6 8.6 0 00-11.8 0z" fill="currentColor"/></svg>
+      <svg width="27" height="13" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.8" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="18" height="9" rx="2.4" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2z" fill="currentColor" opacity=".45"/></svg></span>`;
+    app.prepend(sb);
+    const home = document.createElement("div"); home.className = "yd-home"; home.setAttribute("aria-hidden", "true"); app.appendChild(home);
+    const btns = [["l", 120, 30], ["l", 175, 62], ["l", 250, 62], ["r", 200, 96]].map(([side, top, h]) => {
+      const b = document.createElement("div"); b.className = "yd-btn"; b.dataset.side = side; b.dataset.top = top; b.style.height = h + "px"; document.body.appendChild(b); return b; });
+    const lum = c => { const m = c.match(/\d+(\.\d+)?/g); if (!m) return 1; const [r, g, b, a] = m.map(Number); if (a === 0) return null; return (0.299 * r + 0.587 * g + 0.114 * b) / 255; };
+    const tick = () => {
+      sb.querySelector(".t").textContent = new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }).replace(/^0/, "");
+      // status bar takes the colour of whatever sits at the top of the screen
+      let el = sb.nextElementSibling; while (el && (el.hidden || getComputedStyle(el).display === "none")) el = el.nextElementSibling;
+      let bg = el ? getComputedStyle(el).backgroundColor : "", L = lum(bg);
+      if (L == null) { bg = getComputedStyle(app).backgroundColor; L = lum(bg); }
+      sb.style.background = bg; sb.style.color = L > .55 ? "#000" : "#fff";
+      home.style.background = lum(getComputedStyle(app).backgroundColor) > .55 ? "rgba(0,0,0,.85)" : "rgba(255,255,255,.85)";
+      const r = app.getBoundingClientRect();
+      btns.forEach(b => { b.style.left = (b.dataset.side === "l" ? r.left - 16 : r.right + 12) + "px"; b.style.top = (r.top + +b.dataset.top) + "px"; });
+    };
+    tick(); setInterval(tick, 1000); addEventListener("resize", tick); addEventListener("yd-theme", () => setTimeout(tick, 50));
+    new MutationObserver(() => requestAnimationFrame(tick)).observe(app, { attributes: true, subtree: true, attributeFilter: ["hidden", "class"] });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", deviceFrame); else setTimeout(deviceFrame, 0);
+
   window.YDUI = { thumb, file, map, place, i18n, liveMap, navUrl, track, surface: SURFACE, theme: { get: getTheme, set: setTheme, isDark: () => isDark(getTheme()), sync: syncThemeUI, segment: themeSegment } };
 })();
