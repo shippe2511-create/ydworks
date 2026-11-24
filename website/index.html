@@ -494,8 +494,56 @@ html[lang="dv"] .foot-legal{font-size:13.5px}
 @keyframes wa-tip-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.wa-fab,.wa-fab.off{transition:none}}
 @media print{.wa-fab,.wa-tip{display:none}}
+
+/* console-controlled visibility (classes set on <html> from YDSET before first paint) */
+html.yd-hide-services #services,html.yd-hide-fleet #fleet,html.yd-hide-materials #materials,html.yd-hide-build #build,html.yd-hide-contact #contact,
+html.yd-hide-services a[href="#services"]:not(.cap),html.yd-hide-fleet a[href="#fleet"]:not(.cap),html.yd-hide-materials a[href="#materials"]:not(.cap),
+html.yd-hide-build a[href="#build"]:not(.cap),html.yd-hide-contact a[href="#contact"]:not(.cap),
+html.yd-hide-services #menu li:has(> a[href="#services"]),html.yd-hide-fleet #menu li:has(> a[href="#fleet"]),html.yd-hide-materials #menu li:has(> a[href="#materials"]),
+html.yd-hide-build #menu li:has(> a[href="#build"]),
+html.yd-off-estimate .estimate,html.yd-off-reviews .hero .ticker > .t-rev,
+html.yd-off-quote #quoteForm,html.yd-off-quote .nav > a.btn[href="#contact"],html.yd-off-quote #estSend,html.yd-off-quote [data-book],
+html.yd-off-info .contact-grid > .info,
+html.yd-off-wa .wa-fab,html.yd-off-wa .wa-tip{display:none!important}
+/* service cards stay (they describe the business) but stop linking to a hidden section */
+html.yd-hide-fleet .cap[href="#fleet"],html.yd-hide-materials .cap[href="#materials"],html.yd-hide-build .cap[href="#build"]{pointer-events:none;cursor:default}
+html.yd-hide-fleet .cap[href="#fleet"] .go,html.yd-hide-materials .cap[href="#materials"] .go,html.yd-hide-build .cap[href="#build"] .go{display:none}
+html.yd-hide-services #fleet{padding-top:clamp(88px,11vw,150px)!important}
+html.yd-off-estimate .mat-layout{grid-template-columns:1fr}
+html.yd-off-quote .contact-grid,html.yd-off-info .contact-grid{grid-template-columns:1fr}
+/* hero ticker without the reviews cell: three across, or two + one on phones */
+html.yd-off-reviews .hero .ticker{grid-template-columns:repeat(3,1fr)}
+html.yd-off-reviews .hero .ticker > .t-rev + div{padding-inline-start:0}
+@media (max-width:760px){
+  html.yd-off-reviews .hero .ticker{grid-template-columns:1fr 1fr}
+  html.yd-off-reviews .hero .ticker > div:nth-child(2){border-inline-end:1px solid rgba(255,255,255,.12)}
+  html.yd-off-reviews .hero .ticker > div:nth-child(3){padding-inline-start:24px;border-inline-end:0;border-bottom:1px solid rgba(255,255,255,.12)}
+  html.yd-off-reviews .hero .ticker > div:nth-child(4){grid-column:1/-1;padding-inline-start:0}
+}
+/* a custom headline is waiting for the script: keep the space, hide the built-in words */
+html.yd-hero-wait .hero h1,html.yd-sub-wait .hero .lede{visibility:hidden}
+.maint{grid-column:1/-1;border-radius:16px;background:color-mix(in srgb,var(--busy) 10%,transparent);border:1px solid color-mix(in srgb,var(--busy) 32%,transparent);padding:16px 18px;font-size:15px;line-height:1.55;display:flex;gap:12px;align-items:flex-start}
+.maint[hidden]{display:none}
+.maint::before{content:"";flex:none;width:9px;height:9px;margin-top:8px;border-radius:50%;background:var(--busy)}
 </style>
 <script src="yd-config.js"></script>
+<script src="yd-settings.js"></script>
+<script>
+/* website settings from the console: visibility classes on <html> now (no flash), text in the main script below */
+window.ydSiteClasses=function(s){
+  var w=(s&&s.website)||{},sec=w.sections||{},R=document.documentElement,on=function(v){return v!==false};
+  var hide={services:!on(sec.services),fleet:!on(sec.fleet),materials:!on(sec.materials),build:!on(sec.projects),contact:!on(sec.quote)&&!on(sec.contact)};
+  Object.keys(hide).forEach(function(k){R.classList.toggle("yd-hide-"+k,hide[k])});
+  R.classList.toggle("yd-off-estimate",!on(sec.estimate));R.classList.toggle("yd-off-reviews",!on(sec.reviews));
+  R.classList.toggle("yd-off-quote",!on(sec.quote));R.classList.toggle("yd-off-info",!on(sec.contact));
+  R.classList.toggle("yd-off-wa",w.whatsapp_button===false);
+  return hide;
+};
+try{(function(){var s=YDSET.get(),w=s.website||{},R=document.documentElement;ydSiteClasses(s);
+  if(w.hero_title_en||w.hero_title_dv)R.classList.add("yd-hero-wait");if(w.hero_sub_en||w.hero_sub_dv)R.classList.add("yd-sub-wait");
+  setTimeout(function(){R.classList.remove("yd-hero-wait","yd-sub-wait")},3000);   // never leave the hero blank
+})()}catch(e){}
+</script>
 <script src="yd-catalog.js"></script>
 <script>try{var yl=new URLSearchParams(location.search).get("lang");if(yl==="dv"||yl==="en")localStorage.setItem("yd-lang",yl)}catch(e){}</script>
 <script src="yd-ui.js"></script>
@@ -534,7 +582,7 @@ html[lang="dv"] .foot-legal{font-size:13.5px}
         <a class="btn btn-glass" href="#materials" data-i18n="hero.cta2">Order materials</a>
       </div>
       <div class="ticker">
-        <div><b>4.5<span class="stars" aria-hidden="true">★★★★★</span></b><span data-i18n="tick.rating">Google rating · 13 reviews</span></div>
+        <div class="t-rev"><b>4.5<span class="stars" aria-hidden="true">★★★★★</span></b><span data-i18n="tick.rating">Google rating · 13 reviews</span></div>
         <div><b>9</b><span data-i18n="tick.classes">Machine classes</span></div>
         <div><b data-i18n="tick.same">Same day</b><span data-i18n="tick.delivery">Delivery in Hulhumalé</span></div>
         <div><b><span data-ltr>992 0202</span></b><span data-i18n="tick.hotline">Hotline</span></div>
@@ -1125,7 +1173,8 @@ const YD_DV_TERMS = {
     const ok=()=>{show(t("sent.ok",{name:esc(name.split(" ")[0]),phone:esc(row.phone),needs:esc(dv()?needsLabel:needsLabel.toLowerCase()),site:esc(siteLabel)}));f.reset()};
     // spam traps: a filled hidden field, or a form sent within 3 s of the page becoming interactive, looks like success but sends nothing
     if(f.website.value||Date.now()-readyAt<3000){ok();return}
-    if(!LIVE){fallback();return}
+    // no backend, or online requests paused from the console: WhatsApp / email / call instead
+    if(!LIVE||maintOn()){fallback();return}
     sending=true;btn.disabled=true;btn.setAttribute("aria-busy","true");
     // send to the YD Works backend; if it can't be reached, fall back to the hotline
     const ctl=new AbortController();const tm=setTimeout(()=>ctl.abort(),8000);
@@ -1145,16 +1194,6 @@ const YD_DV_TERMS = {
   $$("[data-copy]").forEach(b=>b.addEventListener("click",()=>{const v=b.dataset.copy;try{navigator.clipboard.writeText(v).then(()=>toast(t("toast.copied",{v})),()=>toast(v))}catch(_){toast(v)}}));
   $("#yr").textContent=new Date().getFullYear();
 
-  // contact details + announcement managed in the YD Works console
-  (function(){const U=SB_URL,K=SB_KEY;if(!LIVE)return;
-    fetch(U+"/rest/v1/app_settings?select=key,value",{headers:{apikey:K}}).then(r=>r.ok?r.json():[]).then(rows=>{const s={};rows.forEach(x=>s[x.key]=x.value);
-      const c=s.contact||{},a=s.announcement||{};
-      if(c.hotline){$$(".big,.hot").forEach(e=>{e.textContent=e.classList.contains("hot")?"+960 "+c.hotline:c.hotline})}
-      const td=$$(".hours td:last-child");if(td.length===3){if(c.hours_am)td[0].textContent=c.hours_am;if(c.hours_pm)td[1].textContent=c.hours_pm;if(c.friday){td[2].removeAttribute("data-i18n");td[2].textContent=c.friday}}
-      if(a.active&&a.text){const b=document.createElement("div");b.className="announce "+(a.tone||"info");b.dir="auto";
-        const setText=()=>{b.textContent=(dv()&&a.text_dv)||a.text};setText();addEventListener("yd-lang",setText);
-        document.body.prepend(b);$(".top").style.top="calc(env(safe-area-inset-top,0px) + "+b.offsetHeight+"px)"}
-    }).catch(()=>{})})();
 
   // legal page addresses from config (labels are translated; the pages are English)
   const LG=CFG.legal||{};$$("[data-legal]").forEach(a=>{if(LG[a.dataset.legal])a.href=LG[a.dataset.legal]});
@@ -1201,6 +1240,62 @@ const YD_DV_TERMS = {
   function renderAll(){I.apply();applyExtra();drawFleet();drawStatus();drawMats();renderEst();if(lastErr)$("#qErr").textContent=t(lastErr)}
   renderAll();
   addEventListener("yd-lang",renderAll);
+
+  // ── website settings from the YD Works console (YDSET: app_settings when live, the demo console's copy otherwise) ──
+  // section visibility is done by classes on <html> (ydSiteClasses, in the head); here: words, contact, banner, SEO, maintenance
+  const SET=window.YDSET||{get:()=>({}),txt:()=>"",DEFAULTS:{}};
+  const sTxt=(o,f)=>String((o&&SET.txt(o,f))||"").trim();
+  const DEF_C=(SET.DEFAULTS&&SET.DEFAULTS.contact)||{};
+  const metaDesc=$('meta[name="description"]'),DESC0=metaDesc?metaDesc.content:"";
+  const ogT=$('meta[property="og:title"]'),ogD=$('meta[property="og:description"]'),OGT0=ogT&&ogT.content,OGD0=ogD&&ogD.content;
+  function maintOn(){const w=SET.get().website||{};return !!(w.maintenance&&w.maintenance.active)}
+  // custom words replace a translated element as plain text; empty puts the built-in (translated) wording back
+  function swapText(el,attr,custom){
+    if(!el)return;
+    if(custom){if(el.dataset[attr]){el.dataset.ydKey=el.dataset[attr];delete el.dataset[attr]}el.textContent=custom;return}
+    if(el.dataset.ydKey){const k=el.dataset.ydKey;el.dataset[attr]=k;delete el.dataset.ydKey;if(attr==="i18nHtml")el.innerHTML=t(k);else el.textContent=t(k)}
+  }
+  const MAINT_DEF={en:"Online requests are paused for a short while. Fill in the form and we'll hand it to WhatsApp or email, or call {h}.",
+    dv:"ކުޑަ ވަގުތަކަށް އޮންލައިންކޮށް ރިކުއެސްޓް ފޮނުވުން ހުއްޓާލާފައި. ފޯމު ފުރުއްވައިފިނަމަ ވަޓްސްއެޕް ނުވަތަ އީމެއިލް މެދުވެރިކޮށް ފޮނުވޭނެ، ނުވަތަ {h} އަށް ގުޅުއްވާ."};
+  const maintBox=document.createElement("div");maintBox.className="maint";maintBox.id="qMaint";maintBox.setAttribute("role","status");maintBox.hidden=true;
+  $("#quoteForm").prepend(maintBox);
+  let annBar=null;
+  function placeTop(){$(".top").style.top=annBar&&!annBar.hidden?"calc(env(safe-area-inset-top,0px) + "+annBar.offsetHeight+"px)":""}
+  addEventListener("resize",placeTop,{passive:true});
+  function applySettings(){
+    const s=SET.get()||{},w=s.website||{},c=s.contact||{},a=s.announcement||{},R=document.documentElement;
+    try{window.ydSiteClasses&&ydSiteClasses(s)}catch(_){}
+    // hero headline + sub-line
+    swapText($(".hero h1"),"i18nHtml",sTxt(w,"hero_title"));
+    swapText($(".hero .lede"),"i18n",sTxt(w,"hero_sub"));
+    R.classList.remove("yd-hero-wait","yd-sub-wait");
+    // search engines + link previews
+    const st=String(w.seo_title||"").trim(),sd=String(w.seo_description||"").trim();
+    document.title=st||t("doc.title");
+    if(metaDesc)metaDesc.content=sd||DESC0;
+    if(ogT)ogT.content=st||OGT0;if(ogD)ogD.content=sd||OGD0;
+    // contact: hotline + counter hours
+    const hot=String(c.hotline||DEF_C.hotline||"992 0202").trim(),dig=hot.replace(/\D/g,"");
+    $$(".info .big").forEach(e=>{e.textContent=hot});
+    $$(".nav .hot").forEach(e=>{e.textContent="+960 "+hot;if(dig.length===7)e.href="tel:+960"+dig});
+    $$('.info .copy[data-copy^="+960"]').forEach(b=>{b.dataset.copy="+960 "+hot});
+    const td=$$(".hours td:last-child");
+    if(td.length===3){td[0].textContent=c.hours_am||DEF_C.hours_am||td[0].textContent;td[1].textContent=c.hours_pm||DEF_C.hours_pm||td[1].textContent;
+      swapText(td[2],"i18n",c.friday&&c.friday!==DEF_C.friday?String(c.friday):"")}
+    // maintenance: notice over the quote form; submitting hands the request to WhatsApp / email / call
+    const m=w.maintenance||{};maintBox.hidden=!m.active;
+    if(m.active)maintBox.textContent=sTxt(m,"text")||MAINT_DEF[dv()?"dv":"en"].replace("{h}",hot);
+    // announcement banner (same one the customer app shows, unless turned off for the website)
+    const txt=String((dv()&&a.text_dv)||a.text||"").trim(),showA=!!(a.active&&txt&&!(a.where&&a.where.website===false));
+    if(showA&&!annBar){annBar=document.createElement("div");annBar.dir="auto";annBar.setAttribute("role","status");document.body.prepend(annBar)}
+    if(annBar){annBar.hidden=!showA;if(showA){annBar.className="announce "+(["info","warn","crit"].includes(a.tone)?a.tone:"info");annBar.textContent=txt}}
+    placeTop();
+    // the floating WhatsApp bubble must not pop up while the button is switched off
+    if(w.whatsapp_button===false)tip.hidden=true;
+  }
+  applySettings();
+  addEventListener("yd-lang",applySettings);
+  addEventListener("yd-settings",applySettings);
   loadAvailability();if(LIVE)setInterval(loadAvailability,5*60e3);
 })();
 </script>

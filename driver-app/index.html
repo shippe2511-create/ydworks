@@ -380,6 +380,31 @@ html[lang="dv"] .phone-in,html[lang="dv"] .code-in{direction:ltr}
 .defstate.err{color:var(--busy)}
 .defstate .spin{width:14px;height:14px;border-radius:50%;border:2px solid var(--line-2);border-top-color:var(--brand);animation:spin .9s linear infinite;flex:none}
 html[lang="dv"] .rv .ref,html[lang="dv"] .rv-top small{letter-spacing:0}
+
+/* ---- console-controlled: message banner, daily-check gate, force update ---- */
+.dmsg{--tone:var(--brand);display:flex;gap:12px;align-items:flex-start;border-radius:18px;padding:6px;padding-inline:14px 6px;margin-bottom:6px;border:1px solid color-mix(in srgb,var(--tone) 38%,transparent);background:color-mix(in srgb,var(--tone) 10%,var(--surface));color:var(--ink)}
+.dmsg.success{--tone:var(--ok)}
+.dmsg.warning{--tone:var(--hazard);border-color:color-mix(in srgb,var(--hazard) 70%,transparent);background:color-mix(in srgb,var(--hazard) 18%,var(--surface))}
+.dmsg .m-ic{width:22px;height:22px;flex:none;margin-top:11px;color:color-mix(in srgb,var(--tone) 80%,var(--ink))}
+.dmsg .m-tx{flex:1;min-width:0;padding-block:9px}
+.dmsg .m-tx .lbl{display:block;margin-bottom:2px}
+.dmsg .m-tx p{font-size:14.5px;line-height:1.45;overflow-wrap:anywhere;white-space:pre-line}
+.dmsg .m-x{width:44px;height:44px;flex:none;border:0;background:transparent;border-radius:50%;display:grid;place-items:center;color:var(--mute)}
+.dmsg .m-x svg{width:18px;height:18px}
+.gate{margin-top:16px;border-radius:18px;padding:14px 16px;background:color-mix(in srgb,var(--hazard) 16%,var(--surface));border:1.5px solid var(--hazard);display:flex;gap:12px;align-items:flex-start}
+.gate > svg{width:24px;height:24px;flex:none;color:color-mix(in srgb,var(--hazard) 70%,var(--ink));margin-top:1px}
+.gate b{display:block;font:600 16px/1.35 var(--display);letter-spacing:-.01em}
+.gate p{color:var(--mute);font-size:13.5px;margin-top:4px}
+.upd{position:absolute;inset:0;z-index:50;background:var(--bg);overflow-y:auto;display:flex;flex-direction:column;justify-content:center;padding:calc(28px + env(safe-area-inset-top,0px)) max(24px,env(safe-area-inset-right,0px)) calc(28px + env(safe-area-inset-bottom,0px)) max(24px,env(safe-area-inset-left,0px))}
+.upd .u-ic{width:72px;height:72px;border-radius:24px;background:color-mix(in srgb,var(--hazard) 22%,transparent);color:color-mix(in srgb,var(--hazard) 65%,var(--ink));display:grid;place-items:center}
+.upd .u-ic svg{width:34px;height:34px}
+.upd h1{font-size:28px;letter-spacing:-.04em;margin-top:20px}
+.upd p{color:var(--mute);margin-top:10px;font-size:15px;white-space:pre-line;overflow-wrap:anywhere}
+.upd .u-ver{font:500 12px var(--mono);color:var(--mute);margin-top:14px;letter-spacing:.02em}
+.upd a.big-btn{text-decoration:none;margin-top:26px}
+.upd small{display:block;color:var(--mute);font-size:13px;margin-top:12px;text-align:center}
+html[lang="dv"] .upd h1{letter-spacing:0}
+html[lang="dv"] .upd .u-ver,html[lang="dv"] .dmsg .lbl{letter-spacing:0}
 </style>
 <svg width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><defs>
   <symbol id="i-star" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.6l2.85 5.95 6.55.82-4.8 4.53 1.22 6.5L12 17.2l-5.82 3.2 1.22-6.5L2.6 9.37l6.55-.82z"/></symbol>
@@ -387,6 +412,7 @@ html[lang="dv"] .rv .ref,html[lang="dv"] .rv-top small{letter-spacing:0}
   <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
 </defs></svg>
 <script src="yd-config.js"></script>
+<script src="yd-settings.js"></script>
 <script>window.YD_VENDOR_BASE=window.YD_VENDOR_BASE||"vendor/";</script>
 <script src="yd-catalog.js"></script>
 <script src="yd-ui.js"></script>
@@ -414,6 +440,7 @@ html[lang="dv"] .rv .ref,html[lang="dv"] .rv-top small{letter-spacing:0}
   </section>
 
   <section class="screen" id="s-jobs" hidden data-i18n-aria="tab.jobs" aria-label="Jobs">
+    <div id="dmsg"></div>
     <div class="sec"><h2 data-i18n="jobs.open">Open requests</h2><span class="pill info" id="openCount">0</span></div>
     <div class="list" id="openList"></div>
     <div class="sec"><h2 data-i18n="jobs.done">Completed</h2></div>
@@ -447,6 +474,7 @@ html[lang="dv"] .rv .ref,html[lang="dv"] .rv-top small{letter-spacing:0}
       <div class="ct-btns"><a id="ctCall" href="tel:+9609920202"><svg aria-hidden="true"><use href="#i-phone"/></svg><span data-i18n="ct.call">Call</span></a></div>
     </div>
 
+    <div id="fuelSec">
     <div class="sec"><h2 data-i18n="fuel.h">Fuel log</h2><span class="lbl" data-i18n="fuel.week">This week</span></div>
     <div class="card vgrid">
       <div><label class="lbl" for="fL" data-i18n="fuel.l">Litres</label><input class="inp" id="fL" inputmode="decimal" placeholder="0" data-ltr></div>
@@ -460,6 +488,7 @@ html[lang="dv"] .rv .ref,html[lang="dv"] .rv-top small{letter-spacing:0}
       <div class="card"><span class="lbl" data-i18n="fuel.totKm">Distance</span><b id="fTotKm" data-ltr>—</b></div>
     </div>
     <div class="list" id="fuelList" style="margin-top:12px"></div>
+    </div>
 
     <div class="sec"><h2 data-i18n="hist.h">Recent inspections</h2></div>
     <div class="list" id="inspList"></div>
@@ -556,6 +585,14 @@ html[lang="dv"] .rv .ref,html[lang="dv"] .rv-top small{letter-spacing:0}
       </div>
     </div>
   </div>
+  <div class="upd" id="updGate" role="alertdialog" aria-modal="true" aria-labelledby="updTitle" aria-describedby="updText" hidden>
+    <span class="u-ic"><svg aria-hidden="true"><use href="#i-alert"/></svg></span>
+    <h1 id="updTitle">Update YD Driver</h1>
+    <p id="updText" dir="auto"></p>
+    <span class="u-ver" id="updVer"></span>
+    <a class="big-btn amber" id="updCall" href="tel:+9609920202"><svg aria-hidden="true"><use href="#i-phone"/></svg><span id="updCallTx">Call the counter</span></a>
+    <small id="updHelp"></small>
+  </div>
   <div class="toast" id="toast" role="status"></div>
 </div>
 
@@ -573,6 +610,16 @@ const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",
 const ltr=s=>`<bdi data-ltr>${s}</bdi>`;
 const iso=s=>"\u2066"+s+"\u2069";   // isolate LTR runs (amounts, refs) inside plain-text strings such as toasts
 const ls={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+/* settings a manager changes in the console (Website & apps → Driver app); see yd-settings.js. Defaults = the app as built. */
+const DS_DEFAULTS={message:{active:false,text_en:"",text_dv:"",tone:"info"},checklist:[],require_pod_photo:true,require_daily_check:true,fuel_logging:true,location_every_sec:30,min_version:"",update_text_en:"",update_text_dv:""};
+function readDS(){
+  let s=null;try{s=window.YDSET&&YDSET.get()&&YDSET.get().driver_app}catch(_){}
+  const o=Object.assign({},DS_DEFAULTS,s&&typeof s==="object"?s:{});
+  o.message=Object.assign({},DS_DEFAULTS.message,o.message&&typeof o.message==="object"?o.message:{});
+  o.require_pod_photo=o.require_pod_photo!==false;o.require_daily_check=o.require_daily_check!==false;o.fuel_logging=o.fuel_logging!==false;
+  return o;
+}
+let DS=readDS(),updBlocked=false;
 let ME={name:"Ibrahim Shareef",unit:"TP-04 · Tipper 10m³",init:"IS",code:"TP-04",rating:4.8};
 
 /* ═════════════ strings: English + Dhivehi ═════════════
@@ -627,7 +674,10 @@ const STR={en:{
   "rate.h":"Your rating","rate.last":"Last {n}","rate.count1":"1 rating","rate.countN":"{n} ratings","rate.aria":"{n} out of 5 stars","rate.barAria":"{s} stars: {n}","rate.comments":"Recent comments","rate.none":"No ratings yet","rate.noneP":"Customers can rate each delivery once it's completed. Their stars and comments appear here.","rate.more":"Show all comments","rate.less":"Show fewer","rate.order":"Order {ref}","rate.err":"Couldn't load your ratings","rate.retry":"Try again",
   "al.rate.t":"{name} rated you {stars}★","al.rate.b":"“{comment}” · {ref}",
   "def.uploading":"Uploading photo…","def.photoFail":"The photo didn't upload ({msg}). Check your signal and try again.","toast.defQueued":"No signal · the defect report will send when you're back online","hist.pending":"Waiting to upload",
-  "toast.acceptedQueued":"Job accepted · your last delivery will upload when you're back online"
+  "toast.acceptedQueued":"Job accepted · your last delivery will upload when you're back online",
+  "msg.lbl":"From YD Works","msg.close":"Dismiss message","pod.photoOpt":"Add a photo of the unloaded materials (optional)","veh.inspSubOpt":"Walk around {unit} before your first job.",
+  "gate.h":"Do today's vehicle check first","gate.p":"YD Works asks for the daily vehicle check before you accept jobs. {n}/{total} items passed.","gate.go":"Do check now","gate.later":"Not now",
+  "upd.h":"Update YD Driver","upd.p":"This version of YD Driver is no longer supported. Install the latest version to keep receiving jobs.","upd.ver":"Your version {have} · needed {need}","upd.call":"Call the counter","upd.help":"Not sure how? Call the counter and we'll help."
 },dv:{
   "tab.today":"މިއަދު","tab.jobs":"މަސައްކަތް","tab.vehicle":"ގާޑި","tab.earn":"އާމްދަނީ",
   "online":"އޮންލައިން","offline":"އޮފްލައިން","aria.bell":"ނޯޓިފިކޭޝަން","aria.bellN":"ނޯޓިފިކޭޝަން، {n} ނުކިޔާ",
@@ -677,7 +727,10 @@ const STR={en:{
   "rate.h":"ތިބާގެ ރޭޓިންގ","rate.last":"ފަހުގެ {n}","rate.count1":"1 ރޭޓިންގ","rate.countN":"{n} ރޭޓިންގ","rate.aria":"5 ތަރިން {n}","rate.barAria":"{s} ތަރި: {n}","rate.comments":"ފަހުގެ ކޮމެންޓުތައް","rate.none":"އަދި ރޭޓިންގއެއް ނެތް","rate.noneP":"ޑެލިވަރީ ނިމުމުން ކަސްޓަމަރުންނަށް ރޭޓްކުރެވޭނެ. ތަރިތަކާއި ކޮމެންޓުތައް މިތާ ފެންނާނެ.","rate.more":"ހުރިހާ ކޮމެންޓެއް ދައްކާ","rate.less":"މަދުކޮށް ދައްކާ","rate.order":"އޯޑަރު {ref}","rate.err":"ރޭޓިންގ ލޯޑެއް ނުކުރެވުނު","rate.retry":"އަލުން މަސައްކަތްކުރޭ",
   "al.rate.t":"{name} ތިބާއަށް {stars}★ ދެއްވައިފި","al.rate.b":"“{comment}” · {ref}",
   "def.uploading":"ފޮޓޯ އަޕްލޯޑުކުރަނީ…","def.photoFail":"ފޮޓޯ އަޕްލޯޑެއް ނުވި ({msg}). ސިގްނަލް ބައްލަވައިފައި އަލުން މަސައްކަތްކުރޭ.","toast.defQueued":"ސިގްނަލް ނެތް · އިންޓަނެޓް ލިބުމުން މައްސަލަ ރިޕޯޓް ފޮނުވޭނެ","hist.pending":"އަޕްލޯޑަށް މަޑުކުރަނީ",
-  "toast.acceptedQueued":"މަސައްކަތް ނެގިއްޖެ · ފަހުގެ ޑެލިވަރީ އިންޓަނެޓް ލިބުމުން އަޕްލޯޑް ވާނެ"
+  "toast.acceptedQueued":"މަސައްކަތް ނެގިއްޖެ · ފަހުގެ ޑެލިވަރީ އިންޓަނެޓް ލިބުމުން އަޕްލޯޑް ވާނެ",
+  "msg.lbl":"YD Works ގެ މެސެޖު","msg.close":"މެސެޖު ފޮރުވާ","pod.photoOpt":"ބާލާފައިވާ މުދަލުގެ ފޮޓޯއެއް ނަގާ (ބޭނުންނަމަ)","veh.inspSubOpt":"ފުރަތަމަ މަސައްކަތުގެ ކުރިން {unit} ވަށައިގެން ބައްލަވާ.",
+  "gate.h":"ފުރަތަމަ މިއަދުގެ ގާޑީގެ ޗެކްކުރުން ނިންމާ","gate.p":"މަސައްކަތް ނެގުމުގެ ކުރިން ދުވަހުގެ ގާޑީގެ ޗެކްކުރުން ނިންމަން ޖެހޭ. {n}/{total} ޗެކް ފާސްވެއްޖެ.","gate.go":"މިހާރު ޗެކްކުރޭ","gate.later":"މިހާރެއް ނޫން",
+  "upd.h":"YD ޑްރައިވަރ އަޕްޑޭޓްކުރޭ","upd.p":"YD ޑްރައިވަރގެ މި ވަރޝަން މިހާރު ބޭނުމެއް ނުކުރެވޭނެ. މަސައްކަތް ލިބެން ކުރިއަށް ދިއުމަށް އެންމެ ފަހުގެ ވަރޝަން އިންސްޓޯލްކުރޭ.","upd.ver":"ތިބާގެ ވަރޝަން {have} · ބޭނުންވަނީ {need}","upd.call":"ކައުންޓަރަށް ގުޅާ","upd.help":"ނޭނގޭނަމަ ކައުންޓަރަށް ގުޅުއްވާ، އެހީތެރިވެދޭނަން."
 }};
 const I18N=window.YDUI&&YDUI.i18n;
 if(I18N)I18N.add(STR);
@@ -727,7 +780,7 @@ function setOnlineUI(){$("#onlineBtn").setAttribute("aria-pressed",online);$("#o
 function go(s){cur=s;document.querySelector(".head").classList.toggle("compact",s!=="today");$$(".screen").forEach(x=>x.hidden=x.id!=="s-"+s);$$(".tabbar button").forEach(b=>{if(b.dataset.go===s)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current")});render()}
 $$(".tabbar button[data-go]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.go)));
 $("#onlineBtn").addEventListener("click",()=>{
-  if(!online&&checkDone()<CHECKS.length){toast(t("toast.checkFirst"));go("vehicle");return}
+  if(!online&&DS.require_daily_check&&!checkOk()){toast(t("toast.checkFirst"));go("vehicle");return}
   online=!online;if(LIVE)YDB.rpc("set_online",{p_online:online}).catch(e=>toast(e.message));setOnlineUI();toast(t(online?"toast.online":"toast.offline"));
   online?geoStart():geoStop();render()});
 
@@ -800,13 +853,16 @@ function onPos(p){
   sendLoc();
   if(lm)lm.setMarker("me",gps[0],gps[1],{color:"#1f4bff",size:22});
 }
-// LIVE: share the position with the backend at most every 15 s (also re-sent while parked, so it never looks stale)
+// LIVE: share the position with the backend at most every driver_app.location_every_sec (10–300 s, set in the console);
+// also re-sent on a timer while parked, so it never looks stale
+let locTimer=null,locMsNow=0;
+function locMs(){const n=+DS.location_every_sec;return Math.round(Math.min(300,Math.max(10,isFinite(n)&&n>0?n:30))*1000)}
 function sendLoc(){
-  if(!LIVE||!online||!gps||Date.now()-lastSent<15000)return;
+  if(!LIVE||!online||!gps||Date.now()-lastSent<locMs()-250)return;
   lastSent=Date.now();
   try{Promise.resolve(YDB.reportLocation(gps[0],gps[1])).catch(()=>{})}catch(_){}
 }
-setInterval(sendLoc,15000);
+function locRestart(){const ms=locMs();if(ms===locMsNow&&locTimer)return;locMsNow=ms;clearInterval(locTimer);locTimer=setInterval(sendLoc,ms);sendLoc()}
 function onGeoErr(e){
   if(e&&e.code===1){locOff=true;if(geoId!=null){try{navigator.geolocation.clearWatch(geoId)}catch(_){}geoId=null}renderFlags()}
 }
@@ -948,14 +1004,16 @@ function podHtml(a){
     :ps==="paid"?`<div class="cash paid" id="cashLine">${icon("check")}<span>${t("cash.paid")}</span></div>`
     :`<div class="cash pending" id="cashLine">${icon("phone")}<span>${t("cash.pending")}</span></div>`;
   return `<div class="pod"><span class="lbl">${t("pod.lbl")}</span>${cash}
-  <label class="photo" id="photoBox" for="photoIn"><span>${icon("camera").replace("<svg","<svg width='30' height='30'")}<br>${t("pod.photo")}</span><input type="file" id="photoIn" accept="image/*" capture="environment" aria-label="${esc(t("pod.photoAria"))}"></label>
+  <label class="photo" id="photoBox" for="photoIn"><span>${icon("camera").replace("<svg","<svg width='30' height='30'")}<br><span id="photoTx">${t(DS.require_pod_photo?"pod.photo":"pod.photoOpt")}</span></span><input type="file" id="photoIn" accept="image/*" capture="environment" aria-label="${esc(t("pod.photoAria"))}"></label>
   <div><label class="lbl" for="rcvName">${t("pod.rcv")}</label><input class="inp" id="rcvName" dir="auto" placeholder="${esc(t("pod.rcvPh"))}" autocomplete="off" style="margin-top:6px"></div>
   <div class="sig"><canvas id="sigPad" aria-label="${esc(t("pod.sigAria"))}"></canvas><button class="clr" id="sigClr" type="button">${t("pod.clear")}</button><span class="hint" id="sigHint">${t("pod.sigHint")}</span></div></div>`}
-let podFile=null;
+let podFile=null,podCheck=null;
 function wirePod(a){
   podFile=null;
   let photo=false,signed=false;
-  const btn=$("#nextBtn"),check=()=>{btn.disabled=!(photo&&signed&&$("#rcvName").value.trim())};
+  // the photo is required unless the console turned driver_app.require_pod_photo off (then it stays optional)
+  const btn=$("#nextBtn"),check=()=>{if(!btn.isConnected)return;btn.disabled=!((photo||!DS.require_pod_photo)&&signed&&$("#rcvName").value.trim())};
+  podCheck=check;
   $("#photoIn").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;podFile=f;const rd=new FileReader();rd.onload=()=>{$("#photoBox").innerHTML=`<img src="${rd.result}" alt="${esc(t("pod.photoAlt"))}">`;photo=true;check()};rd.readAsDataURL(f)});
   $("#rcvName").addEventListener("input",check);
   const c=$("#sigPad"),ctx=c.getContext("2d");
@@ -981,6 +1039,7 @@ function showRequest(j){
     <div class="req-btns"><button class="big-btn ghost" id="decline">${t("req.decline")}</button><button class="big-btn amber" id="accept">${t("req.accept")}</button></div>`;
   $("#req").classList.add("on");
   $("#accept").onclick=()=>{
+    if(DS.require_daily_check&&!checkOk()){checkGate();return}
     if(LIVE){const b=$("#accept");b.disabled=true;YDB.rpc("accept_order",{p_order:j.uuid}).then(()=>{closeReq();toast(t(myPods().length?"toast.acceptedQueued":"toast.accepted"));track("job_accepted",{kind:j.kind});refreshLive();go("today")},e=>{closeReq();toast(/finish your current job/i.test(e.message||"")?t("toast.finishFirst"):(e.message||t("toast.couldntUpdate")))});return}
     jobs=load()||jobs;const cj=jobs.find(x=>x.id===j.id);
     if(!cj||cj.status!=="requested"){closeReq();toast(t("toast.taken"));return}
@@ -992,9 +1051,19 @@ function showRequest(j){
   clearInterval(reqTimer);
   reqTimer=setInterval(()=>{left--;$("#ringN").textContent=left;$("#ringArc").setAttribute("stroke-dasharray",`${left/30*100} 100`);if(left<=0){closeReq();toast(t("toast.expired"))}},1000);
 }
+// driver_app.require_daily_check: accepting before today's vehicle check is done asks for the check first
+function checkGate(){
+  clearInterval(reqTimer);
+  const btns=$("#reqPanel .req-btns");if(!btns)return;
+  btns.outerHTML=`<div class="gate" id="gate" role="alert">${icon("alert")}<div><b>${t("gate.h")}</b><p>${t("gate.p",{n:checkDone(),total:CHECKS.length})}</p></div></div>
+    <div class="req-btns"><button class="big-btn ghost" id="gateLater" type="button">${t("gate.later")}</button><button class="big-btn amber" id="gateGo" type="button">${icon("check")}${t("gate.go")}</button></div>`;
+  $("#gateLater").onclick=()=>closeReq();
+  $("#gateGo").onclick=()=>{closeReq();go("vehicle");setTimeout(()=>{const c=$("#checks");c&&c.scrollIntoView({block:"start",behavior:"smooth"})},40)};
+  $("#gateGo").focus();
+}
 function closeReq(){clearInterval(reqTimer);$("#req").classList.remove("on");pending=null}
 function watchRequests(){
-  if(!online||active()||pending||$("#alerts").classList.contains("on")||$("#delSheet").classList.contains("on"))return;
+  if(!online||active()||pending||updBlocked||$("#alerts").classList.contains("on")||$("#delSheet").classList.contains("on"))return;
   const j=jobs.find(x=>x.status==="requested"&&!seen.has(x.id));
   if(j){seen.add(j.id);showRequest(j)}
 }
@@ -1010,30 +1079,53 @@ function renderJobs(){
 }
 
 /* ═════════════ vehicle: checklist, defects, fuel, history ═════════════ */
-const CHECKS=["c0","c1","c2","c3","c4","c5","c6","c7"];
-let chk=(()=>{try{const v=JSON.parse(localStorage.getItem("ydworks.chk")||"null");if(v&&v.d===new Date().toDateString())return v.c}catch(e){}return CHECKS.map(()=>true)})();
-function checkDone(){return chk.filter(Boolean).length}
+// The daily checklist: the built-in items, or the list a manager set in the console (driver_app.checklist).
+// Each item: {id, en (English label, the key sent to the backend), t() label, s() hint}
+const BUILTIN=["c0","c1","c2","c3","c4","c5","c6","c7"];
+const builtinChecks=()=>BUILTIN.map(k=>({id:k,en:STR.en[k+".t"],t:()=>t(k+".t"),s:()=>t(k+".s"),builtin:true}));
+function buildChecks(){
+  const raw=Array.isArray(DS.checklist)?DS.checklist:[],ids=new Set(),out=[];
+  raw.forEach(it=>{
+    if(!it||typeof it!=="object")return;
+    const en=String(it.label_en||"").trim(),dv=String(it.label_dv||"").trim(),id=String(it.id!=null&&it.id!==""?it.id:en).trim();
+    if(!id||id==="__proto__"||!(en||dv)||ids.has(id))return;ids.add(id);
+    out.push({id,en:en||dv,t:()=>(window.YDSET?YDSET.txt({label_en:en||dv,label_dv:dv},"label"):en)||en||dv,s:()=>"",custom:true});
+  });
+  return out.length?out:builtinChecks();
+}
+let CHECKS=builtinChecks();
+// today's ticks, keyed by item id (an item nobody has unticked counts as passed, so a list changed mid-day keeps today's check done)
+let chk=(()=>{try{const v=JSON.parse(localStorage.getItem("ydworks.chk")||"null");if(v&&v.d===new Date().toDateString()){
+  if(Array.isArray(v.c)){const o={};v.c.forEach((x,i)=>{if(BUILTIN[i])o[BUILTIN[i]]=!!x});return o}
+  if(v.c&&typeof v.c==="object")return v.c}}catch(e){}return {}})();
+const chkOn=id=>chk[id]!==false;
+function checkDone(){return CHECKS.filter(c=>chkOn(c.id)).length}
+function checkOk(){return checkDone()===CHECKS.length}
+function saveChk(){try{localStorage.setItem("ydworks.chk",JSON.stringify({d:new Date().toDateString(),c:chk}))}catch(_){}}
 const IKEY="ydworks.driver.insp.v1",FKEY="ydworks.driver.fuel.v1";
 let insp=ls.get(IKEY,null),fuelLog=ls.get(FKEY,null);
 if(!insp){insp=[{at:Date.now()-26*36e5,passed:true,defects:"",n:8,total:8},{at:Date.now()-74*36e5,passed:false,defects:"Reverse beeper weak — replaced at workshop",n:7,total:8}];ls.set(IKEY,insp)}
 if(!fuelLog){const ws=weekStart(),span=Date.now()-ws;fuelLog=[{at:ws+span*.7,litres:62,cost:1240,odometer:84150},{at:ws+span*.25,litres:80,cost:1600,odometer:83890}];ls.set(FKEY,fuelLog)}
 let defPhoto=null,defFile=null,inspBusy=false;
-function inspItems(){const o={};CHECKS.forEach((k,i)=>o[STR.en[k+".t"]]=!!chk[i]);o.odometer=($("#odo").value||"").replace(/\s/g,"");o.fuel_level=$("#fuel").value;return o}
+function inspItems(){const o={};CHECKS.forEach(c=>o[c.en]=chkOn(c.id));
+  if(CHECKS[0]&&CHECKS[0].custom)o.checklist=CHECKS.map(c=>({id:c.id,label_en:c.en,ok:chkOn(c.id)}));   // console list: ids too
+  o.odometer=($("#odo").value||"").replace(/\s/g,"");o.fuel_level=$("#fuel").value;return o}
 // sends to the backend in LIVE (with the uploaded defect-photo path, if any); always keeps a local copy
 // so the history shows the thumbnail straight away
 async function sendInspection(passed,defects,o){
   o=o||{};
   if(LIVE)await YDB.submitInspection(inspItems(),passed,defects||"",o.photoPath||null);
-  const rec={at:Date.now(),passed,defects:o.text!=null?o.text:(defects||""),failed:o.failed||null,n:checkDone(),total:CHECKS.length,photo:o.photo||null,defectOnly:!!o.defectOnly,pending:!!o.pending,qid:o.qid||null};
+  const rec={at:Date.now(),passed,defects:o.text!=null?o.text:(defects||""),failed:o.failed||null,failedEn:o.failedEn||null,n:checkDone(),total:CHECKS.length,photo:o.photo||null,defectOnly:!!o.defectOnly,pending:!!o.pending,qid:o.qid||null};
   insp.unshift(rec);insp=insp.slice(0,20);ls.set(IKEY,insp);
   return rec;
 }
-const inspNote=r=>r.failed&&r.failed.length?r.failed.map(k=>t(k+".t")).join(", "):(r.defects||"");
+function checkLabel(id,fb){const c=CHECKS.find(x=>x.id===id);if(c)return c.t();if(BUILTIN.includes(id))return t(id+".t");return fb||id}
+const inspNote=r=>r.failed&&r.failed.length?r.failed.map((k,i)=>checkLabel(k,r.failedEn&&r.failedEn[i])).join(", "):(r.defects||"");
 function renderVehicle(){
   const today=new Date();
   $("#chkDate").textContent=`${t("day."+dayIdx(today))} ${today.getDate()}`;
-  $("#inspSub").textContent=t("veh.inspSub",{unit:ME.unit||ME.code||"TP-04"});
-  $("#checks").innerHTML=CHECKS.map((k,i)=>`<label for="c${i}"><input type="checkbox" id="c${i}" data-i="${i}" ${chk[i]?"checked":""}><span>${t(k+".t")}<small>${t(k+".s")}</small></span></label>`).join("");
+  $("#inspSub").textContent=t(DS.require_daily_check?"veh.inspSub":"veh.inspSubOpt",{unit:ME.unit||ME.code||"TP-04"});
+  $("#checks").innerHTML=CHECKS.map((c,i)=>{const s=c.s();return `<label for="c${i}"><input type="checkbox" id="c${i}" data-id="${esc(c.id)}" ${chkOn(c.id)?"checked":""}><span dir="auto">${esc(c.t())}${s?`<small>${esc(s)}</small>`:""}</span></label>`}).join("");
   $("#chkMeter").style.width=checkDone()/CHECKS.length*100+"%";
   const lastToday=insp.find(r=>new Date(r.at).toDateString()===today.toDateString()&&!r.defectOnly);
   const st=$("#inspState");st.textContent=lastToday?t("veh.submitted",{time:hhmm(lastToday.at)}):"";st.className="vstate"+(lastToday&&lastToday.passed?" ok":"");
@@ -1063,13 +1155,13 @@ function renderSettings(){
   $("#signOutBtn").hidden=!LIVE;
   $("#delBtn").disabled=!LIVE;$("#delNote").hidden=LIVE;
 }
-$("#checks").addEventListener("change",e=>{const i=+e.target.dataset.i;chk[i]=e.target.checked;try{localStorage.setItem("ydworks.chk",JSON.stringify({d:new Date().toDateString(),c:chk}))}catch(_){}$("#chkMeter").style.width=checkDone()/CHECKS.length*100+"%";
-  if(checkDone()<CHECKS.length&&online&&!active()){online=false;if(LIVE)YDB.rpc("set_online",{p_online:false}).catch(()=>{});setOnlineUI();geoStop();toast(t("toast.chkFail"))}renderHeader()});
+$("#checks").addEventListener("change",e=>{const id=e.target.dataset.id;if(id==null)return;chk[id]=e.target.checked;saveChk();$("#chkMeter").style.width=checkDone()/CHECKS.length*100+"%";
+  if(DS.require_daily_check&&!checkOk()&&online&&!active()){online=false;if(LIVE)YDB.rpc("set_online",{p_online:false}).catch(()=>{});setOnlineUI();geoStop();toast(t("toast.chkFail"))}renderHeader()});
 $("#inspBtn").addEventListener("click",async()=>{
   if(inspBusy)return;inspBusy=true;const b=$("#inspBtn");b.disabled=true;
-  const failed=CHECKS.filter((k,i)=>!chk[i]);
+  const failed=CHECKS.filter(c=>!chkOn(c.id));
   const passed=!failed.length;
-  try{await sendInspection(passed,failed.length?"Failed: "+failed.map(k=>STR.en[k+".t"]).join(", "):"",{failed});toast(t(passed?"toast.inspOk":"toast.inspDefect"));renderVehicle()}
+  try{await sendInspection(passed,failed.length?"Failed: "+failed.map(c=>c.en).join(", "):"",{failed:failed.map(c=>c.id),failedEn:failed.map(c=>c.en)});toast(t(passed?"toast.inspOk":"toast.inspDefect"));renderVehicle()}
   catch(e){toast((e&&e.message)||t("toast.couldntUpdate"))}
   b.disabled=false;inspBusy=false;
 });
@@ -1102,7 +1194,7 @@ async function sendQueuedDefect(r){
 $("#defBtn").addEventListener("click",async()=>{
   const txt=$("#defTxt").value.trim();
   if(!txt){toast(t("def.need"));$("#defTxt").focus();return}
-  const b=$("#defBtn"),lbl=$("#defBtnTx"),passed=checkDone()===CHECKS.length;b.disabled=true;defState("");
+  const b=$("#defBtn"),lbl=$("#defBtnTx"),passed=checkOk();b.disabled=true;defState("");
   let stage="send";
   try{
     if(LIVE&&!navigator.onLine){await queueDefect(txt,passed);return}
@@ -1147,7 +1239,14 @@ async function loadVehicleLive(){
       YDB.inspections?Promise.resolve(YDB.inspections(10)).catch(()=>null):null]);
     if(Array.isArray(f)){fuelLog=f.map(r=>({at:Date.parse(r.created_at),litres:+r.litres,cost:+r.cost,odometer:r.odometer!=null?+r.odometer:null}));
       const lastOdo=fuelLog.find(r=>r.odometer);if(lastOdo&&!$("#odo").value)$("#odo").value=lastOdo.odometer.toLocaleString("en-US").replace(/,/g," ")}
-    if(Array.isArray(i)){const local=ls.get(IKEY,[]);const pend=local.filter(x=>x.pending&&myQueued().some(q=>q.id===x.qid));insp=pend.concat(i.map(r=>{const items=r.items||{},keys=CHECKS.map(k=>STR.en[k+".t"]);const n=keys.filter(k=>items[k]).length;const loc=local.find(x=>Math.abs(x.at-Date.parse(r.created_at))<120000);return{at:Date.parse(r.created_at),passed:r.passed,defects:(loc&&loc.defects)||r.defects||"",n,total:keys.length,photo:loc&&loc.photo||null,defectOnly:!!(loc&&loc.defectOnly),failed:(loc&&loc.defectOnly)?null:CHECKS.filter(k=>items[STR.en[k+".t"]]===false)}}))}
+    if(Array.isArray(i)){const local=ls.get(IKEY,[]);const pend=local.filter(x=>x.pending&&myQueued().some(q=>q.id===x.qid));insp=pend.concat(i.map(r=>{const items=r.items||{};
+      // which list was this row checked against: the ids it carries (console list), else the current list's labels, else whatever yes/no items it has
+      let rows;
+      if(Array.isArray(items.checklist))rows=items.checklist.map(x=>({id:String(x.id),en:x.label_en||String(x.id),ok:x.ok!==false}));
+      else if(CHECKS.some(c=>items[c.en]!==undefined))rows=CHECKS.map(c=>({id:c.id,en:c.en,ok:items[c.en]}));
+      else rows=Object.keys(items).filter(k=>typeof items[k]==="boolean").map(k=>({id:k,en:k,ok:items[k]}));
+      const n=rows.filter(x=>!!x.ok).length,bad=rows.filter(x=>x.ok===false);
+      const loc=local.find(x=>Math.abs(x.at-Date.parse(r.created_at))<120000);return{at:Date.parse(r.created_at),passed:r.passed,defects:(loc&&loc.defects)||r.defects||"",n,total:rows.length,photo:loc&&loc.photo||null,defectOnly:!!(loc&&loc.defectOnly),failed:(loc&&loc.defectOnly)?null:bad.map(x=>x.id),failedEn:bad.map(x=>x.en)}}))}
     if(cur==="vehicle")renderVehicle();
   }catch(_){}
 }
@@ -1385,10 +1484,53 @@ setInterval(()=>{
 window.addEventListener("storage",e=>{if(e.key===KEY)render()});
 ch&&ch.addEventListener("message",()=>render());
 window.addEventListener("resize",placeTruck);
-window.addEventListener("yd-lang",e=>{track("lang_changed",{lang:e&&e.detail});setOnlineUI();renderFlags();renderBell();renderAuthMode(true);if(delStep)renderDel();if($("#alerts").classList.contains("on"))renderAlerts();lastKey="";render()});
+/* ═════════════ console settings: apply on load, on every "yd-settings" event and on language change ═════════════ */
+function hashStr(x){let h=5381;for(let i=0;i<x.length;i++)h=((h<<5)+h+x.charCodeAt(i))|0;return (h>>>0).toString(36)}
+const MSG_KEY="yd-driver-msg-dismissed";
+function msgHash(m){return hashStr(String(m.text_en||"")+"\u0001"+String(m.text_dv||""))}
+function renderMsg(){
+  const box=$("#dmsg");if(!box)return;
+  const m=DS.message||{},txt=String((window.YDSET?YDSET.txt(m,"text"):m.text_en)||"").trim();
+  let gone=null;try{gone=localStorage.getItem(MSG_KEY)}catch(_){}
+  if(!m.active||!txt||gone===msgHash(m)){box.innerHTML="";box.hidden=true;return}
+  const tone=["info","success","warning"].includes(m.tone)?m.tone:"info";
+  box.hidden=false;
+  box.innerHTML=`<div class="dmsg ${tone}" role="${tone==="warning"?"alert":"status"}">${icon(tone==="success"?"check":tone==="warning"?"alert":"bell").replace("<svg",'<svg class="m-ic"')}<div class="m-tx"><span class="lbl">${t("msg.lbl")}</span><p dir="auto"></p></div><button class="m-x" type="button" id="dmsgX" aria-label="${esc(t("msg.close"))}">${icon("x")}</button></div>`;
+  box.querySelector("p").textContent=txt;   // plain text only
+  $("#dmsgX").onclick=()=>{try{localStorage.setItem(MSG_KEY,msgHash(m))}catch(_){}renderMsg()};
+}
+function renderUpd(){
+  const need=String(DS.min_version||"").trim(),have=String(CFG.appVersion||"0");
+  const on=!!(need&&window.YDSET&&YDSET.older(have,need));
+  const g=$("#updGate"),wasOn=updBlocked;updBlocked=on;g.hidden=!on;
+  // block the rest of the app while an update is needed
+  [...document.querySelector(".app").children].forEach(el=>{if(el!==g){if(on)el.setAttribute("inert","");else el.removeAttribute("inert")}});
+  if(!on)return;
+  if(!wasOn){closeReq();$("#alerts").classList.remove("on");$("#delSheet").classList.remove("on")}
+  $("#updTitle").textContent=t("upd.h");
+  $("#updText").textContent=String((window.YDSET?YDSET.txt(DS,"update_text"):DS.update_text_en)||"").trim()||t("upd.p");
+  $("#updVer").innerHTML=t("upd.ver",{have:ltr(esc(have)),need:ltr(esc(need))});
+  $("#updCallTx").textContent=t("upd.call");$("#updCall").setAttribute("aria-label",t("ct.callAria")+" "+fmtLocal(HOTLINE));
+  $("#updCall").href=$("#ctCall").href;
+  $("#updHelp").textContent=t("upd.help");
+  if(!wasOn)setTimeout(()=>{try{$("#updCall").focus({preventScroll:true})}catch(_){}},30);
+}
+function applySettings(){
+  DS=readDS();
+  CHECKS=buildChecks();
+  $("#fuelSec").hidden=!DS.fuel_logging;
+  locRestart();
+  renderMsg();renderUpd();
+  const tx=$("#photoTx");if(tx)tx.textContent=t(DS.require_pod_photo?"pod.photo":"pod.photoOpt");
+  podCheck&&podCheck();
+  render();   // re-renders the visible screen (a proof of delivery being signed is kept)
+}
+window.addEventListener("yd-settings",applySettings);
+window.addEventListener("yd-lang",e=>{track("lang_changed",{lang:e&&e.detail});applySettings();setOnlineUI();renderFlags();renderBell();renderAuthMode(true);if(delStep)renderDel();if($("#alerts").classList.contains("on"))renderAlerts();lastKey="";render()});
 window.addEventListener("yd-theme",()=>{if(cur==="vehicle")renderSettings()});
 if(I18N)I18N.apply();
 try{(new Image()).src="assets/hero-sm.jpg"}catch(_){}   // warm the cache so the idle card has its photo with no signal
+applySettings();
 setOnlineUI();renderBell();render();
 reloadQueue().then(()=>{render();flush()});
 if(online)geoStart();
@@ -1496,7 +1638,7 @@ async function enterLive(){
   LIVE=true;ME={id:p.id,name:p.full_name||"Driver",unit:[p.unit_code,p.unit_name].filter(Boolean).join(" · "),init:YDB.initials(p.full_name),code:p.unit_code||"",rating:p.rating!=null?+p.rating:4.8};
   $("#meName").textContent=ME.name;$("#meSub").textContent=[p.unit_code,p.rating!=null?"★ "+(+p.rating).toFixed(1):""].filter(Boolean).join(" · ");
   $("#face").innerHTML=`<span class="ini">${esc(ME.init)}</span>`;
-  online=!!p.is_online;if(!online&&checkDone()===CHECKS.length){online=true;YDB.rpc("set_online",{p_online:true}).catch(()=>{})}
+  online=!!p.is_online;if(!online&&(checkOk()||!DS.require_daily_check)){online=true;YDB.rpc("set_online",{p_online:true}).catch(()=>{})}
   setOnlineUI();online?geoStart():geoStop();lastSent=0;sendLoc();
   shiftStart=Date.now();seen=new Set();jobs=[];mem=jobs;showAuth(false);
   $("#odo").value="";$("#odo").placeholder="0";fuelLog=[];insp=[];

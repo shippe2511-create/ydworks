@@ -630,6 +630,7 @@ details.more pre{margin:6px 0 0;font:500 11.5px/1.5 var(--mono);background:var(-
 }
 </style>
 <script src="yd-config.js"></script>
+<script src="yd-settings.js"></script>
 <script src="yd-catalog.js"></script>
 <script src="yd-ui.js"></script>
 
@@ -658,6 +659,7 @@ details.more pre{margin:6px 0 0;font:500 11.5px/1.5 var(--mono);background:var(-
       <a href="#insights" data-p="insights"><svg><use href="#i-pulse"/></svg>App insights<span class="cnt warn" id="nErr" hidden></span></a>
       <a href="#activity" data-p="activity"><svg><use href="#i-hist"/></svg>Activity log</a>
       <div class="nav-l">Admin</div>
+      <a href="#apps" data-p="apps"><svg><use href="#i-apps"/></svg>Website &amp; apps</a>
       <a href="#staff" data-p="staff"><svg><use href="#i-shield"/></svg>Staff &amp; roles</a>
     </nav>
     <div class="me-wrap">
@@ -689,6 +691,7 @@ details.more pre{margin:6px 0 0;font:500 11.5px/1.5 var(--mono);background:var(-
 <div class="inbox" id="inbox" role="dialog" aria-label="Notifications" hidden></div>
 <div class="scrim" id="scrim"></div>
 <svg width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><defs>
+<symbol id="i-apps" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="13" height="11" rx="1.5"/><path d="M2.5 8h13M6 19h6M9 15v4"/><rect x="16.5" y="9" width="5" height="11" rx="1.2"/><path d="M18.5 17.5h1"/></symbol>
 <symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M7 14h4M7 17h7"/></symbol>
 <symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l5 5v13H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></symbol>
 <symbol id="i-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></symbol>
@@ -773,8 +776,15 @@ const rolePill=(r,id)=>`<span class="pill role r-${esc(r)}"${id?` id="${id}"`:""
 function whoCan(p){const rs=STAFF.filter(r=>PERMS[r].includes(p)).map(r=>ROLE_PL[r]);return (rs.length>1?rs.slice(0,-1).join(", ")+" & "+rs.at(-1):rs[0])+" only"}
 const gate=p=>can(p)?"":`disabled data-gated title="${whoCan(p)}" aria-label="${whoCan(p)}"`;
 // page → permissions that open it (none = every staff role)
-const PAGE_PERM={payments:["payments"],calendar:["orders","fleet"],drivers:["assign","fleet","orders","team"],leads:["sales"],quotes:["sales"],projects:["projects"],fleet:["catalog"],health:["fleet"],content:["settings"],reports:["reports"],insights:["reports","settings"],activity:["reports","settings"],staff:["team"]};
+const PAGE_PERM={payments:["payments"],calendar:["orders","fleet"],drivers:["assign","fleet","orders","team"],leads:["sales"],quotes:["sales"],projects:["projects"],fleet:["catalog"],health:["fleet"],content:["settings"],reports:["reports"],insights:["reports","settings"],activity:["reports","settings"],apps:["settings"],staff:["team"]};
 const canPage=pg=>!PAGE_PERM[pg]||PAGE_PERM[pg].some(can);
+
+/* remote settings for the website, customer app and driver app (shapes in yd-settings.js) */
+const YS=window.YDSET||null;
+const jclone=o=>JSON.parse(JSON.stringify(o));
+const SDEF=k=>YS&&YS.DEFAULTS[k]!==undefined?jclone(YS.DEFAULTS[k]):{};
+const curSet=k=>{const v=S.settings[k];return YS?YS.merge(SDEF(k),v&&typeof v==="object"&&!Array.isArray(v)?jclone(v):{}):jclone(v||{})};
+const APP_BUILD=String((window.YD_CONFIG||{}).appVersion||"1.0.0");
 
 /* ═════════════ data: demo store (replaced by Supabase when signed in) ═════════════ */
 let LIVE=false;
@@ -912,6 +922,8 @@ function seedDemo(){
   S.settings={contact:{hotline:"992 0202",email:"yd@yd-mv.com",hours_am:"07:30 – 12:00",hours_pm:"13:00 – 18:00",friday:"Call to confirm"},
     announcement:{active:false,text:"",tone:"info"},pricing:{delivery_fee:250,free_delivery_over:15000,mobilisation_fee:300,driver_share:.06,min_driver_pay:150,gst_rate:.08,gst_inclusive:true},ordering:{accepting_orders:true,same_day_cutoff:"14:00"},
     payments:{card:false,transfer:true,bank_name:"Bank of Maldives",account_name:"YD Works",account_no:"7730000000000"},channels:{push:false,whatsapp:false,viber:false,sms:false},maps:{style_url:"",yard_lat:4.2167,yard_lng:73.5405}};
+  // website / app settings saved earlier in this browser's demo console (the other surfaces on this host read the same copy)
+  try{const st=JSON.parse(localStorage.getItem("yd-demo-settings")||"null");if(st&&typeof st==="object")(YS?YS.KEYS:[]).forEach(k=>{if(st[k]&&typeof st[k]==="object")S.settings[k]=st[k]})}catch(e){}
   seedTrust();
 }
 /* demo: staff team, driver ratings, activity log */
@@ -945,6 +957,8 @@ function seedTrust(){
     E(7,"Mariyam Nuha","update","orders",(canc[0]||ord(done,3)).ref,(canc[0]||ord(done,3)).title,ch("status","requested","cancelled")),
     E(20,"Shifan Ahmed","update","materials","cem","Portland cement",ch("price",118,125)),
     E(22,"Shifan Ahmed","update","app_settings","pricing","",ch("value",{delivery_fee:200,free_delivery_over:15000,mobilisation_fee:300,driver_share:.06,min_driver_pay:150,gst_rate:.08,gst_inclusive:true},{delivery_fee:250,free_delivery_over:15000,mobilisation_fee:300,driver_share:.06,min_driver_pay:150,gst_rate:.08,gst_inclusive:true})),
+    ...(YS?[E(10.5,"Shifan Ahmed","update","app_settings","driver_app","",ch("value",Object.assign(SDEF("driver_app"),{location_every_sec:60}),SDEF("driver_app"))),
+      E(12.5,"Shifan Ahmed","update","app_settings","customer_app","",ch("value",Object.assign(SDEF("customer_app"),{promo:{active:true,title_en:"Free delivery this week",title_dv:"",text_en:"On every materials order over MVR 5,000.",text_dv:"",tone:"success"}}),SDEF("customer_app")))]:[]),
     E(26,"Ahmed Zaid","update","quotes","QT-2102","Nashid Hameed",ob(ch("status","accepted","converted"),ch("order_id",null,"8c41e0d2-5b7a-4f0e-9d1c-2a3f6b7e9c10"))),
     E(30,"Shifan Ahmed","update","profiles","s2","Mariyam Nuha",ch("role","counter","dispatcher")),
     E(31,"Mariyam Nuha","update","orders",ord(done,4).ref,ord(done,4).title,ob(ch("driver_name","Ahmed Fayaz","Ibrahim Shareef"),ch("driver_unit","CR-01 · Lorry crane","TP-04 · Tipper 10m³"))),
@@ -970,6 +984,8 @@ function seedTrust(){
 /* who is signed in (demo: the owner, seen through the "View as" role) */
 function ME(){if(LIVE){const p=YDB.profile||{},u=YDB.user||{};return{name:p.full_name||u.email||"Staff",email:u.email||p.email||"",role:p.role||ROLE}}
   const m=S.staff.find(x=>x.me)||{full_name:"Counter staff",email:"counter@yd-mv.com"};return{name:m.full_name,email:m.email,role:ROLE}}
+/* demo only: hand the settings to the website and apps on this host (they listen for the change) */
+function demoSync(){if(LIVE||!YS)return;try{const all={};YS.KEYS.forEach(k=>{if(S.settings[k]!==undefined)all[k]=S.settings[k]});YS.saveDemo(all)}catch(e){}}
 /* demo only: the server writes audit_log from triggers; here the console appends the same rows */
 function logDemo(action,entity,entity_id,summary,changes){if(LIVE||!changes||!Object.keys(changes).length)return;const me=ME();
   S.audit.unshift({id:"a"+Date.now()+Math.random().toString(36).slice(2,6),at:Date.now(),actor_name:me.name,actor_role:ROLE,action,entity,entity_id:String(entity_id??""),summary:summary||"",changes})}
@@ -1023,7 +1039,7 @@ const A={
     const c={};if(was!==role)c.role={from:was,to:role};if(role==="driver"&&code)c.unit_code={from:dv?dv.unit_code||null:null,to:code};
     logDemo("update","profiles",(sf||dv||cu||{}).id||em,who,c)},
   async setting(key,value){if(LIVE){const{error}=await YDB.sb.from("app_settings").upsert({key,value,updated_at:new Date().toISOString()});if(error)throw error;return load()}
-    const old=S.settings[key];S.settings[key]=value;if(JSON.stringify(old)!==JSON.stringify(value))logDemo(old?"update":"insert","app_settings",key,"",{value:{from:old??null,to:value}})},
+    const old=S.settings[key];S.settings[key]=value;if(JSON.stringify(old)!==JSON.stringify(value))logDemo(old?"update":"insert","app_settings",key,"",{value:{from:old??null,to:value}});demoSync()},
   /* move a hire booking (reschedule_order on the server) */
   async reschedule(o,t){
     if(LIVE){await YDB.reschedule(o.uuid,new Date(t).toISOString());return load()}
@@ -1190,16 +1206,19 @@ async function loadAudit(){if(!LIVE)return;try{const r=await YDB.sb.from("audit_
 /* ═════════════ routing ═════════════ */
 const PAGES={overview:["Operations","Overview"],orders:["Operations","Orders & dispatch"],payments:["Operations","Payments"],calendar:["Operations","Booking calendar"],drivers:["Operations","Drivers"],customers:["Operations","Customers"],
   leads:["Sales & projects","Website leads"],quotes:["Sales & projects","Quotes"],projects:["Sales & projects","Projects"],
-  fleet:["Fleet & catalog","Fleet & materials"],health:["Fleet & catalog","Fleet health"],content:["Fleet & catalog","Content & pricing"],reports:["Insights","Reports"],insights:["Insights","App insights"],activity:["Insights","Activity log"],staff:["Admin","Staff & roles"]};
+  fleet:["Fleet & catalog","Fleet & materials"],health:["Fleet & catalog","Fleet health"],content:["Fleet & catalog","Content & pricing"],reports:["Insights","Reports"],insights:["Insights","App insights"],activity:["Insights","Activity log"],apps:["Admin","Website & apps"],staff:["Admin","Staff & roles"]};
 let showRemoved=false,ordersShown=50,page="overview",orderFilter="all",catTab="machines",chartView="chart",REP={};
 function setSide(open){$("#side").classList.toggle("open",open);$("#sideScrim").classList.toggle("on",open);$("#bnMore").setAttribute("aria-expanded",open)}
 $("#bnMore").onclick=()=>setSide(!$("#side").classList.contains("open"));$("#sideScrim").onclick=()=>setSide(false);
-function route(){const h=location.hash.slice(1);page=PAGES[h]?h:"overview";
+function route(){const h=location.hash.slice(1);
+  if(page==="apps"&&h!=="apps"&&apAnyDirty()&&route._ready){if(!confirm("You have unsaved changes on Website & apps. Leave without saving them?")){history.replaceState(null,"","#apps");return}}
+  page=PAGES[h]?h:"overview";
   if(!canPage(page)){toast(`${PAGES[page][1]} is for ${whoCan(PAGE_PERM[page][0]).replace(/ only$/,"").replace(/^Managers/,"managers")}`);page="overview";history.replaceState(null,"","#overview")}
   $$(".nav a,.bnav a").forEach(a=>a.toggleAttribute("aria-current",a.dataset.p===page));$$('.nav a[aria-current],.bnav a[aria-current]').forEach(a=>a.setAttribute("aria-current","page"));
   const quick=BN.includes(page);$("#bnMore").classList.toggle("cur",!quick);closeMe();
   if(route._last!==page){route._last=page;trk("console_page",{page,role:ROLE})}
   document.body.classList.toggle("has-search",["orders","customers","fleet"].includes(page));setSide(false);
+  if(page!=="apps")apDiscard();route._ready=true;
   $("#crumb").textContent=PAGES[page][0];$("#title").textContent=PAGES[page][1];$("#side").classList.remove("open");closeInbox();render();window.scrollTo(0,0)}
 addEventListener("hashchange",route);
 /* role → what the sidebar, bottom bar and profile show */
@@ -1270,8 +1289,8 @@ function render(){
   const v=$("#view");
   const viewAs=!LIVE&&ROLE!=="admin"?`<div class="viewas"><svg width="18" height="18" style="color:var(--brand);flex:none"><use href="#i-shield"/></svg><div style="flex:1;min-width:200px">Viewing as <b>${esc(roleName(ROLE))}</b>: ${esc(ROLES[ROLE][1])} Hidden pages and greyed-out buttons are for other roles.</div><button class="btn sm" id="vaBack">Back to manager view</button></div>`:"";
   const banner=LIVE?"":viewAs+`<div class="demo-banner"><svg width="18" height="18" style="color:var(--warn);flex:none"><use href="#i-alert"/></svg><div><b>You're looking at demo data.</b> Changes here aren't saved. Once the Supabase backend is connected, staff sign in and this console runs the real website and apps.</div></div>`;
-  const V={overview:vOverview,orders:vOrders,payments:vPayments,calendar:vCalendar,drivers:vDrivers,leads:vLeads,quotes:vQuotes,projects:vProjects,customers:vCustomers,fleet:vFleet,health:vHealth,content:vContent,reports:vReports,insights:vInsights,activity:vActivity,staff:vStaff};
-  const W={overview:wOverview,orders:wOrders,payments:wPayments,calendar:wCalendar,drivers:wDrivers,leads:wLeads,quotes:wQuotes,projects:wProjects,customers:()=>{},fleet:wFleet,health:wHealth,content:wContent,reports:wReports,insights:wInsights,activity:wActivity,staff:wStaff};
+  const V={overview:vOverview,orders:vOrders,payments:vPayments,calendar:vCalendar,drivers:vDrivers,leads:vLeads,quotes:vQuotes,projects:vProjects,customers:vCustomers,fleet:vFleet,health:vHealth,content:vContent,reports:vReports,insights:vInsights,activity:vActivity,apps:vApps,staff:vStaff};
+  const W={overview:wOverview,orders:wOrders,payments:wPayments,calendar:wCalendar,drivers:wDrivers,leads:wLeads,quotes:wQuotes,projects:wProjects,customers:()=>{},fleet:wFleet,health:wHealth,content:wContent,reports:wReports,insights:wInsights,activity:wActivity,apps:wApps,staff:wStaff};
   v.innerHTML=banner+V[page]()+`<footer class="pfoot">YD Works Console</footer>`;W[page]();
   $("#vaBack")&&($("#vaBack").onclick=()=>{ROLE="admin";toast("Back to the manager view");applyRole()});
 }
@@ -1363,6 +1382,8 @@ function attention(){
   if(can("catalog"))lowStock().forEach(m=>items.push([m.stock_qty<=0?"crit":"warn","i-box",m.stock_qty<=0?`${esc(m.name)} is out of stock`:`Low stock: ${esc(m.name)}`,`${m.stock_qty} × ${esc(m.unit)} left · reorder at ${m.low_stock_at??0}`,`data-href="#fleet" data-tab="materials"`]));
   if(can("catalog"))S.materials.filter(m=>!m.active).forEach(m=>items.push(["warn","i-box",`${esc(m.name)} is hidden from the app`,"Marked out of stock · customers can't order it",`data-href="#fleet" data-tab="materials"`]));
   if(S.settings.ordering&&S.settings.ordering.accepting_orders===false)items.unshift(["crit","i-alert","The apps are not accepting orders","Turned off in Content & pricing",canPage("content")?`data-href="#content"`:""]);
+  if(curSet("customer_app").maintenance.active)items.unshift(["crit","i-alert","The customer app is in maintenance mode","Customers see a “back soon” message and new app orders are blocked",canPage("apps")?`data-href="#apps" data-apt="customer"`:""]);
+  if(curSet("website").maintenance.active)items.push(["warn","i-alert","Online quote requests are paused on the website","Visitors are asked to call the hotline instead",canPage("apps")?`data-href="#apps" data-apt="website"`:""]);
   if(canPage("drivers"))lowRatings().forEach(x=>{const d=S.drivers.find(y=>y.id===x.driver_id),o=orderBy(x.order_id);items.push(["crit","i-star",`${x.stars}★ rating for ${esc(d?d.full_name:"a driver")}`,`${o?o.ref+" · ":""}${x.comment?"“"+esc(String(x.comment).slice(0,80))+"”":"No comment"} · ${ago(x.created_at)}`,`data-drv="${esc(x.driver_id)}"`])});
   const rank={crit:0,warn:1,info:2};items.sort((x,y)=>rank[x[0]]-rank[y[0]]);
   const more=items.length-7;
@@ -1392,7 +1413,7 @@ function wOverview(){
       tip.innerHTML=`<b>${new Date(d.d0).toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short"})}</b><div><span><i style="background:var(--s1)"></i>Hire</span><span>${mvr(d.hire)}</span></div><div><span><i style="background:var(--s2)"></i>Materials</span><span>${mvr(d.mat)}</span></div><div style="margin-top:4px;border-top:1px solid color-mix(in srgb,var(--bg) 30%,transparent);padding-top:4px"><span>${d.n} orders</span><span>${mvr(d.rev)}</span></div>`;
       let x=e.clientX-r.left+14;if(x>r.width-170)x=e.clientX-r.left-170;tip.style.left=x+"px";tip.style.top=Math.max(0,e.clientY-r.top-60)+"px";tip.classList.add("on")});
       g.addEventListener("mouseleave",()=>tip.classList.remove("on"))})}
-  $$("[data-href]").forEach(b=>b.onclick=()=>{if(b.dataset.tab)catTab=b.dataset.tab;location.hash=b.dataset.href});
+  $$("[data-href]").forEach(b=>b.onclick=()=>{if(b.dataset.tab)catTab=b.dataset.tab;if(b.dataset.apt)appsTab=b.dataset.apt;location.hash=b.dataset.href});
   $$("[data-order]").forEach(b=>b.onclick=()=>openOrder(b.dataset.order));
   $$("[data-drv]").forEach(b=>b.onclick=()=>openDriver(b.dataset.drv));
   // fleet map with one marker per active job
@@ -1870,14 +1891,12 @@ function openRole(id){
 
 /* ═════════════ Content & pricing ═════════════ */
 function vContent(){
-  const c=S.settings.contact||{},a=S.settings.announcement||{},p=S.settings.pricing||{},o=S.settings.ordering||{},pay=S.settings.payments||{},ch=S.settings.channels||{},mp=S.settings.maps||{};
+  const c=S.settings.contact||{},a=curSet("announcement"),p=S.settings.pricing||{},o=S.settings.ordering||{},pay=S.settings.payments||{},ch=S.settings.channels||{},mp=S.settings.maps||{};
   return `<div class="grid g-main">
-  <div class="card"><div class="card-h"><div><h2>Announcement banner</h2><div class="sub">Shown at the top of the website and the customer app.</div></div><input type="checkbox" class="switch" id="anOn" ${a.active?"checked":""} aria-label="Show announcement"></div>
-    <div class="card-b" style="display:flex;flex-direction:column;gap:12px">
-      <div class="field"><label for="anText">Message</label><input class="inp" id="anText" maxlength="140" value="${esc(a.text||"")}" placeholder="e.g. Closed Friday 6 Dec for Independence Day. Hotline stays open."></div>
-      <div class="field"><label for="anTone">Style</label><select class="inp" id="anTone"><option value="info" ${a.tone==="info"?"selected":""}>Information</option><option value="warn" ${a.tone==="warn"?"selected":""}>Notice</option><option value="crit" ${a.tone==="crit"?"selected":""}>Urgent</option></select></div>
-      <div><div class="lbl" style="margin-bottom:6px">Preview</div><div class="ann ${esc(a.tone||"info")}" id="anPrev"><i></i><span>${esc(a.text||"Your message appears here")}</span></div></div>
-      <div class="row-flex"><span class="hint">${a.active?"Live now":"Hidden"}</span><button class="btn pri" id="anSave">Save banner</button></div></div></div>
+  <div class="card"><div class="card-h"><div><h2>Announcement banner</h2><div class="sub">Now edited with the rest of the website and app settings, in English and Dhivehi.</div></div>${a.active?tone("Live now","ok"):tone("Hidden","mute")}</div>
+    <div class="card-b stack">
+      <div class="ann ${esc(a.tone||"info")}"><i></i><span>${esc(a.text||"No message set")}</span></div>
+      <div class="row-flex" style="flex-wrap:wrap"><span class="hint">${a.active?"Shown on "+([a.where.website&&"the website",a.where.customer_app&&"the customer app"].filter(Boolean).join(" and ")||"nothing yet"):"Not shown anywhere"}</span><a class="btn" href="#apps" id="anGo"><svg><use href="#i-apps"/></svg>Edit in Website &amp; apps</a></div></div></div>
   <div class="card"><div class="card-h"><div><h2>Ordering</h2><div class="sub">Pause the apps during holidays or storms.</div></div></div>
     <div class="card-b" style="display:flex;flex-direction:column;gap:14px">
       <label class="row-flex" for="orOn"><span><b style="font-weight:600">Accept new orders in the app</b><br><span class="hint">When off, customers see a message to call the counter.</span></span><input type="checkbox" class="switch" id="orOn" ${o.accepting_orders!==false?"checked":""}></label>
@@ -1928,13 +1947,11 @@ function vContent(){
       <div class="row-flex" style="grid-column:1/-1"><span class="hint">Hulhumalé is around 4.21, 73.54.</span><button class="btn pri" id="mSave">Save map</button></div></div></div>`;
 }
 function wContent(){
-  const prev=()=>{const p=$("#anPrev");p.className="ann "+$("#anTone").value;p.querySelector("span").textContent=$("#anText").value||"Your message appears here"};
-  $("#anText").oninput=prev;$("#anTone").onchange=prev;
+  $("#anGo").onclick=()=>{appsTab="website"};
   const ex=()=>{const sub=8000,del=+$("#pDel").value,free=+$("#pFree").value,share=+$("#pShare").value/100,min=+$("#pMin").value,tot=sub+(sub<free?del:0);
     $("#pEx").textContent=`Example: MVR 8,000 of materials → customer pays ${mvr(tot)}, driver earns ${mvr(Math.round(Math.max(min,tot*share)/10)*10)}`};
   ["pDel","pFree","pShare","pMin"].forEach(i=>$("#"+i).oninput=ex);ex();
   const save=async(key,val,msg)=>{try{await A.setting(key,val);toast(msg);render()}catch(e){toast(e.message)}};
-  $("#anSave").onclick=()=>{if($("#anOn").checked&&!$("#anText").value.trim()){toast("Write a message before turning the banner on");return}save("announcement",{active:$("#anOn").checked,text:$("#anText").value.trim(),tone:$("#anTone").value},"Banner saved")};
   $("#orSave").onclick=()=>save("ordering",{accepting_orders:$("#orOn").checked,same_day_cutoff:$("#orCut").value},$("#orOn").checked?"Apps are accepting orders":"New orders paused");
   $("#pSave").onclick=()=>{const v={delivery_fee:+$("#pDel").value,free_delivery_over:+$("#pFree").value,mobilisation_fee:+$("#pMob").value,driver_share:+$("#pShare").value/100,min_driver_pay:+$("#pMin").value,gst_rate:Math.round(+$("#pGst").value*10)/1000};
     if(Object.values(v).some(x=>!(x>=0))||v.driver_share>.5){toast("Check the numbers: no negatives, driver pay at most 50%");return}if(v.gst_rate>.3){toast("GST rate looks too high (max 30%)");return}
@@ -2398,7 +2415,7 @@ function wReports(){
 const AREA={orders:"orders",payments:"payments",machines:"catalog",materials:"catalog",app_settings:"settings",profiles:"team",quotes:"quotes",projects:"projects",project_milestones:"projects",machine_bookings:"bookings"};
 const AREA_L={orders:"Orders",payments:"Payments",catalog:"Catalog",settings:"Settings",team:"Team",quotes:"Quotes",projects:"Projects",bookings:"Bookings"};
 const ENT_L={orders:"Order",payments:"Payment",machines:"Machine",materials:"Material",app_settings:"Setting",profiles:"Person",quotes:"Quote",projects:"Project",machine_bookings:"Booking"};
-const SET_L={pricing:"Pricing rules",contact:"Contact & hours",announcement:"Announcement banner",ordering:"Ordering",payments:"Payment settings",channels:"Messaging channels",maps:"Map"};
+const SET_L={pricing:"Pricing rules",contact:"Contact & hours",announcement:"Announcement banner",ordering:"Ordering",payments:"Payment settings",channels:"Messaging channels",maps:"Map",website:"Website",customer_app:"Customer app",driver_app:"Driver app"};
 const HIDE_K=new Set(["id","driver_id","verified_by","actor_id","updated_at","created_at","customer_id","created_by","sort"]);
 let actF={who:"all",area:"all",from:"",to:"",q:""},actShown=100;
 function actLabel(e){const c=e.changes||{},to=k=>c[k]&&c[k].to,en=e.entity,op=e.action;
