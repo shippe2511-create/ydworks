@@ -244,6 +244,27 @@ def assemble():
         if dst.exists():
             shutil.rmtree(dst)
         shutil.copytree(ROOT / "mobile" / app / "www", dst)
+    # Cloudflare Pages / Netlify style headers: keep staff and driver pages out of search, sensible caching
+    (dep / "_headers").write_text("""/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(self), geolocation=(self), microphone=()
+/console/*
+  X-Robots-Tag: noindex, nofollow
+  X-Frame-Options: DENY
+/driver/*
+  X-Robots-Tag: noindex, nofollow
+/sw.js
+  Cache-Control: no-cache
+/app/sw.js
+  Cache-Control: no-cache
+/driver/sw.js
+  Cache-Control: no-cache
+/console/sw.js
+  Cache-Control: no-cache
+/assets/*
+  Cache-Control: public, max-age=86400
+""", encoding="utf-8")
     print(f"deploy ready: {dep}  (/, /app, /driver, /console)")
 
 

@@ -1,0 +1,1797 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="description" content="Accept YD Works jobs, run trips and capture proof of delivery.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="YD Driver">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="format-detection" content="telephone=no">
+<script>window.YD_VENDOR_BASE = "vendor/"; window.YD_JSPDF_SRC = "vendor/jspdf.umd.min.js";</script>
+<style>
+  /* installed-app shell: replaces the artifact host's safe-area padding */
+  html{height:100%;background:#070b16}
+  body{margin:0;height:100%;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);overscroll-behavior:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+  input,textarea,select{-webkit-user-select:text;user-select:text}
+  img{max-width:100%}
+  [hidden]{display:none!important}
+</style>
+</head>
+<body>
+<title>YD Driver</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="theme-color" content="#070b16">
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+/* Layout: driver console — night header with the truck behind the driver's card, one gold primary action in the thumb zone, hairline cards below */
+:root{
+  --bg:#f5f6f8;--surface:#ffffff;--surface-2:#eef1f5;--line:rgba(10,16,34,.09);--line-2:rgba(10,16,34,.16);
+  --ink:#0a1022;--paper:#f5f6f8;--plate:#ffffff;--mute:#5d6679;
+  --brand:#1f4bff;--brand-soft:rgba(31,75,255,.08);--hazard:#e8b14a;--hazard-ink:#1d1405;--sand:#d9c7a3;--ok:#12a26a;--busy:#e0622b;
+  --night:#070b16;--head:#070b16;--head-ink:#ffffff;
+  --sea:#dce7f7;--land:#ffffff;--road:#e6eaf1;--grid:rgba(31,75,255,.05);
+  --display:"Geist",ui-sans-serif,system-ui,-apple-system,sans-serif;--body:"Geist",ui-sans-serif,system-ui,-apple-system,sans-serif;--mono:"Geist Mono",ui-monospace,Menlo,monospace;
+  --shadow:0 18px 40px -24px rgba(10,16,34,.35);--glass:rgba(255,255,255,.8);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#070b16;--surface:#0e1424;--surface-2:#141c30;--line:rgba(255,255,255,.08);--line-2:rgba(255,255,255,.15);
+  --ink:#eef1f8;--paper:#070b16;--plate:#0e1424;--mute:#8e97ad;--brand:#5577ff;--brand-soft:rgba(85,119,255,.13);--hazard:#f0bd5c;--ok:#2fc78a;--busy:#ff7a45;
+  --sea:#0b1631;--land:#131b31;--road:#1f2944;--grid:rgba(85,119,255,.07);--shadow:0 18px 40px -24px rgba(0,0,0,.9);--glass:rgba(14,20,36,.8);color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#070b16;--surface:#0e1424;--surface-2:#141c30;--line:rgba(255,255,255,.08);--line-2:rgba(255,255,255,.15);
+  --ink:#eef1f8;--paper:#070b16;--plate:#0e1424;--mute:#8e97ad;--brand:#5577ff;--brand-soft:rgba(85,119,255,.13);--hazard:#f0bd5c;--ok:#2fc78a;--busy:#ff7a45;
+  --sea:#0b1631;--land:#131b31;--road:#1f2944;--grid:rgba(85,119,255,.07);--shadow:0 18px 40px -24px rgba(0,0,0,.9);--glass:rgba(14,20,36,.8);color-scheme:dark}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font:400 15px/1.5 var(--body);-webkit-font-smoothing:antialiased;overflow:hidden;letter-spacing:-.005em}
+@media (min-width:600px){body{background:radial-gradient(80% 60% at 50% 0%,rgba(232,177,74,.16),transparent 70%),#070b16}}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+h1,h2,h3{font-family:var(--display);margin:0;line-height:1.08;letter-spacing:-.03em;text-wrap:balance;font-weight:600}
+p{margin:0}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.app{position:relative;height:100%;max-width:430px;margin:0 auto;background:var(--bg);display:flex;flex-direction:column;overflow:hidden;overflow:clip}
+@media (min-width:600px){.app{height:min(900px,calc(100% - 48px));margin-top:max(24px,calc((100% - 900px)/2));border-radius:44px;box-shadow:0 0 0 10px #161c2c,0 0 0 11px rgba(255,255,255,.08),0 60px 120px -40px rgba(0,0,0,.9)}}
+
+/* header */
+.head{position:relative;background:var(--night);color:#fff;padding:16px max(18px,env(safe-area-inset-left,0px)) 18px max(18px,env(safe-area-inset-right,0px));flex:none;isolation:isolate;overflow:hidden}
+.head > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 70%;z-index:-2;opacity:.55}
+.head::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(7,11,22,.55),rgba(7,11,22,.92))}
+@media (min-width:600px){.head{padding-top:26px}}
+.head-top{display:flex;align-items:center;gap:8px}
+.head-top .face{width:44px;height:44px;border-radius:50%;overflow:hidden;flex:none;border:2px solid rgba(255,255,255,.3)}
+.head-top .face img{width:100%;height:100%;object-fit:cover}
+.head-top .me{flex:1;min-width:0;margin-inline-start:2px}
+.head-top b{font:600 16.5px var(--display);letter-spacing:-.02em;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.head-top small{display:block;font:500 10px var(--mono);letter-spacing:.06em;color:rgba(255,255,255,.6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.online{display:flex;align-items:center;gap:7px;border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:4px 4px 4px 11px;padding-inline:11px 4px;font:500 10px var(--mono);letter-spacing:.05em;text-transform:uppercase;background:rgba(255,255,255,.08);color:#fff;backdrop-filter:blur(10px);transition:.25s;min-height:44px;flex:none}
+.online .knob{width:34px;height:34px;flex:none;border-radius:50%;background:rgba(255,255,255,.2);display:grid;place-items:center;transition:.25s}
+.online .knob svg{color:#fff!important}
+.online[aria-pressed="true"]{background:rgba(46,200,138,.18);border-color:rgba(46,200,138,.5);color:#8ff0c0}
+.online[aria-pressed="true"] .knob{background:#2fc78a}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:18px;border:1px solid rgba(255,255,255,.12);border-radius:18px;background:rgba(255,255,255,.05);backdrop-filter:blur(10px)}
+.stat{padding:11px 14px;border-inline-end:1px solid rgba(255,255,255,.1)}
+.stat:last-child{border-inline-end:0}
+.stat span{font:500 9.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.stat b{display:block;font:600 21px var(--display);letter-spacing:-.03em;font-variant-numeric:tabular-nums;margin-top:2px}
+
+.screen{flex:1;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;padding:18px max(18px,env(safe-area-inset-left,0px)) 28px max(18px,env(safe-area-inset-right,0px));scrollbar-width:none}
+.screen::-webkit-scrollbar{display:none}
+.screen[hidden]{display:none}
+.sec{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-block:26px 12px}
+.sec:first-child{margin-top:4px}
+.sec h2{font-size:18px;letter-spacing:-.025em}
+.sub{color:var(--mute);font-size:13.5px}
+.lbl{font:500 10px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.pill{display:inline-flex;align-items:center;gap:5px;font:500 10px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;border-radius:999px;white-space:nowrap}
+.pill.ok{color:var(--ok);background:color-mix(in srgb,var(--ok) 11%,transparent)}
+.pill.busy{color:var(--busy);background:color-mix(in srgb,var(--busy) 11%,transparent)}
+.pill.info{color:var(--brand);background:var(--brand-soft)}
+.pill.amber{color:var(--hazard-ink);background:var(--hazard)}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:26px;padding:16px;box-shadow:var(--shadow)}
+.offline{text-align:start;padding:0;overflow:hidden}
+.offline .ph{height:170px;position:relative;background:var(--night)}
+.offline .ph img{width:100%;height:100%;object-fit:cover;object-position:50% 65%}
+.offline .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,var(--surface))}
+.offline .tx{padding:0 20px 20px;margin-top:-18px;position:relative}
+.offline svg{display:none}
+.offline h3{font-size:22px;letter-spacing:-.035em}
+.offline p{color:var(--mute);margin-top:6px}
+.big-btn{width:100%;border:0;border-radius:18px;padding:18px;font:600 16.5px var(--display);letter-spacing:-.01em;display:flex;justify-content:center;align-items:center;gap:10px;margin-top:16px;background:var(--brand);color:#fff;transition:transform .15s,opacity .2s;min-height:58px}
+.big-btn:active{transform:scale(.98)}
+.big-btn.amber{background:var(--hazard);color:var(--hazard-ink);box-shadow:0 16px 30px -16px var(--hazard)}
+.big-btn.ok{background:var(--ok);color:#fff;box-shadow:0 16px 30px -16px var(--ok)}
+.big-btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line-2);box-shadow:none}
+.big-btn.danger{color:var(--busy);border-color:color-mix(in srgb,var(--busy) 45%,transparent)}
+.big-btn:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+.big-btn svg{width:20px;height:20px;flex:none}
+
+.job-head{display:flex;gap:14px;align-items:flex-start}
+.job-head .ic{width:54px;height:54px;border-radius:16px;background:var(--surface-2);color:var(--ink);display:grid;place-items:center;flex:none}
+.job-head .ic svg{width:38px;height:38px}
+.job-head .mid{flex:1;min-width:0}
+.job-head b{display:block;font:600 17px var(--display);letter-spacing:-.02em}
+.stepper{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:16px}
+.stepper i{height:4px;border-radius:2px;background:var(--surface-2)}
+.stepper i.on{background:var(--brand)}
+.stepper i.now{background:var(--hazard)}
+.stepnames{display:flex;justify-content:space-between;font:500 9.5px var(--mono);color:var(--mute);margin-top:7px;text-transform:uppercase;letter-spacing:.08em}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:8px 14px;margin-top:16px;font-size:14px}
+.kv dt{color:var(--mute)}
+.kv dd{margin:0;font-weight:500;text-align:end;min-width:0;overflow-wrap:anywhere}
+.lines{margin-top:14px;border-top:1px solid var(--line);padding-top:12px;font-size:14px;display:flex;flex-direction:column;gap:6px}
+.lines div{display:flex;justify-content:space-between;gap:10px;font-variant-numeric:tabular-nums;color:var(--mute)}
+.lines b{color:var(--ink);font:500 13px var(--mono)}
+.collect{margin-top:14px;display:flex;justify-content:space-between;align-items:baseline;gap:10px;background:var(--surface-2);border-radius:16px;padding:12px 14px}
+.collect b{font:600 22px var(--display);letter-spacing:-.04em;white-space:nowrap}
+.collect.paid b{color:var(--ok);font-size:15px;letter-spacing:-.01em;white-space:normal;text-align:end}
+.collect.pending b{color:var(--busy);font-size:15px;letter-spacing:-.01em;white-space:normal;text-align:end}
+.map-wrap{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:var(--sea);margin-top:16px;aspect-ratio:1/.8;max-width:100%}
+.map-wrap svg{width:100%;height:100%;display:block}
+.nav-chip{position:absolute;left:10px;right:10px;top:10px;background:rgba(7,11,22,.86);backdrop-filter:blur(14px);color:#fff;border-radius:16px;padding:11px 14px;display:flex;gap:12px;align-items:center;font-size:12.5px;color:rgba(255,255,255,.75);z-index:2}
+.nav-chip > svg{width:26px;height:26px;flex:none;color:var(--hazard)}
+.nav-chip b{display:block;font:600 16px var(--display);letter-spacing:-.02em;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav-chip .nav-tx{flex:1;min-width:0}
+.navgo{flex:none;border:0;background:var(--hazard);color:var(--hazard-ink);border-radius:13px;min-height:46px;padding:0 14px;font:600 14px var(--display);display:inline-flex;align-items:center;gap:6px;box-shadow:0 10px 22px -12px var(--hazard)}
+.navgo svg{width:17px;height:17px;color:currentColor}
+.map-wrap .live-map{position:absolute!important;inset:0;visibility:hidden}
+.map-wrap.is-live .live-map{visibility:visible}
+.map-wrap.is-live > svg{display:none}
+.quick{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.quick button{border:1px solid var(--line-2);background:transparent;border-radius:16px;padding:13px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:8px;font-size:14px;min-height:52px}
+.quick svg{width:17px;height:17px;flex:none}
+.quick .full{grid-column:1/-1}
+/* counter contact block (the only place the counter number is shown; calls only) */
+.contact{display:flex;flex-direction:column;gap:14px;margin-top:12px}
+.ct-top{display:flex;gap:14px;align-items:center}
+.ct-ic{width:54px;height:54px;border-radius:17px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;flex:none}
+.ct-ic svg{width:26px;height:26px}
+.ct-top .ct-tx{flex:1;min-width:0}
+.ct-top b{display:block;font:600 16px var(--display);letter-spacing:-.02em}
+.ct-num{display:block;font:600 23px var(--mono);letter-spacing:.02em;margin-top:2px;font-variant-numeric:tabular-nums;color:var(--ink)}
+.ct-btns{display:grid;grid-template-columns:1fr;gap:10px}
+.ct-btns > *{min-height:54px;border-radius:16px;border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;gap:8px;font:600 15px var(--body);color:var(--ink);background:transparent;text-decoration:none}
+.ct-btns svg{width:19px;height:19px;flex:none}
+html[lang="dv"] .ct-btns > *{letter-spacing:0}
+
+.pod{display:flex;flex-direction:column;gap:14px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.cash{display:flex;gap:12px;align-items:center;border-radius:18px;padding:14px 16px;font:600 16px/1.35 var(--display);letter-spacing:-.01em}
+.cash svg{width:24px;height:24px;flex:none}
+.cash.due{background:color-mix(in srgb,var(--hazard) 20%,var(--surface));border:1.5px solid var(--hazard);color:var(--ink)}
+.cash.due svg{color:color-mix(in srgb,var(--hazard) 70%,var(--ink))}
+.cash.paid{background:color-mix(in srgb,var(--ok) 11%,var(--surface));border:1.5px solid color-mix(in srgb,var(--ok) 55%,transparent);color:var(--ok)}
+.cash.pending{background:color-mix(in srgb,var(--busy) 10%,var(--surface));border:1.5px solid color-mix(in srgb,var(--busy) 55%,transparent);color:var(--busy)}
+.photo{border:1px dashed var(--line-2);border-radius:18px;min-height:120px;display:grid;place-items:center;text-align:center;color:var(--mute);cursor:pointer;overflow:hidden;position:relative;background:var(--surface-2);font-size:14px;padding:10px}
+.photo.slim{min-height:84px}
+.photo img{width:100%;height:170px;object-fit:cover;display:block;border-radius:12px}
+.photo input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.photo svg{width:28px;height:28px}
+.sig{border:1px solid var(--line-2);border-radius:18px;background:var(--surface-2);position:relative}
+.sig canvas{display:block;width:100%;height:150px;touch-action:none;border-radius:18px}
+.sig .clr{position:absolute;inset-inline-end:8px;top:8px;border:1px solid var(--line-2);background:var(--surface);border-radius:999px;padding:8px 14px;font-size:12.5px;font-weight:500;min-height:36px}
+.sig .hint{position:absolute;inset-inline-start:14px;bottom:10px;font:400 11px var(--mono);color:var(--mute);pointer-events:none}
+.sig .hint[hidden]{display:none}
+.inp{font:400 15px var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line-2);border-radius:14px;padding:13px 14px;width:100%;min-height:50px}
+.inp:focus{border-color:var(--brand);outline:none;box-shadow:0 0 0 4px var(--brand-soft)}
+textarea.inp{resize:vertical;min-height:96px;line-height:1.45}
+
+.list{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:22px;overflow:hidden}
+.list > .row{border:0;border-radius:0;border-bottom:1px solid var(--line)}
+.list > .row:last-child{border-bottom:0}
+.row{display:flex;gap:14px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:14px;width:100%;text-align:start}
+.row .ic{width:48px;height:48px;border-radius:14px;background:var(--surface-2);color:var(--ink);display:grid;place-items:center;flex:none}
+.row .ic svg{width:34px;height:34px}
+.row .mid{flex:1;min-width:0}
+.row .mid b{display:block;font-size:14.5px;font-weight:600;letter-spacing:-.01em}
+.row .mid span{display:block;font-size:12.5px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .mid .pill{display:inline-flex;margin-top:5px;font-size:9.5px}
+.row .end{text-align:end;font:500 13.5px var(--mono);white-space:nowrap}
+.row .end small{display:block;font-weight:400;color:var(--mute);font-size:10.5px}
+.empty{text-align:center;color:var(--mute);padding:26px 12px;font-size:14px}
+
+.checks{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:22px;overflow:hidden}
+.checks label{display:flex;align-items:center;gap:14px;padding:15px 16px;border-bottom:1px solid var(--line);cursor:pointer;font-weight:500;min-height:62px}
+.checks label:last-child{border-bottom:0}
+.checks input{appearance:none;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--line-2);flex:none;display:grid;place-items:center;cursor:pointer;background:transparent;transition:.2s}
+.checks input:checked{background:var(--ok);border-color:var(--ok)}
+.checks input:checked::after{content:"";width:10px;height:6px;border:2px solid #fff;border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.checks small{display:block;color:var(--mute);font-weight:400;font-size:12.5px}
+.meter{height:4px;border-radius:2px;background:var(--surface-2);overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;background:var(--ok);transition:width .4s}
+
+.chart{width:100%;height:auto;display:block;margin-top:12px;direction:ltr}
+.earn-big{font:600 40px var(--display);letter-spacing:-.05em;font-variant-numeric:tabular-nums;margin-top:4px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:12px;background:var(--line);border:1px solid var(--line);border-radius:22px;overflow:hidden}
+.split .card{padding:14px 16px;border:0;border-radius:0;box-shadow:none}
+.split b{display:block;font:600 21px var(--display);letter-spacing:-.03em;font-variant-numeric:tabular-nums;margin-top:2px}
+.split.three{grid-template-columns:repeat(3,1fr)}
+.split.three .card{padding:12px 14px}
+.split.three b{font-size:18px}
+
+.tabbar{display:grid;grid-template-columns:repeat(5,1fr);background:var(--glass);backdrop-filter:blur(20px) saturate(1.6);border-top:1px solid var(--line);padding:8px max(8px,env(safe-area-inset-left,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-right,0px));flex:none}
+@media (min-width:600px){.tabbar{padding-bottom:18px}}
+.tabbar button{background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0;font-size:10.5px;font-weight:500;color:var(--mute);position:relative;min-height:54px}
+.tabbar svg{width:22px;height:22px}
+.tabbar button[aria-current="page"]{color:var(--ink)}
+.tabbar button[aria-current="page"]::before{content:"";position:absolute;top:-9px;width:20px;height:2px;border-radius:1px;background:var(--hazard)}
+.dotb{position:absolute;top:4px;right:calc(50% - 16px);width:8px;height:8px;border-radius:50%;background:var(--busy);border:2px solid var(--surface)}
+.dotb[hidden]{display:none}
+
+.req{position:absolute;inset:0;z-index:30;background:rgba(5,8,18,.6);backdrop-filter:blur(3px);display:flex;align-items:flex-end;opacity:0;pointer-events:none;transition:opacity .3s}
+.req.on{opacity:1;pointer-events:auto}
+.req .panel{width:100%;background:var(--bg);border-radius:30px 30px 0 0;padding:22px max(20px,env(safe-area-inset-left,0px)) calc(20px + env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-right,0px));transform:translateY(40px);transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.req.on .panel{transform:none}
+.ring{position:relative;width:64px;height:64px;flex:none}
+.ring svg{width:64px;height:64px;transform:rotate(-90deg)}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font:600 20px var(--display)}
+.req-top{display:flex;gap:16px;align-items:center}
+.req-top h2{font-size:23px;letter-spacing:-.035em}
+.req-pay{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:18px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.req-pay div{background:var(--surface);padding:12px}
+.req-pay b{display:block;font:600 18px var(--display);letter-spacing:-.03em;font-variant-numeric:tabular-nums;margin-top:2px}
+.req-btns{display:grid;grid-template-columns:1fr 2fr;gap:10px}
+.toast{position:absolute;left:50%;top:calc(16px + env(safe-area-inset-top,0px));transform:translate(-50%,-30px);opacity:0;background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:999px;font-weight:500;font-size:13.5px;transition:.35s cubic-bezier(.2,.8,.2,1);z-index:40;pointer-events:none;width:max-content;max-width:90%;box-shadow:var(--shadow);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.note{font:400 11.5px/1.6 var(--mono);color:var(--mute);margin-top:14px}
+.auth[hidden]{display:none!important}
+.auth{position:absolute;inset:0;z-index:35;background:var(--bg);overflow-y:auto;display:flex;flex-direction:column}
+.auth-hero{position:relative;height:240px;flex:none;background:var(--night)}
+.auth-hero img{width:100%;height:100%;object-fit:cover;object-position:50% 65%}
+.auth-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,11,22,.25),var(--bg))}
+.auth-hero svg{position:absolute;inset-inline-start:22px;bottom:4px;z-index:1;border-radius:14px}
+.auth-body{padding:18px max(22px,env(safe-area-inset-left,0px)) calc(28px + env(safe-area-inset-bottom,0px)) max(22px,env(safe-area-inset-right,0px))}
+.auth-body h1{font-size:28px;letter-spacing:-.04em;margin-top:6px}
+.auth-body .sub{margin-top:6px}
+.auth-body form[hidden]{display:none}
+.field{display:flex;flex-direction:column;gap:7px;margin-top:16px}
+.auth-err{color:var(--busy);font-size:13.5px;min-height:1.2em;margin-top:12px}
+.linkbtn{display:block;margin:18px auto 0;background:none;border:0;color:var(--mute);font-size:13.5px;text-decoration:underline;text-underline-offset:3px;min-height:44px;padding:0 10px}
+.linkbtn:disabled{text-decoration:none;opacity:.8;cursor:default}
+.face .ini{width:100%;height:100%;display:grid;place-items:center;background:var(--hazard);color:var(--hazard-ink);font:600 16px var(--display)}
+/* ---- product imagery + modern map ---- */
+:root{--tile:#e8ecf2;--map-sea:#cfe3f6;--map-sea2:#b5d4f0;--map-wave:rgba(255,255,255,.38);--map-reef:#a6dbe2;--map-sand:#f1e7d2;--map-land:#f7f8fa;--map-block:#eceff4;--map-bldg:#dce1ea;--map-road:#ffffff;--map-main:#ffffff;--map-park:#d8ecd4;--map-tree:#b4d8ac;--map-label:#7d8699;--map-route-todo:rgba(31,75,255,.22);--map-chip:#0a1022;--map-chip-ink:#ffffff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--tile:#1a2338;--map-sea:#0b1834;--map-sea2:#070f22;--map-wave:rgba(255,255,255,.03);--map-reef:#12324c;--map-sand:#1c2438;--map-land:#11192c;--map-block:#162035;--map-bldg:#1e2943;--map-road:#25304c;--map-main:#2d3a5c;--map-park:#132c1f;--map-tree:#1c4a2b;--map-label:#6c7792;--map-route-todo:rgba(85,119,255,.3);--map-chip:#eef1f8;--map-chip-ink:#070b16}}
+:root[data-theme="dark"]{--tile:#1a2338;--map-sea:#0b1834;--map-sea2:#070f22;--map-wave:rgba(255,255,255,.03);--map-reef:#12324c;--map-sand:#1c2438;--map-land:#11192c;--map-block:#162035;--map-bldg:#1e2943;--map-road:#25304c;--map-main:#2d3a5c;--map-park:#132c1f;--map-tree:#1c4a2b;--map-label:#6c7792;--map-route-todo:rgba(85,119,255,.3);--map-chip:#eef1f8;--map-chip-ink:#070b16}
+img.pimg{width:100%;height:100%;object-fit:cover;display:block}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) img.pimg{filter:brightness(.92)}}
+:root[data-theme="dark"] img.pimg{filter:brightness(.92)}
+.row .ic,.job-head .ic{background:var(--tile)!important;overflow:hidden}
+.job-head .ic{width:64px;height:64px;border-radius:18px}
+.map-wrap{aspect-ratio:4/4.6;border-radius:22px;background:var(--map-sea);margin-inline:-4px}
+.nav-chip{top:12px;left:12px;right:12px;border-radius:18px;padding:10px 10px 10px 14px;padding-inline:14px 10px;box-shadow:0 18px 30px -18px rgba(0,0,0,.6)}
+.req-img{height:150px;border-radius:20px;overflow:hidden;background:var(--tile);margin-bottom:16px}
+.req-img .pimg{object-fit:cover;object-position:50% 55%;filter:none!important}
+/* compact header on secondary tabs */
+.head{transition:padding .3s}
+.head.compact .stats{display:none}
+.head.compact{padding-bottom:14px}
+/* empty states */
+.empty{display:flex;flex-direction:column;align-items:center;text-align:center;padding:32px 22px}
+.empty .e-ic{width:64px;height:64px;border-radius:22px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;margin-bottom:14px}
+.empty .e-ic svg{width:28px;height:28px}
+.empty b{font:600 17px var(--display);letter-spacing:-.02em;color:var(--ink)}
+.empty p{margin-top:6px;max-width:250px;font-size:13.5px}
+/* pill tab bar + bottom toast */
+.tabbar svg{width:22px;height:22px;padding:5px 17px;box-sizing:content-box;border-radius:999px;transition:background .25s,color .25s}
+.tabbar button[aria-current="page"]::before{display:none}
+.tabbar button{min-width:0;white-space:nowrap}
+.tabbar button[aria-current="page"] svg{background:color-mix(in srgb,var(--hazard) 22%,transparent);color:var(--ink)}
+.tabbar button{gap:2px;padding-top:2px}
+.dotb{top:2px;right:calc(50% - 24px)}
+.toast{top:auto;bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translate(-50%,16px)}
+.toast.show{transform:translate(-50%,0)}
+
+/* ---- header: alerts bell + status flags ---- */
+.icon-btn{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;display:grid;place-items:center;flex:none;backdrop-filter:blur(10px);position:relative}
+.icon-btn svg{width:20px;height:20px}
+.icon-btn .badge{position:absolute;top:7px;inset-inline-end:8px;width:11px;height:11px;border-radius:50%;background:var(--hazard);border:2px solid var(--night)}
+.icon-btn .badge[hidden]{display:none}
+.flags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.flags:empty{display:none}
+.flag{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;border-radius:14px;padding:7px 12px;font-size:12.5px;font-weight:500;line-height:1.3;min-height:38px;backdrop-filter:blur(10px);text-align:start;max-width:100%}
+.flag svg{width:16px;height:16px;flex:none}
+.flag.warn{background:rgba(255,122,69,.2);border-color:rgba(255,122,69,.55);color:#ffd9c7}
+.flag.sync{background:rgba(232,177,74,.18);border-color:rgba(232,177,74,.55);color:#ffe3ad}
+.flag.sync svg{animation:spin 2.4s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---- alerts sheet ---- */
+.req .panel.sheet{max-height:86%;display:flex;flex-direction:column;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))}
+.sheet-top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.sheet-top h2{flex:1;font-size:22px;letter-spacing:-.03em}
+.chip-btn{border:1px solid var(--line-2);background:var(--surface);border-radius:999px;padding:0 14px;min-height:40px;font-size:13px;font-weight:500;color:var(--ink)}
+.close-btn{width:44px;height:44px;border-radius:50%;border:1px solid var(--line-2);background:var(--surface);display:grid;place-items:center;flex:none;color:var(--ink)}
+.close-btn svg{width:18px;height:18px}
+.sheet-list{overflow-y:auto;overscroll-behavior:contain;border-radius:22px;border:1px solid var(--line);background:var(--surface)}
+.al{display:flex;gap:12px;align-items:flex-start;width:100%;padding:14px;border:0;border-bottom:1px solid var(--line);background:var(--surface);text-align:start;min-height:72px}
+.al:last-child{border-bottom:0}
+.al.unread{background:color-mix(in srgb,var(--brand) 5%,var(--surface))}
+.al .aic{width:42px;height:42px;border-radius:14px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;flex:none}
+.al .aic.job{background:color-mix(in srgb,var(--hazard) 22%,transparent);color:color-mix(in srgb,var(--hazard) 60%,var(--ink))}
+.al .aic.defect{background:color-mix(in srgb,var(--busy) 12%,transparent);color:var(--busy)}
+.al .aic svg{width:20px;height:20px}
+.al .mid{flex:1;min-width:0}
+.al .mid b{display:block;font-size:14.5px;font-weight:600;letter-spacing:-.01em;line-height:1.3}
+.al .mid span{display:block;font-size:13px;color:var(--mute);margin-top:2px;overflow-wrap:anywhere}
+.al .mid small{display:block;font:400 11px var(--mono);color:var(--mute);margin-top:4px}
+.al .udot{width:10px;height:10px;border-radius:50%;background:var(--brand);flex:none;margin-top:6px}
+.al .udot.read{background:transparent}
+
+/* ---- vehicle tab ---- */
+.vgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.vgrid .full{grid-column:1/-1}
+.vgrid label.lbl{display:block;margin-bottom:6px}
+.vstate{text-align:center;margin-top:10px;font-size:13px;color:var(--mute);min-height:1.2em}
+.vstate.ok{color:var(--ok)}
+.stack{display:flex;flex-direction:column;gap:12px}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);background:var(--surface-2);border-radius:14px;padding:4px;gap:4px}
+.seg button{border:0;background:none;border-radius:10px;padding:10px 6px;font-weight:500;font-size:14px;color:var(--mute);min-height:46px;display:flex;align-items:center;justify-content:center;gap:6px}
+.seg button[aria-pressed="true"]{background:var(--surface);box-shadow:0 1px 3px rgba(0,0,0,.12);color:var(--ink)}
+.seg.seg2{grid-template-columns:1fr 1fr}
+.thumb-mini{width:48px;height:48px;border-radius:14px;object-fit:cover;flex:none}
+
+/* ---- phone sign-in ---- */
+.phone-in{display:flex;align-items:stretch;border:1px solid var(--line-2);border-radius:14px;background:var(--surface);overflow:hidden;direction:ltr}
+.phone-in:focus-within{border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-soft)}
+.phone-in span{display:grid;place-items:center;padding:0 14px;font:500 16px var(--mono);color:var(--mute);background:var(--surface-2);border-right:1px solid var(--line)}
+.phone-in input{border:0;background:transparent;flex:1;min-width:0;font:500 19px var(--mono);letter-spacing:.08em;color:var(--ink);padding:13px 14px;min-height:54px;outline:none}
+.code-in{font:600 26px var(--mono)!important;letter-spacing:.45em;text-align:center;direction:ltr;min-height:60px}
+
+/* ---- right-to-left (Dhivehi) ---- */
+[dir="rtl"] .flip{transform:scaleX(-1)}
+html[lang="dv"]{--display:"Geist","Faruma","MV Faseyha",ui-sans-serif,system-ui,sans-serif;--body:"Geist","Faruma","MV Faseyha",ui-sans-serif,system-ui,sans-serif;--mono:"Geist Mono","Faruma",ui-monospace,monospace}
+html[lang="dv"] .lbl,html[lang="dv"] .pill,html[lang="dv"] .stat span,html[lang="dv"] .stepnames,html[lang="dv"] .online,html[lang="dv"] .note,html[lang="dv"] .sig .hint,html[lang="dv"] .al small{letter-spacing:0;text-transform:none}
+html[lang="dv"] .lbl{font-size:11.5px}
+html[lang="dv"] .stat span{font-size:11px}
+html[lang="dv"] h1,html[lang="dv"] h2,html[lang="dv"] h3{line-height:1.4;letter-spacing:0}
+html[lang="dv"] .big-btn,html[lang="dv"] .nav-chip b,html[lang="dv"] .navgo,html[lang="dv"] .cash{letter-spacing:0}
+html[lang="dv"] .phone-in,html[lang="dv"] .code-in{direction:ltr}
+
+/* ---- sign-in extras: forgot / new password, privacy ---- */
+.auth-ok{color:var(--ok);font-size:13.5px;margin-top:12px;font-weight:500}
+.auth-ok:empty{display:none}
+.field .hint{font-size:12.5px;color:var(--mute)}
+.linkbtn.small{font-size:12.5px;margin-top:4px;min-height:40px}
+.authfoot{display:flex;flex-direction:column;align-items:center}
+
+/* ---- settings: legal links + delete account ---- */
+.legal{display:flex;align-items:center;justify-content:center;gap:4px;color:var(--mute);font-size:13.5px}
+.legal .linkbtn{margin:0;min-height:44px}
+.del-note{font-size:12.5px;color:var(--mute);text-align:center;margin-top:-4px}
+.big-btn.del{background:var(--busy);color:#fff;border:0;box-shadow:0 16px 30px -16px var(--busy)}
+.del-list{margin:12px 0 0;padding-inline-start:20px;display:flex;flex-direction:column;gap:6px;font-size:14.5px}
+.del-keep{display:flex;gap:10px;align-items:flex-start;margin-top:14px;background:var(--surface-2);border-radius:16px;padding:12px 14px;font-size:13.5px;color:var(--mute)}
+.del-keep svg{width:18px;height:18px;flex:none;color:var(--ok);margin-top:1px}
+.del-err{color:var(--busy);font-size:13.5px;margin-top:12px;min-height:1.2em}
+.del-btns{display:grid;grid-template-columns:1fr 1.6fr;gap:10px}
+
+/* ---- rating ---- */
+.stars{display:inline-block;position:relative;line-height:0;color:var(--hazard);white-space:nowrap;vertical-align:middle}
+.stars svg{width:16px;height:16px;margin-inline-end:2px}
+.stars .st-bg{color:color-mix(in srgb,var(--mute) 30%,transparent)}
+.stars .st-fg{position:absolute;inset-block:0;inset-inline-start:0;overflow:hidden}
+.stars.sm svg{width:13px;height:13px;margin-inline-end:1px}
+.rate-top{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center}
+.rate-avg b{display:block;font:600 46px var(--display);letter-spacing:-.05em;line-height:1;font-variant-numeric:tabular-nums}
+.rate-avg .stars{margin-top:8px}
+.rate-avg small{display:block;color:var(--mute);font-size:12.5px;margin-top:6px;white-space:nowrap}
+.bars{display:flex;flex-direction:column;gap:6px;min-width:0}
+.bar{display:grid;grid-template-columns:22px 1fr 22px;gap:8px;align-items:center;font:500 11.5px var(--mono);color:var(--mute);direction:ltr}
+[dir="rtl"] .bar{direction:rtl}
+.bar i{display:block;height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden}
+.bar i em{display:block;height:100%;border-radius:4px;background:var(--hazard)}
+.bar span:last-child{text-align:end;font-variant-numeric:tabular-nums}
+.rv{padding:14px 16px;border-bottom:1px solid var(--line)}
+.rv:last-child{border-bottom:0}
+.rv-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.rv-top small{font:400 11.5px var(--mono);color:var(--mute);white-space:nowrap}
+.rv p{margin-top:6px;font-size:14.5px;line-height:1.45;overflow-wrap:anywhere}
+.rv .ref{display:block;margin-top:6px;font:500 11px var(--mono);color:var(--mute);letter-spacing:.04em}
+.rate-more{margin-top:10px}
+.al .aic.rate{background:color-mix(in srgb,var(--hazard) 22%,transparent);color:color-mix(in srgb,var(--hazard) 60%,var(--ink))}
+.defstate{font-size:13px;margin-top:-2px;min-height:0;color:var(--mute);display:flex;gap:8px;align-items:center}
+.defstate:empty{display:none}
+.defstate.err{color:var(--busy)}
+.defstate .spin{width:14px;height:14px;border-radius:50%;border:2px solid var(--line-2);border-top-color:var(--brand);animation:spin .9s linear infinite;flex:none}
+html[lang="dv"] .rv .ref,html[lang="dv"] .rv-top small{letter-spacing:0}
+
+/* ---- console-controlled: message banner, daily-check gate, force update ---- */
+.dmsg{--tone:var(--brand);display:flex;gap:12px;align-items:flex-start;border-radius:18px;padding:6px;padding-inline:14px 6px;margin-bottom:6px;border:1px solid color-mix(in srgb,var(--tone) 38%,transparent);background:color-mix(in srgb,var(--tone) 10%,var(--surface));color:var(--ink)}
+.dmsg.success{--tone:var(--ok)}
+.dmsg.warning{--tone:var(--hazard);border-color:color-mix(in srgb,var(--hazard) 70%,transparent);background:color-mix(in srgb,var(--hazard) 18%,var(--surface))}
+.dmsg .m-ic{width:22px;height:22px;flex:none;margin-top:11px;color:color-mix(in srgb,var(--tone) 80%,var(--ink))}
+.dmsg .m-tx{flex:1;min-width:0;padding-block:9px}
+.dmsg .m-tx .lbl{display:block;margin-bottom:2px}
+.dmsg .m-tx p{font-size:14.5px;line-height:1.45;overflow-wrap:anywhere;white-space:pre-line}
+.dmsg .m-x{width:44px;height:44px;flex:none;border:0;background:transparent;border-radius:50%;display:grid;place-items:center;color:var(--mute)}
+.dmsg .m-x svg{width:18px;height:18px}
+.gate{margin-top:16px;border-radius:18px;padding:14px 16px;background:color-mix(in srgb,var(--hazard) 16%,var(--surface));border:1.5px solid var(--hazard);display:flex;gap:12px;align-items:flex-start}
+.gate > svg{width:24px;height:24px;flex:none;color:color-mix(in srgb,var(--hazard) 70%,var(--ink));margin-top:1px}
+.gate b{display:block;font:600 16px/1.35 var(--display);letter-spacing:-.01em}
+.gate p{color:var(--mute);font-size:13.5px;margin-top:4px}
+.upd{position:absolute;inset:0;z-index:50;background:var(--bg);overflow-y:auto;display:flex;flex-direction:column;justify-content:center;padding:calc(28px + env(safe-area-inset-top,0px)) max(24px,env(safe-area-inset-right,0px)) calc(28px + env(safe-area-inset-bottom,0px)) max(24px,env(safe-area-inset-left,0px))}
+.upd .u-ic{width:72px;height:72px;border-radius:24px;background:color-mix(in srgb,var(--hazard) 22%,transparent);color:color-mix(in srgb,var(--hazard) 65%,var(--ink));display:grid;place-items:center}
+.upd .u-ic svg{width:34px;height:34px}
+.upd h1{font-size:28px;letter-spacing:-.04em;margin-top:20px}
+.upd p{color:var(--mute);margin-top:10px;font-size:15px;white-space:pre-line;overflow-wrap:anywhere}
+.upd .u-ver{font:500 12px var(--mono);color:var(--mute);margin-top:14px;letter-spacing:.02em}
+.upd a.big-btn{text-decoration:none;margin-top:26px}
+.upd small{display:block;color:var(--mute);font-size:13px;margin-top:12px;text-align:center}
+html[lang="dv"] .upd h1{letter-spacing:0}
+/* ---- sign-in: phone & PIN ---- */
+.seg.seg3{grid-template-columns:repeat(3,1fr)}
+.seg button{min-width:0;text-align:center;line-height:1.2}
+.pin-in{position:relative;direction:ltr}
+.pin-in .code-in{padding-left:14px;padding-right:84px;letter-spacing:.32em}
+.pin-eye{position:absolute;top:50%;transform:translateY(-50%);right:6px;min-width:70px;min-height:44px;border:0;border-radius:11px;background:var(--surface-2);color:var(--ink);font:500 13px var(--body);padding:0 10px}
+.pin-hint{margin-top:4px;font-size:13.5px}
+.pin-call{text-decoration:none;margin-top:12px;min-height:52px;padding:12px}
+html[lang="dv"] .upd .u-ver,html[lang="dv"] .dmsg .lbl{letter-spacing:0}
+
+/* settings page */
+.set-top{display:flex;align-items:center;gap:10px;margin:2px 0 12px}
+.set-top h2{font-size:22px;letter-spacing:-.02em}
+.set-top .icon-btn{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+html[dir="rtl"] .set-top .icon-btn svg{transform:scaleX(-1)}
+#s-settings .card{margin-bottom:12px}
+.theme-pick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.theme-pick button{display:flex;flex-direction:column;align-items:center;gap:8px;padding:10px 6px 12px;min-height:44px;border-radius:16px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-weight:600;font-size:14px;cursor:pointer}
+.theme-pick button[aria-checked="true"]{border-color:var(--brand);box-shadow:0 0 0 3px color-mix(in srgb,var(--brand) 22%,transparent)}
+.theme-pick button:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.tp-prev{width:100%;aspect-ratio:16/10;border-radius:10px;display:flex;flex-direction:column;gap:5px;padding:8px;box-sizing:border-box;border:1px solid rgba(127,127,127,.25)}
+.tp-prev i{display:block;height:6px;border-radius:3px}.tp-prev i:first-child{width:70%}.tp-prev i:last-child{width:45%}
+.tp-light{background:#f5f6f8}.tp-light i{background:#c9ced8}
+.tp-dark{background:#0d1220}.tp-dark i{background:#36405a}
+.tp-auto{background:linear-gradient(135deg,#f5f6f8 50%,#0d1220 50%)}.tp-auto i{background:#8891a5}
+.set-link{display:flex;align-items:center;gap:12px;width:100%;min-height:52px;margin-top:14px;padding:0 16px;border-radius:16px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-weight:600;font-size:15px;text-align:start;cursor:pointer}
+.set-link svg{width:20px;height:20px;flex:none}.set-link span{flex:1}.set-link .chev{color:var(--mute)}
+html[dir="rtl"] .set-link .chev{transform:scaleX(-1)}
+.set-ver{text-align:center;margin-top:10px}
+</style>
+<svg width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><defs>
+  <symbol id="i-star" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.6l2.85 5.95 6.55.82-4.8 4.53 1.22 6.5L12 17.2l-5.82 3.2 1.22-6.5L2.6 9.37l6.55-.82z"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+</defs></svg>
+<script>window.YD_SURFACE="driver"</script>
+<script src="yd-config.js"></script>
+<script src="yd-settings.js"></script>
+<script>window.YD_VENDOR_BASE=window.YD_VENDOR_BASE||"vendor/";</script>
+<script src="yd-catalog.js"></script>
+<script src="yd-ui.js"></script>
+
+
+<div class="app">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></symbol></svg>
+  <header class="head">
+    <img src="assets/truck-sm.jpg" alt="">
+    <div class="head-top">
+      <span class="face" id="face"><img src="assets/driver-sm.jpg" alt="Ibrahim Shareef"></span>
+      <div class="me"><b id="meName">Ibrahim Shareef</b><small id="meSub" data-ltr>TP-04 · ★ 4.8</small></div>
+      <button class="icon-btn" id="bellBtn" type="button" aria-haspopup="dialog" data-i18n-aria="aria.bell" aria-label="Alerts"><svg aria-hidden="true"><use href="#i-bell"/></svg><span class="badge" id="bellDot" hidden></span></button>
+      <button class="online" id="onlineBtn" aria-pressed="true"><span id="onlineLbl">Online</span><span class="knob"><svg width="16" height="16" style="color:var(--head)" aria-hidden="true"><use href="#i-power"/></svg></span></button>
+    </div>
+    <div class="flags" id="flags" aria-live="polite"></div>
+    <div class="stats">
+      <div class="stat"><span data-i18n="st.jobs">Jobs today</span><b id="stJobs">0</b></div>
+      <div class="stat"><span data-i18n="st.earn">Earned</span><b id="stEarn">0</b></div>
+      <div class="stat"><span data-i18n="st.shift">Shift</span><b id="stShift" data-ltr>0h 00</b></div>
+    </div>
+  </header>
+
+  <section class="screen" id="s-today" data-i18n-aria="tab.today" aria-label="Today">
+    <div id="dmsg"></div>
+    <div id="todayBody"></div>
+  </section>
+
+  <section class="screen" id="s-jobs" hidden data-i18n-aria="tab.jobs" aria-label="Jobs">
+    <div class="sec"><h2 data-i18n="jobs.open">Open requests</h2><span class="pill info" id="openCount">0</span></div>
+    <div class="list" id="openList"></div>
+    <div class="sec"><h2 data-i18n="jobs.done">Completed</h2></div>
+    <div class="list" id="doneList"></div>
+  </section>
+
+  <section class="screen" id="s-vehicle" hidden data-i18n-aria="tab.vehicle" aria-label="Vehicle">
+    <div class="sec"><h2 data-i18n="veh.insp">Pre-trip inspection</h2><span class="lbl" id="chkDate"></span></div>
+    <p class="sub" id="inspSub"></p>
+    <div class="meter" style="margin-block:12px 14px"><i id="chkMeter" style="width:0"></i></div>
+    <div class="checks" id="checks"></div>
+    <div class="card vgrid" style="margin-top:12px">
+      <div><label class="lbl" for="odo" data-i18n="veh.odo">Odometer km</label><input class="inp" id="odo" inputmode="numeric" value="84 215" data-ltr></div>
+      <div><label class="lbl" for="fuel" data-i18n="veh.fuelLvl">Fuel level</label><select class="inp" id="fuel"><option value="Full" data-i18n="fuel.full">Full</option><option value="3/4" selected>3/4</option><option value="1/2">1/2</option><option value="1/4">1/4</option></select></div>
+    </div>
+    <button class="big-btn amber" id="inspBtn" type="button"><svg aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="veh.submit">Submit inspection</span></button>
+    <p class="vstate" id="inspState" role="status"></p>
+
+    <div class="sec"><h2 data-i18n="def.h">Report a defect</h2></div>
+    <div class="card stack">
+      <p class="sub" data-i18n="def.sub">Tell the workshop what's wrong. They see it straight away.</p>
+      <div><label class="lbl" for="defTxt" data-i18n="def.lbl" style="display:block;margin-bottom:6px">What's the problem?</label><textarea class="inp" id="defTxt" dir="auto" rows="3" maxlength="900" data-i18n-ph="def.ph"></textarea></div>
+      <label class="photo slim" id="defPhotoBox" for="defPhoto"><span id="defPhotoTx"><svg aria-hidden="true"><use href="#i-camera"/></svg><br><span data-i18n="def.photo">Add a photo (optional)</span></span><input type="file" id="defPhoto" accept="image/*" capture="environment" data-i18n-aria="def.photo"></label>
+      <button class="big-btn ghost danger" id="defBtn" type="button" style="margin-top:0"><svg aria-hidden="true"><use href="#i-alert"/></svg><span id="defBtnTx" data-i18n="def.send">Send defect report</span></button>
+      <p class="defstate" id="defState" role="status"></p>
+    </div>
+
+    <div class="card contact" id="counterCard">
+      <span class="lbl" data-i18n="ct.lbl">Counter</span>
+      <div class="ct-top"><span class="ct-ic" id="ctIc"><svg aria-hidden="true"><use href="#i-phone"/></svg></span><div class="ct-tx"><b data-i18n="ct.title">YD Works counter</b><span class="ct-num" id="ctNum" data-ltr>992 0202</span></div></div>
+      <div class="ct-btns"><a id="ctCall" href="tel:+9609920202"><svg aria-hidden="true"><use href="#i-phone"/></svg><span data-i18n="ct.call">Call</span></a></div>
+    </div>
+
+    <div id="fuelSec">
+    <div class="sec"><h2 data-i18n="fuel.h">Fuel log</h2><span class="lbl" data-i18n="fuel.week">This week</span></div>
+    <div class="card vgrid">
+      <div><label class="lbl" for="fL" data-i18n="fuel.l">Litres</label><input class="inp" id="fL" inputmode="decimal" placeholder="0" data-ltr></div>
+      <div><label class="lbl" for="fC" data-i18n="fuel.cost">Cost (MVR)</label><input class="inp" id="fC" inputmode="decimal" placeholder="0" data-ltr></div>
+      <div class="full"><label class="lbl" for="fO" data-i18n="fuel.odo">Odometer km</label><input class="inp" id="fO" inputmode="numeric" placeholder="84 215" data-ltr></div>
+      <button class="big-btn amber full" id="fuelBtn" type="button" style="margin-top:4px"><svg aria-hidden="true"><use href="#i-plus"/></svg><span data-i18n="fuel.add">Add fuel</span></button>
+    </div>
+    <div class="split three">
+      <div class="card"><span class="lbl" data-i18n="fuel.totL">Litres</span><b id="fTotL" data-ltr>0</b></div>
+      <div class="card"><span class="lbl" data-i18n="fuel.totC">Spent</span><b id="fTotC" data-ltr>0</b></div>
+      <div class="card"><span class="lbl" data-i18n="fuel.totKm">Distance</span><b id="fTotKm" data-ltr>—</b></div>
+    </div>
+    <div class="list" id="fuelList" style="margin-top:12px"></div>
+    </div>
+
+    <div class="sec"><h2 data-i18n="hist.h">Recent inspections</h2></div>
+    <div class="list" id="inspList"></div>
+
+    <button class="set-link" type="button" data-go-set><svg aria-hidden="true"><use href="#i-gear"/></svg><span data-i18n="set.open">Settings · appearance, language, account</span><svg class="chev" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+  </section>
+
+  <section class="screen" id="s-earn" hidden data-i18n-aria="tab.earn" aria-label="Earnings">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><span class="lbl" data-i18n="earn.week">This week</span><span class="pill amber" id="earnSample" data-i18n="earn.sample">Sample</span></div>
+      <div class="earn-big" id="wkTotal" data-ltr>MVR 0</div>
+      <svg class="chart" id="chart" viewBox="0 0 320 150" role="img" data-i18n-aria="earn.chartAria" aria-label="Earnings per day this week"></svg>
+    </div>
+    <div class="split">
+      <div class="card"><span class="lbl" data-i18n="earn.trips">Trips</span><b id="wkTrips">0</b></div>
+      <div class="card"><span class="lbl" id="wkHoursLbl">Hours on duty</span><b id="wkHours">0</b></div>
+      <div class="card"><span class="lbl" data-i18n="earn.rating">Rating</span><b id="wkRating" data-ltr>4.8 ★</b></div>
+      <div class="card"><span class="lbl" data-i18n="earn.cash">Cash collected</span><b id="wkCash" data-ltr>0</b></div>
+    </div>
+    <p class="note" id="earnNote"></p>
+    <div class="sec" id="rateSec"><h2 data-i18n="rate.h">Your rating</h2><span class="lbl" id="rateLast"></span></div>
+    <div id="rateBody"></div>
+  </section>
+
+  <section class="screen" id="s-settings" hidden data-i18n-aria="set.h" aria-label="Settings">
+    <div class="set-top"><h2 data-i18n="set.h">Settings</h2></div>
+    <div class="card stack">
+      <span class="lbl" data-i18n="set.theme">Appearance</span>
+      <div class="theme-pick" id="themePick" role="radiogroup" data-i18n-aria="set.theme" aria-label="Appearance">
+        <button type="button" role="radio" data-theme-opt="light"><span class="tp-prev tp-light"><i></i><i></i></span><span data-i18n="set.light">Light</span></button>
+        <button type="button" role="radio" data-theme-opt="dark"><span class="tp-prev tp-dark"><i></i><i></i></span><span data-i18n="set.dark">Dark</span></button>
+        <button type="button" role="radio" data-theme-opt="system"><span class="tp-prev tp-auto"><i></i><i></i></span><span data-i18n="set.auto">Auto</span></button>
+      </div>
+      <p class="note" data-i18n="set.autoNote">Auto follows your phone: light by day, dark at night if your phone does.</p>
+      <div id="themeSeg" hidden></div>
+    </div>
+    <div class="card stack">
+      <span class="lbl" data-i18n="set.lang">Language</span><div id="langSeg"></div>
+    </div>
+    <div class="card stack">
+      <span class="lbl" data-i18n="set.account">Account</span>
+      <button class="big-btn ghost" id="signOutBtn" type="button" hidden style="margin-top:4px"><svg aria-hidden="true"><use href="#i-out"/></svg><span data-i18n="set.signout">Sign out</span></button>
+      <button class="big-btn ghost danger" id="delBtn" type="button" aria-haspopup="dialog" style="margin-top:0"><svg aria-hidden="true"><use href="#i-trash"/></svg><span data-i18n="del.btn">Delete my account</span></button>
+      <p class="del-note" id="delNote" data-i18n="del.demo">Available when signed in</p>
+    </div>
+    <div class="legal"><button class="linkbtn" type="button" data-legal="privacy" data-i18n="legal.privacy">Privacy</button><span aria-hidden="true">·</span><button class="linkbtn" type="button" data-legal="terms" data-i18n="legal.terms">Terms</button></div>
+    <p class="note set-ver" data-ltr id="setVer">YD Driver</p>
+  </section>
+
+  <nav class="tabbar" aria-label="Main">
+    <button data-go="today" aria-current="page"><svg aria-hidden="true"><use href="#i-home"/></svg><span data-i18n="tab.today">Today</span></button>
+    <button data-go="jobs"><svg aria-hidden="true"><use href="#i-list"/></svg><span data-i18n="tab.jobs">Jobs</span><span class="dotb" id="jobsDot" hidden></span></button>
+    <button data-go="vehicle"><svg aria-hidden="true"><use href="#i-truck"/></svg><span data-i18n="tab.vehicle">Vehicle</span></button>
+    <button data-go="earn"><svg aria-hidden="true"><use href="#i-wallet"/></svg><span data-i18n="tab.earn">Earnings</span></button>
+    <button data-go="settings"><svg aria-hidden="true"><use href="#i-gear"/></svg><span data-i18n="tab.set">Settings</span></button>
+  </nav>
+
+  <div class="req" id="req" role="dialog" aria-modal="true" aria-labelledby="reqTitle">
+    <div class="panel" id="reqPanel"></div>
+  </div>
+  <div class="req" id="alerts" role="dialog" aria-modal="true" aria-labelledby="alTitle">
+    <div class="panel sheet">
+      <div class="sheet-top"><h2 id="alTitle" data-i18n="al.h">Alerts</h2><button class="chip-btn" id="alAll" type="button" data-i18n="al.markAll">Mark all read</button><button class="close-btn" id="alClose" type="button" data-i18n-aria="al.close" aria-label="Close"><svg aria-hidden="true"><use href="#i-x"/></svg></button></div>
+      <div class="sheet-list" id="alList"></div>
+    </div>
+  </div>
+  <div class="req" id="delSheet" role="dialog" aria-modal="true" aria-labelledby="delTitle">
+    <div class="panel sheet" id="delPanel"></div>
+  </div>
+  <div class="auth" id="auth" hidden>
+    <div class="auth-hero"><img src="assets/truck-sm.jpg" alt=""><svg width="52" height="52" aria-hidden="true"><use href="#logo"/></svg></div>
+    <div class="auth-body">
+      <h1 id="aTitle">YD Driver</h1>
+      <p class="sub" id="aSub">Sign in with the driver account the YD Works counter gave you.</p>
+      <div class="seg seg2" id="aSeg" role="group" aria-label="Sign-in method" style="margin-top:18px">
+        <button type="button" data-mode="pin" aria-pressed="true"><span data-i18n="auth.tabPin">Phone &amp; PIN</span></button>
+        <button type="button" data-mode="email" aria-pressed="false"><span data-i18n="auth.tabEmail">Email</span></button>
+        <button type="button" data-mode="phone" aria-pressed="false" hidden><span data-i18n="auth.tabSms">SMS code</span></button>
+      </div>
+      <form id="pinForm" novalidate>
+        <div class="field"><label class="lbl" for="pPhone" data-i18n="auth.mobile">Mobile number</label><div class="phone-in"><span>+960</span><input id="pPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="7XX XXXX"></div></div>
+        <div class="field"><label class="lbl" for="pPin" data-i18n="auth.pin">6-digit PIN</label><div class="pin-in"><input class="inp code-in" id="pPin" type="password" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="••••••"><button class="pin-eye" id="pEye" type="button" aria-pressed="false">Show</button></div></div>
+        <button class="big-btn amber" id="pGo" type="submit" data-i18n="auth.go">Sign in</button>
+      </form>
+      <form id="phoneForm" novalidate hidden>
+        <div class="field"><label class="lbl" for="aPhone" data-i18n="auth.mobile">Mobile number</label><div class="phone-in"><span>+960</span><input id="aPhone" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="8" placeholder="7XX XXXX"></div></div>
+        <button class="big-btn amber" id="aSend" type="submit" data-i18n="auth.send">Send code</button>
+      </form>
+      <form id="codeForm" novalidate hidden>
+        <p class="sub" id="aSentTo" style="margin-top:16px"></p>
+        <div class="field"><label class="lbl" for="aCode" data-i18n="auth.code">6-digit code</label><input class="inp code-in" id="aCode" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="••••••"></div>
+        <button class="big-btn amber" id="aVerify" type="submit" data-i18n="auth.verify">Verify</button>
+        <button class="linkbtn" id="aResend" type="button"></button>
+        <button class="linkbtn" id="aChange" type="button" style="margin-top:0" data-i18n="auth.change">Change number</button>
+      </form>
+      <form id="authForm" novalidate hidden>
+        <div class="field"><label class="lbl" for="aEmail" data-i18n="auth.email">Email</label><input class="inp" id="aEmail" type="email" autocomplete="username" placeholder="you@yd-mv.com" data-ltr></div>
+        <div class="field"><label class="lbl" for="aPass" data-i18n="auth.pass">Password</label><input class="inp" id="aPass" type="password" autocomplete="current-password"></div>
+        <button class="big-btn amber" id="aGo" type="submit" data-i18n="auth.go">Sign in</button>
+        <button class="linkbtn" id="aForgot" type="button" style="margin-bottom:-8px" data-i18n="auth.forgot">Forgot password?</button>
+      </form>
+      <form id="forgotForm" novalidate hidden>
+        <div class="field"><label class="lbl" for="fEmail" data-i18n="auth.email">Email</label><input class="inp" id="fEmail" type="email" autocomplete="username" placeholder="you@yd-mv.com" data-ltr></div>
+        <button class="big-btn amber" id="fSend" type="submit" data-i18n="auth.sendLink">Send reset link</button>
+        <p class="auth-ok" id="fDone" role="status"></p>
+        <button class="linkbtn" id="fBack" type="button" style="margin-bottom:-8px" data-i18n="auth.back">Back to sign in</button>
+      </form>
+      <form id="newPassForm" novalidate hidden>
+        <div class="field"><label class="lbl" for="nPass" data-i18n="auth.newPass">New password</label><input class="inp" id="nPass" type="password" autocomplete="new-password" minlength="8" aria-describedby="nHint"><span class="hint" id="nHint" data-i18n="auth.pwHint">At least 8 characters.</span></div>
+        <div class="field"><label class="lbl" for="nPass2" data-i18n="auth.newPass2">Confirm new password</label><input class="inp" id="nPass2" type="password" autocomplete="new-password" minlength="8"></div>
+        <button class="big-btn amber" id="nGo" type="submit" data-i18n="auth.savePw">Save and continue</button>
+      </form>
+      <p class="auth-err" id="aErr" role="alert"></p>
+      <p class="auth-ok" id="aOk" role="status"></p>
+      <div id="pinHelp">
+        <p class="sub pin-hint" data-i18n="auth.pinHint">Your manager gives you a PIN. Forgot it? Ask the counter to reset it.</p>
+        <a class="big-btn ghost pin-call" id="pCall" href="tel:+9609920202"><svg aria-hidden="true"><use href="#i-phone"/></svg><span data-i18n="callBase">Call counter</span></a>
+      </div>
+      <div class="authfoot">
+        <button class="linkbtn" id="aDemo" type="button" data-i18n="auth.demo">Explore the demo instead</button>
+        <button class="linkbtn small" id="aPrivacy" type="button" data-legal="privacy" data-i18n="auth.privacy">Privacy</button>
+      </div>
+    </div>
+  </div>
+  <div class="upd" id="updGate" role="alertdialog" aria-modal="true" aria-labelledby="updTitle" aria-describedby="updText" hidden>
+    <span class="u-ic"><svg aria-hidden="true"><use href="#i-alert"/></svg></span>
+    <h1 id="updTitle">Update YD Driver</h1>
+    <p id="updText" dir="auto"></p>
+    <span class="u-ver" id="updVer"></span>
+    <a class="big-btn amber" id="updCall" href="tel:+9609920202"><svg aria-hidden="true"><use href="#i-phone"/></svg><span id="updCallTx">Call the counter</span></a>
+    <small id="updHelp"></small>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+</div>
+
+<script src="vendor/supabase.js"></script>
+<script src="yd-backend.js"></script>
+<script>
+(function(){
+"use strict";
+let LIVE=false;
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const CFG=window.YD_CONFIG||{};
+const YARD=CFG.yard||{lat:4.2167,lng:73.5405,label:"YD Works yard"};
+const mvr=n=>"MVR "+Math.round(n).toLocaleString("en-US");
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const ltr=s=>`<bdi data-ltr>${s}</bdi>`;
+const iso=s=>"\u2066"+s+"\u2069";   // isolate LTR runs (amounts, refs) inside plain-text strings such as toasts
+const ls={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+/* settings a manager changes in the console (Website & apps → Driver app); see yd-settings.js. Defaults = the app as built. */
+const DS_DEFAULTS={message:{active:false,text_en:"",text_dv:"",tone:"info"},checklist:[],require_pod_photo:true,require_daily_check:true,fuel_logging:true,location_every_sec:30,min_version:"",update_text_en:"",update_text_dv:""};
+function readDS(){
+  let s=null;try{s=window.YDSET&&YDSET.get()&&YDSET.get().driver_app}catch(_){}
+  const o=Object.assign({},DS_DEFAULTS,s&&typeof s==="object"?s:{});
+  o.message=Object.assign({},DS_DEFAULTS.message,o.message&&typeof o.message==="object"?o.message:{});
+  o.require_pod_photo=o.require_pod_photo!==false;o.require_daily_check=o.require_daily_check!==false;o.fuel_logging=o.fuel_logging!==false;
+  return o;
+}
+let DS=readDS(),updBlocked=false;
+let ME={name:"Ibrahim Shareef",unit:"TP-04 · Tipper 10m³",init:"IS",code:"TP-04",rating:4.8};
+
+/* ═════════════ strings: English + Dhivehi ═════════════
+ * Dhivehi (Thaana, right-to-left) below is a first draft and NEEDS REVIEW BY A NATIVE SPEAKER
+ * before release. Names, numbers, MVR amounts, job refs and phone numbers stay as they are. */
+const STR={en:{
+  "tab.today":"Today","tab.jobs":"Jobs","tab.vehicle":"Vehicle","tab.earn":"Earnings",
+  "online":"Online","offline":"Offline","aria.bell":"Alerts","aria.bellN":"Alerts, {n} unread",
+  "st.jobs":"Jobs today","st.earn":"Earned","st.shift":"Shift",
+  "flag.loc":"Location is off — customers can't see your truck","flag.sync":"{n} waiting to upload","flag.nosignal":"No signal — keep working, we'll sync later",
+  "off.h":"You're off the clock","off.p":"Go online to receive jobs near the Hulhumalé yard.","off.btn":"Go online",
+  "wait.h":"Waiting for jobs","wait.open1":"1 open request nearby.","wait.openN":"{n} open requests nearby.","wait.none":"You're parked at the YD yard. New requests pop up here.","wait.view":"View requests",
+  "before.h":"Before you go","before.check":"Pre-trip checklist","before.checkSub":"{n}/{total} items passed today",
+  "pend.h":"Delivery waiting to upload","pend.hN":"{n} deliveries waiting to upload","pend.p":"The proof of delivery is saved on this phone. It uploads by itself when you're back online.","pend.retry":"Try now",
+  "stage.requested":"Waiting","stage.accepted":"Go to yard","stage.loading":"Loading","stage.enroute":"Driving","stage.arrived":"On site","stage.completed":"Done","stage.cancelled":"Cancelled",
+  "step.yard":"Yard","step.load":"Load","step.drive":"Drive","step.site":"Site","step.done":"Done",
+  "next.accepted":"Arrived at yard · start loading","next.loading":"Loaded · start trip","next.enroute":"Arrived on site","next.arrived":"Complete delivery",
+  "chip.yard":"YD Works yard","chip.eta":"{km} · {min} min","chip.bay":"Bay 2 · Aggregate & cement","chip.here":"You're here","nav":"Navigate","nav.aria":"Open turn-by-turn directions to {place}",
+  "kv.drop":"Drop-off","kv.cust":"Customer","kv.note":"Note",
+  "collect.lbl":"Collect on delivery","collect.paid":"Paid · nothing to collect","collect.pending":"Payment pending",
+  "cash.due":"Collect {amount} in cash","cash.paid":"Already paid by card/transfer — don't collect cash","cash.pending":"Payment pending — call the counter",
+  "callCust":"Call customer","callBase":"Call counter","toast.cust":"Customer: {phone}","toast.custDemo":"Customer: 7XX XXXX (demo)","toast.base":"Counter hotline: {phone}",
+  "pod.lbl":"Proof of delivery","pod.photo":"Add a photo of the unloaded materials","pod.photoAria":"Add delivery photo","pod.rcv":"Received by","pod.rcvPh":"Name of person on site","pod.sigAria":"Signature pad","pod.clear":"Clear","pod.sigHint":"Customer signs here","pod.skipped":"Photo skipped (demo)","pod.photoAlt":"Delivery photo","pod.uploading":"Uploading proof…",
+  "toast.delivered":"Delivered · {amount}","toast.queued":"Delivered · will upload when back online","toast.uploaded":"Proof of delivery uploaded","toast.uploadedN":"{n} proofs of delivery uploaded","toast.couldntUpdate":"Couldn't update the job","toast.refresh":"Couldn't refresh jobs","toast.stillOffline":"Still no signal. We'll keep trying.",
+  "req.hire":"New hire","req.delivery":"New delivery","req.earn":"You earn","req.dist":"Distance","req.when":"When","req.decline":"Decline","req.accept":"Accept job",
+  "toast.accepted":"Job accepted · head to the yard","toast.taken":"Another driver took this job","toast.declined":"Declined","toast.expired":"Request expired","toast.finishFirst":"Finish your current job first",
+  "jobs.open":"Open requests","jobs.done":"Completed","jobs.youEarn":"you earn","jobs.noOpen":"No open requests","jobs.noOpenOn":"New jobs near the yard will pop up on your Today screen.","jobs.noOpenOff":"Go online to start receiving jobs.","jobs.signed":"Signed by {name}","jobs.noDone":"No deliveries yet today","jobs.noDoneP":"Completed jobs and your earnings for each one appear here.","jobs.pendingUp":"Delivered · will upload when back online",
+  "veh.insp":"Pre-trip inspection","veh.inspSub":"Walk around {unit} before your first job. All items must pass to go online.","veh.odo":"Odometer km","veh.fuelLvl":"Fuel level","fuel.full":"Full","veh.submit":"Submit inspection","veh.submitted":"Inspection submitted at {time}","veh.sending":"Sending…",
+  "toast.inspOk":"Inspection submitted · all clear","toast.inspDefect":"Inspection submitted · workshop notified",
+  "c0.t":"Tyres & wheel nuts","c0.s":"Pressure, cuts, nuts tight","c1.t":"Brakes & air pressure","c1.s":"Builds to normal within 2 min","c2.t":"Lights & indicators","c2.s":"Head, brake, hazard, reverse beeper","c3.t":"Hydraulics & tipper ram","c3.s":"No leaks, body lowers fully","c4.t":"Oil, coolant, water","c4.s":"Levels between min and max","c5.t":"Mirrors & windscreen","c5.s":"Clean, no cracks in view","c6.t":"Load straps & tarp","c6.s":"Present and undamaged","c7.t":"PPE on board","c7.s":"Helmet, vest, boots, gloves",
+  "def.h":"Report a defect","def.sub":"Tell the workshop what's wrong. They see it straight away.","def.lbl":"What's the problem?","def.ph":"e.g. Left rear tyre losing air, leak at the tipper ram","def.photo":"Add a photo (optional)","def.photoAlt":"Defect photo","def.send":"Send defect report","def.need":"Describe the problem first","toast.defSent":"Defect reported · workshop notified",
+  "fuel.h":"Fuel log","fuel.l":"Litres","fuel.cost":"Cost (MVR)","fuel.odo":"Odometer km","fuel.add":"Add fuel","fuel.need":"Enter the litres","fuel.week":"This week","fuel.totL":"Litres","fuel.totC":"Spent (MVR)","fuel.totKm":"Distance","fuel.none":"No fuel added this week","fuel.noneP":"Each fill-up you add appears here with the week's totals.","toast.fuel":"Fuel logged · {l}","fuel.title":"{l} L diesel",
+  "hist.h":"Recent inspections","hist.pass":"All clear","hist.fail":"Defect","hist.none":"No inspections yet","hist.noneP":"Submitted checklists and defect reports appear here.","hist.items":"{n}/{total} items passed","hist.defect":"Defect report",
+  "tab.set":"Settings","set.h":"Settings","set.lang":"Language","set.theme":"Appearance","set.signout":"Sign out","set.light":"Light","set.dark":"Dark","set.auto":"Auto","set.autoNote":"Auto follows your phone: light by day, dark at night if your phone does.","set.account":"Account","set.back":"Back","set.open":"Settings · appearance, language, account",
+  "earn.week":"This week","earn.sample":"Sample","earn.trips":"Trips","earn.hours":"Hours on duty","earn.hoursLive":"Hours on jobs","earn.rating":"Rating","earn.cash":"Cash collected","earn.chartAria":"Earnings per day this week",
+  "earn.noteDemo":"Sample figures for the demo — only today's bar changes as you complete jobs. Pay is settled at the counter every Thursday.","earn.noteLive":"From your completed jobs since Saturday. Pay is settled at the counter every Thursday.",
+  "al.h":"Alerts","al.markAll":"Mark all read","al.close":"Close","al.none":"No alerts yet","al.noneP":"New jobs, assignments and messages from the counter appear here.","al.now":"Just now","al.min":"{n} min ago","al.hr":"{n} h ago","al.day":"{n} d ago",
+  "al.job.t":"New job · {title}","al.job.b":"{site} · {amount}","al.assigned.t":"You have a new job","al.assigned.b":"{ref} · {title}","al.msg.t":"Counter: Bay 2 is ready","al.msg.b":"Cement is stacked on the left pallets. Ask Hassan for the load sheet.","al.gone":"This job is no longer available",
+  "auth.title":"YD Driver","auth.sub":"Sign in with the driver account the YD Works counter gave you.","auth.phoneSub":"Sign in with the mobile number registered at the YD Works counter.","auth.tabPhone":"Phone","auth.tabEmail":"Email","auth.method":"Sign-in method",
+  "auth.email":"Email","auth.pass":"Password","auth.go":"Sign in","auth.demo":"Explore the demo instead","auth.mobile":"Mobile number","auth.send":"Send code","auth.code":"6-digit code","auth.sentTo":"We sent a 6-digit code to {phone}.","auth.verify":"Verify","auth.resendIn":"Resend code in {s}s","auth.resend":"Resend code","auth.change":"Change number",
+  "err.phone":"Enter your 7-digit mobile number","err.code":"Enter the 6-digit code","err.badCode":"That code is wrong or has expired.","err.login":"Email or password is wrong.","err.notDriver":"This account isn't a driver account. Ask the YD Works counter to set one up.","toast.codeSent":"Code sent",
+  "toast.online":"You're online. Requests will appear here.","toast.offline":"You're offline","toast.checkFirst":"Finish the pre-trip checklist first","toast.chkFail":"Checklist item failed · you're offline until it's fixed",
+  "ct.lbl":"Counter","ct.title":"YD Works counter","ct.call":"Call","ct.callAria":"Call the counter","toast.baseCall":"Calling the counter…",
+  "day.0":"Sat","day.1":"Sun","day.2":"Mon","day.3":"Tue","day.4":"Wed","day.5":"Thu","day.6":"Fri",
+  "mon.0":"Jan","mon.1":"Feb","mon.2":"Mar","mon.3":"Apr","mon.4":"May","mon.5":"Jun","mon.6":"Jul","mon.7":"Aug","mon.8":"Sep","mon.9":"Oct","mon.10":"Nov","mon.11":"Dec",
+  "auth.forgot":"Forgot password?","auth.forgotH":"Reset your password","auth.forgotSub":"Enter your account email. We'll send you a link to set a new password.","auth.sendLink":"Send reset link","auth.linkSent":"Check your email for a reset link.","auth.back":"Back to sign in",
+  "auth.newH":"Set a new password","auth.newSub":"Choose a new password for your driver account.","auth.newPass":"New password","auth.newPass2":"Confirm new password","auth.pwHint":"At least 8 characters.","auth.savePw":"Save and continue","auth.privacy":"Privacy",
+  "auth.deleted":"Your account has been deleted. Thank you for driving with YD Works.","err.email":"Enter your email address","err.pwShort":"Use at least 8 characters.","err.pwMatch":"The two passwords don't match.","toast.pwSaved":"Password updated",
+  "legal.privacy":"Privacy","legal.terms":"Terms",
+  "del.btn":"Delete my account","del.demo":"Available when signed in","del.h1":"Delete your account?","del.p1":"This permanently removes from YD Works:","del.i1":"Your driver profile and sign-in","del.i2":"Your alerts","del.i3":"Your location history",
+  "del.keep":"Completed delivery records (proof of delivery and amounts) stay with the company for its accounts.","del.cont":"Continue","del.cancel":"Cancel","del.h2":"Are you sure?","del.p2":"This can't be undone. You'll be signed out, and you'll need a new account from the counter to drive again.","del.go":"Delete permanently","del.busy":"Deleting…",
+  "rate.h":"Your rating","rate.last":"Last {n}","rate.count1":"1 rating","rate.countN":"{n} ratings","rate.aria":"{n} out of 5 stars","rate.barAria":"{s} stars: {n}","rate.comments":"Recent comments","rate.none":"No ratings yet","rate.noneP":"Customers can rate each delivery once it's completed. Their stars and comments appear here.","rate.more":"Show all comments","rate.less":"Show fewer","rate.order":"Order {ref}","rate.err":"Couldn't load your ratings","rate.retry":"Try again",
+  "al.rate.t":"{name} rated you {stars}★","al.rate.b":"“{comment}” · {ref}",
+  "def.uploading":"Uploading photo…","def.photoFail":"The photo didn't upload ({msg}). Check your signal and try again.","toast.defQueued":"No signal · the defect report will send when you're back online","hist.pending":"Waiting to upload",
+  "toast.acceptedQueued":"Job accepted · your last delivery will upload when you're back online",
+  "msg.lbl":"From YD Works","msg.close":"Dismiss message","pod.photoOpt":"Add a photo of the unloaded materials (optional)","veh.inspSubOpt":"Walk around {unit} before your first job.",
+  "gate.h":"Do today's vehicle check first","gate.p":"YD Works asks for the daily vehicle check before you accept jobs. {n}/{total} items passed.","gate.go":"Do check now","gate.later":"Not now",
+  "auth.tabPin":"Phone & PIN","auth.tabSms":"SMS code","auth.pinSub":"Sign in with your mobile number and the PIN your manager gave you.","auth.pin":"6-digit PIN","auth.pinShow":"Show","auth.pinHide":"Hide","auth.pinShowAria":"Show PIN","auth.pinHideAria":"Hide PIN",
+  "auth.pinHint":"Your manager gives you a PIN. Forgot it? Ask the counter to reset it.","err.pin":"Enter your 6-digit PIN","err.pinLogin":"Phone number or PIN is wrong.",
+  "upd.h":"Update YD Driver","upd.p":"This version of YD Driver is no longer supported. Install the latest version to keep receiving jobs.","upd.ver":"Your version {have} · needed {need}","upd.call":"Call the counter","upd.help":"Not sure how? Call the counter and we'll help."
+},dv:{
+  "tab.today":"މިއަދު","tab.jobs":"މަސައްކަތް","tab.vehicle":"ގާޑި","tab.earn":"އާމްދަނީ",
+  "online":"އޮންލައިން","offline":"އޮފްލައިން","aria.bell":"ނޯޓިފިކޭޝަން","aria.bellN":"ނޯޓިފިކޭޝަން، {n} ނުކިޔާ",
+  "st.jobs":"މިއަދުގެ މަސައްކަތް","st.earn":"ލިބުނު","st.shift":"ޝިފްޓް",
+  "flag.loc":"ލޮކޭޝަން ބަންދު — ކަސްޓަމަރުންނަށް ތިބާގެ ޓްރަކް ނުފެންނާނެ","flag.sync":"{n} އަޕްލޯޑަށް މަޑުކުރަނީ","flag.nosignal":"ސިގްނަލް ނެތް — މަސައްކަތް ކުރިއަށް ގެންދާ، ފަހުން ސިންކް ވާނެ",
+  "off.h":"މިހާރު ޑިއުޓީގައެއް ނޫން","off.p":"ހުޅުމާލޭގެ ޔާޑާ ކައިރީގެ މަސައްކަތް ލިބޭނީ އޮންލައިން ވުމުން.","off.btn":"އޮންލައިން ވޭ",
+  "wait.h":"މަސައްކަތަށް މަޑުކުރަނީ","wait.open1":"ކައިރީގައި 1 އަމުރެއް ހުޅުވިފައި.","wait.openN":"ކައިރީގައި {n} އަމުރު ހުޅުވިފައި.","wait.none":"ތިބާ މިހާރު ހުރީ YD ޔާޑުގައި. އަލަށް އަންނަ އަމުރުތައް މިތާ ފެންނާނެ.","wait.view":"އަމުރުތައް ބައްލަވާ",
+  "before.h":"ދަތުރަށް ދިއުމުގެ ކުރިން","before.check":"ދަތުރުގެ ކުރީގެ ޗެކްލިސްޓް","before.checkSub":"މިއަދު {n}/{total} ޗެކް ފާސްވެއްޖެ",
+  "pend.h":"ޑެލިވަރީއެއް އަޕްލޯޑަށް މަޑުކުރަނީ","pend.hN":"{n} ޑެލިވަރީ އަޕްލޯޑަށް މަޑުކުރަނީ","pend.p":"ޑެލިވަރީގެ ހެކި މި ފޯނުގައި ރައްކާކޮށްފައި. އިންޓަނެޓް ލިބުމުން އަމިއްލައަށް އަޕްލޯޑް ވާނެ.","pend.retry":"މިހާރު ފޮނުވާ",
+  "stage.requested":"މަޑުކުރަނީ","stage.accepted":"ޔާޑަށް ދާ","stage.loading":"ލޯޑުކުރަނީ","stage.enroute":"ދުއްވަނީ","stage.arrived":"ސައިޓުގައި","stage.completed":"ނިމިއްޖެ","stage.cancelled":"ކެންސަލްކޮށްފި",
+  "step.yard":"ޔާޑު","step.load":"ލޯޑު","step.drive":"ދުއްވުން","step.site":"ސައިޓު","step.done":"ނިމުން",
+  "next.accepted":"ޔާޑަށް އައީ · ލޯޑުކުރަން ފަށާ","next.loading":"ލޯޑުކުރެވިއްޖެ · ދަތުރު ފަށާ","next.enroute":"ސައިޓަށް އައީ","next.arrived":"ޑެލިވަރީ ނިންމާ",
+  "chip.yard":"YD Works ޔާޑު","chip.eta":"{km} · {min} މިނިޓު","chip.bay":"ބޭ 2 · އެގްރިގޭޓް އަދި ސިމެންތި","chip.here":"ތިބާ މިހާރު ހުރީ މިތާ","nav":"ނެވިގޭޓް","nav.aria":"{place} އަށް މަގު ދައްކާ ނެވިގޭޝަން ހުޅުވާ",
+  "kv.drop":"ބާލާނެ ތަން","kv.cust":"ކަސްޓަމަރު","kv.note":"ނޯޓު",
+  "collect.lbl":"ޑެލިވަރީގައި ނަގާނެ","collect.paid":"ފައިސާ ދައްކާފައި · ނަގާކަށް ނެތް","collect.pending":"ފައިސާ ދެއްކުން ނިމިފައެއް ނުވޭ",
+  "cash.due":"ނަގުދު ފައިސާއިން {amount} ނަގާ","cash.paid":"ކާޑު/ޓްރާންސްފަރއިން ފައިސާ ދައްކާފައި — ނަގުދު ފައިސާ ނުނަގާ","cash.pending":"ފައިސާ ދެއްކުން ނިމިފައެއް ނުވޭ — ކައުންޓަރަށް ގުޅާ",
+  "callCust":"ކަސްޓަމަރަށް ގުޅާ","callBase":"ކައުންޓަރަށް ގުޅާ","toast.cust":"ކަސްޓަމަރު: {phone}","toast.custDemo":"ކަސްޓަމަރު: 7XX XXXX (ޑެމޯ)","toast.base":"ކައުންޓަރުގެ ހޮޓްލައިން: {phone}",
+  "pod.lbl":"ޑެލިވަރީގެ ހެކި","pod.photo":"ބާލާފައިވާ މުދަލުގެ ފޮޓޯއެއް ނަގާ","pod.photoAria":"ޑެލިވަރީގެ ފޮޓޯ އިތުރުކުރޭ","pod.rcv":"ބަލައިގަތް މީހާ","pod.rcvPh":"ސައިޓުގައި ހުރި މީހާގެ ނަން","pod.sigAria":"ސޮއިކުރާ ތަން","pod.clear":"ފޮހެލާ","pod.sigHint":"ކަސްޓަމަރު މިތާ ސޮއިކުރައްވާ","pod.skipped":"ފޮޓޯ ނުނަގާ ދޫކޮށްލެވިއްޖެ (ޑެމޯ)","pod.photoAlt":"ޑެލިވަރީގެ ފޮޓޯ","pod.uploading":"ހެކި އަޕްލޯޑުކުރަނީ…",
+  "toast.delivered":"ޑެލިވަރ ކުރެވިއްޖެ · {amount}","toast.queued":"ޑެލިވަރ ކުރެވިއްޖެ · އިންޓަނެޓް ލިބުމުން އަޕްލޯޑް ކުރެވޭނެ","toast.uploaded":"ޑެލިވަރީގެ ހެކި އަޕްލޯޑް ކުރެވިއްޖެ","toast.uploadedN":"{n} ޑެލިވަރީގެ ހެކި އަޕްލޯޑް ކުރެވިއްޖެ","toast.couldntUpdate":"މަސައްކަތް އަޕްޑޭޓެއް ނުކުރެވުނު","toast.refresh":"މަސައްކަތްތައް އާކޮށެއް ނުލެވުނު","toast.stillOffline":"އަދިވެސް ސިގްނަލް ނެތް. އަލުން މަސައްކަތްކުރާނަން.",
+  "req.hire":"އައު ކުލި މަސައްކަތެއް","req.delivery":"އައު ޑެލިވަރީއެއް","req.earn":"ތިބާއަށް ލިބޭނީ","req.dist":"ދުރުމިން","req.when":"ވަގުތު","req.decline":"ދޫކޮށްލާ","req.accept":"މަސައްކަތް ނަގާ",
+  "toast.accepted":"މަސައްކަތް ނެގިއްޖެ · ޔާޑަށް ދާށެވެ","toast.taken":"މި މަސައްކަތް އެހެން ޑްރައިވަރަކު ނަގައިފި","toast.declined":"ދޫކޮށްލެވިއްޖެ","toast.expired":"އަމުރުގެ ވަގުތު ހަމަވެއްޖެ","toast.finishFirst":"ފުރަތަމަ މިހާރުގެ މަސައްކަތް ނިންމާ",
+  "jobs.open":"ހުޅުވިފައިވާ އަމުރުތައް","jobs.done":"ނިމުނު","jobs.youEarn":"ތިބާއަށް","jobs.noOpen":"ހުޅުވިފައިވާ އަމުރެއް ނެތް","jobs.noOpenOn":"ޔާޑާ ކައިރީގެ އައު މަސައްކަތްތައް 'މިއަދު' ސްކްރީނުގައި ފެންނާނެ.","jobs.noOpenOff":"މަސައްކަތް ލިބެން ފެށޭނީ އޮންލައިން ވުމުން.","jobs.signed":"ސޮއިކުރީ {name}","jobs.noDone":"މިއަދު އަދި ޑެލިވަރީއެއް ނުކުރެވޭ","jobs.noDoneP":"ނިމުނު މަސައްކަތްތަކާއި އެކަމުން ލިބުނު ފައިސާ މިތާ ފެންނާނެ.","jobs.pendingUp":"ޑެލިވަރ ކުރެވިއްޖެ · އިންޓަނެޓް ލިބުމުން އަޕްލޯޑް ކުރެވޭނެ",
+  "veh.insp":"ދަތުރުގެ ކުރީގެ ޗެކްކުރުން","veh.inspSub":"ފުރަތަމަ މަސައްކަތުގެ ކުރިން {unit} ވަށައިގެން ބައްލަވާ. އޮންލައިން ވެވޭނީ ހުރިހާ ޗެކެއް ފާސްވުމުން.","veh.odo":"އޮޑޮމީޓަރ km","veh.fuelLvl":"ތެލުގެ މިންވަރު","fuel.full":"ފުރިފައި","veh.submit":"ޗެކްކުރުން ފޮނުވާ","veh.submitted":"ޗެކްކުރުން ފޮނުވީ {time}","veh.sending":"ފޮނުވަނީ…",
+  "toast.inspOk":"ޗެކްކުރުން ފޮނުވިއްޖެ · ހުރިހާ އެއްޗެއް ރަނގަޅު","toast.inspDefect":"ޗެކްކުރުން ފޮނުވިއްޖެ · ވޯކްޝޮޕަށް އަންގައިފި",
+  "c0.t":"ޓަޔަރާއި ފުރޮޅުގެ ނަޓު","c0.s":"ވައި، ކެޑުން، ނަޓު ވަރުގަދަ","c1.t":"ބްރޭކާއި އެއާ ޕްރެޝަރު","c1.s":"2 މިނިޓުތެރޭ ނޯމަލަށް އަރާ","c2.t":"ލައިޓާއި އިންޑިކޭޓަރު","c2.s":"ހެޑް، ބްރޭކް، ހަޒަޑް، ރިވާސް ބީޕަރ","c3.t":"ހައިޑްރޯލިކްސް އަދި ޓިޕަރ ރޭމް","c3.s":"ލީކެއް ނެތް، ބޮޑީ ފުރިހަމައަށް ތިރިވޭ","c4.t":"އޮއިލް، ކޫލަންޓް، ފެން","c4.s":"މިންވަރު މިން އާއި މެކްސްގެ ދެމެދު","c5.t":"މިރަރާއި ވިންޑްސްކްރީން","c5.s":"ސާފު، ފެންނަ ހިސާބުގައި ފަޅާފައެއް ނެތް","c6.t":"ލޯޑް ސްޓްރެޕާއި ޓާޕޯލިން","c6.s":"ހުރި، ހަލާކެއް ނެތް","c7.t":"ޕީޕީއީ ގާޑީގައި","c7.s":"ހެލްމެޓް، ވެސްޓް، ބޫޓު، އަތްއުރަ",
+  "def.h":"މައްސަލައެއް ރިޕޯޓްކުރޭ","def.sub":"ގާޑީގައި ހުރި މައްސަލަ ވޯކްޝޮޕަށް އަންގާ. އެމީހުންނަށް އެވަގުތަށް ފެންނާނެ.","def.lbl":"މައްސަލައަކީ ކޮބާ؟","def.ph":"މިސާލު: ފަހަތު ވާތު ޓަޔަރުން ވައި ދަނީ، ޓިޕަރ ރޭމުން ލީކުވޭ","def.photo":"ފޮޓޯއެއް އިތުރުކުރޭ (ބޭނުންނަމަ)","def.photoAlt":"މައްސަލައިގެ ފޮޓޯ","def.send":"މައްސަލަ ފޮނުވާ","def.need":"ފުރަތަމަ މައްސަލަ ލިޔުއްވާ","toast.defSent":"މައްސަލަ ރިޕޯޓްކުރެވިއްޖެ · ވޯކްޝޮޕަށް އަންގައިފި",
+  "fuel.h":"ތެލުގެ ރެކޯޑު","fuel.l":"ލީޓަރު","fuel.cost":"އަގު (MVR)","fuel.odo":"އޮޑޮމީޓަރ km","fuel.add":"ތެޔޮ ލިޔެލާ","fuel.need":"ލީޓަރު ޖައްސަވާ","fuel.week":"މި ހަފްތާ","fuel.totL":"ލީޓަރު","fuel.totC":"ހޭދަ (MVR)","fuel.totKm":"ދުއްވި","fuel.none":"މި ހަފްތާގައި ތެޔޮ ލިޔެފައެއް ނުވޭ","fuel.noneP":"ތެޔޮ ޖައްސާ ކޮންމެ ފަހަރަކު ލިޔުމުން، ހަފްތާގެ ޖުމްލައާއެކު މިތާ ފެންނާނެ.","toast.fuel":"ތެޔޮ ލިޔެވިއްޖެ · {l}","fuel.title":"{l} L ޑީސަލް",
+  "hist.h":"ފަހުގެ ޗެކްކުރުންތައް","hist.pass":"ހުރިހާ އެއްޗެއް ރަނގަޅު","hist.fail":"މައްސަލައެއް","hist.none":"އަދި ޗެކްކުރުމެއް ނެތް","hist.noneP":"ފޮނުވާ ޗެކްލިސްޓްތަކާއި މައްސަލަ ރިޕޯޓުތައް މިތާ ފެންނާނެ.","hist.items":"{n}/{total} ފާސް","hist.defect":"މައްސަލަ ރިޕޯޓް",
+  "tab.set":"ސެޓިންގްސް","set.h":"ސެޓިންގްސް","set.lang":"ބަސް","set.theme":"ފެނުން","set.signout":"ސައިން އައުޓް","set.light":"ލައިޓް","set.dark":"ޑާކް","set.auto":"އޮޓޯ","set.autoNote":"އޮޓޯ ހޮވައިފިނަމަ ފޯނުގެ ސެޓިންގއާ އެއްގޮތަށް ބަދަލުވާނެ.","set.account":"އެކައުންޓް","set.back":"ފަހަތަށް","set.open":"ސެޓިންގްސް · ފެނުން، ބަސް، އެކައުންޓް",
+  "earn.week":"މި ހަފްތާ","earn.sample":"ނަމޫނާ","earn.trips":"ދަތުރު","earn.hours":"ޑިއުޓީގެ ގަޑިއިރު","earn.hoursLive":"މަސައްކަތުގެ ގަޑިއިރު","earn.rating":"ރޭޓިންގ","earn.cash":"ނެގި ނަގުދު","earn.chartAria":"މި ހަފްތާގެ ކޮންމެ ދުވަހެއްގެ އާމްދަނީ",
+  "earn.noteDemo":"ޑެމޯއަށް ނަމޫނާ އަދަދުތައް — މަސައްކަތް ނިންމާވަރަކަށް ބަދަލުވަނީ މިއަދުގެ ބާރު އެކަނި. ކޮންމެ ބުރާސްފަތި ދުވަހު ކައުންޓަރުން ފައިސާ ދެއްކޭނެ.","earn.noteLive":"ހޮނިހިރު ދުވަހުން ފެށިގެން ނިމުނު މަސައްކަތްތަކުން. ކޮންމެ ބުރާސްފަތި ދުވަހު ކައުންޓަރުން ފައިސާ ދެއްކޭނެ.",
+  "al.h":"ނޯޓިފިކޭޝަން","al.markAll":"ހުރިހާ އެއްޗެއް ކިޔުނީ","al.close":"ބަންދުކުރޭ","al.none":"އަދި ނޯޓިފިކޭޝަނެއް ނެތް","al.noneP":"އައު މަސައްކަތްތަކާއި، ހަވާލުކުރާ މަސައްކަތްތަކާއި، ކައުންޓަރުގެ މެސެޖުތައް މިތާ ފެންނާނެ.","al.now":"މިހާރު","al.min":"{n} މިނިޓު ކުރިން","al.hr":"{n} ގަޑިއިރު ކުރިން","al.day":"{n} ދުވަސް ކުރިން",
+  "al.job.t":"އައު މަސައްކަތެއް · {title}","al.job.b":"{site} · {amount}","al.assigned.t":"ތިބާއާ މަސައްކަތެއް ހަވާލުކުރެވިއްޖެ","al.assigned.b":"{ref} · {title}","al.msg.t":"ކައުންޓަރު: ބޭ 2 ތައްޔާރު","al.msg.b":"ސިމެންތި އޮތީ ވާތު ފަރާތު ޕެލެޓުތަކުގައި. ލޯޑް ޝީޓް ހަސަނުގެ ކިބައިން ހޯއްދަވާ.","al.gone":"މި މަސައްކަތް މިހާރު ނެތް",
+  "auth.title":"YD ޑްރައިވަރ","auth.sub":"YD Works ކައުންޓަރުން ދީފައިވާ ޑްރައިވަރ އެކައުންޓުން ސައިން އިން ކުރައްވާ.","auth.phoneSub":"YD Works ކައުންޓަރުގައި ރަޖިސްޓަރީ ކޮށްފައިވާ މޯބައިލް ނަންބަރުން ސައިން އިން ކުރައްވާ.","auth.tabPhone":"ފޯނު","auth.tabEmail":"އީމެއިލް","auth.method":"ސައިން އިން ކުރާ ގޮތް",
+  "auth.email":"އީމެއިލް","auth.pass":"ޕާސްވޯޑް","auth.go":"ސައިން އިން","auth.demo":"އޭގެ ބަދަލުގައި ޑެމޯ ބައްލަވާ","auth.mobile":"މޯބައިލް ނަންބަރު","auth.send":"ކޯޑު ފޮނުވާ","auth.code":"6 ނަންބަރުގެ ކޯޑު","auth.sentTo":"{phone} އަށް 6 ނަންބަރުގެ ކޯޑެއް ފޮނުވިއްޖެ.","auth.verify":"ޔަގީންކުރޭ","auth.resendIn":"{s} ސިކުންތުން ކޯޑު އަލުން ފޮނުވޭނެ","auth.resend":"ކޯޑު އަލުން ފޮނުވާ","auth.change":"ނަންބަރު ބަދަލުކުރޭ",
+  "err.phone":"7 ނަންބަރުގެ މޯބައިލް ނަންބަރު ޖައްސަވާ","err.code":"6 ނަންބަރުގެ ކޯޑު ޖައްސަވާ","err.badCode":"ކޯޑު ރަނގަޅެއް ނޫން، ނުވަތަ ވަގުތު ހަމަވެއްޖެ.","err.login":"އީމެއިލް ނުވަތަ ޕާސްވޯޑް ރަނގަޅެއް ނޫން.","err.notDriver":"މިއީ ޑްރައިވަރ އެކައުންޓެއް ނޫން. YD Works ކައުންޓަރާ ގުޅުއްވާ.","toast.codeSent":"ކޯޑު ފޮނުވިއްޖެ",
+  "toast.online":"ތިބާ އޮންލައިން. އަމުރުތައް މިތާ ފެންނާނެ.","toast.offline":"ތިބާ އޮފްލައިން","toast.checkFirst":"ފުރަތަމަ ދަތުރުގެ ކުރީގެ ޗެކްލިސްޓް ނިންމާ","toast.chkFail":"ޗެކެއް ފެއިލްވެއްޖެ · ރަނގަޅުކުރެވެންދެން ތިބާ އޮފްލައިން",
+  "ct.lbl":"ކައުންޓަރު","ct.title":"YD Works ކައުންޓަރު","ct.call":"ގުޅާ","ct.callAria":"ކައުންޓަރަށް ގުޅާ","toast.baseCall":"ކައުންޓަރަށް ގުޅަނީ…",
+  "day.0":"ހޮނި","day.1":"އާދި","day.2":"ހޯމަ","day.3":"އަން","day.4":"ބުދަ","day.5":"ބުރާ","day.6":"ހުކު",
+  "mon.0":"ޖަނަވަރީ","mon.1":"ފެބުރުއަރީ","mon.2":"މާޗް","mon.3":"އޭޕްރީލް","mon.4":"މެއި","mon.5":"ޖޫން","mon.6":"ޖުލައި","mon.7":"އޮގަސްޓް","mon.8":"ސެޕްޓެމްބަރ","mon.9":"އޮކްޓޫބަރ","mon.10":"ނޮވެމްބަރ","mon.11":"ޑިސެމްބަރ",
+  "auth.forgot":"ޕާސްވޯޑް ހަނދާން ނެތީތަ؟","auth.forgotH":"ޕާސްވޯޑް ރީސެޓްކުރޭ","auth.forgotSub":"އެކައުންޓުގެ އީމެއިލް ޖައްސަވާ. އައު ޕާސްވޯޑެއް ހެދުމަށް ލިންކެއް ފޮނުވާނަން.","auth.sendLink":"ރީސެޓް ލިންކް ފޮނުވާ","auth.linkSent":"ރީސެޓް ލިންކަށް ތިބާގެ އީމެއިލް ބައްލަވާ.","auth.back":"ސައިން އިން އަށް އެނބުރި",
+  "auth.newH":"އައު ޕާސްވޯޑެއް ހަދާ","auth.newSub":"ތިބާގެ ޑްރައިވަރ އެކައުންޓަށް އައު ޕާސްވޯޑެއް ހަދާ.","auth.newPass":"އައު ޕާސްވޯޑް","auth.newPass2":"އައު ޕާސްވޯޑް އަލުން ޖައްސަވާ","auth.pwHint":"މަދުވެގެން 8 އަކުރު.","auth.savePw":"ރައްކާކޮށް ކުރިއަށް","auth.privacy":"ޕްރައިވެސީ",
+  "auth.deleted":"ތިބާގެ އެކައުންޓް ފޮހެލެވިއްޖެ. YD Works އާއެކު ގާޑި ދުއްވައިދެއްވީތީ ޝުކުރިއްޔާ.","err.email":"އީމެއިލް އެޑްރެސް ޖައްސަވާ","err.pwShort":"މަދުވެގެން 8 އަކުރު ބޭނުންކުރޭ.","err.pwMatch":"ދެ ޕާސްވޯޑް އެއްގޮތެއް ނޫން.","toast.pwSaved":"ޕާސްވޯޑް ބަދަލުކުރެވިއްޖެ",
+  "legal.privacy":"ޕްރައިވެސީ","legal.terms":"ޝަރުތުތައް",
+  "del.btn":"އަހަރެންގެ އެކައުންޓް ފޮހެލާ","del.demo":"ސައިން އިން ކުރުމުން ބޭނުންކުރެވޭނެ","del.h1":"އެކައުންޓް ފޮހެލަންވީތޯ؟","del.p1":"YD Works އިން މިއެއްޗެހި ދާއިމީކޮށް ފޮހެވޭނެ:","del.i1":"ތިބާގެ ޑްރައިވަރ ޕްރޮފައިލް އަދި ސައިން އިން","del.i2":"ތިބާގެ ނޯޓިފިކޭޝަންތައް","del.i3":"ތިބާގެ ލޮކޭޝަން ހިސްޓްރީ",
+  "del.keep":"ނިމުނު ޑެލިވަރީތަކުގެ ރެކޯޑު (ޑެލިވަރީގެ ހެކި އަދި އަދަދުތައް) ކުންފުނީގެ ހިސާބުތަކަށްޓަކައި ކުންފުނީގައި ބާކީ ހުންނާނެ.","del.cont":"ކުރިއަށް","del.cancel":"ކެންސަލް","del.h2":"ޔަގީންތޯ؟","del.p2":"މިކަން އަނބުރާ ނުކުރެވޭނެ. ތިބާ ސައިން އައުޓް ވާނެ، އަދި އަލުން ގާޑި ދުއްވަން ކައުންޓަރުން އައު އެކައުންޓެއް ބޭނުންވާނެ.","del.go":"ދާއިމީކޮށް ފޮހެލާ","del.busy":"ފޮހެލަނީ…",
+  "rate.h":"ތިބާގެ ރޭޓިންގ","rate.last":"ފަހުގެ {n}","rate.count1":"1 ރޭޓިންގ","rate.countN":"{n} ރޭޓިންގ","rate.aria":"5 ތަރިން {n}","rate.barAria":"{s} ތަރި: {n}","rate.comments":"ފަހުގެ ކޮމެންޓުތައް","rate.none":"އަދި ރޭޓިންގއެއް ނެތް","rate.noneP":"ޑެލިވަރީ ނިމުމުން ކަސްޓަމަރުންނަށް ރޭޓްކުރެވޭނެ. ތަރިތަކާއި ކޮމެންޓުތައް މިތާ ފެންނާނެ.","rate.more":"ހުރިހާ ކޮމެންޓެއް ދައްކާ","rate.less":"މަދުކޮށް ދައްކާ","rate.order":"އޯޑަރު {ref}","rate.err":"ރޭޓިންގ ލޯޑެއް ނުކުރެވުނު","rate.retry":"އަލުން މަސައްކަތްކުރޭ",
+  "al.rate.t":"{name} ތިބާއަށް {stars}★ ދެއްވައިފި","al.rate.b":"“{comment}” · {ref}",
+  "def.uploading":"ފޮޓޯ އަޕްލޯޑުކުރަނީ…","def.photoFail":"ފޮޓޯ އަޕްލޯޑެއް ނުވި ({msg}). ސިގްނަލް ބައްލަވައިފައި އަލުން މަސައްކަތްކުރޭ.","toast.defQueued":"ސިގްނަލް ނެތް · އިންޓަނެޓް ލިބުމުން މައްސަލަ ރިޕޯޓް ފޮނުވޭނެ","hist.pending":"އަޕްލޯޑަށް މަޑުކުރަނީ",
+  "toast.acceptedQueued":"މަސައްކަތް ނެގިއްޖެ · ފަހުގެ ޑެލިވަރީ އިންޓަނެޓް ލިބުމުން އަޕްލޯޑް ވާނެ",
+  "msg.lbl":"YD Works ގެ މެސެޖު","msg.close":"މެސެޖު ފޮރުވާ","pod.photoOpt":"ބާލާފައިވާ މުދަލުގެ ފޮޓޯއެއް ނަގާ (ބޭނުންނަމަ)","veh.inspSubOpt":"ފުރަތަމަ މަސައްކަތުގެ ކުރިން {unit} ވަށައިގެން ބައްލަވާ.",
+  "gate.h":"ފުރަތަމަ މިއަދުގެ ގާޑީގެ ޗެކްކުރުން ނިންމާ","gate.p":"މަސައްކަތް ނެގުމުގެ ކުރިން ދުވަހުގެ ގާޑީގެ ޗެކްކުރުން ނިންމަން ޖެހޭ. {n}/{total} ޗެކް ފާސްވެއްޖެ.","gate.go":"މިހާރު ޗެކްކުރޭ","gate.later":"މިހާރެއް ނޫން",
+  "auth.tabPin":"ފޯނާއި ޕިން","auth.tabSms":"އެސްއެމްއެސް ކޯޑު","auth.pinSub":"ތިބާގެ މޯބައިލް ނަންބަރާއި މެނޭޖަރު ދީފައިވާ ޕިން ޖައްސަވައިގެން ސައިން އިން ކުރައްވާ.","auth.pin":"6 ނަންބަރުގެ ޕިން","auth.pinShow":"ދައްކާ","auth.pinHide":"ފޮރުވާ","auth.pinShowAria":"ޕިން ދައްކާ","auth.pinHideAria":"ޕިން ފޮރުވާ",
+  "auth.pinHint":"ޕިން ދެނީ ތިބާގެ މެނޭޖަރު. ހަނދާން ނެތިއްޖެނަމަ، ރީސެޓްކޮށްދިނުމަށް ކައުންޓަރާ ގުޅުއްވާ.","err.pin":"6 ނަންބަރުގެ ޕިން ޖައްސަވާ","err.pinLogin":"ފޯނު ނަންބަރު ނުވަތަ ޕިން ރަނގަޅެއް ނޫން.",
+  "upd.h":"YD ޑްރައިވަރ އަޕްޑޭޓްކުރޭ","upd.p":"YD ޑްރައިވަރގެ މި ވަރޝަން މިހާރު ބޭނުމެއް ނުކުރެވޭނެ. މަސައްކަތް ލިބެން ކުރިއަށް ދިއުމަށް އެންމެ ފަހުގެ ވަރޝަން އިންސްޓޯލްކުރޭ.","upd.ver":"ތިބާގެ ވަރޝަން {have} · ބޭނުންވަނީ {need}","upd.call":"ކައުންޓަރަށް ގުޅާ","upd.help":"ނޭނގޭނަމަ ކައުންޓަރަށް ގުޅުއްވާ، އެހީތެރިވެދޭނަން."
+}};
+const I18N=window.YDUI&&YDUI.i18n;
+if(I18N)I18N.add(STR);
+const t=(k,v)=>I18N?I18N.t(k,v):(STR.en[k]||k).replace(/\{(\w+)\}/g,(_,x)=>v&&v[x]!=null?v[x]:"");
+const isDV=()=>!!(I18N&&I18N.get()==="dv");
+const hhmm=ts=>{const d=new Date(ts);return String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0")};
+const dayIdx=ts=>(new Date(ts).getDay()+1)%7;          // Sat=0 … Fri=6 (pay week)
+const dayTime=ts=>`${t("day."+dayIdx(ts))} ${new Date(ts).getDate()} · ${hhmm(ts)}`;
+function weekStart(){const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-dayIdx(d));return d.getTime()}
+const fmtDate=ts=>{const d=new Date(ts);return `${d.getDate()} ${t("mon."+d.getMonth())}`};
+// anonymous usage events (YDUI.track drops them unless monitoring + backend are configured)
+function track(name,detail){try{window.YDUI&&YDUI.track&&YDUI.track(name,Object.assign({},detail||{}))}catch(_){}}
+const isNative=()=>{const C=window.Capacitor;return !!(C&&C.isNativePlatform&&C.isNativePlatform())};
+// open outside the app: the system browser / app on native, a new tab on the web
+function openExternal(u){if(isNative()){window.open(u,"_system");return}const w=window.open(u,"_blank","noopener");if(w===undefined)location.href=u}
+function legalUrl(k){const L=CFG.legal||{},f=L[k]||k+".html";return /^https?:/i.test(f)?f:String(L.base||"https://yd-mv.com/").replace(/\/?$/,"/")+f}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-legal]");if(b){e.preventDefault();openExternal(legalUrl(b.dataset.legal))}});
+function ago(ts){const m=Math.max(0,Math.round((Date.now()-ts)/60e3));return m<1?t("al.now"):m<60?t("al.min",{n:m}):m<1440?t("al.hr",{n:Math.round(m/60)}):t("al.day",{n:Math.round(m/1440)})}
+
+/* ---------- shared store (same as customer app) ---------- */
+const KEY="ydworks.jobs.v1";
+const ch=("BroadcastChannel" in window)?new BroadcastChannel("ydworks"):null;
+let mem=null;
+function load(){if(LIVE)return mem;try{const v=localStorage.getItem(KEY);if(v)return JSON.parse(v)}catch(e){}return mem}
+function save(j){mem=j;if(LIVE)return;try{localStorage.setItem(KEY,JSON.stringify(j))}catch(e){}ch&&ch.postMessage({t:"jobs"})}
+function seed(){const now=Date.now();return[
+  {id:"YD-48213",kind:"materials",title:"Cement & sand load",icon:"cem",lines:[["Portland cement 50kg",40,118],["River sand m³",3,650]],site:"Plot 10234, Hulhumalé Ph2",siteLat:4.2243,siteLng:73.5462,when:"Today, ASAP",total:40*118+3*650+250,paymentMethod:"cod",paymentStatus:"unpaid",status:"enroute",progress:.45,demo:true,driver:ME,createdAt:now-50*60e3,history:{requested:now-50*60e3,accepted:now-46*60e3,loading:now-35*60e3,enroute:now-12*60e3}},
+  {id:"YD-47960",kind:"hire",title:"Excavator 20T · 8 hrs",icon:"exc20",lines:[["Excavator 20T, hours",8,850]],site:"Plot 10234, Hulhumalé Ph2",when:"Mon, 08:00",total:6800,paymentMethod:"transfer",paymentStatus:"paid",status:"completed",progress:1,driver:{name:"Mohamed Rasheed",unit:"EX-02 · Excavator 20T",init:"MR"},createdAt:now-3*864e5,history:{requested:now-3*864e5,completed:now-3*864e5+9*36e5}}
+]}
+let jobs=load();if(!jobs){jobs=seed();save(jobs)}
+const STAGES=["accepted","loading","enroute","arrived","completed"];
+const NEXT={accepted:"loading",loading:"enroute",enroute:"arrived",arrived:"completed"};
+function payFor(j){return Math.round(Math.max(150,j.total*.06)/10)*10}   // driver share (sample rule)
+function distKm(j){let h=0;for(const c of j.id)h=(h*31+c.charCodeAt(0))%97;return (1.2+h/97*4).toFixed(1)}
+function payState(j){const m=j.paymentMethod||"cod",s=j.paymentStatus||"unpaid";return s==="paid"?"paid":(m==="cod"&&s==="unpaid")?"due":"pending"}
+
+let online=true,cur="today",shiftStart=Date.now()-(3*60+12)*60e3,seen=new Set(),reqTimer=null,pending=null;
+function toast(m){const el=$("#toast");el.textContent=m;el.classList.add("show");clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove("show"),2800)}
+function icon(n,cls){return `<svg aria-hidden="true"${cls?` class="${cls}"`:""}><use href="#i-${n}"/></svg>`}
+const thumb=(k,alt)=>window.YDUI?YDUI.thumb(k,alt):icon(k);
+function mine(){return jobs.filter(j=>j.driver&&(ME.id?j.driver.id===ME.id:j.driver.name===ME.name))}
+function active(){return mine().find(j=>!["completed","cancelled"].includes(j.status))}
+function upd(id,patch){jobs=load()||jobs;const j=jobs.find(x=>x.id===id);if(!j)return null;Object.assign(j,patch);if(patch.status){j.history=j.history||{};j.history[patch.status]=Date.now()}save(jobs);return j}
+function setOnlineUI(){$("#onlineBtn").setAttribute("aria-pressed",online);$("#onlineLbl").textContent=t(online?"online":"offline")}
+
+/* ---------- nav ---------- */
+function go(s){cur=s;document.querySelector(".head").classList.toggle("compact",s!=="today");$$(".screen").forEach(x=>x.hidden=x.id!=="s-"+s);$$(".tabbar button").forEach(b=>{if(b.dataset.go===s)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current")});render()}
+$$(".tabbar button[data-go]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.go)));
+$("#onlineBtn").addEventListener("click",()=>{
+  if(!online&&DS.require_daily_check&&!checkOk()){toast(t("toast.checkFirst"));go("vehicle");return}
+  online=!online;if(LIVE)YDB.rpc("set_online",{p_online:online}).catch(e=>toast(e.message));setOnlineUI();toast(t(online?"toast.online":"toast.offline"));
+  online?geoStart():geoStop();render()});
+
+/* ═════════════ offline proof-of-delivery queue (IndexedDB, memory fallback) ═════════════ */
+const Q={mem:[],p:null,
+  open(){if(this.p)return this.p;this.p=new Promise(res=>{try{if(!window.indexedDB)return res(null);const r=indexedDB.open("yd-driver",1);r.onupgradeneeded=()=>{r.result.createObjectStore("pod",{keyPath:"id"})};r.onsuccess=()=>res(r.result);r.onerror=()=>res(null);r.onblocked=()=>res(null)}catch(e){res(null)}});return this.p},
+  async tx(mode,fn){const db=await this.open();if(!db)return fn(null);return new Promise(res=>{try{const tr=db.transaction("pod",mode),st=tr.objectStore("pod"),rq=fn(st);tr.oncomplete=()=>res(rq&&rq.result);tr.onerror=tr.onabort=()=>res(undefined)}catch(e){res(fn(null))}})},
+  async all(){const r=await this.tx("readonly",st=>st?st.getAll():{result:this.mem.slice()});return Array.isArray(r)?r:this.mem.slice()},
+  async put(rec){this.mem=this.mem.filter(x=>x.id!==rec.id).concat(rec);await this.tx("readwrite",st=>st&&st.put(rec))},
+  async del(id){this.mem=this.mem.filter(x=>x.id!==id);await this.tx("readwrite",st=>st&&st.delete(id))}
+};
+let queued=[];
+const myQueued=()=>queued.filter(r=>!!r.live===LIVE);
+const myPods=()=>myQueued().filter(r=>r.kind!=="defect");   // proofs of delivery (the queue also holds defect reports)
+async function reloadQueue(){queued=await Q.all();renderFlags()}
+function isNetErr(e){return !navigator.onLine||e instanceof TypeError||/fetch|network|offline|timed? ?out|load failed|internet|connection/i.test((e&&e.message)||"")}
+async function uploadProof(uuid,name,sig,photo){
+  const p_pod_sig=await YDB.uploadPod(uuid,"signature.png",sig,"image/png");
+  const p_pod_photo=photo?await YDB.uploadPod(uuid,"photo.jpg",photo,"image/jpeg"):null;
+  return YDB.rpc("advance_order",{p_order:uuid,p_status:"completed",p_pod_name:name,p_pod_sig,p_pod_photo});
+}
+async function queueProof(a,name,sig,photo){
+  const rec={id:a.id,uuid:a.uuid||null,live:LIVE,name,sig,photo:photo||null,at:Date.now(),earned:payFor(a)};
+  await Q.put(rec);await reloadQueue();
+  track("pod_queued_offline",{kind:a.kind});
+  if(LIVE)applyQueued();
+  else upd(a.id,Object.assign({status:"completed",demo:false,byDriver:true,pod:name,earned:rec.earned,doneAt:rec.at,podPending:true},payState(a)==="due"?{paymentStatus:"paid"}:{}));
+  lastKey="";toast(t("toast.queued"));render();
+}
+// LIVE: jobs whose proof is still on the phone show as delivered locally
+function applyQueued(){for(const r of myPods()){const j=jobs.find(x=>x.uuid===r.uuid);if(j&&j.status!=="completed"){Object.assign(j,{status:"completed",podPending:true,pod:r.name,earned:r.earned,doneAt:r.at,progress:1})}}}
+let flushing=false;
+async function flush(manual){
+  if(flushing)return;
+  if(!navigator.onLine){if(manual)toast(t("toast.stillOffline"));return}
+  flushing=true;let ok=0,okDef=0,stop=false;
+  try{
+    for(const r of await Q.all()){
+      if(!!r.live!==LIVE||stop)continue;
+      try{
+        if(r.kind==="defect"){await sendQueuedDefect(r);await Q.del(r.id);okDef++;continue}
+        if(r.live)await uploadProof(r.uuid,r.name,r.sig,r.photo);
+        else upd(r.id,{podPending:false});
+        await Q.del(r.id);ok++;
+      }catch(e){
+        if(/invalid step from completed/i.test((e&&e.message)||"")){await Q.del(r.id);ok++;continue}
+        if(isNetErr(e)){stop=true;if(manual)toast(t("toast.stillOffline"));continue}
+        toast((e&&e.message)||t("toast.couldntUpdate"));stop=true;
+      }
+    }
+  }finally{flushing=false}
+  await reloadQueue();
+  if(okDef&&!ok){toast(t("toast.defSent"));if(cur==="vehicle")renderVehicle()}
+  if(ok){toast(ok>1?t("toast.uploadedN",{n:ok}):t("toast.uploaded"));if(LIVE)await refreshLive();else render()}
+}
+window.addEventListener("online",()=>{renderFlags();flush()});
+window.addEventListener("offline",renderFlags);
+setInterval(()=>flush(),30000);
+
+/* ═════════════ GPS ═════════════ */
+let geoId=null,gps=null,locOff=false,lastSent=0;
+function geoStart(){
+  if(geoId!=null||!navigator.geolocation)return;
+  try{geoId=navigator.geolocation.watchPosition(onPos,onGeoErr,{enableHighAccuracy:true,maximumAge:5000,timeout:30000})}catch(_){}
+}
+function geoStop(){if(geoId!=null){try{navigator.geolocation.clearWatch(geoId)}catch(_){}geoId=null}if(locOff){locOff=false;renderFlags()}}
+function onPos(p){
+  gps=[p.coords.latitude,p.coords.longitude];
+  if(locOff){locOff=false;renderFlags()}
+  sendLoc();
+  if(lm)lm.setMarker("me",gps[0],gps[1],{color:"#1f4bff",size:22});
+}
+// LIVE: share the position with the backend at most every driver_app.location_every_sec (10–300 s, set in the console);
+// also re-sent on a timer while parked, so it never looks stale
+let locTimer=null,locMsNow=0;
+function locMs(){const n=+DS.location_every_sec;return Math.round(Math.min(300,Math.max(10,isFinite(n)&&n>0?n:30))*1000)}
+function sendLoc(){
+  if(!LIVE||!online||!gps||Date.now()-lastSent<locMs()-250)return;
+  lastSent=Date.now();
+  try{Promise.resolve(YDB.reportLocation(gps[0],gps[1])).catch(()=>{})}catch(_){}
+}
+function locRestart(){const ms=locMs();if(ms===locMsNow&&locTimer)return;locMsNow=ms;clearInterval(locTimer);locTimer=setInterval(sendLoc,ms);sendLoc()}
+function onGeoErr(e){
+  if(e&&e.code===1){locOff=true;if(geoId!=null){try{navigator.geolocation.clearWatch(geoId)}catch(_){}geoId=null}renderFlags()}
+}
+
+/* ═════════════ header flags (location / upload queue / signal) ═════════════ */
+function renderFlags(){
+  const f=$("#flags");if(!f)return;let h="";
+  if(online&&locOff)h+=`<button class="flag warn" id="flagLoc" type="button">${icon("alert")}<span>${t("flag.loc")}</span></button>`;
+  const n=myQueued().length;
+  if(n)h+=`<button class="flag sync" id="flagSync" type="button">${icon("clock")}<span>${t("flag.sync",{n})}</span></button>`;
+  else if(!navigator.onLine)h+=`<span class="flag">${icon("alert")}<span>${t("flag.nosignal")}</span></span>`;
+  f.innerHTML=h;
+  $("#flagLoc")&&($("#flagLoc").onclick=()=>{locOff=false;renderFlags();geoStart()});
+  $("#flagSync")&&($("#flagSync").onclick=()=>flush(true));
+}
+
+/* ═════════════ navigation + map ═════════════ */
+function legTarget(a){
+  if(["accepted","loading"].includes(a.status))return{lat:YARD.lat,lng:YARD.lng,label:t("chip.yard")};
+  if(a.siteLat!=null&&a.siteLng!=null)return{lat:+a.siteLat,lng:+a.siteLng,label:a.site};
+  return{q:a.site,label:a.site};
+}
+function navLink(a){const g=legTarget(a);return g.q!=null?`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(g.q+", Maldives")}`:(window.YDUI?YDUI.navUrl(g.lat,g.lng):`https://www.google.com/maps/dir/?api=1&destination=${g.lat},${g.lng}&travelmode=driving`)}
+function openNav(a){track("navigate_opened",{leg:["accepted","loading"].includes(a.status)?"yard":"site"});openExternal(navLink(a))}
+let lm=null;
+function dropLiveMap(){if(lm){try{lm.remove()}catch(_){}lm=null}}
+function driverPos(a){
+  if(gps)return gps;
+  if(a.driverLat!=null&&a.driverLng!=null)return[+a.driverLat,+a.driverLng];
+  const s=a.siteLat!=null?[+a.siteLat,+a.siteLng]:null,y=[YARD.lat,YARD.lng];
+  if(!s||["accepted","loading"].includes(a.status))return y;
+  if(a.status==="arrived")return s;
+  const p=a.progress||0;return[y[0]+(s[0]-y[0])*p,y[1]+(s[1]-y[1])*p];
+}
+function mountLiveMap(a){
+  dropLiveMap();
+  if(!CFG.mapStyleUrl||!window.YDUI||!YDUI.liveMap)return;
+  const wrap=$(".map-wrap");if(!wrap)return;
+  const el=document.createElement("div");el.className="live-map";wrap.prepend(el);
+  const site=a.siteLat!=null?[+a.siteLat,+a.siteLng]:null,me=driverPos(a);
+  const markers=[{id:"yard",lat:YARD.lat,lng:YARD.lng,color:"#e8b14a",label:YARD.label}];
+  if(site)markers.push({id:"site",lat:site[0],lng:site[1],color:"#e0622b",label:a.site});
+  markers.push({id:"me",lat:me[0],lng:me[1],color:"#1f4bff",label:ME.name});
+  YDUI.liveMap(el,{center:me,zoom:14.5,markers,route:site?[[YARD.lat,YARD.lng],site]:null}).then(c=>{
+    if(!c){el.remove();return}
+    if(!el.isConnected){c.remove();return}
+    lm=c;wrap.classList.add("is-live");
+    try{lm.fit(markers.map(m=>[m.lat,m.lng]),{top:120,bottom:50,left:50,right:50})}catch(_){}
+  }).catch(()=>el.remove());
+}
+
+/* ---------- today ---------- */
+function renderToday(){
+  const a=active(),b=$("#todayBody");
+  dropLiveMap();
+  const nq=myPods().length;
+  const pendCard=nq?`<div class="card" style="margin-bottom:14px;display:flex;gap:14px;align-items:flex-start"><span class="pill amber" style="padding:8px">${icon("clock").replace("<svg","<svg width='16' height='16'")}</span><div style="flex:1;min-width:0"><b style="font:600 16px var(--display);letter-spacing:-.02em">${nq>1?t("pend.hN",{n:nq}):t("pend.h")}</b><p class="sub" style="margin-top:4px">${t("pend.p")}</p><button class="big-btn ghost" id="pendRetry" type="button" style="margin-top:12px;min-height:50px;padding:12px">${t("pend.retry")}</button></div></div>`:"";
+  if(!online&&!a){b.innerHTML=pendCard+`<div class="card offline"><div class="ph"><img src="assets/truck-sm.jpg" alt="" onerror="this.style.visibility='hidden'"></div><div class="tx"><span class="pill busy">${t("offline")}</span><h3 style="margin-top:10px">${t("off.h")}</h3><p>${t("off.p")}</p><button class="big-btn amber" id="goOnline">${t("off.btn")}</button></div></div>`;$("#goOnline").onclick=()=>$("#onlineBtn").click();wirePend();return}
+  if(!a){
+    const open=jobs.filter(j=>j.status==="requested");
+    b.innerHTML=pendCard+`<div class="card offline"><div class="ph"><img src="assets/hero-sm.jpg" alt="" onerror="this.style.visibility='hidden'"></div><div class="tx"><span class="pill ok">${t("online")}</span><h3 style="margin-top:10px">${t("wait.h")}</h3><p>${open.length?(open.length>1?t("wait.openN",{n:open.length}):t("wait.open1")):t("wait.none")}</p>${open.length?`<button class="big-btn amber" id="seeOpen">${t("wait.view")}</button>`:""}</div></div>
+    <div class="sec"><h2>${t("before.h")}</h2></div>
+    <div class="list"><button class="row" id="toCheck"><span class="ic">${thumb("tip")}</span><span class="mid"><b>${t("before.check")}</b><span>${t("before.checkSub",{n:checkDone(),total:CHECKS.length})}</span></span><span class="end">${icon("arrow","flip").replace("<svg","<svg width='18' height='18'")}</span></button></div>`;
+    $("#seeOpen")&&($("#seeOpen").onclick=()=>go("jobs"));$("#toCheck").onclick=()=>go("vehicle");wirePend();return}
+  const si=STAGES.indexOf(a.status),nx=NEXT[a.status];
+  const atYard=a.status==="accepted"||a.status==="loading";
+  const leg=legTarget(a),ps=payState(a);
+  const chipSub=a.status==="enroute"?etaHtml(a,a.progress||0):a.status==="accepted"?t("chip.eta",{km:ltr("0.8 km"),min:3}):a.status==="loading"?t("chip.bay"):t("chip.here");
+  const collect=ps==="due"?`<div class="collect"><span class="lbl">${t("collect.lbl")}</span><b data-ltr>${mvr(a.total)}</b></div>`:`<div class="collect ${ps}"><span class="lbl">${t("collect.lbl")}</span><b>${t(ps==="paid"?"collect.paid":"collect.pending")}</b></div>`;
+  b.innerHTML=pendCard+`<div class="card">
+    <div class="job-head"><span class="ic">${thumb(a.icon)}</span><div class="mid"><span class="pill amber">${t("stage."+a.status)}</span><b style="margin-top:6px">${esc(a.title)}</b><span class="sub">${ltr(esc(a.id))} · ${esc(a.when)}</span></div></div>
+    <div class="stepper">${STAGES.map((s,i)=>`<i class="${i<si?"on":i===si?"now":""}"></i>`).join("")}</div>
+    <div class="stepnames"><span>${t("step.yard")}</span><span>${t("step.load")}</span><span>${t("step.drive")}</span><span>${t("step.site")}</span><span>${t("step.done")}</span></div>
+    <div class="map-wrap">${mapSvg(a)}
+      <div class="nav-chip">${icon("turn","flip")}<div class="nav-tx"><b dir="auto">${atYard?t("chip.yard"):esc(a.site)}</b><span id="chipSub">${chipSub}</span></div><button class="navgo" id="navBtn" type="button" aria-label="${esc(t("nav.aria",{place:leg.label}))}">${icon("ne","flip")}${t("nav")}</button></div>
+    </div>
+    <dl class="kv"><dt>${t("kv.drop")}</dt><dd><bdi>${esc(a.site)}</bdi></dd><dt>${t("kv.cust")}</dt><dd>${a.customer&&a.customer.name?`<bdi>${esc(a.customer.name)}</bdi>`+(a.customer.phone?" · "+ltr(esc(a.customer.phone)):""):"<bdi>Aishath I.</bdi> · "+ltr("7XX XXXX")}</dd>${a.note?`<dt>${t("kv.note")}</dt><dd>${esc(a.note)}</dd>`:""}</dl>
+    <div class="lines">${a.lines.map(([n,q])=>`<div><span>${esc(n)}</span><b data-ltr>× ${q}</b></div>`).join("")}</div>
+    ${collect}
+    ${a.status==="arrived"?podHtml(a):""}
+    <button class="big-btn ${a.status==="arrived"?"ok":"amber"}" id="nextBtn" ${a.status==="arrived"?"disabled":""}>${t("next."+a.status)}</button>
+    <div class="quick"><button id="callCust">${icon("phone")}${t("callCust")}</button><button id="callBase">${icon("phone")}${t("callBase")}</button></div>
+  </div>`;
+  $("#nextBtn").onclick=()=>advance(a);
+  $("#navBtn").onclick=()=>openNav(a);
+  $("#callCust").onclick=()=>{const ph=a.customer&&a.customer.phone;if(ph)location.href="tel:"+ph.replace(/\s/g,"");toast(ph?t("toast.cust",{phone:ph}):t("toast.custDemo"))};
+  $("#callBase").onclick=()=>{toast(t("toast.baseCall"));dial(HOTLINE)};
+  if(a.status==="arrived")wirePod(a);
+  wirePend();
+  mountLiveMap(a);
+}
+function etaHtml(a,p){return t("chip.eta",{km:ltr((distKm(a)*(1-p)).toFixed(1)+" km"),min:Math.max(1,Math.round((1-p)*18))})}
+function wirePend(){const r=$("#pendRetry");if(r)r.onclick=()=>flush(true)}
+function advance(a){
+  const nx=NEXT[a.status];if(!nx)return;
+  if(nx==="completed"){complete(a);return}
+  if(LIVE){liveAdvance(a);return}
+  const patch={status:nx,demo:false,byDriver:true};
+  if(nx==="enroute")patch.progress=a.progress||0;
+  if(nx==="arrived")patch.progress=1;
+  upd(a.id,patch);
+  toast(t("stage."+nx));
+  render();
+}
+async function complete(a){
+  const btn=$("#nextBtn");btn.disabled=true;
+  const name=$("#rcvName").value.trim();
+  const sig=await new Promise(r=>$("#sigPad").toBlob(r,"image/png"));
+  let photo=podFile||null;
+  if(LIVE&&photo&&YDB.compressImage){try{photo=await YDB.compressImage(photo)}catch(_){}}
+  if(!navigator.onLine){await queueProof(a,name,sig,photo);return}
+  if(!LIVE){
+    upd(a.id,Object.assign({status:"completed",demo:false,byDriver:true,pod:name,earned:payFor(a),doneAt:Date.now()},payState(a)==="due"?{paymentStatus:"paid"}:{}));
+    track("job_completed",{kind:a.kind,photo:!!photo});
+    toast(t("toast.delivered",{amount:iso("+"+mvr(payFor(a)))}));render();return;
+  }
+  btn.textContent=t("pod.uploading");
+  try{
+    const o=await uploadProof(a.uuid,name,sig,photo);
+    track("job_completed",{kind:a.kind,photo:!!photo});
+    toast(t("toast.delivered",{amount:iso("+"+mvr(o&&o.driver_earning!=null?o.driver_earning:payFor(a)))}));
+    lastKey="";await refreshLive();
+  }catch(e){
+    if(isNetErr(e)){await queueProof(a,name,sig,photo);return}
+    toast((e&&e.message)||t("toast.couldntUpdate"));btn.disabled=false;btn.textContent=t("next.arrived");
+  }
+}
+function mapSvg(a){
+  const p=a.status==="enroute"?(a.progress||0):["arrived","completed"].includes(a.status)?1:0;
+  if(!window.YDUI)return "";
+  return YDUI.map({id:"d",fromLabel:"YD YARD",toLabel:"SITE"}).replace('<g id="dTruck">',`<g id="dTruck" data-p="${p}">`);
+}
+function placeTruck(){const el=document.getElementById("dTruck");if(el&&window.YDUI)YDUI.place("d",+el.dataset.p||0)}
+
+/* ---------- proof of delivery ---------- */
+function podHtml(a){
+  const ps=payState(a);
+  const cash=ps==="due"?`<div class="cash due" id="cashLine">${icon("wallet")}<span>${t("cash.due",{amount:mvr(a.total)})}</span></div>`
+    :ps==="paid"?`<div class="cash paid" id="cashLine">${icon("check")}<span>${t("cash.paid")}</span></div>`
+    :`<div class="cash pending" id="cashLine">${icon("phone")}<span>${t("cash.pending")}</span></div>`;
+  return `<div class="pod"><span class="lbl">${t("pod.lbl")}</span>${cash}
+  <label class="photo" id="photoBox" for="photoIn"><span>${icon("camera").replace("<svg","<svg width='30' height='30'")}<br><span id="photoTx">${t(DS.require_pod_photo?"pod.photo":"pod.photoOpt")}</span></span><input type="file" id="photoIn" accept="image/*" capture="environment" aria-label="${esc(t("pod.photoAria"))}"></label>
+  <div><label class="lbl" for="rcvName">${t("pod.rcv")}</label><input class="inp" id="rcvName" dir="auto" placeholder="${esc(t("pod.rcvPh"))}" autocomplete="off" style="margin-top:6px"></div>
+  <div class="sig"><canvas id="sigPad" aria-label="${esc(t("pod.sigAria"))}"></canvas><button class="clr" id="sigClr" type="button">${t("pod.clear")}</button><span class="hint" id="sigHint">${t("pod.sigHint")}</span></div></div>`}
+let podFile=null,podCheck=null;
+function wirePod(a){
+  podFile=null;
+  let photo=false,signed=false;
+  // the photo is required unless the console turned driver_app.require_pod_photo off (then it stays optional)
+  const btn=$("#nextBtn"),check=()=>{if(!btn.isConnected)return;btn.disabled=!((photo||!DS.require_pod_photo)&&signed&&$("#rcvName").value.trim())};
+  podCheck=check;
+  $("#photoIn").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;podFile=f;const rd=new FileReader();rd.onload=()=>{$("#photoBox").innerHTML=`<img src="${rd.result}" alt="${esc(t("pod.photoAlt"))}">`;photo=true;check()};rd.readAsDataURL(f)});
+  $("#rcvName").addEventListener("input",check);
+  const c=$("#sigPad"),ctx=c.getContext("2d");
+  const fit=()=>{const r=c.getBoundingClientRect(),d=window.devicePixelRatio||1;c.width=r.width*d;c.height=r.height*d;ctx.scale(d,d);ctx.lineWidth=2.6;ctx.lineCap="round";ctx.lineJoin="round";ctx.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue("--ink").trim()||"#0b1430"};fit();
+  let drawing=false,last=null;
+  const pos=e=>{const r=c.getBoundingClientRect();return[e.clientX-r.left,e.clientY-r.top]};
+  c.addEventListener("pointerdown",e=>{drawing=true;last=pos(e);try{c.setPointerCapture(e.pointerId)}catch(_){}$("#sigHint").hidden=true});
+  c.addEventListener("pointermove",e=>{if(!drawing)return;const p=pos(e);ctx.beginPath();ctx.moveTo(...last);ctx.lineTo(...p);ctx.stroke();last=p;if(!signed){signed=true;check()}});
+  ["pointerup","pointercancel"].forEach(ty=>c.addEventListener(ty,()=>drawing=false));
+  $("#sigClr").onclick=()=>{ctx.clearRect(0,0,c.width,c.height);signed=false;$("#sigHint").hidden=false;check()};
+  // demo shortcut: allow skipping photo in browsers that can't attach files
+  $("#photoBox").addEventListener("dblclick",()=>{if(LIVE)return;photo=true;$("#photoBox").querySelector("span").textContent=t("pod.skipped");check()});
+}
+
+/* ---------- incoming requests ---------- */
+function showRequest(j){
+  pending=j;let left=30;
+  const pay=payFor(j),km=distKm(j);
+  $("#reqPanel").innerHTML=`<div class="req-img">${thumb(j.icon)}</div><div class="req-top"><div class="ring"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="none" stroke="var(--line)" stroke-width="6"/><circle id="ringArc" cx="32" cy="32" r="28" fill="none" stroke="var(--hazard)" stroke-width="6" stroke-linecap="round" pathLength="100" stroke-dasharray="100 100"/></svg><b id="ringN">30</b></div>
+    <div style="min-width:0"><span class="pill amber">${t(j.kind==="hire"?"req.hire":"req.delivery")}</span><h2 id="reqTitle" style="margin-top:6px">${esc(j.title)}</h2><span class="sub">${esc(j.site)}</span></div></div>
+    <div class="req-pay"><div><span class="lbl">${t("req.earn")}</span><b data-ltr>${mvr(pay)}</b></div><div><span class="lbl">${t("req.dist")}</span><b data-ltr>${km} km</b></div><div><span class="lbl">${t("req.when")}</span><b style="font-size:14px">${esc(j.when)}</b></div></div>
+    <div class="lines">${j.lines.map(([n,q])=>`<div><span>${esc(n)}</span><b data-ltr>× ${q}</b></div>`).join("")}</div>
+    <div class="req-btns"><button class="big-btn ghost" id="decline">${t("req.decline")}</button><button class="big-btn amber" id="accept">${t("req.accept")}</button></div>`;
+  $("#req").classList.add("on");
+  $("#accept").onclick=()=>{
+    if(DS.require_daily_check&&!checkOk()){checkGate();return}
+    if(LIVE){const b=$("#accept");b.disabled=true;YDB.rpc("accept_order",{p_order:j.uuid}).then(()=>{closeReq();toast(t(myPods().length?"toast.acceptedQueued":"toast.accepted"));track("job_accepted",{kind:j.kind});refreshLive();go("today")},e=>{closeReq();toast(/finish your current job/i.test(e.message||"")?t("toast.finishFirst"):(e.message||t("toast.couldntUpdate")))});return}
+    jobs=load()||jobs;const cj=jobs.find(x=>x.id===j.id);
+    if(!cj||cj.status!=="requested"){closeReq();toast(t("toast.taken"));return}
+    upd(j.id,{status:"accepted",driver:ME,demo:false,byDriver:true});
+    addDemoAlert({kind:"assigned",jobId:j.id,ref:j.id,title:j.title,read:true});
+    track("job_accepted",{kind:j.kind});
+    closeReq();toast(t(myPods().length?"toast.acceptedQueued":"toast.accepted"));go("today")};
+  $("#decline").onclick=()=>{closeReq();toast(t("toast.declined"))};
+  clearInterval(reqTimer);
+  reqTimer=setInterval(()=>{left--;$("#ringN").textContent=left;$("#ringArc").setAttribute("stroke-dasharray",`${left/30*100} 100`);if(left<=0){closeReq();toast(t("toast.expired"))}},1000);
+}
+// driver_app.require_daily_check: accepting before today's vehicle check is done asks for the check first
+function checkGate(){
+  clearInterval(reqTimer);
+  const btns=$("#reqPanel .req-btns");if(!btns)return;
+  btns.outerHTML=`<div class="gate" id="gate" role="alert">${icon("alert")}<div><b>${t("gate.h")}</b><p>${t("gate.p",{n:checkDone(),total:CHECKS.length})}</p></div></div>
+    <div class="req-btns"><button class="big-btn ghost" id="gateLater" type="button">${t("gate.later")}</button><button class="big-btn amber" id="gateGo" type="button">${icon("check")}${t("gate.go")}</button></div>`;
+  $("#gateLater").onclick=()=>closeReq();
+  $("#gateGo").onclick=()=>{closeReq();go("vehicle");setTimeout(()=>{const c=$("#checks");c&&c.scrollIntoView({block:"start",behavior:"smooth"})},40)};
+  $("#gateGo").focus();
+}
+function closeReq(){clearInterval(reqTimer);$("#req").classList.remove("on");pending=null}
+function watchRequests(){
+  if(!online||active()||pending||updBlocked||$("#alerts").classList.contains("on")||$("#delSheet").classList.contains("on"))return;
+  const j=jobs.find(x=>x.status==="requested"&&!seen.has(x.id));
+  if(j){seen.add(j.id);showRequest(j)}
+}
+
+/* ---------- jobs list ---------- */
+function renderJobs(){
+  const open=jobs.filter(j=>j.status==="requested");
+  $("#openCount").textContent=open.length;
+  $("#openList").innerHTML=open.length?open.map(j=>`<button class="row" data-open="${esc(j.id)}"><span class="ic">${thumb(j.icon)}</span><span class="mid"><b>${esc(j.title)}</b><span><bdi>${esc(j.site)}</bdi> · ${ltr(distKm(j)+" km")}</span></span><span class="end" data-ltr>${mvr(payFor(j))}<small>${t("jobs.youEarn")}</small></span></button>`).join(""):`<div class="empty"><span class="e-ic">${icon("list")}</span><b>${t("jobs.noOpen")}</b><p>${t(online?"jobs.noOpenOn":"jobs.noOpenOff")}</p></div>`;
+  const done=mine().filter(j=>j.status==="completed").sort((a,b)=>(b.doneAt||0)-(a.doneAt||0));
+  $("#doneList").innerHTML=done.length?done.map(j=>`<div class="row"><span class="ic">${thumb(j.icon)}</span><span class="mid"><b>${esc(j.title)}</b><span>${ltr(esc(j.id))} · ${j.pod?t("jobs.signed",{name:esc(j.pod)}):esc(j.site)}</span>${j.podPending?`<span class="pill amber">${icon("clock").replace("<svg","<svg width='11' height='11'")}${t("jobs.pendingUp")}</span>`:""}</span><span class="end" data-ltr>+${mvr(j.earned||payFor(j))}</span></div>`).join(""):`<div class="empty"><span class="e-ic">${icon("check")}</span><b>${t("jobs.noDone")}</b><p>${t("jobs.noDoneP")}</p></div>`;
+  $$("[data-open]").forEach(b=>b.onclick=()=>{if(active()){toast(t("toast.finishFirst"));return}const j=jobs.find(x=>x.id===b.dataset.open);if(j)showRequest(j)});
+}
+
+/* ═════════════ vehicle: checklist, defects, fuel, history ═════════════ */
+// The daily checklist: the built-in items, or the list a manager set in the console (driver_app.checklist).
+// Each item: {id, en (English label, the key sent to the backend), t() label, s() hint}
+const BUILTIN=["c0","c1","c2","c3","c4","c5","c6","c7"];
+const builtinChecks=()=>BUILTIN.map(k=>({id:k,en:STR.en[k+".t"],t:()=>t(k+".t"),s:()=>t(k+".s"),builtin:true}));
+function buildChecks(){
+  const raw=Array.isArray(DS.checklist)?DS.checklist:[],ids=new Set(),out=[];
+  raw.forEach(it=>{
+    if(!it||typeof it!=="object")return;
+    const en=String(it.label_en||"").trim(),dv=String(it.label_dv||"").trim(),id=String(it.id!=null&&it.id!==""?it.id:en).trim();
+    if(!id||id==="__proto__"||!(en||dv)||ids.has(id))return;ids.add(id);
+    out.push({id,en:en||dv,t:()=>(window.YDSET?YDSET.txt({label_en:en||dv,label_dv:dv},"label"):en)||en||dv,s:()=>"",custom:true});
+  });
+  return out.length?out:builtinChecks();
+}
+let CHECKS=builtinChecks();
+// today's ticks, keyed by item id (an item nobody has unticked counts as passed, so a list changed mid-day keeps today's check done)
+let chk=(()=>{try{const v=JSON.parse(localStorage.getItem("ydworks.chk")||"null");if(v&&v.d===new Date().toDateString()){
+  if(Array.isArray(v.c)){const o={};v.c.forEach((x,i)=>{if(BUILTIN[i])o[BUILTIN[i]]=!!x});return o}
+  if(v.c&&typeof v.c==="object")return v.c}}catch(e){}return {}})();
+const chkOn=id=>chk[id]!==false;
+function checkDone(){return CHECKS.filter(c=>chkOn(c.id)).length}
+function checkOk(){return checkDone()===CHECKS.length}
+function saveChk(){try{localStorage.setItem("ydworks.chk",JSON.stringify({d:new Date().toDateString(),c:chk}))}catch(_){}}
+const IKEY="ydworks.driver.insp.v1",FKEY="ydworks.driver.fuel.v1";
+let insp=ls.get(IKEY,null),fuelLog=ls.get(FKEY,null);
+if(!insp){insp=[{at:Date.now()-26*36e5,passed:true,defects:"",n:8,total:8},{at:Date.now()-74*36e5,passed:false,defects:"Reverse beeper weak — replaced at workshop",n:7,total:8}];ls.set(IKEY,insp)}
+if(!fuelLog){const ws=weekStart(),span=Date.now()-ws;fuelLog=[{at:ws+span*.7,litres:62,cost:1240,odometer:84150},{at:ws+span*.25,litres:80,cost:1600,odometer:83890}];ls.set(FKEY,fuelLog)}
+let defPhoto=null,defFile=null,inspBusy=false;
+function inspItems(){const o={};CHECKS.forEach(c=>o[c.en]=chkOn(c.id));
+  if(CHECKS[0]&&CHECKS[0].custom)o.checklist=CHECKS.map(c=>({id:c.id,label_en:c.en,ok:chkOn(c.id)}));   // console list: ids too
+  o.odometer=($("#odo").value||"").replace(/\s/g,"");o.fuel_level=$("#fuel").value;return o}
+// sends to the backend in LIVE (with the uploaded defect-photo path, if any); always keeps a local copy
+// so the history shows the thumbnail straight away
+async function sendInspection(passed,defects,o){
+  o=o||{};
+  if(LIVE)await YDB.submitInspection(inspItems(),passed,defects||"",o.photoPath||null);
+  const rec={at:Date.now(),passed,defects:o.text!=null?o.text:(defects||""),failed:o.failed||null,failedEn:o.failedEn||null,n:checkDone(),total:CHECKS.length,photo:o.photo||null,defectOnly:!!o.defectOnly,pending:!!o.pending,qid:o.qid||null};
+  insp.unshift(rec);insp=insp.slice(0,20);ls.set(IKEY,insp);
+  return rec;
+}
+function checkLabel(id,fb){const c=CHECKS.find(x=>x.id===id);if(c)return c.t();if(BUILTIN.includes(id))return t(id+".t");return fb||id}
+const inspNote=r=>r.failed&&r.failed.length?r.failed.map((k,i)=>checkLabel(k,r.failedEn&&r.failedEn[i])).join(", "):(r.defects||"");
+function renderVehicle(){
+  const today=new Date();
+  $("#chkDate").textContent=`${t("day."+dayIdx(today))} ${today.getDate()}`;
+  $("#inspSub").textContent=t(DS.require_daily_check?"veh.inspSub":"veh.inspSubOpt",{unit:ME.unit||ME.code||"TP-04"});
+  $("#checks").innerHTML=CHECKS.map((c,i)=>{const s=c.s();return `<label for="c${i}"><input type="checkbox" id="c${i}" data-id="${esc(c.id)}" ${chkOn(c.id)?"checked":""}><span dir="auto">${esc(c.t())}${s?`<small>${esc(s)}</small>`:""}</span></label>`}).join("");
+  $("#chkMeter").style.width=checkDone()/CHECKS.length*100+"%";
+  const lastToday=insp.find(r=>new Date(r.at).toDateString()===today.toDateString()&&!r.defectOnly);
+  const st=$("#inspState");st.textContent=lastToday?t("veh.submitted",{time:hhmm(lastToday.at)}):"";st.className="vstate"+(lastToday&&lastToday.passed?" ok":"");
+  renderFuel();renderInspList();renderSettings();
+}
+function renderInspList(){
+  const L=$("#inspList");
+  L.innerHTML=insp.length?insp.slice(0,6).map(r=>`<div class="row">${r.photo?`<img class="thumb-mini" src="${r.photo}" alt="${esc(t("def.photoAlt"))}">`:`<span class="ic" style="background:${r.passed&&!r.defects?"color-mix(in srgb,var(--ok) 12%,transparent)":"color-mix(in srgb,var(--busy) 12%,transparent)"}!important;color:${r.passed&&!r.defects?"var(--ok)":"var(--busy)"}">${icon(r.passed&&!r.defects?"check":"alert").replace("<svg","<svg style='width:22px;height:22px'")}</span>`}<span class="mid"><b>${r.defectOnly?t("hist.defect"):t("hist.items",{n:r.n,total:r.total})}</b><span dir="auto">${inspNote(r)?esc(inspNote(r)):t("hist.pass")}</span></span><span class="end">${r.pending?`<span class="pill amber">${icon("clock").replace("<svg","<svg width='11' height='11'")}${t("hist.pending")}</span>`:`<span class="pill ${r.passed&&!r.defects?"ok":"busy"}">${t(r.passed&&!r.defects?"hist.pass":"hist.fail")}</span>`}<small style="margin-top:6px">${dayTime(r.at)}</small></span></div>`).join(""):`<div class="empty"><span class="e-ic">${icon("check")}</span><b>${t("hist.none")}</b><p>${t("hist.noneP")}</p></div>`;
+}
+function renderFuel(){
+  const ws=weekStart(),wk=fuelLog.filter(r=>r.at>=ws).sort((a,b)=>b.at-a.at);
+  const L=wk.reduce((s,r)=>s+(+r.litres||0),0),C=wk.reduce((s,r)=>s+(+r.cost||0),0);
+  const odos=wk.map(r=>+r.odometer).filter(x=>x>0);
+  $("#fTotL").textContent=(Math.round(L*10)/10).toLocaleString("en-US")+" L";
+  $("#fTotC").textContent=Math.round(C).toLocaleString("en-US");
+  $("#fTotKm").textContent=odos.length>1?(Math.max(...odos)-Math.min(...odos)).toLocaleString("en-US")+" km":"—";
+  $("#fuelList").innerHTML=wk.length?wk.map(r=>`<div class="row"><span class="ic" style="color:var(--brand);background:var(--brand-soft)!important">${icon("truck").replace("<svg","<svg style='width:22px;height:22px'")}</span><span class="mid"><b data-ltr>${t("fuel.title",{l:(+r.litres).toLocaleString("en-US")})}</b><span>${dayTime(r.at)}${r.odometer?" · "+ltr((+r.odometer).toLocaleString("en-US")+" km"):""}</span></span><span class="end" data-ltr>${r.cost?mvr(r.cost):"—"}</span></div>`).join(""):`<div class="empty"><span class="e-ic">${icon("truck")}</span><b>${t("fuel.none")}</b><p>${t("fuel.noneP")}</p></div>`;
+}
+function renderContact(){$("#ctCall").setAttribute("aria-label",t("ct.callAria")+" "+fmtLocal(HOTLINE))}
+function renderSettings(){
+  renderContact();
+  if(!window.YDUI)return;
+  const th=YDUI.theme.get();$$("#themePick [data-theme-opt]").forEach(b=>b.setAttribute("aria-checked",String(b.dataset.themeOpt===th)));
+  const v=$("#setVer");if(v)v.textContent="YD Driver "+((window.YD_CONFIG||{}).appVersion||"");
+  $("#langSeg").innerHTML=I18N.segment("seg seg2");
+  $("#langSeg .seg").setAttribute("aria-label",t("set.lang"));
+  $("#themeSeg").innerHTML=YDUI.theme.segment("seg");
+  $("#themeSeg .seg").setAttribute("aria-label",t("set.theme"));
+  $("#signOutBtn").hidden=!LIVE;
+  $("#delBtn").disabled=!LIVE;$("#delNote").hidden=LIVE;
+}
+$("#checks").addEventListener("change",e=>{const id=e.target.dataset.id;if(id==null)return;chk[id]=e.target.checked;saveChk();$("#chkMeter").style.width=checkDone()/CHECKS.length*100+"%";
+  if(DS.require_daily_check&&!checkOk()&&online&&!active()){online=false;if(LIVE)YDB.rpc("set_online",{p_online:false}).catch(()=>{});setOnlineUI();geoStop();toast(t("toast.chkFail"))}renderHeader()});
+$("#inspBtn").addEventListener("click",async()=>{
+  if(inspBusy)return;inspBusy=true;const b=$("#inspBtn");b.disabled=true;
+  const failed=CHECKS.filter(c=>!chkOn(c.id));
+  const passed=!failed.length;
+  try{await sendInspection(passed,failed.length?"Failed: "+failed.map(c=>c.en).join(", "):"",{failed:failed.map(c=>c.id),failedEn:failed.map(c=>c.en)});toast(t(passed?"toast.inspOk":"toast.inspDefect"));renderVehicle()}
+  catch(e){toast((e&&e.message)||t("toast.couldntUpdate"))}
+  b.disabled=false;inspBusy=false;
+});
+$("#defPhoto").addEventListener("change",async e=>{
+  const f=e.target.files[0];if(!f)return;
+  defFile=f;defState("");
+  defPhoto=await miniThumb(f);
+  $("#defPhotoTx").innerHTML=`<img src="${defPhoto}" alt="${esc(t("def.photoAlt"))}" style="height:120px">`;
+});
+function miniThumb(f){return new Promise(res=>{const rd=new FileReader();rd.onload=()=>{const im=new Image();im.onload=()=>{const s=Math.min(1,360/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext("2d").drawImage(im,0,0,c.width,c.height);try{res(c.toDataURL("image/jpeg",.7))}catch(_){res(null)}};im.onerror=()=>res(null);im.src=rd.result};rd.onerror=()=>res(null);rd.readAsDataURL(f)})}
+function defState(msg,kind){const el=$("#defState");el.className="defstate"+(kind==="err"?" err":"");el.innerHTML=msg?(kind==="busy"?'<span class="spin" aria-hidden="true"></span>':"")+`<span>${esc(msg)}</span>`:""}
+function resetDefForm(){
+  $("#defTxt").value="";defPhoto=null;defFile=null;$("#defPhoto").value="";
+  $("#defPhotoTx").innerHTML=`${icon("camera")}<br><span data-i18n="def.photo">${t("def.photo")}</span>`;
+}
+// LIVE + no signal: keep the report (and the photo file) in the upload queue, like a proof of delivery
+async function queueDefect(txt,passed){
+  const qid="def-"+Date.now().toString(36);
+  await Q.put({id:qid,kind:"defect",live:true,items:inspItems(),passed,defects:txt,photo:defFile||null,at:Date.now()});
+  insp.unshift({at:Date.now(),passed,defects:txt,n:checkDone(),total:CHECKS.length,photo:defPhoto,defectOnly:true,pending:true,qid});insp=insp.slice(0,20);ls.set(IKEY,insp);
+  await reloadQueue();
+  track("defect_reported",{photo:!!defFile,queued:true});
+  resetDefForm();defState("");toast(t("toast.defQueued"));renderVehicle();
+}
+async function sendQueuedDefect(r){
+  const path=r.photo?await YDB.uploadDefectPhoto(r.photo):null;
+  await YDB.submitInspection(r.items,r.passed,r.defects||"",path);
+  const loc=insp.find(x=>x.qid===r.id);if(loc){loc.pending=false;ls.set(IKEY,insp)}
+}
+$("#defBtn").addEventListener("click",async()=>{
+  const txt=$("#defTxt").value.trim();
+  if(!txt){toast(t("def.need"));$("#defTxt").focus();return}
+  const b=$("#defBtn"),lbl=$("#defBtnTx"),passed=checkOk();b.disabled=true;defState("");
+  let stage="send";
+  try{
+    if(LIVE&&!navigator.onLine){await queueDefect(txt,passed);return}
+    let photoPath=null;
+    if(LIVE&&defFile){
+      stage="photo";lbl.textContent=t("def.uploading");defState(t("def.uploading"),"busy");
+      photoPath=await YDB.uploadDefectPhoto(defFile);
+      stage="send";defState(t("veh.sending"),"busy");lbl.textContent=t("veh.sending");
+    }
+    await sendInspection(passed,txt,{text:txt,photo:defPhoto,defectOnly:true,photoPath});
+    track("defect_reported",{photo:!!(defFile||defPhoto),queued:false});
+    resetDefForm();defState("");
+    toast(t("toast.defSent"));renderVehicle();
+  }catch(e){
+    const msg=(e&&e.message)||t("toast.couldntUpdate");
+    if(LIVE&&isNetErr(e)){try{await queueDefect(txt,passed)}catch(_){defState(msg,"err")}}
+    else if(stage==="photo")defState(t("def.photoFail",{msg}),"err");
+    else{defState(msg,"err");toast(msg)}
+  }finally{b.disabled=false;lbl.textContent=t("def.send")}
+});
+const num=v=>{const n=parseFloat(String(v||"").replace(/[\s,]/g,""));return isFinite(n)?n:null};
+$("#fuelBtn").addEventListener("click",async()=>{
+  const l=num($("#fL").value),c=num($("#fC").value)||0,o=num($("#fO").value);
+  if(!l||l<=0||l>=2000){toast(t("fuel.need"));$("#fL").focus();return}
+  const b=$("#fuelBtn");b.disabled=true;
+  try{
+    if(LIVE)await YDB.logFuel(l,c,o);
+    fuelLog.unshift({at:Date.now(),litres:l,cost:c,odometer:o});fuelLog=fuelLog.slice(0,60);ls.set(FKEY,fuelLog);
+    if(o)$("#odo").value=o.toLocaleString("en-US").replace(/,/g," ");
+    $("#fL").value="";$("#fC").value="";$("#fO").value="";
+    track("fuel_logged",{litres:l});
+    toast(t("toast.fuel",{l:iso(l+" L")}));renderFuel();
+  }catch(e){toast((e&&e.message)||t("toast.couldntUpdate"))}
+  b.disabled=false;
+});
+// LIVE: read this driver's own history through the backend helpers (RLS: own rows only)
+async function loadVehicleLive(){
+  if(!LIVE)return;
+  try{
+    const [f,i]=await Promise.all([
+      YDB.fuelLogs?Promise.resolve(YDB.fuelLogs(7)).catch(()=>null):null,
+      YDB.inspections?Promise.resolve(YDB.inspections(10)).catch(()=>null):null]);
+    if(Array.isArray(f)){fuelLog=f.map(r=>({at:Date.parse(r.created_at),litres:+r.litres,cost:+r.cost,odometer:r.odometer!=null?+r.odometer:null}));
+      const lastOdo=fuelLog.find(r=>r.odometer);if(lastOdo&&!$("#odo").value)$("#odo").value=lastOdo.odometer.toLocaleString("en-US").replace(/,/g," ")}
+    if(Array.isArray(i)){const local=ls.get(IKEY,[]);const pend=local.filter(x=>x.pending&&myQueued().some(q=>q.id===x.qid));insp=pend.concat(i.map(r=>{const items=r.items||{};
+      // which list was this row checked against: the ids it carries (console list), else the current list's labels, else whatever yes/no items it has
+      let rows;
+      if(Array.isArray(items.checklist))rows=items.checklist.map(x=>({id:String(x.id),en:x.label_en||String(x.id),ok:x.ok!==false}));
+      else if(CHECKS.some(c=>items[c.en]!==undefined))rows=CHECKS.map(c=>({id:c.id,en:c.en,ok:items[c.en]}));
+      else rows=Object.keys(items).filter(k=>typeof items[k]==="boolean").map(k=>({id:k,en:k,ok:items[k]}));
+      const n=rows.filter(x=>!!x.ok).length,bad=rows.filter(x=>x.ok===false);
+      const loc=local.find(x=>Math.abs(x.at-Date.parse(r.created_at))<120000);return{at:Date.parse(r.created_at),passed:r.passed,defects:(loc&&loc.defects)||r.defects||"",n,total:rows.length,photo:loc&&loc.photo||null,defectOnly:!!(loc&&loc.defectOnly),failed:(loc&&loc.defectOnly)?null:bad.map(x=>x.id),failedEn:bad.map(x=>x.en)}}))}
+    if(cur==="vehicle")renderVehicle();
+  }catch(_){}
+}
+/* delete my account (LIVE only): two steps; the server refuses while a job is in progress */
+let delStep=0;
+function renderDel(){
+  const P=$("#delPanel");
+  if(delStep===1)P.innerHTML=`<div class="sheet-top"><h2 id="delTitle">${t("del.h1")}</h2><button class="close-btn" id="delClose" type="button" aria-label="${esc(t("al.close"))}">${icon("x")}</button></div>
+    <div style="overflow-y:auto"><p class="sub" style="color:var(--ink)">${t("del.p1")}</p><ul class="del-list"><li>${t("del.i1")}</li><li>${t("del.i2")}</li><li>${t("del.i3")}</li></ul>
+    <div class="del-keep">${icon("shield")}<span>${t("del.keep")}</span></div></div>
+    <div class="del-btns" style="margin-top:6px"><button class="big-btn ghost" id="delCancel" type="button">${t("del.cancel")}</button><button class="big-btn ghost danger" id="delNext" type="button">${t("del.cont")}</button></div>`;
+  else P.innerHTML=`<div class="sheet-top"><h2 id="delTitle">${t("del.h2")}</h2><button class="close-btn" id="delClose" type="button" aria-label="${esc(t("al.close"))}">${icon("x")}</button></div>
+    <p class="sub" style="color:var(--ink)">${t("del.p2")}</p>
+    <p class="del-err" id="delErr" role="alert" dir="auto"></p>
+    <div class="del-btns" style="margin-top:-4px"><button class="big-btn ghost" id="delCancel" type="button">${t("del.cancel")}</button><button class="big-btn del" id="delGo" type="button">${icon("trash")}<span>${t("del.go")}</span></button></div>`;
+  $("#delClose").onclick=$("#delCancel").onclick=closeDel;
+  $("#delNext")&&($("#delNext").onclick=()=>{delStep=2;renderDel();$("#delCancel").focus()});
+  $("#delGo")&&($("#delGo").onclick=doDelete);
+}
+function openDel(){if(!LIVE)return;closeReq();delStep=1;renderDel();$("#delSheet").classList.add("on");setTimeout(()=>$("#delCancel")&&$("#delCancel").focus(),50)}
+function closeDel(){if(!$("#delSheet").classList.contains("on"))return;$("#delSheet").classList.remove("on");delStep=0;$("#delBtn").focus({preventScroll:true})}
+async function doDelete(){
+  const b=$("#delGo"),err=$("#delErr");if(b.disabled)return;b.disabled=true;$("#delCancel").disabled=true;err.textContent="";b.querySelector("span").textContent=t("del.busy");
+  try{await YDB.deleteAccount()}
+  catch(e){err.textContent=(e&&e.message)||t("toast.couldntUpdate");b.disabled=false;$("#delCancel").disabled=false;b.querySelector("span").textContent=t("del.go");return}
+  track("account_deleted");
+  if(unwatch)unwatch();if(unwatchAl)unwatchAl();geoStop();
+  try{sessionStorage.setItem("yd-driver-deleted","1")}catch(_){}
+  location.reload();
+}
+$("#delBtn").addEventListener("click",openDel);
+$("#delSheet").addEventListener("click",e=>{if(e.target.id==="delSheet")closeDel()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDel()});
+$("#signOutBtn").addEventListener("click",async()=>{if(unwatch)unwatch();if(unwatchAl)unwatchAl();await YDB.rpc("set_online",{p_online:false}).catch(()=>{});await YDB.signOut();location.reload()});
+
+/* ---------- earnings ---------- */
+function renderEarn(){
+  const days=[0,1,2,3,4,5,6].map(i=>t("day."+i));
+  const ti=dayIdx(Date.now());
+  let vals,trips,hours,cash;
+  const done=mine().filter(j=>j.status==="completed"&&j.doneAt);
+  if(LIVE){
+    const ws=weekStart(),wk=done.filter(j=>j.doneAt>=ws);
+    vals=days.map(()=>0);wk.forEach(j=>{vals[dayIdx(j.doneAt)]+=(j.earned||0)});
+    trips=wk.length;
+    hours=wk.reduce((s,j)=>s+Math.max(0,(j.doneAt-((j.history&&j.history.accepted)||j.createdAt||j.doneAt))/36e5),0).toFixed(1);
+    cash=wk.filter(j=>(j.paymentMethod||"cod")==="cod").reduce((s,j)=>s+(j.total||0),0);
+  }else{
+    const todayEarn=done.filter(j=>new Date(j.doneAt).toDateString()===new Date().toDateString()).reduce((s,j)=>s+(j.earned||0),0);
+    const sample=[620,0,840,710,930,560,480];
+    vals=days.map((_,i)=>i<ti?sample[i]:i===ti?todayEarn+380:0);
+    trips=18+done.length;hours="41.5";
+    cash=done.filter(j=>(j.paymentMethod||"cod")==="cod").reduce((a,j)=>a+j.total,21400);
+  }
+  const max=Math.max(1000,...vals),W=320,H=150,top=12,bot=24,bw=28,gap=(W-bw*7)/7;
+  const y=v=>top+(H-top-bot)*(1-v/max);
+  let s=`<g stroke="var(--line)" stroke-width="1">${[0,500,1000].filter(v=>v<=max).map(v=>`<line x1="0" x2="${W}" y1="${y(v)}" y2="${y(v)}"/>`).join("")}</g>`;
+  s+=vals.map((v,i)=>{const x=gap/2+i*(bw+gap);return `<rect x="${x}" y="${y(v)}" width="${bw}" height="${Math.max(0,H-bot-y(v))}" rx="6" fill="${i===ti?"var(--hazard)":"var(--brand)"}" fill-opacity="${i===ti?1:.85}"/>
+    <text x="${x+bw/2}" y="${H-8}" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--mute)">${days[i]}</text>
+    ${v?`<text x="${x+bw/2}" y="${y(v)-4}" text-anchor="middle" font-family="var(--mono)" font-size="9" font-weight="700" fill="var(--ink)">${Math.round(v)}</text>`:""}`}).join("");
+  $("#chart").innerHTML=s;
+  $("#wkTotal").textContent=mvr(vals.reduce((a,b)=>a+b,0));
+  $("#wkTrips").textContent=trips;
+  $("#wkHours").textContent=hours;
+  $("#wkHoursLbl").textContent=t(LIVE?"earn.hoursLive":"earn.hours");
+  $("#wkRating").textContent=(+ME.rating||4.8).toFixed(1)+" ★";
+  $("#wkCash").textContent=mvr(cash).replace("MVR ","");
+  $("#earnSample").hidden=LIVE;
+  $("#earnNote").textContent=t(LIVE?"earn.noteLive":"earn.noteDemo");
+  renderRating();
+  if(LIVE)loadRatings();
+}
+
+/* ═════════════ my rating (customers rate each completed delivery, 1–5 stars + comment) ═════════════ */
+const RATE_LIMIT=20;
+const DEMO_RATINGS=(()=>{const n=Date.now(),h=36e5,d=864e5;
+  const c=[[5,40*60e3,"Quick and very careful with the cement bags. Thank you!","YD-48190"],[5,d+3*h,"ވަރަށް ރަނގަޅު ޚިދުމަތެއް. ޝުކުރިއްޔާ!","YD-48122"],[4,2*d,"","YD-48101"],[3,4*d+2*h,"Arrived late but helpful","YD-47988"],[5,5*d,"Unloaded exactly where we asked, kept the site tidy.","YD-47951"],[4,8*d,"","YD-47902"]];
+  const out=c.map(([stars,ago,comment,ref])=>({stars,at:n-ago,comment,ref}));
+  for(let i=0;out.length<RATE_LIMIT;i++)out.push({stars:5,at:n-(9+i*1.4)*d,comment:"",ref:"YD-4"+(7880-i*23)});
+  return out})();
+let ratings=null,ratingsErr=false,ratingsAt=0,ratingsBusy=false,rateAll=false;
+const curRatings=()=>LIVE?ratings:DEMO_RATINGS;
+async function loadRatings(force){
+  if(!LIVE||!ME.id||!YDB.sb||ratingsBusy)return;
+  if(!force&&Date.now()-ratingsAt<60000)return;
+  ratingsBusy=true;ratingsAt=Date.now();
+  try{
+    const {data,error}=await YDB.sb.from("ratings").select("*, orders(ref)").eq("driver_id",ME.id).order("created_at",{ascending:false}).limit(RATE_LIMIT);
+    if(error)throw error;
+    ratings=(data||[]).map(r=>({stars:Math.max(1,Math.min(5,Math.round(+r.stars||0))),at:Date.parse(r.created_at),comment:r.comment||"",orderId:r.order_id,ref:r.orders&&r.orders.ref||""}));ratingsErr=false;
+  }catch(_){ratingsErr=true}
+  ratingsBusy=false;
+  if(cur==="earn")renderRating();
+}
+function starsHtml(v,cls){const one=`<svg aria-hidden="true"><use href="#i-star"/></svg>`,five=one.repeat(5);
+  return `<span class="stars${cls?" "+cls:""}" role="img" aria-label="${esc(t("rate.aria",{n:(Math.round(v*10)/10).toLocaleString("en-US")}))}"><span class="st-bg">${five}</span><span class="st-fg" style="width:${Math.max(0,Math.min(100,v/5*100))}%">${five}</span></span>`}
+function rateRef(r){if(r.ref)return r.ref;const j=r.orderId&&jobs.find(x=>x.uuid===r.orderId);return j?j.id:(r.orderId?String(r.orderId).slice(0,8).toUpperCase():"")}
+function renderRating(){
+  const body=$("#rateBody");if(!body)return;
+  const list=curRatings();
+  $("#rateLast").textContent=list&&list.length>=RATE_LIMIT?t("rate.last",{n:RATE_LIMIT}):"";
+  if(!list){body.innerHTML=ratingsErr?`<div class="card empty"><span class="e-ic">${icon("alert")}</span><b>${t("rate.err")}</b><button class="big-btn ghost" id="rateRetry" type="button" style="min-height:48px;padding:10px 18px">${t("rate.retry")}</button></div>`:`<div class="card" style="min-height:120px" aria-busy="true"></div>`;
+    $("#rateRetry")&&($("#rateRetry").onclick=()=>loadRatings(true));return}
+  if(!list.length){body.innerHTML=`<div class="card empty"><span class="e-ic">${icon("star")}</span><b>${t("rate.none")}</b><p>${t("rate.noneP")}</p></div>`;return}
+  const n=list.length,avg=list.reduce((s,r)=>s+r.stars,0)/n,dist=[5,4,3,2,1].map(s=>[s,list.filter(r=>r.stars===s).length]),mx=Math.max(1,...dist.map(x=>x[1]));
+  const withC=list.filter(r=>r.comment&&r.comment.trim()),shown=rateAll?withC:withC.slice(0,3);
+  body.innerHTML=`<div class="card"><div class="rate-top">
+      <div class="rate-avg"><b data-ltr id="rateAvg">${avg.toFixed(1)}</b>${starsHtml(avg)}<small id="rateCount">${n===1?t("rate.count1"):t("rate.countN",{n})}</small></div>
+      <div class="bars">${dist.map(([st,c])=>`<div class="bar" role="img" aria-label="${esc(t("rate.barAria",{s:st,n:c}))}"><span aria-hidden="true">${st}★</span><i aria-hidden="true"><em style="width:${c/mx*100}%"></em></i><span aria-hidden="true">${c}</span></div>`).join("")}</div>
+    </div></div>
+    ${withC.length?`<div class="sec" style="margin-top:18px"><h2 style="font-size:15.5px">${t("rate.comments")}</h2></div>
+    <div class="list" id="rateList">${shown.map(r=>{const ref=rateRef(r);return `<div class="rv"><div class="rv-top">${starsHtml(r.stars,"sm")}<small>${fmtDate(r.at)}</small></div><p dir="auto">${esc(r.comment)}</p>${ref?`<span class="ref">${t("rate.order",{ref:ltr(esc(ref))})}</span>`:""}</div>`}).join("")}</div>
+    ${withC.length>3?`<button class="linkbtn rate-more" id="rateMore" type="button" aria-expanded="${rateAll}">${t(rateAll?"rate.less":"rate.more")}</button>`:""}`:""}`;
+  $("#rateMore")&&($("#rateMore").onclick=()=>{rateAll=!rateAll;renderRating()});
+}
+
+/* ---------- header ---------- */
+function renderHeader(){
+  const today=mine().filter(j=>j.status==="completed"&&j.doneAt&&new Date(j.doneAt).toDateString()===new Date().toDateString());
+  $("#stJobs").textContent=(LIVE?0:3)+today.length;
+  $("#stEarn").textContent=((LIVE?0:380)+today.reduce((s,j)=>s+(j.earned||0),0)).toLocaleString("en-US");
+  const m=Math.floor((Date.now()-shiftStart)/60e3);$("#stShift").textContent=`${Math.floor(m/60)}h ${String(m%60).padStart(2,"0")}`;
+  $("#jobsDot").hidden=!jobs.some(j=>j.status==="requested");
+}
+
+let lastKey="";
+function render(){jobs=load()||jobs;if(LIVE)applyQueued();renderHeader();if(cur==="today"){const a=active(),k=a?a.id+a.status:"none"+online+myQueued().length;if(!(a&&a.status==="arrived"&&k===lastKey&&document.getElementById("sigPad"))){renderToday();placeTruck()}lastKey=k}if(cur==="jobs")renderJobs();if(cur==="vehicle")renderVehicle();if(cur==="earn")renderEarn();if(cur==="settings")renderSettings();watchRequests()}
+
+/* ═════════════ counter hotline (calls only) ═════════════ */
+const fmtLocal=ph=>{const d=String(ph||"").replace(/\D/g,"").slice(-7);return d.slice(0,3)+" "+d.slice(3)};
+const HOTLINE=CFG.hotline||CFG.whatsapp||"9609920202";   // the counter number (992 0202); config still names it "whatsapp"
+function dial(num){const d=String(num).replace(/\D/g,""),a=document.createElement("a");a.href="tel:+"+(d.length===7?"960"+d:d);a.click()}
+$("#ctNum").textContent=fmtLocal(HOTLINE);
+$("#ctCall").href="tel:+"+(String(HOTLINE).replace(/\D/g,"").length===7?"960":"")+String(HOTLINE).replace(/\D/g,"");
+
+/* ═════════════ alerts ═════════════ */
+const AKEY="ydworks.driver.alerts.v2";
+let alerts=[],demoAlerts=ls.get(AKEY,null),seenAlerts=null;
+if(!demoAlerts){const n=Date.now();demoAlerts=[
+  {id:"d-msg",kind:"message",k:"msg",at:n-28*60e3,read:false},
+  {id:"d-rate",kind:"rating",name:"Aishath",stars:5,comment:DEMO_RATINGS[0].comment,ref:DEMO_RATINGS[0].ref,at:DEMO_RATINGS[0].at,read:false},
+  {id:"d-asg",kind:"assigned",jobId:"YD-48213",ref:"YD-48213",title:"Cement & sand load",at:n-46*60e3,read:true}];ls.set(AKEY,demoAlerts)}
+function addDemoAlert(a){if(LIVE)return;demoAlerts.unshift(Object.assign({id:"d-"+Date.now().toString(36)+Math.random().toString(36).slice(2,5),at:Date.now(),read:false},a));demoAlerts=demoAlerts.slice(0,40);ls.set(AKEY,demoAlerts);renderBell();if($("#alerts").classList.contains("on"))renderAlerts()}
+const curAlerts=()=>LIVE?alerts:demoAlerts;
+function alText(a){
+  if(a.live)return{title:a.title,body:a.body};
+  if(a.kind==="job")return{title:t("al.job.t",{title:a.title}),body:t("al.job.b",{site:a.site,amount:mvr(a.total||0)})};
+  if(a.kind==="assigned")return{title:t("al.assigned.t"),body:t("al.assigned.b",{ref:a.ref,title:a.title})};
+  if(a.kind==="rating")return{title:t("al.rate.t",{name:a.name,stars:a.stars}),body:t("al.rate.b",{comment:a.comment,ref:a.ref})};
+  return{title:t("al.msg.t"),body:t("al.msg.b")};
+}
+function renderBell(){
+  const n=curAlerts().filter(a=>!a.read).length;
+  $("#bellDot").hidden=!n;
+  $("#bellBtn").setAttribute("aria-label",n?t("aria.bellN",{n}):t("aria.bell"));
+}
+function renderAlerts(){
+  const list=curAlerts().slice().sort((a,b)=>b.at-a.at);
+  const ic=k=>k==="job"?"truck":k==="assigned"?"steer":k==="defect"?"alert":k==="message"?"inbox":k==="rating"?"star":"bell";
+  $("#alList").innerHTML=list.length?list.map(a=>{const x=alText(a);return `<button class="al${a.read?"":" unread"}" type="button" data-al="${esc(a.id)}"><span class="aic ${a.kind==="job"?"job":a.kind==="defect"?"defect":a.kind==="rating"?"rate":""}">${icon(ic(a.kind))}</span><span class="mid"><b dir="auto">${esc(x.title)}</b><span dir="auto">${esc(x.body)}</span><small>${ago(a.at)}</small></span><span class="udot${a.read?" read":""}" aria-hidden="true"></span></button>`}).join(""):`<div class="empty"><span class="e-ic">${icon("bell")}</span><b>${t("al.none")}</b><p>${t("al.noneP")}</p></div>`;
+  $("#alAll").hidden=!list.some(a=>!a.read);
+  $$("[data-al]").forEach(b=>b.onclick=()=>openAlert(list.find(a=>String(a.id)===b.dataset.al)));
+}
+function openAlerts(){closeReq();renderAlerts();$("#alerts").classList.add("on");setTimeout(()=>$("#alClose").focus(),50)}
+function closeAlerts(){$("#alerts").classList.remove("on");$("#bellBtn").focus({preventScroll:true})}
+function markRead(ids){
+  if(!ids.length)return;
+  curAlerts().forEach(a=>{if(ids.includes(a.id))a.read=true});
+  if(LIVE)Promise.resolve(YDB.markRead(ids)).catch(()=>{});else ls.set(AKEY,demoAlerts);
+  renderBell();
+}
+function openAlert(a){
+  if(!a)return;if(!String(a.id).startsWith("push-"))markRead([a.id]);
+  if(a.kind==="rating"){closeAlerts();go("earn");if(LIVE)loadRatings(true);setTimeout(()=>{const s=$("#rateSec");s&&s.scrollIntoView({block:"start",behavior:"smooth"})},60);return}
+  jobs=load()||jobs;
+  const j=a.live?(a.orderUuid?jobs.find(x=>x.uuid===a.orderUuid):null):(a.jobId?jobs.find(x=>x.id===a.jobId):null);
+  if(!a.jobId&&!a.orderUuid){renderAlerts();return}
+  closeAlerts();
+  if(!j){toast(t("al.gone"));return}
+  if(j.status==="requested"){if(active()){toast(t("toast.finishFirst"));go("today");return}seen.add(j.id);showRequest(j);return}
+  if(active()&&active().id===j.id){go("today");return}
+  if(j.status==="completed"&&mine().includes(j)){go("jobs");return}
+  toast(t("al.gone"));
+}
+$("#bellBtn").addEventListener("click",openAlerts);
+$("#alClose").addEventListener("click",closeAlerts);
+$("#alerts").addEventListener("click",e=>{if(e.target.id==="alerts")closeAlerts()});
+$("#alAll").addEventListener("click",()=>{markRead(curAlerts().filter(a=>!a.read).map(a=>a.id));renderAlerts()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("#alerts").classList.contains("on"))closeAlerts()});
+async function loadAlerts(){
+  if(!LIVE)return;
+  try{
+    const rows=await YDB.notifications(50);
+    alerts=rows.map(r=>({id:r.id,kind:r.kind,title:r.title,body:r.body||"",at:Date.parse(r.created_at),read:!!r.read_at,orderUuid:r.order_id,live:true}));
+    if(seenAlerts){const fresh=alerts.filter(a=>!a.read&&!seenAlerts.has(a.id)&&a.kind!=="job");if(fresh.length)toast(fresh[0].title);if(fresh.some(a=>a.kind==="rating"))loadRatings(true)}
+    seenAlerts=new Set(alerts.map(a=>a.id));
+    renderBell();if($("#alerts").classList.contains("on"))renderAlerts();
+  }catch(_){}
+}
+
+/* ---------- simulated progress while driving ---------- */
+let gpsTick=0;
+setInterval(()=>{
+  jobs=load()||jobs;if(LIVE)applyQueued();const a=active();
+  if(a&&a.status==="enroute"&&(a.byDriver||a.live)&&(a.progress||0)<.97){
+    const p=Math.min(.97,(a.progress||0)+.025);
+    if(LIVE){a.progress=p;if(++gpsTick%2===0)Promise.resolve(YDB.rpc("report_position",{p_order:a.uuid,p_progress:p,p_lat:gps?gps[0]:null,p_lng:gps?gps[1]:null})).catch(()=>{})}else upd(a.id,{progress:p});
+    if(cur==="today"){const el=document.getElementById("dTruck");if(el){el.dataset.p=p;placeTruck()}
+      const sub=document.getElementById("chipSub");sub&&(sub.innerHTML=etaHtml(a,p));
+      if(lm&&!gps){const d=driverPos(a);lm.setMarker("me",d[0],d[1])}}
+  }
+  renderHeader();
+},1500);
+
+/* ---------- demo: generate a customer request when it's quiet ---------- */
+const DEMO_REQ=[
+  {kind:"materials",title:"Rebar Y12 + blocks",icon:"y12",lines:[["Rebar Y12 (12 m bar)",40,165],["Cement block 6\" (pc)",300,14],["Delivery",1,250]],site:"Nirolhu Magu shop, Hulhumalé Ph1",siteLat:4.2131,siteLng:73.5398,when:"Today, ASAP",paymentMethod:"cod",paymentStatus:"unpaid"},
+  {kind:"hire",title:"Tipper truck · 3 trips",icon:"tip",lines:[["Tipper truck 10m³, trips",3,550]],site:"Plot 11870, Hulhumalé Ph2",siteLat:4.2291,siteLng:73.5471,when:"Today, 14:00",paymentMethod:"card",paymentStatus:"paid"},
+  {kind:"materials",title:"River sand 6 m³",icon:"sand",lines:[["River sand (m³)",6,650],["Delivery",1,250]],site:"Villimalé",when:"Today, afternoon",paymentMethod:"transfer",paymentStatus:"pending"}
+];
+let quietSince=Date.now(),demoN=0;
+setInterval(()=>{
+  jobs=load()||jobs;
+  if(LIVE)return;
+  if(!online||active()||pending||jobs.some(j=>j.status==="requested")){quietSince=Date.now();return}
+  if(Date.now()-quietSince>15000){
+    const tp=DEMO_REQ[demoN++%DEMO_REQ.length];
+    const j=Object.assign({id:"YD-"+Math.floor(48300+Math.random()*1600),status:"requested",progress:0,driver:null,createdAt:Date.now(),history:{requested:Date.now()}},JSON.parse(JSON.stringify(tp)));
+    j.total=j.lines.reduce((s,[,q,p])=>s+q*p,0);jobs.push(j);save(jobs);quietSince=Date.now();
+    addDemoAlert({kind:"job",jobId:j.id,title:j.title,site:j.site,total:j.total});
+    render();
+  }
+},3000);
+
+window.addEventListener("storage",e=>{if(e.key===KEY)render()});
+ch&&ch.addEventListener("message",()=>render());
+window.addEventListener("resize",placeTruck);
+/* ═════════════ console settings: apply on load, on every "yd-settings" event and on language change ═════════════ */
+function hashStr(x){let h=5381;for(let i=0;i<x.length;i++)h=((h<<5)+h+x.charCodeAt(i))|0;return (h>>>0).toString(36)}
+const MSG_KEY="yd-driver-msg-dismissed";
+function msgHash(m){return hashStr(String(m.text_en||"")+"\u0001"+String(m.text_dv||""))}
+function renderMsg(){
+  const box=$("#dmsg");if(!box)return;
+  const m=DS.message||{},txt=String((window.YDSET?YDSET.txt(m,"text"):m.text_en)||"").trim();
+  let gone=null;try{gone=localStorage.getItem(MSG_KEY)}catch(_){}
+  if(!m.active||!txt||gone===msgHash(m)){box.innerHTML="";box.hidden=true;return}
+  const tone=["info","success","warning"].includes(m.tone)?m.tone:"info";
+  box.hidden=false;
+  box.innerHTML=`<div class="dmsg ${tone}" role="${tone==="warning"?"alert":"status"}">${icon(tone==="success"?"check":tone==="warning"?"alert":"bell").replace("<svg",'<svg class="m-ic"')}<div class="m-tx"><span class="lbl">${t("msg.lbl")}</span><p dir="auto"></p></div><button class="m-x" type="button" id="dmsgX" aria-label="${esc(t("msg.close"))}">${icon("x")}</button></div>`;
+  box.querySelector("p").textContent=txt;   // plain text only
+  $("#dmsgX").onclick=()=>{try{localStorage.setItem(MSG_KEY,msgHash(m))}catch(_){}renderMsg()};
+}
+function renderUpd(){
+  const need=String(DS.min_version||"").trim(),have=String(CFG.appVersion||"0");
+  const on=!!(need&&window.YDSET&&YDSET.older(have,need));
+  const g=$("#updGate"),wasOn=updBlocked;updBlocked=on;g.hidden=!on;
+  // block the rest of the app while an update is needed
+  [...document.querySelector(".app").children].forEach(el=>{if(el!==g){if(on)el.setAttribute("inert","");else el.removeAttribute("inert")}});
+  if(!on)return;
+  if(!wasOn){closeReq();$("#alerts").classList.remove("on");$("#delSheet").classList.remove("on")}
+  $("#updTitle").textContent=t("upd.h");
+  $("#updText").textContent=String((window.YDSET?YDSET.txt(DS,"update_text"):DS.update_text_en)||"").trim()||t("upd.p");
+  $("#updVer").innerHTML=t("upd.ver",{have:ltr(esc(have)),need:ltr(esc(need))});
+  $("#updCallTx").textContent=t("upd.call");$("#updCall").setAttribute("aria-label",t("ct.callAria")+" "+fmtLocal(HOTLINE));
+  $("#updCall").href=$("#ctCall").href;
+  $("#updHelp").textContent=t("upd.help");
+  if(!wasOn)setTimeout(()=>{try{$("#updCall").focus({preventScroll:true})}catch(_){}},30);
+}
+function applySettings(){
+  DS=readDS();
+  CHECKS=buildChecks();
+  $("#fuelSec").hidden=!DS.fuel_logging;
+  locRestart();
+  renderMsg();renderUpd();
+  const tx=$("#photoTx");if(tx)tx.textContent=t(DS.require_pod_photo?"pod.photo":"pod.photoOpt");
+  podCheck&&podCheck();
+  render();   // re-renders the visible screen (a proof of delivery being signed is kept)
+}
+window.addEventListener("yd-settings",applySettings);
+window.addEventListener("yd-lang",e=>{track("lang_changed",{lang:e&&e.detail});applySettings();setOnlineUI();renderFlags();renderBell();renderAuthMode(true);if(delStep)renderDel();if($("#alerts").classList.contains("on"))renderAlerts();lastKey="";render()});
+window.addEventListener("yd-theme",()=>{if(cur==="settings"||cur==="vehicle")renderSettings()});
+/* settings tab (also reachable from the link on the Vehicle tab) */
+document.querySelectorAll("[data-go-set]").forEach(b=>b.addEventListener("click",()=>{go("settings");window.scrollTo(0,0)}));
+$("#themePick").addEventListener("click",e=>{const b=e.target.closest("[data-theme-opt]");if(!b)return;YDUI.theme.set(b.dataset.themeOpt);renderSettings()});
+$("#themePick").addEventListener("keydown",e=>{const bs=[...document.querySelectorAll("#themePick [data-theme-opt]")],i=bs.indexOf(document.activeElement);if(i<0)return;
+  const rtl=document.documentElement.dir==="rtl",n=e.key==="ArrowRight"?(rtl?-1:1):e.key==="ArrowLeft"?(rtl?1:-1):0;if(!n)return;e.preventDefault();const j=(i+n+bs.length)%bs.length;bs[j].focus();bs[j].click()});
+if(I18N)I18N.apply();
+try{(new Image()).src="assets/hero-sm.jpg"}catch(_){}   // warm the cache so the idle card has its photo with no signal
+applySettings();
+setOnlineUI();renderBell();render();
+reloadQueue().then(()=>{render();flush()});
+if(online)geoStart();
+
+/* ---------- live backend ---------- */
+let unwatch=null,unwatchAl=null;
+async function refreshLive(){try{const keep=active();jobs=await YDB.fetchOrders();
+  const a=active();if(a&&keep&&a.uuid===keep.uuid&&a.status==="enroute")a.progress=Math.max(a.progress,keep.progress||0);
+  // a queued proof the server already has (completed elsewhere) can be dropped
+  for(const r of myPods()){const j=jobs.find(x=>x.uuid===r.uuid);if(j&&j.status==="completed"&&!j.podPending){await Q.del(r.id)}}
+  queued=await Q.all();
+  mem=jobs;applyQueued();renderFlags();render()}catch(e){toast(t("toast.refresh"))}}
+async function liveAdvance(a){
+  const nx=NEXT[a.status];if(!nx)return;const btn=$("#nextBtn");btn.disabled=true;
+  try{
+    await YDB.rpc("advance_order",{p_order:a.uuid,p_status:nx});
+    toast(t("stage."+nx));
+    lastKey="";await refreshLive();
+  }catch(e){toast(e.message||t("toast.couldntUpdate"));btn.disabled=false;btn.textContent=t("next."+a.status)}
+}
+
+/* ---------- sign-in: phone (SMS code) or email ---------- */
+// sign-in modes: "pin" (phone + PIN from the manager, default), "email", and "phone" (SMS code; only when CFG.phoneLogin is on)
+const LOGIN_KEY="yd-driver-login";   // remembers the last-used mode and phone number (never the PIN)
+const MODES=()=>CFG.phoneLogin?["pin","email","phone"]:["pin","email"];
+const loginPref=ls.get(LOGIN_KEY,{})||{};
+let authMode=MODES().includes(loginPref.mode)?loginPref.mode:"pin",authSub=null,phoneStep="num",phoneNum="",resendLeft=0,resendT=null;   // authSub: null | "forgot" | "recovery"
+function showAuth(on){$("#auth").hidden=!on;if(on)renderAuthMode()}
+function renderAuthMode(keepErr){
+  const sub=authSub;
+  $("#aSeg").hidden=!!sub;
+  $("#aSeg").setAttribute("aria-label",t("auth.method"));
+  $("#aSeg").className="seg "+(CFG.phoneLogin?"seg3":"seg2");
+  $$("#aSeg button").forEach(b=>{b.hidden=!MODES().includes(b.dataset.mode);b.setAttribute("aria-pressed",String(b.dataset.mode===authMode))});
+  $("#pinForm").hidden=$("#pinHelp").hidden=!!sub||authMode!=="pin";
+  $("#authForm").hidden=!!sub||authMode!=="email";
+  $("#phoneForm").hidden=!!sub||authMode!=="phone"||phoneStep!=="num";
+  $("#codeForm").hidden=!!sub||authMode!=="phone"||phoneStep!=="code";
+  $("#forgotForm").hidden=sub!=="forgot";
+  $("#newPassForm").hidden=sub!=="recovery";
+  $("#aDemo").hidden=sub==="recovery";
+  $("#aTitle").textContent=t(sub==="forgot"?"auth.forgotH":sub==="recovery"?"auth.newH":"auth.title");
+  $("#aSub").textContent=t(sub==="forgot"?"auth.forgotSub":sub==="recovery"?"auth.newSub":authMode==="phone"?"auth.phoneSub":authMode==="pin"?"auth.pinSub":"auth.sub");
+  renderPinEye();$("#pCall").href=$("#ctCall").href;$("#pCall").setAttribute("aria-label",t("ct.callAria")+" "+fmtLocal(HOTLINE));
+  $("#aSentTo").innerHTML=t("auth.sentTo",{phone:ltr("+960 "+phoneNum.slice(0,3)+" "+phoneNum.slice(3))});
+  renderResend();
+  if(!keepErr){$("#aErr").textContent="";$("#aOk").textContent="";$("#fDone").textContent=""}
+}
+function renderResend(){const b=$("#aResend");b.disabled=resendLeft>0;b.textContent=resendLeft>0?t("auth.resendIn",{s:resendLeft}):t("auth.resend")}
+function startResend(){resendLeft=30;renderResend();clearInterval(resendT);resendT=setInterval(()=>{resendLeft--;renderResend();if(resendLeft<=0)clearInterval(resendT)},1000)}
+function saveLogin(patch){ls.set(LOGIN_KEY,Object.assign({},ls.get(LOGIN_KEY,{})||{},patch))}
+$$("#aSeg button").forEach(b=>b.addEventListener("click",()=>{authMode=b.dataset.mode;saveLogin({mode:authMode});renderAuthMode();(authMode==="pin"?($("#pPhone").value?$("#pPin"):$("#pPhone")):authMode==="phone"?(phoneStep==="num"?$("#aPhone"):$("#aCode")):$("#aEmail")).focus()}));
+/* phone & PIN */
+const fmtPhone=d=>d.length>3?d.slice(0,3)+" "+d.slice(3):d;
+function phoneDigits(v){let d=String(v||"").replace(/\D/g,"");if(d.length>7&&d.startsWith("960"))d=d.slice(3);return d.slice(0,7)}
+if(loginPref.phone)$("#pPhone").value=fmtPhone(phoneDigits(loginPref.phone));
+$("#pPhone").addEventListener("input",e=>{e.target.value=fmtPhone(phoneDigits(e.target.value))});
+$("#pPin").addEventListener("input",e=>{e.target.value=e.target.value.replace(/\D/g,"").slice(0,6)});
+function renderPinEye(){const shown=$("#pPin").type==="text",b=$("#pEye");b.textContent=t(shown?"auth.pinHide":"auth.pinShow");b.setAttribute("aria-pressed",String(shown));b.setAttribute("aria-label",t(shown?"auth.pinHideAria":"auth.pinShowAria"))}
+$("#pEye").addEventListener("click",()=>{const i=$("#pPin");i.type=i.type==="password"?"text":"password";renderPinEye();i.focus()});
+// no backend (DEMO): any valid phone + 6 digits continues as the demo driver
+const backendLive=()=>!!(window.YDB&&YDB.sb);
+$("#pinForm").addEventListener("submit",async e=>{
+  e.preventDefault();const err=$("#aErr"),b=$("#pGo");err.textContent="";
+  const d=phoneDigits($("#pPhone").value),pin=$("#pPin").value.replace(/\D/g,"");
+  if(!/^[79]\d{6}$/.test(d)){err.textContent=t("err.phone");$("#pPhone").focus();return}
+  if(!/^\d{6}$/.test(pin)){err.textContent=t("err.pin");$("#pPin").focus();return}
+  if(b.disabled)return;b.disabled=true;
+  try{
+    if(!backendLive()){saveLogin({mode:"pin",phone:d});$("#pPin").value="";showAuth(false);b.disabled=false;return}
+    await YDB.signInPhonePin(d,pin);
+    saveLogin({mode:"pin",phone:d});$("#pPin").value="";$("#pPin").type="password";
+    await enterLive();
+  }catch(x){err.textContent=/invalid login credentials|invalid.*(grant|credentials)/i.test((x&&x.message)||"")?t("err.pinLogin"):((x&&x.message)||t("err.pinLogin"));try{err.scrollIntoView({block:"nearest"})}catch(_){}}
+  b.disabled=false;
+});
+$("#aPhone").addEventListener("input",e=>{const d=e.target.value.replace(/\D/g,"").slice(0,7);e.target.value=d.length>3?d.slice(0,3)+" "+d.slice(3):d});
+$("#aCode").addEventListener("input",e=>{e.target.value=e.target.value.replace(/\D/g,"").slice(0,6);if(e.target.value.length===6)$("#codeForm").requestSubmit()});
+async function sendCode(){
+  const err=$("#aErr");err.textContent="";
+  const d=$("#aPhone").value.replace(/\D/g,"");
+  if(!/^[79]\d{6}$/.test(d)){err.textContent=t("err.phone");$("#aPhone").focus();return false}
+  phoneNum=d;
+  try{await YDB.sendCode(d);toast(t("toast.codeSent"));return true}
+  catch(x){err.textContent=x.message||t("err.phone");return false}
+}
+$("#phoneForm").addEventListener("submit",async e=>{
+  e.preventDefault();const b=$("#aSend");b.disabled=true;
+  if(await sendCode()){phoneStep="code";renderAuthMode();startResend();$("#aCode").value="";$("#aCode").focus()}
+  b.disabled=false;
+});
+$("#codeForm").addEventListener("submit",async e=>{
+  e.preventDefault();const err=$("#aErr"),b=$("#aVerify");err.textContent="";
+  const code=$("#aCode").value.replace(/\D/g,"");
+  if(code.length!==6){err.textContent=t("err.code");return}
+  if(b.disabled)return;b.disabled=true;
+  try{await YDB.verifyCode(phoneNum,code);await enterLive()}
+  catch(x){err.textContent=/expired|invalid|token/i.test(x.message||"")?t("err.badCode"):(x.message||t("err.badCode"))}
+  b.disabled=false;
+});
+$("#aResend").addEventListener("click",async()=>{if(resendLeft>0)return;$("#aPhone").value=phoneNum;if(await sendCode())startResend()});
+$("#aChange").addEventListener("click",()=>{phoneStep="num";clearInterval(resendT);resendLeft=0;renderAuthMode();$("#aPhone").focus()});
+$("#aDemo").addEventListener("click",()=>showAuth(false));
+$("#aForgot").addEventListener("click",()=>{authSub="forgot";$("#fEmail").value=$("#aEmail").value.trim();renderAuthMode();$("#fEmail").focus()});
+$("#fBack").addEventListener("click",()=>{authSub=null;renderAuthMode();$("#aEmail").focus()});
+$("#forgotForm").addEventListener("submit",async e=>{
+  e.preventDefault();const err=$("#aErr"),ok=$("#fDone"),b=$("#fSend");err.textContent="";ok.textContent="";
+  const email=$("#fEmail").value.trim();
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){err.textContent=t("err.email");$("#fEmail").focus();return}
+  if(b.disabled)return;b.disabled=true;
+  try{await YDB.resetPassword(email);ok.textContent=t("auth.linkSent");$("#aEmail").value=email}
+  catch(x){err.textContent=(x&&x.message)||t("toast.couldntUpdate")}
+  b.disabled=false;
+});
+// arriving from the reset-password email: the backend flags recovery (YDB.recovery or the 'yd-recovery' event)
+function showRecovery(){authSub="recovery";showAuth(true);$("#nPass").value="";$("#nPass2").value="";setTimeout(()=>$("#nPass").focus(),50)}
+window.addEventListener("yd-recovery",showRecovery);
+$("#newPassForm").addEventListener("submit",async e=>{
+  e.preventDefault();const err=$("#aErr"),b=$("#nGo");err.textContent="";
+  const p1=$("#nPass").value,p2=$("#nPass2").value;
+  if(p1.length<8){err.textContent=t("err.pwShort");$("#nPass").focus();return}
+  if(p1!==p2){err.textContent=t("err.pwMatch");$("#nPass2").focus();return}
+  if(b.disabled)return;b.disabled=true;
+  try{await YDB.setNewPassword(p1);authSub=null;$("#nPass").value="";$("#nPass2").value="";toast(t("toast.pwSaved"));await enterLive()}
+  catch(x){err.textContent=(x&&x.message)||t("toast.couldntUpdate")}
+  b.disabled=false;
+});
+$("#authForm").addEventListener("submit",async e=>{
+  e.preventDefault();const err=$("#aErr");$("#aGo").disabled=true;err.textContent="";
+  try{if(!backendLive()){saveLogin({mode:"email"});showAuth(false);$("#aGo").disabled=false;return}
+    await YDB.signIn($("#aEmail").value.trim(),$("#aPass").value);saveLogin({mode:"email"});await enterLive()}
+  catch(x){err.textContent=x.message==="Invalid login credentials"?t("err.login"):x.message}
+  $("#aGo").disabled=false;
+});
+async function enterLive(){
+  const p=YDB.profile||{};
+  if(p.role!=="driver"){await YDB.signOut();authSub=null;showAuth(true);$("#aErr").textContent=t("err.notDriver");return}
+  LIVE=true;ME={id:p.id,name:p.full_name||"Driver",unit:[p.unit_code,p.unit_name].filter(Boolean).join(" · "),init:YDB.initials(p.full_name),code:p.unit_code||"",rating:p.rating!=null?+p.rating:4.8};
+  $("#meName").textContent=ME.name;$("#meSub").textContent=[p.unit_code,p.rating!=null?"★ "+(+p.rating).toFixed(1):""].filter(Boolean).join(" · ");
+  $("#face").innerHTML=`<span class="ini">${esc(ME.init)}</span>`;
+  online=!!p.is_online;if(!online&&(checkOk()||!DS.require_daily_check)){online=true;YDB.rpc("set_online",{p_online:true}).catch(()=>{})}
+  setOnlineUI();online?geoStart():geoStop();lastSent=0;sendLoc();
+  shiftStart=Date.now();seen=new Set();jobs=[];mem=jobs;showAuth(false);
+  $("#odo").value="";$("#odo").placeholder="0";fuelLog=[];insp=[];
+  queued=await Q.all();
+  await refreshLive();
+  if(unwatch)unwatch();unwatch=YDB.watch(refreshLive);
+  await loadAlerts();
+  if(unwatchAl)unwatchAl();try{unwatchAl=YDB.watchTable("notifications",loadAlerts,"user_id=eq."+p.id)}catch(_){unwatchAl=null}
+  try{Promise.resolve(YDB.registerPush((n,tapped)=>{loadAlerts();refreshLive();const oid=n&&n.data&&(n.data.order_id||n.data.order);if(tapped&&oid)openAlert({id:"push-"+oid,orderUuid:oid,live:true,read:true})})).catch(()=>{})}catch(_){}
+  ratings=null;ratingsAt=0;loadRatings(true);
+  loadVehicleLive();flush();go("today");
+}
+renderAuthMode();
+(async function boot(){
+  if(!window.YDB)return;
+  const ok=await YDB.init();if(!ok)return;
+  if(YDB.recovery){showRecovery();return}
+  if(YDB.user)await enterLive();else showAuth(true);
+  let gone=false;try{gone=sessionStorage.getItem("yd-driver-deleted")==="1";sessionStorage.removeItem("yd-driver-deleted")}catch(_){}
+  if(gone&&!$("#auth").hidden)$("#aOk").textContent=t("auth.deleted");
+})();
+})();
+</script>
+
+<script>
+/* offline support for the installed web app (native builds bundle files, so skip there) */
+if ("serviceWorker" in navigator && !window.Capacitor && (location.protocol === "https:" || location.hostname === "localhost")) {
+  addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+}
+</script>
+</body>
+</html>

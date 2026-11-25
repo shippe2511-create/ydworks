@@ -8,7 +8,7 @@ mobile/*/android/local.properties
 mobile/*/ios/App/Pods/
 mobile/*/ios/DerivedData/
 mobile/*/www/
-deploy/
+# deploy/ is committed on purpose: Cloudflare Pages serves it straight from GitHub (no build step)
 dist/
 *.apk
 *.aab

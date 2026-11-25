@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /console/
+Disallow: /driver/
+Sitemap: https://yd-mv.com/sitemap.xml

@@ -1,0 +1,19 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(self), geolocation=(self), microphone=()
+/console/*
+  X-Robots-Tag: noindex, nofollow
+  X-Frame-Options: DENY
+/driver/*
+  X-Robots-Tag: noindex, nofollow
+/sw.js
+  Cache-Control: no-cache
+/app/sw.js
+  Cache-Control: no-cache
+/driver/sw.js
+  Cache-Control: no-cache
+/console/sw.js
+  Cache-Control: no-cache
+/assets/*
+  Cache-Control: public, max-age=86400
